@@ -56,7 +56,7 @@
       if (pubAgain) { pubAgain = false; schedulePublish(0); }
     });
   }
-  if (!Sync.enabled()) syncPill('ซิงก์เรียลไทม์: ปิด (ใช้ QR ซิงก์ได้)', false);
+  if (!Sync.enabled()) syncPill('ซิงก์: ใช้ QR', false);
   window.addEventListener('online', function () { schedulePublish(0); });
 
   // ---------- QR ซิงก์ ----------

@@ -217,7 +217,7 @@ with sync_playwright() as p:
         bar = pg.inner_text('#syncBar')
         pg.screenshot(path=os.path.join(OUT, 'sync-player-qr.png'), full_page=True)
         record('S9. ไม่ได้ตั้งค่าเรียลไทม์ → สแกน QR ซิงก์ด้วยกล้อง (จำลอง) แล้วมือถือรู้ 5 ตัวที่ถูกเรียก',
-               'ปิด' in pill and sy['draws'] == draws and sy['source'] == 'qr', f'ป้ายหน้าพิธีกร: "{pill}" · {bar.splitlines()[0]}')
+               'QR' in pill and sy['draws'] == draws and sy['source'] == 'qr', f'ป้ายหน้าพิธีกร: "{pill}" · {bar.splitlines()[0]}')
         cells = pg.evaluate("JSON.parse(localStorage.getItem('cb.player.v1')).cells")
         unc = [i for i in range(16) if cells[i] not in draws][0]
         pg.locator('#grid .cell').nth(unc).click()

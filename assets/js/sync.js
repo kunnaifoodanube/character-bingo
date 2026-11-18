@@ -20,7 +20,7 @@
   var fbp = null;
   function fb() {
     if (!fbp) {
-      fbp = (window.CBFirebase ? Promise.resolve() : loadScript('assets/vendor/firebase.js')).then(function () {
+      fbp = (window.CBFirebase ? Promise.resolve() : loadScript('assets/vendor/firebase.js?v=11.10.0')).then(function () {
         var F = window.CBFirebase;
         var app = F.initializeApp(cfg);
         var db = F.initializeFirestore(app, { experimentalAutoDetectLongPolling: true });

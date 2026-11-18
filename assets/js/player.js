@@ -282,7 +282,7 @@
   function loadJsQR() {
     if (window.jsQR) return Promise.resolve();
     if (!jsqrP) jsqrP = new Promise(function (res, rej) {
-      var s = document.createElement('script'); s.src = 'assets/vendor/jsqr.js'; s.onload = res; s.onerror = function () { jsqrP = null; rej(new Error('โหลดตัวอ่าน QR ไม่ได้')); };
+      var s = document.createElement('script'); s.src = 'assets/vendor/jsqr.js?v=1.4.0'; s.onload = res; s.onerror = function () { jsqrP = null; rej(new Error('โหลดตัวอ่าน QR ไม่ได้')); };
       document.head.appendChild(s);
     });
     return jsqrP;

@@ -2,7 +2,7 @@
  * กลยุทธ์: เครือข่ายก่อน (รอไม่เกิน 3.5 วิ) → ถ้าไม่ได้ ใช้สำเนาในเครื่อง
  * เมื่อแก้ไฟล์ในเว็บไซต์ ให้เปลี่ยนเลข VERSION เพื่อล้างแคชเก่า
  */
-var VERSION = 'cb-v1.1.0';
+var VERSION = 'cb-v1.1.1';
 var SHELL = [
   './', 'index.html', 'host.html', 'admin.html', 'print.html',
   'assets/css/style.css', 'assets/js/core.js', 'assets/js/ui.js', 'assets/js/player.js',
@@ -39,7 +39,8 @@ self.addEventListener('fetch', function (e) {
   var url = new URL(req.url);
   if (url.origin !== location.origin) return;
   e.respondWith((function () {
-    var net = fetch(req).then(function (res) {
+    // ตรวจกับเซิร์ฟเวอร์ทุกครั้ง (ไม่ใช้แคช HTTP 10 นาทีของ GitHub Pages) เพื่อไม่ให้ได้ไฟล์คนละเวอร์ชัน
+    var net = (req.mode === 'navigate' ? fetch(req) : fetch(req, { cache: 'no-cache' })).then(function (res) {
       if (res && res.ok) {
         var copy = res.clone();
         caches.open(VERSION).then(function (c) { c.put(req, copy); });
