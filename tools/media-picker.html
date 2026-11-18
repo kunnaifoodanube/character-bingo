@@ -42,17 +42,22 @@ async function search(q, type, n) {
 }
 async function meta(titles) {
   const u = API + 'action=query&titles=' + encodeURIComponent(titles) +
-    '&prop=imageinfo&iiprop=url|mime|size|extmetadata&iiurlwidth=1280&iiextmetadatafilter=LicenseShortName|LicenseUrl|Artist|ObjectName|UsageTerms|Copyrighted|DateTimeOriginal';
+    '&prop=videoinfo&viprop=url|mime|size|extmetadata|derivatives&viurlwidth=' + (P.get('w') || 800) +
+    '&viextmetadatafilter=LicenseShortName|LicenseUrl|Artist|ObjectName|UsageTerms|Copyrighted|DateTimeOriginal|Credit';
   const j = await (await fetch(u)).json();
+  const norm = {}; (j.query.normalized || []).forEach(n => norm[n.to] = n.from);
   const rows = (j.query.pages || []).map(p => {
-    const ii = p.imageinfo && p.imageinfo[0] || {}, m = ii.extmetadata || {};
+    const ii = p.videoinfo && p.videoinfo[0] || {}, m = ii.extmetadata || {};
     const v = k => m[k] ? strip(m[k].value) : '';
-    return { title: p.title, missing: !!p.missing, page: ii.descriptionurl, url: ii.url, thumb: ii.thumburl, mime: ii.mime,
+    const der = (ii.derivatives || []).filter(d => /webm|mp4/.test(d.type)).map(d => ({ t: d.transcodekey || d.type, w: d.width, h: d.height, src: d.src }));
+    return { title: p.title, asked: norm[p.title] || p.title, missing: !!p.missing, page: ii.descriptionurl, url: ii.url, thumb: ii.thumburl, mime: ii.mime,
       w: ii.width, h: ii.height, dur: ii.duration ? Math.round(ii.duration) : undefined,
-      license: v('LicenseShortName'), licenseUrl: v('LicenseUrl'), artist: v('Artist'), object: v('ObjectName'), date: v('DateTimeOriginal') };
+      license: v('LicenseShortName'), licenseUrl: v('LicenseUrl'), artist: v('Artist'), credit: v('Credit').slice(0, 160), object: v('ObjectName'), date: v('DateTimeOriginal'), der };
   });
-  return '<pre id="json">' + esc(JSON.stringify(rows, null, 1)) + '</pre>' +
-    '<div class="g">' + rows.map(r => '<div class="c"><img src="' + esc(r.thumb || '') + '"><div class="t">' + esc(r.title) + '</div><div class="l">' + esc(r.license) + '</div></div>').join('') + '</div>';
+  window.ROWS = rows;
+  return '<div class="g" style="grid-template-columns:repeat(4,1fr)">' + rows.map((r, i) => '<div class="c"><img style="height:230px" src="' + esc(r.thumb || '') + '"><div class="t"><b>' + (i + 1) + '</b> ' + esc(r.title) + (r.missing ? ' <b style=color:red>MISSING</b>' : '') +
+    '</div><div class="l">' + esc(r.license) + '</div><div class="n">' + esc(r.artist.slice(0, 80)) + ' · ' + esc(r.mime || '') + ' ' + (r.w || '') + '×' + (r.h || '') + (r.dur ? ' · ' + r.dur + 's' : '') + '</div></div>').join('') + '</div>' +
+    '<pre id="json">' + esc(JSON.stringify(rows)) + '</pre>';
 }
 (async () => {
   const out = document.getElementById('out');
