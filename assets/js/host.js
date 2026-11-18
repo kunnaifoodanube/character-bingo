@@ -79,7 +79,9 @@
     sel.innerHTML = src.list.map(function (t) {
       return '<option value="' + esc(t.source + ':' + t.id) + '">' + esc(t.name) + (t.source === 'local' ? ' (ฉบับร่างในเครื่องนี้)' : '') + '</option>';
     }).join('');
-    var want = (UI.qs('t')) || S.themeId || src.defaultId || (src.list[0] && src.list[0].id);
+    // เกมที่ค้างอยู่ (มีการสุ่มแล้ว) ใช้ชุดเดิม · ถ้ายังไม่เริ่ม ใช้ชุดเริ่มต้นจาก index.json
+    var midGame = S.round && S.round.draws && S.round.draws.length;
+    var want = (UI.qs('t')) || (midGame ? S.themeId : null) || src.defaultId || S.themeId || (src.list[0] && src.list[0].id);
     var entry = findEntry(want, UI.qs('src') === 'local' && UI.qs('t') === want) || src.list[0];
     if (!entry) { UI.modal({ title: 'ยังไม่มีชุดภาพ', html: '<p>ไปที่หน้า “จัดการภาพ” เพื่อสร้างชุดภาพก่อน</p>' }); return; }
     return applyTheme(entry, true);
