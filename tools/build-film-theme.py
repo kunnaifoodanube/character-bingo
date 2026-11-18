@@ -89,7 +89,8 @@ T = [
  ('flipbook','animation','Flipbook','ภาพวาดพลิกหน้า','Flip Book - Messi Example.webm','a/ab','video',
    dict(title='Flip Book example — สมุดภาพพลิกหน้าให้ภาพเคลื่อนไหว', author='harun uğur', lic='CC BY 3.0', note=NOTE_CC + ' (เผยแพร่บน YouTube ด้วย CC BY)', poster=vthumb('a/ab','Flip Book - Messi Example.webm',330))),
  ('sand-animation','animation','Sand Animation','แอนิเมชันทราย','Кот и петух – Украинская сказка Сказки на песке -3.webm','a/a3','video',
-   dict(title='Кот и петух (แมวกับไก่) — นิทานยูเครน · Сказки на песке #3 (2019)', author='Телеканал КРТ (KRT TV channel)', lic='CC BY 3.0', note=NOTE_CC + ' (เผยแพร่บน YouTube ด้วย CC BY)', start=20, end=80)),
+   dict(title='Кот и петух (แมวกับไก่) — นิทานยูเครน · Сказки на песке #3 (2019)', author='Телеканал КРТ (KRT TV channel)', lic='CC BY 3.0', note=NOTE_CC + ' (เผยแพร่บน YouTube ด้วย CC BY) · เกมเล่นช่วงวินาที 45–105 (ภาพวาดทรายแมวกับไก่) วนซ้ำ ไม่ตัดต่อไฟล์', start=45, end=105,
+        poster=C + 'thumb/a/a3/' + enc('Кот и петух – Украинская сказка Сказки на песке -3.webm') + '/960px-seek%3D60-' + enc('Кот и петух – Украинская сказка Сказки на песке -3.webm') + '.jpg')),
 ]
 
 def build():
