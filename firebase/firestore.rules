@@ -1,0 +1,24 @@
+rules_version = '2';
+// กฎความปลอดภัยสำหรับ Character Bingo
+// - ทุกคนอ่านข้อมูลห้องเกมได้ (ผู้เล่นต้องรู้ว่าพิธีกรเรียกตัวไหนแล้ว)
+// - เฉพาะเครื่องพิธีกรที่สร้างห้องเท่านั้นที่แก้ไขห้องนั้นได้
+// - ห้ามลบ และห้ามเขียนส่วนอื่นของฐานข้อมูล
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /rooms/{roomId} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && roomId.size() >= 8 && roomId.size() <= 40
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.draws.size() <= 60;
+      allow update: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.draws.size() <= 60;
+      allow delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

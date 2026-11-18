@@ -230,6 +230,29 @@
     return m;
   }
 
+  // ---------- QR ซิงก์ (ผู้เล่นสแกนจากจอพิธีกร ไม่ต้องใช้อินเทอร์เน็ต) ----------
+  var B62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var PCODE = { line1: '1', line2: '2', full: 'f' }, PDEC = { '1': 'line1', '2': 'line2', 'f': 'full' };
+  /** round: {id, no, pattern, draws:[ids]} → ข้อความสั้นสำหรับ QR */
+  function encodeSync(theme, round) {
+    var ids = sortedIds(theme), at = {};
+    ids.forEach(function (id, i) { at[id] = i; });
+    var d = (round.draws || []).map(function (x) { return B62.charAt(at[x]); }).join('');
+    return 'CBS1.' + fingerprint(theme) + '.' + round.id + '.' + round.no + '.' + (PCODE[round.pattern] || '1') + '.' + d;
+  }
+  function decodeSync(text, theme) {
+    var p = String(text || '').trim().split('.');
+    if (p.length !== 6 || p[0] !== 'CBS1') return { ok: false, error: 'ไม่ใช่ QR ซิงก์ของเกมนี้' };
+    if (p[1] !== fingerprint(theme)) return { ok: false, error: 'QR นี้เป็นคนละชุดภาพกับบัตรของคุณ' };
+    var ids = sortedIds(theme), draws = [];
+    for (var i = 0; i < p[5].length; i++) {
+      var k = B62.indexOf(p[5].charAt(i));
+      if (k < 0 || k >= ids.length) return { ok: false, error: 'QR เสียหาย อ่านไม่ครบ' };
+      draws.push(ids[k]);
+    }
+    return { ok: true, fp: p[1], roundId: p[2], roundNo: parseInt(p[3], 10) || 0, pattern: PDEC[p[4]] || 'line1', draws: draws };
+  }
+
   // ---------- Browser helpers ----------
   var store = {
     get: function (k, def) {
@@ -297,7 +320,7 @@
     fnv1a: fnv1a, mulberry32: mulberry32, damm: damm, formatCode: formatCode, parseCode: parseCode,
     fingerprint: fingerprint, validateTheme: validateTheme, generateCard: generateCard,
     linesFromMarks: linesFromMarks, verifyCard: verifyCard, PATTERNS: PATTERNS, patternAtDraw: patternAtDraw, missingFor: missingFor, checkCardSet: checkCardSet,
-    randomInt: randomInt, randomPhoneCardNumber: randomPhoneCardNumber, drawNext: drawNext, charMap: charMap,
+    randomInt: randomInt, encodeSync: encodeSync, decodeSync: decodeSync, randomPhoneCardNumber: randomPhoneCardNumber, drawNext: drawNext, charMap: charMap,
     store: store, fetchJSON: fetchJSON, loadThemeIndex: loadThemeIndex, loadTheme: loadTheme,
     registerSW: registerSW, esc: esc
   };

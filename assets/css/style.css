@@ -162,3 +162,17 @@ a.btn { text-decoration: none; display: inline-block; }
 .list .it.active { border-color: var(--primary); }
 code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 ol.steps li { margin: .35rem 0; }
+
+/* ---------- Sync (ผู้เล่น) ---------- */
+.syncbar { display: flex; align-items: center; gap: .6rem; background: #fff; border-radius: 14px; padding: .5rem .8rem; margin: 0 0 .6rem; box-shadow: var(--shadow); font-size: .9rem; }
+.syncbar img { width: 40px; height: 40px; object-fit: contain; flex: none; }
+.syncbar .dot { width: 10px; height: 10px; border-radius: 50%; background: #bbb; flex: none; }
+.syncbar .dot.live { background: var(--ok); box-shadow: 0 0 0 4px #d6f5e1; }
+.syncbar .dot.stale { background: var(--accent); }
+.cell .called { position: absolute; top: 3px; right: 3px; background: var(--ok); color: #fff; font-size: .62rem; font-weight: 800; border-radius: 999px; padding: 1px 6px; pointer-events: none; }
+.cell.unverified { border-style: dashed; border-color: #f08c00; background: #fff7e6; }
+.cell.unverified::after { border-style: dashed; border-color: #f08c00; }
+.cell.blocked { animation: shake .3s; }
+@keyframes shake { 25% { transform: translateX(-4px) } 75% { transform: translateX(4px) } }
+.bingo-flag.pending { background: linear-gradient(135deg, #f08c00, #b35c00); font-size: 1.6rem; }
+.scanner video { width: 100%; border-radius: 14px; background: #000; aspect-ratio: 1/1; object-fit: cover; }

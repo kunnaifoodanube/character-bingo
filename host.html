@@ -14,9 +14,11 @@
       <div class="topbar">
         <h1>Character Bingo</h1>
         <span class="status-pill" id="roundPill">รอบที่ 1</span>
+        <span class="status-pill off" id="syncPill" title="สถานะซิงก์เรียลไทม์">ซิงก์: ปิด</span>
         <span class="grow"></span>
         <button class="btn secondary" id="btnVerify">ตรวจบัตร</button>
         <button class="btn secondary" id="btnQR">QR เข้าเกม</button>
+        <button class="btn secondary" id="btnQRSync">QR ซิงก์</button>
         <button class="btn ghost" id="btnFull" title="เต็มจอ">⛶</button>
       </div>
 
@@ -50,6 +52,10 @@
         <div class="row"><h3 class="grow" style="margin:0">ตัวละครทั้งหมด</h3><span class="muted small" id="fp"></span></div>
         <div class="board" id="board" style="margin-top:.6rem"></div>
       </div>
+      <div class="panel row" style="flex-wrap:nowrap;align-items:center;gap:.8rem">
+        <div id="qrSyncSmall" style="width:96px;flex:none;cursor:zoom-in" title="ขยาย QR ซิงก์"></div>
+        <div class="small"><b>QR ซิงก์</b><br><span class="muted" id="qrSyncNote">ผู้เล่นกด “📷 ซิงก์จากจอ” แล้วสแกน เพื่ออัปเดตตัวที่ถูกเรียกแล้ว</span></div>
+      </div>
       <div class="panel" style="flex:1;min-height:120px;overflow:auto">
         <h3>ประวัติการสุ่มรอบนี้</h3>
         <div class="history" id="history"><span class="muted small">ยังไม่มี</span></div>
@@ -71,11 +77,19 @@
     <div class="mono muted" id="qrUrl" style="word-break:break-all;text-align:center"></div>
     <button class="btn" id="btnQRClose">ปิด</button>
   </div>
+  <div id="qrSyncFull" class="qr-full hidden">
+    <div class="t">สแกนเพื่อซิงก์ตัวละครที่ถูกเรียกแล้ว</div>
+    <div id="qrSyncBig"></div>
+    <div class="muted" id="qrSyncInfo"></div>
+    <button class="btn" id="btnQRSyncClose">ปิด</button>
+  </div>
   <div id="modalRoot"></div>
+  <script src="firebase-config.js"></script>
   <script src="assets/vendor/qrcode.js"></script>
   <script src="assets/js/core.js"></script>
   <script src="assets/js/ui.js"></script>
   <script src="assets/js/themes-local.js"></script>
+  <script src="assets/js/sync.js"></script>
   <script src="assets/js/host.js"></script>
 </body>
 </html>

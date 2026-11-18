@@ -171,3 +171,27 @@ test('จำลองผู้เล่น 100 คน × 1,000 เกม: สถ
   console.log(stats);
   assert.ok(firstWinDraw.every(v => v >= 4 && v <= 24));
 });
+
+test('QR ซิงก์: เข้ารหัส/ถอดรหัสได้ตรง ทุกลำดับการสุ่ม และสั้นพอสำหรับ QR', () => {
+  for (let g = 0; g < 500; g++) {
+    const draws = []; let x; const take = B.randomInt(0, 24);
+    while (draws.length < take && (x = B.drawNext(theme, draws)) !== null) draws.push(x);
+    const round = { id: 'r' + g.toString(36), no: g % 9 + 1, pattern: ['line1', 'line2', 'full'][g % 3], draws };
+    const txt = B.encodeSync(theme, round);
+    assert.ok(txt.length <= 60, 'ยาว ' + txt.length);
+    const d = B.decodeSync(txt, theme);
+    assert.ok(d.ok);
+    assert.deepEqual(d.draws, draws);
+    assert.equal(d.roundId, round.id); assert.equal(d.roundNo, round.no); assert.equal(d.pattern, round.pattern);
+  }
+});
+
+test('QR ซิงก์: ปฏิเสธ QR คนละชุดภาพ / QR อื่น / QR เสีย', () => {
+  const other = JSON.parse(JSON.stringify(theme)); other.id = 'other-theme';
+  const txt = B.encodeSync(other, { id: 'r1', no: 1, pattern: 'line1', draws: [other.characters[0].id] });
+  assert.equal(B.decodeSync(txt, theme).ok, false);
+  assert.match(B.decodeSync(txt, theme).error, /คนละชุด/);
+  assert.equal(B.decodeSync('https://example.com', theme).ok, false);
+  const good = B.encodeSync(theme, { id: 'r1', no: 1, pattern: 'line1', draws: [] });
+  assert.equal(B.decodeSync(good + '~', theme).ok, false);
+});

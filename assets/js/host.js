@@ -14,8 +14,63 @@
   }
   var S = store.get(KEY, null);
   if (!S || !S.round) S = { themeId: null, round: null, archive: [] };
-  function save() { if (!store.set(KEY, S)) UI.toast('บันทึกสถานะไม่สำเร็จ!'); }
+  if (!S.roomId) S.roomId = Sync.newRoomId();
+  var spinning = false;
+  function save() { if (!store.set(KEY, S)) UI.toast('บันทึกสถานะไม่สำเร็จ!'); schedulePublish(); }
   function drawIds() { return S.round ? S.round.draws.map(function (d) { return d.id; }) : []; }
+
+  /** ตัวที่ "เปิดเผยแล้ว" — ระหว่างแอนิเมชันยังไม่ส่งตัวล่าสุดให้ผู้เล่น */
+  function visibleDraws() {
+    var ids = drawIds();
+    return spinning ? ids.slice(0, -1) : ids;
+  }
+
+  // ---------- ซิงก์เรียลไทม์ ----------
+  var pubTimer = null, pubBusy = false, pubAgain = false;
+  function syncPill(text, ok) { var p = $('syncPill'); p.textContent = text; p.classList.toggle('off', !ok); }
+  function schedulePublish(delay) {
+    if (!Sync.enabled() || !theme || !S.round) return;
+    clearTimeout(pubTimer);
+    pubTimer = setTimeout(publish, delay == null ? 250 : delay);
+  }
+  function publish() {
+    if (spinning) return; // จะส่งหลังเปิดเผยแล้ว
+    if (pubBusy) { pubAgain = true; return; }
+    pubBusy = true; syncPill('ซิงก์: กำลังส่ง…', true);
+    var data = { v: 1, themeId: theme.id, fp: B.fingerprint(theme), roundId: S.round.id, roundNo: S.round.no,
+      pattern: S.round.pattern || 'line1', draws: visibleDraws(), updatedAt: Date.now() };
+    Sync.publish(S.roomId, data).then(function () {
+      syncPill('ซิงก์: ส่งแล้ว ✓ (' + data.draws.length + ')', true);
+    }).catch(function (e) {
+      if (e && (e.code === 'permission-denied' || /permission/i.test(e.message || ''))) {
+        // เครื่องนี้ไม่ใช่เจ้าของห้องเดิม → สร้างห้องใหม่
+        S.roomId = Sync.newRoomId(); store.set(KEY, S);
+        UI.toast('สร้างห้องซิงก์ใหม่แล้ว — ให้ผู้เล่นสแกน “QR เข้าเกม” อีกครั้งเพื่อเปิดซิงก์', 6000);
+        pubAgain = true;
+      } else {
+        syncPill('ซิงก์: ส่งไม่สำเร็จ ลองใหม่…', false);
+        setTimeout(function () { schedulePublish(0); }, 5000);
+      }
+    }).then(function () {
+      pubBusy = false;
+      if (pubAgain) { pubAgain = false; schedulePublish(0); }
+    });
+  }
+  if (!Sync.enabled()) syncPill('ซิงก์เรียลไทม์: ปิด (ใช้ QR ซิงก์ได้)', false);
+  window.addEventListener('online', function () { schedulePublish(0); });
+
+  // ---------- QR ซิงก์ ----------
+  function syncText() { return B.encodeSync(theme, { id: S.round.id, no: S.round.no, pattern: S.round.pattern, draws: visibleDraws() }); }
+  function renderSyncQR() {
+    if (!theme || !S.round) return;
+    var txt = syncText();
+    $('qrSyncSmall').innerHTML = qrSvg(txt);
+    if (!$('qrSyncFull').classList.contains('hidden')) {
+      $('qrSyncBig').innerHTML = qrSvg(txt);
+      $('qrSyncInfo').textContent = 'รอบที่ ' + S.round.no + ' · เรียกแล้ว ' + visibleDraws().length + ' ตัว · QR อัปเดตอัตโนมัติทุกครั้งที่สุ่ม';
+    }
+  }
+  function openSyncQR() { if (!theme) return; $('qrSyncFull').classList.remove('hidden'); renderSyncQR(); }
 
   // ---------- โหลดชุดภาพ ----------
   ThemeSource.all().then(function (src) {
@@ -101,6 +156,7 @@
     $('btnDraw').disabled = busy || done;
     $('btnDraw').textContent = done ? 'สุ่มครบทุกตัวแล้ว' : '🎲 สุ่มตัวถัดไป';
     $('btnUndo').disabled = busy || !ids.length;
+    renderSyncQR();
   }
   function showBig(c, noAnim) {
     $('placeholder').classList.add('hidden');
@@ -116,7 +172,7 @@
     var ids = drawIds();
     var next = B.drawNext(theme, ids);
     if (!next) { UI.toast('สุ่มครบทุกตัวแล้ว'); return; }
-    busy = true; renderAll(true);
+    busy = true; spinning = true; renderAll(true);
     // บันทึกก่อนแสดงผล: รีเฟรชระหว่างแอนิเมชันก็ไม่สุ่มซ้ำ/ไม่หาย
     S.round.draws.push({ id: next, at: new Date().toISOString() });
     save();
@@ -130,7 +186,9 @@
       if (Date.now() - t0 > REVEAL_MS) {
         clearInterval(timer);
         r.classList.remove('spinning');
+        spinning = false;
         renderAll(false);
+        schedulePublish(0);
         setTimeout(function () { busy = false; renderAll(true); }, COOLDOWN_MS);
       }
     }, 90);
@@ -268,7 +326,9 @@
   });
 
   // ---------- QR ----------
-  function joinUrl() { return new URL('index.html?t=' + encodeURIComponent(theme.id), location.href).href; }
+  function joinUrl() {
+    return new URL('index.html?t=' + encodeURIComponent(theme.id) + (Sync.enabled() ? '&room=' + S.roomId : ''), location.href).href;
+  }
   function qrSvg(text) { var q = qrcode(0, 'M'); q.addData(text); q.make(); return q.createSvgTag({ cellSize: 8, margin: 2, scalable: true }); }
   $('btnQR').addEventListener('click', function () {
     if (!theme) return;
@@ -281,6 +341,9 @@
     $('qrFull').classList.remove('hidden');
   });
   $('btnQRClose').addEventListener('click', function () { $('qrFull').classList.add('hidden'); });
+  $('btnQRSync').addEventListener('click', openSyncQR);
+  $('qrSyncSmall').addEventListener('click', openSyncQR);
+  $('btnQRSyncClose').addEventListener('click', function () { $('qrSyncFull').classList.add('hidden'); });
   $('btnFull').addEventListener('click', function () {
     if (document.fullscreenElement) document.exitFullscreen(); else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
   });
@@ -295,5 +358,5 @@
   window.addEventListener('beforeunload', function (e) { if (busy) { e.preventDefault(); e.returnValue = ''; } });
 
   // สำหรับการทดสอบอัตโนมัติ
-  window.__host = { state: function () { return S; }, theme: function () { return theme; }, busy: function () { return busy; } };
+  window.__host = { state: function () { return S; }, theme: function () { return theme; }, busy: function () { return busy; }, syncText: function () { return syncText(); } };
 })();

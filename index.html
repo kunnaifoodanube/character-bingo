@@ -57,12 +57,15 @@
         </div>
       </div>
 
+      <div id="roundBanner" class="banner info hidden"></div>
+      <div id="syncBar" class="syncbar hidden"></div>
       <div id="bingoFlag" class="bingo-flag hidden">BINGO!<small id="bingoLines"></small></div>
 
       <div class="grid4" id="grid" role="grid" aria-label="บัตรบิงโก"></div>
 
-      <p class="legend">แตะช่องเมื่อพิธีกรเรียกตัวละครนั้น · แตะซ้ำเพื่อยกเลิก · ครบ 4 ช่องแนวนอน แนวตั้ง หรือทแยง = BINGO<br>
+      <p class="legend" id="legend">แตะช่องเมื่อพิธีกรเรียกตัวละครนั้น · แตะซ้ำเพื่อยกเลิก · ครบ 4 ช่องแนวนอน แนวตั้ง หรือทแยง = BINGO<br>
         บัตรถูกบันทึกในเครื่องนี้ รีเฟรชหรือเน็ตหลุดก็ไม่หาย</p>
+      <button class="btn secondary block" id="btnScan" type="button">📷 ซิงก์จากจอ (สแกน QR ซิงก์)</button>
 
       <div class="row" style="margin-top:.8rem">
         <button class="btn ghost grow" id="btnClear" type="button">ล้างเครื่องหมาย</button>
@@ -73,8 +76,10 @@
   </main>
 
   <div id="modalRoot"></div>
+  <script src="firebase-config.js"></script>
   <script src="assets/js/core.js"></script>
   <script src="assets/js/ui.js"></script>
+  <script src="assets/js/sync.js"></script>
   <script src="assets/js/player.js"></script>
 </body>
 </html>
