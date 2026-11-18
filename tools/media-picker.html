@@ -55,6 +55,11 @@ async function meta(titles) {
       license: v('LicenseShortName'), licenseUrl: v('LicenseUrl'), artist: v('Artist'), credit: v('Credit').slice(0, 160), object: v('ObjectName'), date: v('DateTimeOriginal'), der };
   });
   window.ROWS = rows;
+  if (P.get('compact')) {
+    const pick = r => { const w = r.der.filter(d => /vp9\.webm$/.test(d.t) && d.h <= 720).sort((a, b) => b.h - a.h)[0]; return w ? w.src : ''; };
+    return '<pre id="json">' + esc(JSON.stringify(rows.map(r => ({ f: r.asked.replace(/^File:/, ''), page: r.page, url: r.url.split('?')[0], thumb: (r.thumb || '').split('?')[0], mime: r.mime, w: r.w, h: r.h, dur: r.dur,
+      lic: r.license, licUrl: r.licenseUrl, artist: r.artist.slice(0, 120), webm: pick(r), miss: r.missing || undefined })))) + '</pre>';
+  }
   return '<div class="g" style="grid-template-columns:repeat(4,1fr)">' + rows.map((r, i) => '<div class="c"><img style="height:230px" src="' + esc(r.thumb || '') + '"><div class="t"><b>' + (i + 1) + '</b> ' + esc(r.title) + (r.missing ? ' <b style=color:red>MISSING</b>' : '') +
     '</div><div class="l">' + esc(r.license) + '</div><div class="n">' + esc(r.artist.slice(0, 80)) + ' · ' + esc(r.mime || '') + ' ' + (r.w || '') + '×' + (r.h || '') + (r.dur ? ' · ' + r.dur + 's' : '') + '</div></div>').join('') + '</div>' +
     '<pre id="json">' + esc(JSON.stringify(rows)) + '</pre>';
