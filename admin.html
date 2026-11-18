@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>จัดการภาพตัวละคร — Character Bingo</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="row" style="margin-bottom:1rem">
+      <h1 class="grow" style="margin:0">จัดการภาพตัวละคร</h1>
+      <a class="btn ghost" href="host.html">หน้าจอพิธีกร</a>
+      <a class="btn ghost" href="index.html">หน้าผู้เล่น</a>
+    </div>
+
+    <div class="banner info">ชุดภาพที่แก้ในหน้านี้จะ <b>บันทึกในเบราว์เซอร์เครื่องนี้</b> ก่อน (ฉบับร่าง) — เมื่อพร้อมใช้งานจริง ให้กด “ส่งออก” แล้วอัปโหลดไฟล์ขึ้น GitHub ตามขั้นตอนด้านล่าง ผู้เล่นจึงจะเห็นภาพชุดนี้</div>
+
+    <div class="panel" style="margin:1rem 0">
+      <div class="row">
+        <h2 class="grow" style="margin:0">ชุดภาพ (Theme)</h2>
+        <button class="btn" id="btnNewTheme">+ สร้างชุดใหม่</button>
+        <label class="btn secondary" style="margin:0">นำเข้าไฟล์ .json<input type="file" id="importFile" accept=".json,application/json" hidden></label>
+        <button class="btn secondary" id="btnCopyPub">คัดลอกชุดจากเว็บไซต์มาแก้</button>
+      </div>
+      <div class="list" id="themeList" style="margin-top:1rem"></div>
+    </div>
+
+    <div id="editor" class="panel hidden">
+      <div class="row">
+        <h2 class="grow" style="margin:0">แก้ไขชุด: <span id="edTitle"></span></h2>
+        <span class="small muted" id="saveState"></span>
+      </div>
+      <div class="row" style="align-items:flex-end">
+        <label class="field grow"><span>ชื่อชุดภาพ</span><input class="input" id="thName" maxlength="60"></label>
+        <label class="field"><span>ประเภท</span><input class="input" id="thCat" list="cats" maxlength="30" style="width:180px"></label>
+        <label class="field"><span>รหัสชุด (ภาษาอังกฤษ)</span><input class="input mono" id="thId" maxlength="40" style="width:220px"></label>
+      </div>
+      <datalist id="cats"><option>Anime</option><option>Art Toy</option><option>Cartoon</option><option>Mascot</option><option>อื่น ๆ</option></datalist>
+
+      <div id="validation"></div>
+
+      <div class="drop" id="drop">
+        <p style="margin:.2rem 0 .8rem"><b>ลากไฟล์ภาพมาวางที่นี่</b> หรือ</p>
+        <label class="btn">เลือกไฟล์ภาพ (หลายไฟล์ได้)<input type="file" id="addFiles" accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp" multiple hidden></label>
+        <p class="small muted" style="margin:.8rem 0 0">รองรับ PNG, JPG, WebP · ระบบย่อภาพให้อัตโนมัติ · ชื่อไฟล์จะใช้เป็นชื่อตัวละคร (แก้ได้)<br>แนะนำภาพสี่เหลี่ยมจัตุรัส พื้นหลังโปร่งใสหรือสีขาว</p>
+        <div id="progress" class="small" style="margin-top:.6rem"></div>
+      </div>
+
+      <div class="row" style="margin:1rem 0 .6rem">
+        <h3 class="grow" style="margin:0">ตัวละคร <span id="charCount"></span></h3>
+        <button class="btn secondary" id="btnPreview">ดูตัวอย่างบัตร</button>
+        <a class="btn secondary" id="btnTryHost" target="_blank">ทดลองสุ่มในเครื่องนี้</a>
+      </div>
+      <div class="chars" id="chars"></div>
+
+      <div class="panel" style="margin-top:1.4rem;background:#faf7ff;box-shadow:none">
+        <h3>ส่งออกเพื่อเผยแพร่ (GitHub Pages)</h3>
+        <div class="row">
+          <button class="btn" id="btnExportTheme">1) ดาวน์โหลดไฟล์ชุดภาพ</button>
+          <button class="btn" id="btnExportIndex">2) ดาวน์โหลด index.json</button>
+          <label class="row small"><input type="checkbox" id="setDefault" checked> ตั้งเป็นชุดเริ่มต้นของเกม</label>
+        </div>
+        <ol class="steps small">
+          <li>กดปุ่ม 1 และ 2 จะได้ไฟล์ <code id="fnTheme">xxx.json</code> และ <code>index.json</code></li>
+          <li>เปิดหน้า repository บน GitHub → เข้าโฟลเดอร์ <code>themes</code> → <b>Add file › Upload files</b></li>
+          <li>ลากไฟล์ทั้งสองไปวาง (ไฟล์ชื่อเดิมจะถูกแทนที่) → กด <b>Commit changes</b></li>
+          <li>รอ 1–3 นาที แล้วเปิดหน้าพิธีกร ชุดใหม่จะอยู่ในรายการเลือกชุดภาพ</li>
+        </ol>
+        <p class="small muted" style="margin:0">ไม่ต้องแก้โค้ดใด ๆ · ห้ามเพิ่ม/ลบตัวละครหลังพิมพ์บัตรกระดาษแล้ว (บัตรเดิมจะใช้ไม่ได้) แต่เปลี่ยนภาพหรือชื่อได้</p>
+      </div>
+
+      <div class="row" style="margin-top:1rem">
+        <span class="grow"></span>
+        <button class="btn danger" id="btnDeleteTheme">ลบชุดนี้ออกจากเครื่อง</button>
+      </div>
+    </div>
+  </div>
+  <input type="file" id="replaceFile" accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp" hidden>
+  <div id="modalRoot"></div>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/themes-local.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

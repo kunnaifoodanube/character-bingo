@@ -1,0 +1,12 @@
+{
+  "format": "character-bingo-index@1",
+  "default": "sample-monsters",
+  "themes": [
+    {
+      "id": "sample-monsters",
+      "name": "มอนสเตอร์ขนม (ชุดตัวอย่าง)",
+      "category": "Cartoon",
+      "file": "sample-monsters.json"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#6b3df5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Character Bingo</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <main class="player">
+    <div class="brand">
+      <div class="logo">B</div>
+      <div class="grow">
+        <h1>Character Bingo</h1>
+        <div class="muted small" id="themeName">กำลังโหลด…</div>
+      </div>
+      <span class="status-pill" id="net">● ออนไลน์</span>
+    </div>
+
+    <section id="loading" class="panel center">
+      <p>กำลังโหลดเกม…</p>
+    </section>
+
+    <section id="error" class="panel hidden">
+      <h2>โหลดเกมไม่สำเร็จ</h2>
+      <p id="errorMsg" class="muted"></p>
+      <button class="btn block" onclick="location.reload()">ลองใหม่</button>
+      <p class="small muted">หากยังไม่ได้ ให้แจ้งเจ้าหน้าที่เพื่อรับบัตรกระดาษ</p>
+    </section>
+
+    <section id="join" class="panel hidden">
+      <h2>เข้าร่วมเกม</h2>
+      <p class="muted">กรอกชื่อเล่นหรือหมายเลขผู้เล่น แล้วรับบัตรบิงโกของคุณ</p>
+      <form id="joinForm" autocomplete="off">
+        <label class="field"><span>ชื่อเล่น / หมายเลขผู้เล่น</span>
+          <input class="input" id="nameInput" maxlength="24" required placeholder="เช่น น้องมิว หรือ 015" enterkeyhint="go">
+        </label>
+        <button class="btn block big" type="submit">รับบัตรบิงโก</button>
+      </form>
+    </section>
+
+    <section id="play" class="hidden">
+      <div id="otherThemeBanner" class="banner warn hidden"></div>
+      <div class="cardhead">
+        <div>
+          <div class="muted small">ผู้เล่น</div>
+          <div style="font-weight:800;font-size:1.15rem" id="pName"></div>
+        </div>
+        <div style="text-align:right">
+          <div class="muted small">หมายเลขบัตร</div>
+          <div class="cardno mono" id="pCode"></div>
+        </div>
+      </div>
+
+      <div id="bingoFlag" class="bingo-flag hidden">BINGO!<small id="bingoLines"></small></div>
+
+      <div class="grid4" id="grid" role="grid" aria-label="บัตรบิงโก"></div>
+
+      <p class="legend">แตะช่องเมื่อพิธีกรเรียกตัวละครนั้น · แตะซ้ำเพื่อยกเลิก · ครบ 4 ช่องแนวนอน แนวตั้ง หรือทแยง = BINGO<br>
+        บัตรถูกบันทึกในเครื่องนี้ รีเฟรชหรือเน็ตหลุดก็ไม่หาย</p>
+
+      <div class="row" style="margin-top:.8rem">
+        <button class="btn ghost grow" id="btnClear" type="button">ล้างเครื่องหมาย</button>
+        <button class="btn ghost grow" id="btnNew" type="button">ขอบัตรใบใหม่</button>
+      </div>
+      <p class="small muted center" id="cardMeta" style="margin-top:1rem"></p>
+    </section>
+  </main>
+
+  <div id="modalRoot"></div>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/player.js"></script>
+</body>
+</html>
