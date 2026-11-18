@@ -164,11 +164,12 @@
   }
   function termCard(c, i) {
     var src = B.mediaSrc(c), ok = B.mediaAllowed(c), vid = B.mediaType(c) === 'video';
-    var thumb = vid ? ((c.media && c.media.poster) || '') : src;
+    var yt = B.mediaType(c) === 'youtube' ? B.youtubeId(src) : '';
+    var thumb = yt ? 'https://i.ytimg.com/vi/' + yt + '/mqdefault.jpg' : vid ? ((c.media && c.media.poster) || '') : src;
     var st = (c.credit && c.credit.status) || (src ? '' : 'none');
     var lic = !src ? '<span class="lic no">ยังไม่มีสื่อ</span>' : ok ? '<span class="lic ok">✓ ' + esc((c.credit && c.credit.license) || 'แสดงได้') + '</span>' : '<span class="lic no">' + esc(B.LICENSE_STATUS[st] || st) + '</span>';
     return '<div class="char' + (!c.name ? ' bad' : '') + '" data-id="' + esc(c.id) + '"><div class="idx">#' + (i + 1) + '</div>' +
-      '<div class="pic dark">' + (thumb ? '<img alt="" loading="lazy" src="' + esc(thumb) + '">' : '<span class="muted small">' + (vid ? 'คลิป' : 'ไม่มีภาพ') + '</span>') + (vid ? '<span class="cr-v">คลิป</span>' : '') + '</div>' +
+      '<div class="pic dark">' + (thumb ? '<img alt="" loading="lazy" src="' + esc(thumb) + '">' : '<span class="muted small">' + (vid ? 'คลิป' : 'ไม่มีภาพ') + '</span>') + (vid ? '<span class="cr-v">คลิป</span>' : '') + (yt ? '<span class="cr-v">YouTube</span>' : '') + '</div>' +
       '<input value="' + esc(c.name) + '" maxlength="40" data-name aria-label="คำภาษาอังกฤษ" placeholder="English">' +
       '<input value="' + esc(c.th || '') + '" maxlength="60" data-th aria-label="คำแปลภาษาไทย" placeholder="คำแปลไทย">' + lic +
       '<div class="tools"><button class="btn secondary" data-det>สื่อ/เครดิต</button><button class="btn secondary" data-rep title="อัปโหลดภาพจากเครื่อง">อัปโหลด</button><button class="btn danger" data-del>ลบ</button></div></div>';
@@ -184,9 +185,9 @@
       title: 'สื่อและเครดิต: ' + c.name, wide: true,
       html: '<div class="fgrid">' +
         '<h4>สื่อบนจอพิธีกร</h4>' +
-        '<label class="field"><span>ชนิดสื่อ</span><select class="input" id="dType"><option value="image"' + (B.mediaType(c) !== 'video' ? ' selected' : '') + '>ภาพนิ่ง</option><option value="video"' + (B.mediaType(c) === 'video' ? ' selected' : '') + '>คลิปวิดีโอ (เล่นวน ไม่มีเสียง)</option></select></label>' +
+        '<label class="field"><span>ชนิดสื่อ</span><select class="input" id="dType"><option value="image"' + (B.mediaType(c) === 'image' ? ' selected' : '') + '>ภาพนิ่ง</option><option value="video"' + (B.mediaType(c) === 'video' ? ' selected' : '') + '>คลิปวิดีโอ (เล่นวน ไม่มีเสียง)</option><option value="youtube"' + (B.mediaType(c) === 'youtube' ? ' selected' : '') + '>คลิป YouTube (ฝังจากช่องทางการ)</option></select></label>' +
         f('dPoster', 'ภาพปกคลิป (ใช้เมื่อออฟไลน์)', m.poster, '', 'https://…') +
-        f('dSrc', 'ลิงก์ไฟล์ภาพ/คลิป (https://…) — เว้นว่างถ้าใช้ภาพที่อัปโหลด', m.src, 'full', 'https://upload.wikimedia.org/…') +
+        f('dSrc', 'ลิงก์ไฟล์ภาพ/คลิป หรือลิงก์ YouTube (https://…) — เว้นว่างถ้าใช้ภาพที่อัปโหลด', m.src, 'full', 'https://www.youtube.com/watch?v=…') +
         f('dStart', 'คลิป: เริ่มที่วินาที', m.start, '', '0') + f('dEnd', 'คลิป: วนกลับที่วินาที', m.end, '', 'เว้นว่าง = ทั้งคลิป') +
         '<h4>เครดิตและสิทธิ์ (บังคับก่อนแสดง)</h4>' +
         f('cTitle', 'ชื่อผลงาน/ภาพ', cr.title, 'full') + f('cAuthor', 'ผู้สร้าง/เจ้าของ', cr.author) + f('cLicense', 'ประเภทสัญญาอนุญาต', cr.license, '', 'เช่น Public domain, CC BY 3.0') +
@@ -198,8 +199,9 @@
         var g = function (id) { return el.querySelector('#' + id).value.trim(); };
         var src = g('dSrc');
         if (src && !/^https:\/\//.test(src)) { UI.toast('ลิงก์สื่อต้องขึ้นต้นด้วย https://'); return undefined; }
-        if (g('cStatus') === 'ok' && (!g('cLicense') || !g('cSource'))) { UI.toast('ก่อนเลือก “ตรวจสอบสิทธิ์แล้ว” ต้องกรอกสัญญาอนุญาตและแหล่งที่มา'); return undefined; }
-        return { type: g('dType'), src: src, poster: g('dPoster'), start: g('dStart'), end: g('dEnd'),
+        if (g('dType') === 'youtube' && !B.youtubeId(src)) { UI.toast('ลิงก์ YouTube ไม่ถูกต้อง'); return undefined; }
+        if ((g('cStatus') === 'ok' || g('cStatus') === 'embed') && (!g('cLicense') || !g('cSource'))) { UI.toast('ก่อนเลือก “ตรวจสอบสิทธิ์แล้ว” ต้องกรอกสัญญาอนุญาตและแหล่งที่มา'); return undefined; }
+        return { type: B.youtubeId(src) ? 'youtube' : g('dType'), src: src, poster: g('dPoster'), start: g('dStart'), end: g('dEnd'),
           credit: { title: g('cTitle'), author: g('cAuthor'), sourceUrl: g('cSource'), license: g('cLicense'), licenseUrl: g('cLicUrl'), status: g('cStatus'), note: g('cNote') } };
       } }]
     }).then(function (v) {
@@ -399,6 +401,8 @@
       if (c.img) o.img = c.img;
       if (c.media) o.media = c.media;
       if (c.credit) o.credit = c.credit;
+      if (c.fallback) o.fallback = c.fallback;
+      if (c.fallbackCredit) o.fallbackCredit = c.fallbackCredit;
       return o;
     });
     return out;

@@ -6,7 +6,7 @@
  "display": "text",
  "updatedAt": "2026-11-18T00:00:00Z",
  "description": "บัตรผู้เล่นแสดงคำภาษาอังกฤษ 16 คำจาก 32 คำ (ประเภทภาพยนตร์ 15 · รูปแบบงาน 6 · เทคนิคแอนิเมชัน 11) จอพิธีกรแสดงภาพ/คลิปจริงพร้อมคำแปลไทย",
- "creditsNote": "ภาพและคลิปทั้งหมดมาจาก Wikimedia Commons เป็นสาธารณสมบัติ (Public domain / CC0) หรือใช้สัญญาอนุญาต Creative Commons ที่อนุญาตให้นำไปใช้ซ้ำได้ ตรวจสอบสิทธิ์รายไฟล์เมื่อ 18 พ.ย. 2026 · ไม่มีภาพหรือคลิปที่สร้างด้วย AI · ไฟล์ไม่ได้ถูกคัดลอกมาเก็บในเว็บไซต์นี้ แต่แสดงจาก Wikimedia Commons โดยตรง",
+ "creditsNote": "คลิปทั้ง 32 รายการเป็นตัวอย่างภาพยนตร์/คลิปจริง ฝังด้วยเครื่องเล่น YouTube จากช่องทางการของสตูดิโอ ผู้จัดจำหน่าย หรือผู้สร้าง (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์นี้ ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงานแต่ละราย · เมื่อไม่มีอินเทอร์เน็ตหรือคลิปเล่นไม่ได้ จะแสดงภาพสำรองจาก Wikimedia Commons (สาธารณสมบัติ/Creative Commons) แทน · ไม่มีภาพหรือคลิปที่สร้างด้วย AI",
  "characters": [
   {
    "id": "action",
@@ -14,20 +14,31 @@
    "th": "แอ็กชัน / ฉากไล่ล่า",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=hEJnMQG9ev8"
+   },
+   "credit": {
+    "title": "Mad Max: Fury Road (2015) — Official Main Trailer",
+    "author": "Warner Bros. (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=hEJnMQG9ev8",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=hEJnMQG9ev8",
+    "fileName": "YouTube hEJnMQG9ev8",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Buster_Keaton_on_the_cow-catcher_in_The_General.jpg/960px-Buster_Keaton_on_the_cow-catcher_in_The_General.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "The General (1926) — Buster Keaton บนหัวรถจักรระหว่างฉากไล่ล่า",
     "author": "Buster Keaton Productions",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Buster_Keaton_on_the_cow-catcher_in_The_General.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Buster_Keaton_on_the_cow-catcher_in_The_General.jpg/960px-Buster_Keaton_on_the_cow-catcher_in_The_General.jpg",
-    "fileName": "Buster Keaton on the cow-catcher in The General.jpg",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -36,20 +47,31 @@
    "th": "ตลก",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=pBk4NYhWNMM"
+   },
+   "credit": {
+    "title": "Barbie (2023) — Main Trailer",
+    "author": "Warner Bros. (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=pBk4NYhWNMM",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=pBk4NYhWNMM",
+    "fileName": "YouTube pBk4NYhWNMM",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Chaplin_The_Kid_edit.jpg/960px-Chaplin_The_Kid_edit.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "The Kid (1921) — Charlie Chaplin และ Jackie Coogan",
     "author": "ไม่ทราบช่างภาพ (Charles Chaplin Productions)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chaplin_The_Kid_edit.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Chaplin_The_Kid_edit.jpg/960px-Chaplin_The_Kid_edit.jpg",
-    "fileName": "Chaplin The Kid edit.jpg",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -58,20 +80,31 @@
    "th": "สยองขวัญ",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=mcfyqO1ERW8"
+   },
+   "credit": {
+    "title": "The Conjuring: Last Rites (2025) — Official Trailer",
+    "author": "Warner Bros. India (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=mcfyqO1ERW8",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=mcfyqO1ERW8",
+    "fileName": "YouTube mcfyqO1ERW8",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Nosferatu_%281922%29_-_Count_Orlok_Standing_In_A_Wooden_Doorway.png/960px-Nosferatu_%281922%29_-_Count_Orlok_Standing_In_A_Wooden_Doorway.png"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Nosferatu (1922) — Count Orlok ยืนที่ประตู",
     "author": "F. W. Murnau / Henrik Galeen",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nosferatu_%281922%29_-_Count_Orlok_Standing_In_A_Wooden_Doorway.png",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Nosferatu_%281922%29_-_Count_Orlok_Standing_In_A_Wooden_Doorway.png/960px-Nosferatu_%281922%29_-_Count_Orlok_Standing_In_A_Wooden_Doorway.png",
-    "fileName": "Nosferatu (1922) - Count Orlok Standing In A Wooden Doorway.png",
-    "note": "งานเก่ากว่า 50 ปี พ้นอายุคุ้มครองตาม พ.ร.บ.ลิขสิทธิ์ไทย และ Commons ระบุเป็นสาธารณสมบัติ (ผู้กำกับเสียชีวิต 1931, ผู้เขียนบทเสียชีวิต 1949)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -80,21 +113,32 @@
    "th": "โรแมนติก",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=BUbCupJWFSE"
+   },
+   "credit": {
+    "title": "Me Before You (2016) — Extended Trailer",
+    "author": "Warner Bros. UK & Ireland (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=BUbCupJWFSE",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=BUbCupJWFSE",
+    "fileName": "YouTube BUbCupJWFSE",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "video",
     "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1e/May_Irwin_Kiss.webm/May_Irwin_Kiss.webm.480p.vp9.webm",
     "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/May_Irwin_Kiss.webm/500px--May_Irwin_Kiss.webm.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "The Kiss / May Irwin Kiss (1896) — หนังฉากจูบเรื่องแรก ๆ ของโลก",
     "author": "William Heise (Edison Manufacturing Co.)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:May_Irwin_Kiss.webm",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1e/May_Irwin_Kiss.webm/May_Irwin_Kiss.webm.480p.vp9.webm",
-    "fileName": "May Irwin Kiss.webm",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -103,20 +147,31 @@
    "th": "วิทยาศาสตร์จินตนาการ",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=poWiludgQCw"
+   },
+   "credit": {
+    "title": "Dune: Part Two (2024) — Official Trailer 3",
+    "author": "Legendary (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=poWiludgQCw",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=poWiludgQCw",
+    "fileName": "YouTube poWiludgQCw",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Le_voyage_dans_la_lune_drawing.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "A Trip to the Moon / Le Voyage dans la Lune (1902) — ภาพวาดจรวดชนดวงจันทร์",
     "author": "Georges Méliès",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Le_voyage_dans_la_lune_drawing.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Le_voyage_dans_la_lune_drawing.jpg",
-    "fileName": "Le voyage dans la lune drawing.jpg",
-    "note": "งานเก่ากว่า 50 ปี พ้นอายุคุ้มครองตาม พ.ร.บ.ลิขสิทธิ์ไทย และ Commons ระบุเป็นสาธารณสมบัติ (ผู้สร้างเสียชีวิต 1938)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -125,20 +180,31 @@
    "th": "แฟนตาซี",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=l91Km49W9qI"
+   },
+   "credit": {
+    "title": "Harry Potter and the Philosopher's Stone (2001) — Official Trailer",
+    "author": "Harry Potter (ช่องทางการ) (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=l91Km49W9qI",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=l91Km49W9qI",
+    "fileName": "YouTube l91Km49W9qI",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/0/07/Alice_in_Wonderland_1903_film_tea_party.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Alice in Wonderland (1903) — ฉากงานเลี้ยงน้ำชา",
     "author": "Cecil M. Hepworth & Percy Stow",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alice_in_Wonderland_1903_film_tea_party.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/0/07/Alice_in_Wonderland_1903_film_tea_party.jpg",
-    "fileName": "Alice in Wonderland 1903 film tea party.jpg",
-    "note": "งานเก่ากว่า 50 ปี พ้นอายุคุ้มครองตาม พ.ร.บ.ลิขสิทธิ์ไทย และ Commons ระบุเป็นสาธารณสมบัติ",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -147,20 +213,31 @@
    "th": "ผจญภัย",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=2QKg5SZ_35I"
+   },
+   "credit": {
+    "title": "Jumanji: Welcome to the Jungle (2017) — Official Trailer",
+    "author": "Sony Pictures Entertainment (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=2QKg5SZ_35I",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=2QKg5SZ_35I",
+    "fileName": "YouTube 2QKg5SZ_35I",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/The_Lost_World_%281925%29_2.jpg/960px-The_Lost_World_%281925%29_2.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "The Lost World (1925) — นักสำรวจกับไดโนเสาร์ในดินแดนลึกลับ",
     "author": "First National Pictures (ภาพจากภาพยนตร์)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Lost_World_%281925%29_2.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/The_Lost_World_%281925%29_2.jpg/960px-The_Lost_World_%281925%29_2.jpg",
-    "fileName": "The Lost World (1925) 2.jpg",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -169,20 +246,31 @@
    "th": "ภาพยนตร์เพลง",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=pqi45Qhq3CI"
+   },
+   "credit": {
+    "title": "Wicked (2024) — Official Trailer 2",
+    "author": "Universal Pictures (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=pqi45Qhq3CI",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=pqi45Qhq3CI",
+    "fileName": "YouTube pqi45Qhq3CI",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Publicity_still_for_The_Broadway_Melody_%281929%29_03.jpg/960px-Publicity_still_for_The_Broadway_Melody_%281929%29_03.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "The Broadway Melody (1929) — ภาพประชาสัมพันธ์ ภาพยนตร์เพลงเรื่องแรกที่ได้ออสการ์",
     "author": "Employee(s) of MGM",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Publicity_still_for_The_Broadway_Melody_%281929%29_03.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Publicity_still_for_The_Broadway_Melody_%281929%29_03.jpg/960px-Publicity_still_for_The_Broadway_Melody_%281929%29_03.jpg",
-    "fileName": "Publicity still for The Broadway Melody (1929) 03.jpg",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -191,20 +279,31 @@
    "th": "ภาพยนตร์กีฬา",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=CT2_P2DZBR0"
+   },
+   "credit": {
+    "title": "F1 The Movie (2025) — Official Trailer",
+    "author": "Warner Bros. (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=CT2_P2DZBR0",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=CT2_P2DZBR0",
+    "fileName": "YouTube CT2_P2DZBR0",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Publicity_still_for_Battling_Butler_%281926%29_05.jpg/960px-Publicity_still_for_Battling_Butler_%281926%29_05.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Battling Butler (1926) — ฉากชกมวย",
     "author": "Employee(s) of MGM",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Publicity_still_for_Battling_Butler_%281926%29_05.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Publicity_still_for_Battling_Butler_%281926%29_05.jpg/960px-Publicity_still_for_Battling_Butler_%281926%29_05.jpg",
-    "fileName": "Publicity still for Battling Butler (1926) 05.jpg",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -213,20 +312,31 @@
    "th": "ภาพยนตร์สงคราม",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=YqNYrYUiMfg"
+   },
+   "credit": {
+    "title": "1917 (2019) — Official Trailer",
+    "author": "Universal Pictures (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=YqNYrYUiMfg",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=YqNYrYUiMfg",
+    "fileName": "YouTube YqNYrYUiMfg",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Lew_Ayres_and_Louis_Wolheim_in_All_Quiet_on_the_Western_Front.jpg/960px-Lew_Ayres_and_Louis_Wolheim_in_All_Quiet_on_the_Western_Front.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "All Quiet on the Western Front (1930) — ทหารในสนามเพลาะ",
     "author": "ไม่ทราบช่างภาพ (Universal Pictures)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lew_Ayres_and_Louis_Wolheim_in_All_Quiet_on_the_Western_Front.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Lew_Ayres_and_Louis_Wolheim_in_All_Quiet_on_the_Western_Front.jpg/960px-Lew_Ayres_and_Louis_Wolheim_in_All_Quiet_on_the_Western_Front.jpg",
-    "fileName": "Lew Ayres and Louis Wolheim in All Quiet on the Western Front.jpg",
-    "note": "ภาพยนตร์ปี 1930 เป็นสาธารณสมบัติในสหรัฐฯ ตั้งแต่ 1 ม.ค. 2026 และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -235,20 +345,31 @@
    "th": "ภัยพิบัติ",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=wdok0rZdmx4"
+   },
+   "credit": {
+    "title": "Twisters (2024) — Official Trailer",
+    "author": "Universal Pictures (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=wdok0rZdmx4",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=wdok0rZdmx4",
+    "fileName": "YouTube wdok0rZdmx4",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Noah%27s_Ark_%281928%29_still_2.JPG/960px-Noah%27s_Ark_%281928%29_still_2.JPG"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Noah's Ark (1928) — ฉากเมืองพังทลายจากน้ำท่วมโลก",
     "author": "ไม่ทราบช่างภาพ (Warner Bros.)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Noah%27s_Ark_%281928%29_still_2.JPG",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Noah%27s_Ark_%281928%29_still_2.JPG/960px-Noah%27s_Ark_%281928%29_still_2.JPG",
-    "fileName": "Noah's Ark (1928) still 2.JPG",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -257,20 +378,31 @@
    "th": "คาวบอยตะวันตก",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=HDKLdFwphcQ"
+   },
+   "credit": {
+    "title": "The Magnificent Seven (2016) — Official International Trailer",
+    "author": "Sony Pictures Releasing UK (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=HDKLdFwphcQ",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=HDKLdFwphcQ",
+    "fileName": "YouTube HDKLdFwphcQ",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Great_train_robbery_Barnes.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "The Great Train Robbery (1903) — คาวบอยยิงปืนเข้าหากล้อง",
     "author": "Edwin S. Porter (Edison)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Great_train_robbery_Barnes.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Great_train_robbery_Barnes.jpg",
-    "fileName": "Great train robbery Barnes.jpg",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -279,20 +411,31 @@
    "th": "อาชญากรรม / การปล้น",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=zTvJJnoWIPk"
+   },
+   "credit": {
+    "title": "Baby Driver (2017) — Official Trailer",
+    "author": "Sony Pictures Entertainment (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=zTvJJnoWIPk",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=zTvJJnoWIPk",
+    "fileName": "YouTube zTvJJnoWIPk",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Underworld_%28film%29_1927._Josef_von_Sternberg%2C_director._George_Bancroft.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Underworld (1927) — หนังแก๊งสเตอร์ยุคแรก ผู้กำกับ Josef von Sternberg",
     "author": "Paramount Pictures",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Underworld_%28film%29_1927._Josef_von_Sternberg%2C_director._George_Bancroft.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Underworld_%28film%29_1927._Josef_von_Sternberg%2C_director._George_Bancroft.jpg",
-    "fileName": "Underworld (film) 1927. Josef von Sternberg, director. George Bancroft.jpg",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -301,20 +444,31 @@
    "th": "ซอมบี้",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=fVEURju797Y"
+   },
+   "credit": {
+    "title": "Train to Busan (2016) — 10th Anniversary Official Trailer",
+    "author": "Well Go USA Entertainment (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=fVEURju797Y",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=fVEURju797Y",
+    "fileName": "YouTube fVEURju797Y",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/White_Zombie_1932.jpg/960px-White_Zombie_1932.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "White Zombie (1932) — ภาพยนตร์ซอมบี้เรื่องยาวเรื่องแรก",
     "author": "United Artists",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:White_Zombie_1932.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/White_Zombie_1932.jpg/960px-White_Zombie_1932.jpg",
-    "fileName": "White Zombie 1932.jpg",
-    "note": "Commons ระบุเป็นสาธารณสมบัติในสหรัฐฯ (ไม่ได้ต่ออายุลิขสิทธิ์) และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -323,20 +477,31 @@
    "th": "สายลับ",
    "group": "genre",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=ajAG-tv_sKI"
+   },
+   "credit": {
+    "title": "Mission: Impossible – Dead Reckoning Part One (2023) — Official Trailer",
+    "author": "Paramount Pictures New Zealand (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=ajAG-tv_sKI",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=ajAG-tv_sKI",
+    "fileName": "YouTube ajAG-tv_sKI",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Minox_B_Camera_-_Flickr_-_The_Central_Intelligence_Agency.jpg/960px-Minox_B_Camera_-_Flickr_-_The_Central_Intelligence_Agency.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Minox B — กล้องจิ๋วของสายลับ (ภาพจากพิพิธภัณฑ์ CIA)",
     "author": "The Central Intelligence Agency",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Minox_B_Camera_-_Flickr_-_The_Central_Intelligence_Agency.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Minox_B_Camera_-_Flickr_-_The_Central_Intelligence_Agency.jpg/960px-Minox_B_Camera_-_Flickr_-_The_Central_Intelligence_Agency.jpg",
-    "fileName": "Minox B Camera - Flickr - The Central Intelligence Agency.jpg",
-    "note": "ผลงานของหน่วยงานรัฐบาลกลางสหรัฐฯ เป็นสาธารณสมบัติ · ไม่ใช่ภาพจากภาพยนตร์ เพราะไม่พบภาพนิ่งหนังสายลับที่ยืนยันสิทธิ์ได้และไม่มีตัวอักษรบนภาพ",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -345,20 +510,31 @@
    "th": "สารคดี",
    "group": "format",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=urRVZ4SW7WU"
+   },
+   "credit": {
+    "title": "Free Solo (2018) — Trailer",
+    "author": "National Geographic (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=urRVZ4SW7WU",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=urRVZ4SW7WU",
+    "fileName": "YouTube urRVZ4SW7WU",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/7/78/Nanook_Harpooner_1920.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Nanook of the North (1922) — สารคดีเรื่องยาวยุคบุกเบิก",
     "author": "Robert J. Flaherty",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nanook_Harpooner_1920.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/7/78/Nanook_Harpooner_1920.jpg",
-    "fileName": "Nanook Harpooner 1920.jpg",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -367,20 +543,31 @@
    "th": "มิวสิกวิดีโอ",
    "group": "format",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=ioNng23DkIM"
+   },
+   "credit": {
+    "title": "BLACKPINK – How You Like That (2020) — Official M/V",
+    "author": "BLACKPINK (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=ioNng23DkIM",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=ioNng23DkIM",
+    "fileName": "YouTube ioNng23DkIM",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Rebel_Love_Song_12.jpg/960px-Rebel_Love_Song_12.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "เบื้องหลังการถ่ายทำมิวสิกวิดีโอ \"Rebel Love Song\" (2011)",
     "author": "Robert Bejil Photography",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rebel_Love_Song_12.jpg",
     "license": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Rebel_Love_Song_12.jpg/960px-Rebel_Love_Song_12.jpg",
-    "fileName": "Rebel Love Song 12.jpg",
-    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
    }
   },
   {
@@ -389,20 +576,31 @@
    "th": "ภาพยนตร์เงียบ",
    "group": "format",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=O8K9AZcSQJE"
+   },
+   "credit": {
+    "title": "The Artist (2011) — หนังเงียบยุคใหม่ ได้ออสการ์ภาพยนตร์ยอดเยี่ยม — Trailer",
+    "author": "TrailersApplecom (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=O8K9AZcSQJE",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=O8K9AZcSQJE",
+    "fileName": "YouTube O8K9AZcSQJE",
+    "note": "ช่องรวมตัวอย่างภาพยนตร์ ไม่ใช่ช่องของสตูดิโอโดยตรง (ไม่พบคลิปจากช่องสตูดิโอที่เปิดให้ฝัง) · ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/The_Kid_%281921%29.webm/960px-seek%3D50-The_Kid_%281921%29.webm.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "The Kid (1921) — ไตเติลการ์ด (intertitle) ของภาพยนตร์เงียบ",
     "author": "Charlie Chaplin",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Kid_%281921%29.webm",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/The_Kid_%281921%29.webm/960px-seek%3D50-The_Kid_%281921%29.webm.jpg",
-    "fileName": "The Kid (1921).webm",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว · ภาพนี้เป็นเฟรมจากไฟล์วิดีโอบน Commons (วินาทีที่ 50)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -411,20 +609,31 @@
    "th": "เรื่องเล่าผ่านภาพบันทึกเหตุการณ์",
    "group": "format",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=F27H2998dak"
+   },
+   "credit": {
+    "title": "Paranormal Activity: The Ghost Dimension (2015) — Trailer",
+    "author": "Paramount Pictures UK (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=F27H2998dak",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=F27H2998dak",
+    "fileName": "YouTube F27H2998dak",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/An_exemple_of_a_found_footage_film_from_%22_Taped_Up_Families_%28Horror%2C_Found_Footage%2C_2024%29_%22.png/960px-An_exemple_of_a_found_footage_film_from_%22_Taped_Up_Families_%28Horror%2C_Found_Footage%2C_2024%29_%22.png"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Taped Up Families (2024) — ภาพแบบกล้องวิดีโอบันทึกเหตุการณ์ มีวันเวลาบนจอ",
     "author": "Trash Arts Productions",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:An_exemple_of_a_found_footage_film_from_%22_Taped_Up_Families_%28Horror%2C_Found_Footage%2C_2024%29_%22.png",
     "license": "CC BY 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/An_exemple_of_a_found_footage_film_from_%22_Taped_Up_Families_%28Horror%2C_Found_Footage%2C_2024%29_%22.png/960px-An_exemple_of_a_found_footage_film_from_%22_Taped_Up_Families_%28Horror%2C_Found_Footage%2C_2024%29_%22.png",
-    "fileName": "An exemple of a found footage film from \" Taped Up Families (Horror, Found Footage, 2024) \".png",
-    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) (เจ้าของเผยแพร่บน YouTube ด้วยสัญญาอนุญาต CC BY)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
    }
   },
   {
@@ -433,21 +642,32 @@
    "th": "ภาพเร่งเวลา",
    "group": "format",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=bEYSyfEL8nY"
+   },
+   "credit": {
+    "title": "Planet Earth II (2016) — Cities — Epic Cities Hyperlapse",
+    "author": "BBC Earth (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=bEYSyfEL8nY",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=bEYSyfEL8nY",
+    "fileName": "YouTube bEYSyfEL8nY",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "video",
     "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/53/Cloud_time_lapse_1280.ogv/Cloud_time_lapse_1280.ogv.480p.vp9.webm",
     "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Cloud_time_lapse_1280.ogv/960px--Cloud_time_lapse_1280.ogv.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Cloud time lapse — เมฆเคลื่อนแบบเร่งเวลา",
     "author": "Error406",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cloud_time_lapse_1280.ogv",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/53/Cloud_time_lapse_1280.ogv/Cloud_time_lapse_1280.ogv.480p.vp9.webm",
-    "fileName": "Cloud time lapse 1280.ogv",
-    "note": "ผู้สร้างประกาศสละสิทธิ์ให้เป็นสาธารณสมบัติ",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -456,21 +676,34 @@
    "th": "ภาพเคลื่อนไหวช้า",
    "group": "format",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=v2hjeC_PoYw",
+    "start": 150,
+    "end": 230
+   },
+   "credit": {
+    "title": "The Slow Mo Guys — 1000 Paint-Covered Mousetraps in 4K Slow Motion",
+    "author": "The Slow Mo Guys (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=v2hjeC_PoYw",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=v2hjeC_PoYw",
+    "fileName": "YouTube v2hjeC_PoYw",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "video",
     "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6c/Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm/Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm.480p.vp9.webm",
     "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm/960px--Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Ultra slow-motion — ถ้วยแก้วตกแตกบนพื้นแบบช้ามาก",
     "author": "Pittigrilli",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm",
     "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6c/Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm/Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm.480p.vp9.webm",
-    "fileName": "Ultra slow-motion video of glass tea cup smashed on concrete floor.webm",
-    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) · หากดัดแปลงต้องเผยแพร่ด้วยสัญญาอนุญาตเดียวกัน (เกมนี้แสดงไฟล์ต้นฉบับโดยไม่ดัดแปลง)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
    }
   },
   {
@@ -479,20 +712,31 @@
    "th": "แอนิเมชันสองมิติ",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=ByXuk9QqQkk"
+   },
+   "credit": {
+    "title": "Spirited Away (2001) — Studio Ghibli — Official Trailer",
+    "author": "Crunchyroll Store Australia (ผู้จัดจำหน่าย) (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=ByXuk9QqQkk",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=ByXuk9QqQkk",
+    "fileName": "YouTube ByXuk9QqQkk",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Gertie_the_Dinosaur_and_a_boulder.jpg/960px-Gertie_the_Dinosaur_and_a_boulder.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Gertie the Dinosaur (1914) — ภาพวาดต้นฉบับแอนิเมชัน",
     "author": "Winsor McCay",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gertie_the_Dinosaur_and_a_boulder.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Gertie_the_Dinosaur_and_a_boulder.jpg/960px-Gertie_the_Dinosaur_and_a_boulder.jpg",
-    "fileName": "Gertie the Dinosaur and a boulder.jpg",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -501,20 +745,31 @@
    "th": "แอนิเมชันสามมิติ",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=LEjhY15eCx0"
+   },
+   "credit": {
+    "title": "Inside Out 2 (2024) — Pixar — Official Trailer",
+    "author": "Pixar (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=LEjhY15eCx0",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=LEjhY15eCx0",
+    "fileName": "YouTube LEjhY15eCx0",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Big.Buck.Bunny.-.Frank.Rinky.Gimera.png/960px-Big.Buck.Bunny.-.Frank.Rinky.Gimera.png"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Big Buck Bunny (2008) — แอนิเมชัน 3 มิติโอเพนซอร์สจาก Blender",
     "author": "Blender Foundation (www.bigbuckbunny.org)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Big.Buck.Bunny.-.Frank.Rinky.Gimera.png",
     "license": "CC BY 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Big.Buck.Bunny.-.Frank.Rinky.Gimera.png/960px-Big.Buck.Bunny.-.Frank.Rinky.Gimera.png",
-    "fileName": "Big.Buck.Bunny.-.Frank.Rinky.Gimera.png",
-    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
    }
   },
   {
@@ -523,21 +778,32 @@
    "th": "แอนิเมชันถ่ายทีละเฟรม",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=P8lfdvXkhu0"
+   },
+   "credit": {
+    "title": "Coraline (2009) — LAIKA — Official Theatrical Trailer",
+    "author": "LAIKA Studios (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=P8lfdvXkhu0",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=P8lfdvXkhu0",
+    "fileName": "YouTube P8lfdvXkhu0",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "video",
     "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c7/Cyclops_Park_Stop_Motion_Animation.webm/Cyclops_Park_Stop_Motion_Animation.webm.480p.vp9.webm",
     "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Cyclops_Park_Stop_Motion_Animation.webm/960px--Cyclops_Park_Stop_Motion_Animation.webm.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Cyclops Park — Stop Motion Animation (2019)",
     "author": "Nalena",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cyclops_Park_Stop_Motion_Animation.webm",
     "license": "CC BY 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c7/Cyclops_Park_Stop_Motion_Animation.webm/Cyclops_Park_Stop_Motion_Animation.webm.480p.vp9.webm",
-    "fileName": "Cyclops Park Stop Motion Animation.webm",
-    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) (เผยแพร่บน Vimeo ด้วย CC BY)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
    }
   },
   {
@@ -546,20 +812,31 @@
    "th": "แอนิเมชันดินน้ำมัน",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=ZYGh16zIfGw"
+   },
+   "credit": {
+    "title": "Wallace & Gromit: Vengeance Most Fowl (2024) — Aardman — Official Netflix Trailer",
+    "author": "Aardman (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=ZYGh16zIfGw",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=ZYGh16zIfGw",
+    "fileName": "YouTube ZYGh16zIfGw",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg/960px-Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Kuzmich — ฉากจากแอนิเมชันดินน้ำมัน (2009)",
     "author": "Max Sviridov (plastili.com)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg/960px-Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg",
-    "fileName": "Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg",
-    "note": "ผู้สร้างประกาศให้เป็นสาธารณสมบัติเอง (Own work)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -568,20 +845,32 @@
    "th": "แอนิเมชันชิ้นส่วน",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=LaG_EiFX7a0",
+    "start": 20
+   },
+   "credit": {
+    "title": "Terry Gilliam สาธิตแอนิเมชันชิ้นส่วน (Monty Python) — 1974: Terry Gilliam on Cutout Animation",
+    "author": "BBC Archive (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=LaG_EiFX7a0",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=LaG_EiFX7a0",
+    "fileName": "YouTube LaG_EiFX7a0",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Cutout_animation_example_s.png"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "ตัวอย่างชิ้นส่วนตัวละครสำหรับ Cutout Animation",
     "author": "Flash boy (Arabic Wikipedia)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cutout_animation_example_s.png",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Cutout_animation_example_s.png",
-    "fileName": "Cutout animation example s.png",
-    "note": "ผู้สร้างประกาศให้เป็นสาธารณสมบัติเอง",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -590,21 +879,32 @@
    "th": "แอนิเมชันพิกเซล",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=ot7uXNQskhs"
+   },
+   "credit": {
+    "title": "Stardew Valley (2016) — Trailer",
+    "author": "ConcernedApe (ผู้สร้างเกม) (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=ot7uXNQskhs",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=ot7uXNQskhs",
+    "fileName": "YouTube ot7uXNQskhs",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/3/32/Pixel-Art_TAI%D0%AFAUQIT%D0%98A.gif",
     "pixel": true
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Pixel-Art TAIЯAUQITИA — ภาพเคลื่อนไหวพิกเซลอาร์ต (GIF)",
     "author": "Numerobis (pixelplaza.de)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pixel-Art_TAI%D0%AFAUQIT%D0%98A.gif",
     "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/3/32/Pixel-Art_TAI%D0%AFAUQIT%D0%98A.gif",
-    "fileName": "Pixel-Art TAIЯAUQITИA.gif",
-    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) · หากดัดแปลงต้องเผยแพร่ด้วยสัญญาอนุญาตเดียวกัน (เกมนี้แสดงไฟล์ต้นฉบับโดยไม่ดัดแปลง)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
    }
   },
   {
@@ -613,20 +913,31 @@
    "th": "แอนิเมชันวาดตามภาพจริง",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=djV11Xbc914"
+   },
+   "credit": {
+    "title": "a-ha – Take On Me (1985) — MV โรโตสโคปที่โด่งดังที่สุด — Official Video [4K]",
+    "author": "a-ha (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=djV11Xbc914",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=djV11Xbc914",
+    "fileName": "YouTube djV11Xbc914",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/US_patent_1242674_figure_3.png/960px-US_patent_1242674_figure_3.png"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "สิทธิบัตรเครื่อง Rotoscope ของ Max Fleischer (US 1,242,674, ยื่นปี 1915)",
     "author": "Max Fleischer (ภาพประกอบสิทธิบัตร)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_patent_1242674_figure_3.png",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/US_patent_1242674_figure_3.png/960px-US_patent_1242674_figure_3.png",
-    "fileName": "US patent 1242674 figure 3.png",
-    "note": "ภาพประกอบสิทธิบัตรสหรัฐฯ ปี 1917 เป็นสาธารณสมบัติ · ไม่พบคลิปโรโตสโคปที่ยืนยันสิทธิ์ได้ จึงใช้ภาพนิ่ง",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -635,20 +946,31 @@
    "th": "บันทึกการเคลื่อนไหว",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=_zvv3ER2DNw"
+   },
+   "credit": {
+    "title": "Avatar: The Way of Water (2022) — Featurette: Acting in the Volume",
+    "author": "20th Century Studios NL (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=_zvv3ER2DNw",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=_zvv3ER2DNw",
+    "fileName": "YouTube _zvv3ER2DNw",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "image",
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/2010_Motion_Capture_Suit.jpg/960px-2010_Motion_Capture_Suit.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "ชุดบันทึกการเคลื่อนไหว (Motion Capture Suit)",
     "author": "Mbrickn",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:2010_Motion_Capture_Suit.jpg",
     "license": "CC0",
-    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/2010_Motion_Capture_Suit.jpg/960px-2010_Motion_Capture_Suit.jpg",
-    "fileName": "2010 Motion Capture Suit.jpg",
-    "note": "ผู้สร้างสละสิทธิ์ทั้งหมด (CC0)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
    }
   },
   {
@@ -657,21 +979,32 @@
    "th": "กราฟิกเคลื่อนไหว",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=h6fcK_fRYaI"
+   },
+   "credit": {
+    "title": "Kurzgesagt – In a Nutshell — The Egg – A Short Story",
+    "author": "Kurzgesagt – In a Nutshell (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=h6fcK_fRYaI",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=h6fcK_fRYaI",
+    "fileName": "YouTube h6fcK_fRYaI",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "video",
     "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7a/Abstract_Motion_graphics.webm/Abstract_Motion_graphics.webm.480p.vp9.webm",
     "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Abstract_Motion_graphics.webm/960px--Abstract_Motion_graphics.webm.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Abstract Motion (2012) — กราฟิกเคลื่อนไหว",
     "author": "I-Cheng Lee",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Abstract_Motion_graphics.webm",
     "license": "CC BY 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7a/Abstract_Motion_graphics.webm/Abstract_Motion_graphics.webm.480p.vp9.webm",
-    "fileName": "Abstract Motion graphics.webm",
-    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) (เผยแพร่บน Vimeo ด้วย CC BY)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
    }
   },
   {
@@ -680,21 +1013,33 @@
    "th": "ภาพวาดพลิกหน้า",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=7Al-XT_vNms",
+    "start": 30
+   },
+   "credit": {
+    "title": "Andymation — Remaking My Favorite Flipbook 30 Years Later",
+    "author": "Andymation (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=7Al-XT_vNms",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=7Al-XT_vNms",
+    "fileName": "YouTube 7Al-XT_vNms",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "video",
     "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ab/Flip_Book_-_Messi_Example.webm/Flip_Book_-_Messi_Example.webm.480p.vp9.webm",
     "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Flip_Book_-_Messi_Example.webm/330px--Flip_Book_-_Messi_Example.webm.jpg"
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Flip Book example — สมุดภาพพลิกหน้าให้ภาพเคลื่อนไหว",
     "author": "harun uğur",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Flip_Book_-_Messi_Example.webm",
     "license": "CC BY 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ab/Flip_Book_-_Messi_Example.webm/Flip_Book_-_Messi_Example.webm.480p.vp9.webm",
-    "fileName": "Flip Book - Messi Example.webm",
-    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) (เผยแพร่บน YouTube ด้วย CC BY)",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
    }
   },
   {
@@ -703,23 +1048,34 @@
    "th": "แอนิเมชันทราย",
    "group": "animation",
    "media": {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=_pCRomJW5wE"
+   },
+   "credit": {
+    "title": "Kseniya Simonova — Ukraine's Got Talent — Incredible Sand Art (the Winner)",
+    "author": "Sand Artist Kseniya Simonova (ช่อง YouTube)",
+    "sourceUrl": "https://www.youtube.com/watch?v=_pCRomJW5wE",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
+    "licenseUrl": "https://www.youtube.com/t/terms",
+    "status": "embed",
+    "file": "https://www.youtube.com/watch?v=_pCRomJW5wE",
+    "fileName": "YouTube _pCRomJW5wE",
+    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
+    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+   },
+   "fallback": {
     "type": "video",
     "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a3/%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm/%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm.480p.vp9.webm",
     "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm/960px-seek%3D60-%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm.jpg",
     "start": 45,
     "end": 105
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "Кот и петух (แมวกับไก่) — นิทานยูเครน · Сказки на песке #3 (2019)",
     "author": "Телеканал КРТ (KRT TV channel)",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm",
     "license": "CC BY 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a3/%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm/%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm.480p.vp9.webm",
-    "fileName": "Кот и петух – Украинская сказка Сказки на песке -3.webm",
-    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) (เผยแพร่บน YouTube ด้วย CC BY) · เกมเล่นช่วงวินาที 45–105 (ภาพวาดทรายแมวกับไก่) วนซ้ำ ไม่ตัดต่อไฟล์",
-    "checked": "2026-11-18 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
    }
   }
  ]

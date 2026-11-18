@@ -115,11 +115,30 @@ def build():
                 'file': src, 'fileName': fname, 'note': x['note'], 'checked': '2026-11-18 (Wikimedia Commons API)'
             }
         })
+    # ---- ชั้นที่ 2: คลิป YouTube จากช่องทางการ (ภาพ Commons ข้างบนเก็บเป็นภาพสำรองเมื่อเล่นคลิปไม่ได้) ----
+    here0 = os.path.dirname(os.path.abspath(__file__))
+    yt = json.load(open(os.path.join(here0, 'film-youtube.json'), encoding='utf-8'))
+    for c in chars:
+        y = yt[c['id']]
+        c['fallback'] = c['media']
+        oc = c['credit']
+        c['fallbackCredit'] = {k: oc[k] for k in ('title', 'author', 'sourceUrl', 'license', 'licenseUrl')}
+        url = 'https://www.youtube.com/watch?v=' + y['id']
+        c['media'] = {'type': 'youtube', 'src': url}
+        if y.get('start'): c['media']['start'] = y['start']
+        if y.get('end'): c['media']['end'] = y['end']
+        note = 'ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน'
+        if y.get('note'): note = y['note'] + ' · ' + note
+        c['credit'] = {
+            'title': y['film'] + ' — ' + y['what'], 'author': y['channel'] + ' (ช่อง YouTube)', 'sourceUrl': url,
+            'license': 'ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube', 'licenseUrl': 'https://www.youtube.com/t/terms',
+            'status': 'embed', 'file': url, 'fileName': 'YouTube ' + y['id'], 'note': note, 'checked': '2026-11-19 (YouTube IFrame API: embed OK)'
+        }
     theme = {
         'format': 'character-bingo-theme@1', 'id': 'film-animation', 'name': 'Film & Animation Bingo',
         'category': 'Film & Animation', 'display': 'text', 'updatedAt': '2026-11-18T00:00:00Z',
         'description': 'บัตรผู้เล่นแสดงคำภาษาอังกฤษ 16 คำจาก 32 คำ (ประเภทภาพยนตร์ 15 · รูปแบบงาน 6 · เทคนิคแอนิเมชัน 11) จอพิธีกรแสดงภาพ/คลิปจริงพร้อมคำแปลไทย',
-        'creditsNote': 'ภาพและคลิปทั้งหมดมาจาก Wikimedia Commons เป็นสาธารณสมบัติ (Public domain / CC0) หรือใช้สัญญาอนุญาต Creative Commons ที่อนุญาตให้นำไปใช้ซ้ำได้ ตรวจสอบสิทธิ์รายไฟล์เมื่อ 18 พ.ย. 2026 · ไม่มีภาพหรือคลิปที่สร้างด้วย AI · ไฟล์ไม่ได้ถูกคัดลอกมาเก็บในเว็บไซต์นี้ แต่แสดงจาก Wikimedia Commons โดยตรง',
+        'creditsNote': 'คลิปทั้ง 32 รายการเป็นตัวอย่างภาพยนตร์/คลิปจริง ฝังด้วยเครื่องเล่น YouTube จากช่องทางการของสตูดิโอ ผู้จัดจำหน่าย หรือผู้สร้าง (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์นี้ ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงานแต่ละราย · เมื่อไม่มีอินเทอร์เน็ตหรือคลิปเล่นไม่ได้ จะแสดงภาพสำรองจาก Wikimedia Commons (สาธารณสมบัติ/Creative Commons) แทน · ไม่มีภาพหรือคลิปที่สร้างด้วย AI',
         'characters': chars,
     }
     assert len(chars) == 32 and len({c['id'] for c in chars}) == 32

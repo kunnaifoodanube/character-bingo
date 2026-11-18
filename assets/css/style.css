@@ -133,6 +133,12 @@ a.btn { text-decoration: none; display: inline-block; }
 .big-reveal .media.dark { background: #111; }
 .big-reveal .media img, .big-reveal .media video { width: 100%; height: 100%; max-height: none; aspect-ratio: auto; object-fit: contain; display: block; }
 .big-reveal .media img.pixel { image-rendering: pixelated; }
+.big-reveal .media .yt { position: relative; width: 100%; height: 100%; background: #000; }
+.big-reveal .media .yt .yt-p, .big-reveal .media .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.big-reveal .media .yt img { position: absolute; inset: 0; }
+.big-reveal .media .yt-msg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 1.1rem; text-align: center; padding: 1rem; }
+.big-reveal .media .yt-msg.small { inset: auto 0 0 0; background: rgba(0,0,0,.65); color: #fff; font-size: .8rem; padding: .3rem; }
+.big-reveal .sound-btn { position: absolute; bottom: 14px; left: 18px; font-size: .85rem; padding: .3rem .7rem; }
 .big-reveal .credit-btn { position: absolute; bottom: 14px; right: 18px; font-size: .85rem; padding: .3rem .7rem; }
 .big-reveal.textmode.spinning .name { animation: wobble .18s linear infinite; }
 .board.txt { display: flex; flex-wrap: wrap; gap: 4px; }

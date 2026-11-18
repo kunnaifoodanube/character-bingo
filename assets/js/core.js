@@ -86,8 +86,14 @@
   function okMediaSrc(u) { return okImgSrc(u); }
   /** แหล่งภาพ/คลิปที่จะใช้บนจอพิธีกร */
   function mediaSrc(c) { return (c && c.media && c.media.src) || (c && c.img) || ''; }
+  /** รหัสคลิป YouTube จากลิงก์ (watch?v= / youtu.be / embed / shorts) */
+  function youtubeId(u) {
+    var m = String(u || '').match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/);
+    return m ? m[1] : '';
+  }
   function mediaType(c) {
     if (c && c.media && c.media.type) return c.media.type;
+    if (youtubeId(mediaSrc(c))) return 'youtube';
     return /\.(webm|mp4|ogv)(\?|$)/i.test(mediaSrc(c)) ? 'video' : 'image';
   }
 
@@ -97,13 +103,15 @@
   function isText(theme) { return !!theme && theme.display === 'text'; }
   var LICENSE_STATUS = {
     ok: '✅ ตรวจสอบสิทธิ์แล้ว — แสดงในเกมได้',
+    embed: '▶️ ฝังจากช่อง YouTube ทางการ — เล่นผ่าน YouTube ไม่คัดลอกไฟล์',
     'link-only': '🔗 อ้างอิงลิงก์เท่านั้น — ไม่แสดงในเกม',
     pending: '⚠️ ยังไม่ยืนยันสิทธิ์ — ไม่แสดงในเกม'
   };
   /** แสดงสื่อได้ก็ต่อเมื่อมีสื่อ และ (ไม่มีข้อมูลเครดิต = ภาพของผู้ใช้เอง) หรือสถานะ ok เท่านั้น */
   function mediaAllowed(c) {
     if (!mediaSrc(c)) return false;
-    return !(c.credit && c.credit.status && c.credit.status !== 'ok');
+    var st = c.credit && c.credit.status;
+    return !st || st === 'ok' || st === 'embed';
   }
   /** เนื้อหาในช่องบัตร 4×4 (ผู้เล่น / ตรวจบัตร / ตัวอย่าง) */
   function cellInner(theme, c) {
@@ -137,16 +145,19 @@
     row('แหล่งที่มา', link(cr.sourceUrl));
     row('สัญญาอนุญาต', cr.license ? link(cr.licenseUrl, cr.license) : '');
     row('สถานะสิทธิ์', esc(LICENSE_STATUS[cr.status] || (cr.status ? cr.status : (mediaSrc(c) ? 'ภาพที่ผู้ดูแลอัปโหลดเอง' : 'ไม่มีสื่อ'))));
-    row('ไฟล์ที่ใช้ในเกม', cr.status === 'ok' || !cr.status ? link(cr.file || (mediaSrc(c).indexOf('data:') === 0 ? '' : mediaSrc(c)), cr.fileName || '') : '—');
+    row('ไฟล์ที่ใช้ในเกม', cr.status === 'ok' || cr.status === 'embed' || !cr.status ? link(cr.file || (mediaSrc(c).indexOf('data:') === 0 ? '' : mediaSrc(c)), cr.fileName || '') : '—');
     row('หมายเหตุ', esc(cr.note));
+    var fc = c.fallbackCredit;
+    if (fc) row('ภาพสำรอง (ใช้เมื่อเล่นคลิปไม่ได้)', esc(fc.title) + (fc.author ? ' · ' + esc(fc.author) : '') + (fc.license ? ' · ' + link(fc.licenseUrl, fc.license) : '') + (fc.sourceUrl ? ' · ' + link(fc.sourceUrl, 'ที่มา') : ''));
     return '<table class="credit">' + rows.join('') + '</table>';
   }
   function creditsListHtml(theme) {
     return '<div class="credits">' + theme.characters.map(function (c, i) {
       var ok = mediaAllowed(c), src = mediaSrc(c), mt = mediaType(c);
-      var thumb = ok ? (mt === 'video' ? ((c.media && c.media.poster) || '') : src) : '';
+      var yt = mt === 'youtube' ? youtubeId(src) : '';
+      var thumb = ok ? (yt ? 'https://i.ytimg.com/vi/' + yt + '/mqdefault.jpg' : mt === 'video' ? ((c.media && c.media.poster) || '') : src) : '';
       return '<div class="cr-item"><div class="cr-th">' + (thumb ? '<img loading="lazy" alt="" src="' + esc(thumb) + '">' : '<span class="muted small">' + (src ? 'ไม่แสดง' : 'ไม่มีสื่อ') + '</span>') +
-        (ok && mt === 'video' ? '<span class="cr-v">คลิป</span>' : '') + '</div><div class="cr-tx"><div class="small muted">#' + (i + 1) + '</div>' + creditHtml(c) + '</div></div>';
+        (ok && mt === 'video' ? '<span class="cr-v">คลิป</span>' : '') + (ok && yt ? '<span class="cr-v">YouTube</span>' : '') + '</div><div class="cr-tx"><div class="small muted">#' + (i + 1) + '</div>' + creditHtml(c) + '</div></div>';
     }).join('') + '</div>';
   }
 
@@ -395,7 +406,7 @@
     fnv1a: fnv1a, mulberry32: mulberry32, damm: damm, formatCode: formatCode, parseCode: parseCode,
     fingerprint: fingerprint, validateTheme: validateTheme, generateCard: generateCard,
     linesFromMarks: linesFromMarks, verifyCard: verifyCard, PATTERNS: PATTERNS, patternAtDraw: patternAtDraw, missingFor: missingFor, checkCardSet: checkCardSet,
-    mediaSrc: mediaSrc, mediaType: mediaType, isText: isText, mediaAllowed: mediaAllowed, cellInner: cellInner, fitWords: fitWords, creditHtml: creditHtml, creditsListHtml: creditsListHtml, LICENSE_STATUS: LICENSE_STATUS, randomInt: randomInt, encodeSync: encodeSync, decodeSync: decodeSync, randomPhoneCardNumber: randomPhoneCardNumber, drawNext: drawNext, charMap: charMap,
+    mediaSrc: mediaSrc, mediaType: mediaType, youtubeId: youtubeId, isText: isText, mediaAllowed: mediaAllowed, cellInner: cellInner, fitWords: fitWords, creditHtml: creditHtml, creditsListHtml: creditsListHtml, LICENSE_STATUS: LICENSE_STATUS, randomInt: randomInt, encodeSync: encodeSync, decodeSync: decodeSync, randomPhoneCardNumber: randomPhoneCardNumber, drawNext: drawNext, charMap: charMap,
     store: store, fetchJSON: fetchJSON, loadThemeIndex: loadThemeIndex, loadTheme: loadTheme,
     registerSW: registerSW, esc: esc
   };

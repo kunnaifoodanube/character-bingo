@@ -213,22 +213,24 @@ test('Film & Animation: 32 คำครบตามรายการ ผ่า�
   film.characters.forEach(c => assert.ok(c.th && c.th.trim(), 'ไม่มีคำแปล: ' + c.name));
 });
 
-test('Film & Animation: ทุกสื่อมีเครดิตครบ สถานะตรวจสิทธิ์แล้ว และมาจาก Wikimedia Commons เท่านั้น', () => {
+test('Film & Animation: ทุกคำเป็นคลิป YouTube จากช่องที่เปิดให้ฝัง มีเครดิตครบ และมีภาพสำรองจาก Wikimedia Commons', () => {
   const okLic = /^(Public domain|CC0|CC BY 2\.0|CC BY 3\.0|CC BY-SA 3\.0|CC BY-SA 4\.0)$/;
+  const ids = new Set();
   film.characters.forEach(c => {
     const cr = c.credit;
-    assert.ok(cr, 'ไม่มีเครดิต ' + c.name);
-    for (const k of ['title', 'author', 'sourceUrl', 'license', 'licenseUrl', 'status', 'file', 'fileName']) assert.ok(cr[k], c.name + ' ไม่มี ' + k);
-    assert.equal(cr.status, 'ok');
-    assert.match(cr.license, okLic, c.name);
-    assert.match(cr.sourceUrl, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
-    assert.match(B.mediaSrc(c), /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//, c.name);
-    assert.equal(cr.file, B.mediaSrc(c));
+    for (const k of ['title', 'author', 'sourceUrl', 'license', 'licenseUrl', 'status', 'file']) assert.ok(cr[k], c.name + ' ไม่มี ' + k);
+    assert.equal(cr.status, 'embed');
+    assert.equal(B.mediaType(c), 'youtube');
+    const id = B.youtubeId(B.mediaSrc(c)); assert.match(id, /^[\w-]{11}$/); ids.add(id);
     assert.ok(B.mediaAllowed(c));
-    if (B.mediaType(c) === 'video') { assert.match(c.media.src, /\.webm$/); assert.match(c.media.poster, /^https:\/\/upload\.wikimedia\.org\//); }
+    assert.equal(cr.sourceUrl, 'https://www.youtube.com/watch?v=' + id);
+    // ภาพสำรองเมื่อออฟไลน์: ต้องเป็นสื่อเสรีจาก Commons เท่านั้น
+    const f = c.fallback, fc = c.fallbackCredit;
+    assert.ok(f && fc, 'ไม่มีภาพสำรอง ' + c.name);
+    assert.match(f.type === 'video' ? f.poster : f.src, /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//);
+    assert.match(fc.license, okLic); assert.match(fc.sourceUrl, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
   });
-  const vids = film.characters.filter(c => B.mediaType(c) === 'video').map(c => c.name).sort();
-  assert.deepEqual(vids, ['Flipbook', 'Motion Graphics', 'Romance', 'Sand Animation', 'Slow Motion', 'Stop Motion', 'Time-Lapse']);
+  assert.equal(ids.size, 32, 'คลิปซ้ำกัน');
 });
 
 test('Film & Animation: สื่อที่ยังไม่ยืนยันสิทธิ์จะไม่ถูกแสดง', () => {
@@ -239,6 +241,9 @@ test('Film & Animation: สื่อที่ยังไม่ยืนยั�
   assert.match(B.validateTheme(t).warnings.join(), /ยังไม่ยืนยันสิทธิ์/);
   const own = { id: 'x', name: 'X', img: 'data:image/png;base64,AAAA' }; // ภาพที่อัปโหลดเองในชุดภาพปกติ
   assert.equal(B.mediaAllowed(own), true);
+  assert.equal(B.youtubeId('https://youtu.be/hEJnMQG9ev8?t=4'), 'hEJnMQG9ev8');
+  assert.equal(B.youtubeId('https://www.youtube.com/shorts/hEJnMQG9ev8'), 'hEJnMQG9ev8');
+  assert.equal(B.youtubeId('https://example.com/watch?v=hEJnMQG9ev8'), '');
 });
 
 test('Film & Animation: บัตรผู้เล่นมี 16 คำไม่ซ้ำ เป็นข้อความอย่างเดียว และ 10,000 บัตรไม่มีบัตรซ้ำ', () => {

@@ -124,6 +124,8 @@
     var urls = [];
     t.characters.forEach(function (c) {
       if (!B.mediaAllowed(c)) return;
+      if (c.fallback) { var f = c.fallback; urls.push(f.type === 'video' ? f.poster : f.src); }
+      if (B.mediaType(c) === 'youtube') { urls.push('https://i.ytimg.com/vi/' + B.youtubeId(B.mediaSrc(c)) + '/hqdefault.jpg'); return; }
       if (B.mediaType(c) === 'video') { if (c.media && c.media.poster) urls.push(c.media.poster); }
       else if (/^https:/.test(B.mediaSrc(c))) urls.push(B.mediaSrc(c));
     });
@@ -158,7 +160,7 @@
     var text = B.isText(theme);
     $('reveal').classList.toggle('textmode', text);
     if (last && chars[last]) showBig(chars[last], noAnim); else if (!spinning) {
-      $('bigMedia').classList.add('hidden'); $('bigMedia').innerHTML = ''; shownId = null;
+      stopYT(); $('bigMedia').classList.add('hidden'); $('bigMedia').innerHTML = ''; shownId = null;
       $('bigName').textContent = ''; $('btnCredit').classList.add('hidden'); $('placeholder').classList.remove('hidden');
       $('placeholder').textContent = 'กด “สุ่มตัวถัดไป” เพื่อเริ่ม';
     }
@@ -180,8 +182,61 @@
   }
   // ---------- สื่อบนจอใหญ่ (ภาพ / คลิป) ----------
   var shownId = null, preloaded = {};
+  // ---------- คลิป YouTube (ฝังจากช่องทางการ) ----------
+  var ytApi = null, ytPlayer = null;
+  function loadYT() {
+    if (ytApi) return ytApi;
+    ytApi = new Promise(function (res, rej) {
+      if (window.YT && window.YT.Player) { res(window.YT); return; }
+      var prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = function () { if (prev) prev(); res(window.YT); };
+      var sc = document.createElement('script'); sc.src = 'https://www.youtube.com/iframe_api';
+      sc.onerror = function () { rej(new Error('yt')); };
+      document.head.appendChild(sc);
+      setTimeout(function () { rej(new Error('timeout')); }, 9000);
+    });
+    ytApi.catch(function () { ytApi = null; }); // ลองใหม่ได้เมื่อเน็ตกลับมา
+    return ytApi;
+  }
+  function stopYT() { if (ytPlayer) { try { ytPlayer.destroy(); } catch (e) { /* */ } ytPlayer = null; } $('btnSound').classList.add('hidden'); }
+  function fallbackHtml(c, why) {
+    var f = c.fallback, src = f && (f.type === 'video' ? f.poster : f.src);
+    return (src ? '<img alt="" src="' + esc(src) + '">' : '') + '<div class="yt-msg' + (src ? ' small' : '') + '">' + esc(why) + '</div>';
+  }
+  function ytNode(c) {
+    var m = c.media || {}, id = B.youtubeId(m.src), wrap = document.createElement('div');
+    wrap.className = 'yt';
+    wrap.innerHTML = '<div class="yt-msg">กำลังโหลดคลิป…</div><div class="yt-p"></div>';
+    wrap._start = function () {
+      loadYT().then(function (YT) {
+        if (!wrap.isConnected) return;
+        var st = +m.start || 0, en = +m.end || 0, vars = { autoplay: 1, mute: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1, iv_load_policy: 3, disablekb: 1, fs: 0, start: st };
+        if (en) vars.end = en;
+        stopYT();
+        ytPlayer = new YT.Player(wrap.querySelector('.yt-p'), {
+          width: '100%', height: '100%', videoId: id, playerVars: vars,
+          events: {
+            onReady: function (e) { e.target.mute(); e.target.playVideo(); $('btnSound').classList.remove('hidden'); $('btnSound').textContent = '🔇 เปิดเสียง'; },
+            onStateChange: function (e) {
+              if (e.data === 1) wrap.classList.add('playing');
+              if (e.data === 0) { e.target.seekTo(st, true); e.target.playVideo(); } // จบช่วง → วนกลับ
+            },
+            onError: function () { if (wrap.isConnected) { stopYT(); wrap.innerHTML = fallbackHtml(c, 'คลิป YouTube เล่นไม่ได้ในตอนนี้'); } }
+          }
+        });
+      }).catch(function () { if (wrap.isConnected) wrap.innerHTML = fallbackHtml(c, 'ต้องต่ออินเทอร์เน็ตเพื่อเล่นคลิป YouTube'); });
+    };
+    return wrap;
+  }
+  $('btnSound').addEventListener('click', function () {
+    if (!ytPlayer || !ytPlayer.isMuted) return;
+    if (ytPlayer.isMuted()) { ytPlayer.unMute(); ytPlayer.setVolume(80); this.textContent = '🔊 ปิดเสียง'; }
+    else { ytPlayer.mute(); this.textContent = '🔇 เปิดเสียง'; }
+  });
+
   function mediaNode(c) {
     var src = B.mediaSrc(c), m = c.media || {};
+    if (B.mediaType(c) === 'youtube') return ytNode(c);
     if (B.mediaType(c) === 'video') {
       var v = document.createElement('video');
       v.muted = true; v.defaultMuted = true; v.autoplay = true; v.playsInline = true; v.preload = 'auto';
@@ -203,7 +258,11 @@
     if (m.pixel) img.className = 'pixel';
     return img;
   }
-  function preload(c) { if (c && B.mediaAllowed(c) && !preloaded[c.id]) preloaded[c.id] = mediaNode(c); }
+  function preload(c) {
+    if (!c || !B.mediaAllowed(c) || preloaded[c.id]) return;
+    if (B.mediaType(c) === 'youtube') { loadYT().catch(function () { }); return; } // YouTube สร้างตอนแสดงจริง
+    preloaded[c.id] = mediaNode(c);
+  }
   function nameHtml(c) {
     return '<span class="en">' + esc(c.name) + '</span>' + (B.isText(theme) && c.th ? '<span class="sep"> — </span><span class="th">' + esc(c.th) + '</span>' : '');
   }
@@ -212,10 +271,11 @@
     var box = $('bigMedia'), text = B.isText(theme);
     box.classList.toggle('dark', text);
     if (shownId !== c.id) {
-      box.innerHTML = '';
+      stopYT(); box.innerHTML = '';
       if (B.mediaAllowed(c)) {
         var node = preloaded[c.id] || mediaNode(c); delete preloaded[c.id];
         box.appendChild(node); box.classList.remove('hidden');
+        if (node._start) node._start();
         if (node.play) { var p = node.play(); if (p && p.catch) p.catch(function () { }); }
       } else box.classList.add('hidden');
       shownId = c.id;
@@ -252,7 +312,7 @@
     var r = $('reveal'), box = $('bigMedia'), nm = $('bigName'), text = B.isText(theme), img = null;
     preload(chars[next]); // โหลดสื่อของตัวที่ออกระหว่างแอนิเมชัน
     $('placeholder').classList.add('hidden'); $('btnCredit').classList.add('hidden');
-    shownId = null; box.innerHTML = '';
+    shownId = null; stopYT(); box.innerHTML = '';
     if (text) box.classList.add('hidden');
     else { img = new Image(); img.alt = ''; box.appendChild(img); box.classList.remove('hidden'); box.classList.remove('dark'); }
     r.classList.add('spinning'); r.classList.remove('revealed');
@@ -435,5 +495,5 @@
   window.addEventListener('beforeunload', function (e) { if (busy) { e.preventDefault(); e.returnValue = ''; } });
 
   // สำหรับการทดสอบอัตโนมัติ
-  window.__host = { openCredits: openCredits, shownId: function () { return shownId; }, state: function () { return S; }, theme: function () { return theme; }, busy: function () { return busy; }, syncText: function () { return syncText(); } };
+  window.__host = { ytPlayer: function () { return ytPlayer; }, openCredits: openCredits, shownId: function () { return shownId; }, state: function () { return S; }, theme: function () { return theme; }, busy: function () { return busy; }, syncText: function () { return syncText(); } };
 })();

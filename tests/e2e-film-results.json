@@ -3,7 +3,7 @@
   {
    "name": "F1. ผู้เล่น Android Pixel 7 (412px): บัตร 4×4 เป็นคำภาษาอังกฤษล้วน ไม่มีภาพ/คำแปล ตัวอักษรไม่ถูกตัด",
    "ok": true,
-   "detail": "บัตร 20005-3 · ตัวอักษรเล็กสุด 13.1px · ตัดคำพร้อมขีด [] · ถูกตัดผิด [] · ตัวอย่าง ['Adventure', 'Action', 'Sand Animation', 'Sports']"
+   "detail": "บัตร 47402-2 · ตัวอักษรเล็กสุด 13.1px · ตัดคำพร้อมขีด [] · ถูกตัดผิด [] · ตัวอย่าง ['Music Video', 'Fantasy', 'Horror', 'Disaster']"
   },
   {
    "name": "F1b. ผู้เล่น Android Pixel 7 (412px): แตะทำเครื่องหมาย/ยกเลิกได้",
@@ -13,7 +13,7 @@
   {
    "name": "F1. ผู้เล่น Android จอเล็ก 360px: บัตร 4×4 เป็นคำภาษาอังกฤษล้วน ไม่มีภาพ/คำแปล ตัวอักษรไม่ถูกตัด",
    "ok": true,
-   "detail": "บัตร 83463-9 · ตัวอักษรเล็กสุด 11.0px · ตัดคำพร้อมขีด [] · ถูกตัดผิด [] · ตัวอย่าง ['Comedy', 'Silent Film', 'Documentary', 'War']"
+   "detail": "บัตร 38684-3 · ตัวอักษรเล็กสุด 13.0px · ตัดคำพร้อมขีด [] · ถูกตัดผิด [] · ตัวอย่าง ['Crime', '2D Animation', 'Adventure', 'Music Video']"
   },
   {
    "name": "F1b. ผู้เล่น Android จอเล็ก 360px: แตะทำเครื่องหมาย/ยกเลิกได้",
@@ -23,7 +23,7 @@
   {
    "name": "F1. ผู้เล่น Android จอเล็กมาก 320px: บัตร 4×4 เป็นคำภาษาอังกฤษล้วน ไม่มีภาพ/คำแปล ตัวอักษรไม่ถูกตัด",
    "ok": true,
-   "detail": "บัตร 99689-6 · ตัวอักษรเล็กสุด 11.6px · ตัดคำพร้อมขีด [] · ถูกตัดผิด [] · ตัวอย่าง ['Sports', 'Comedy', '3D Animation', 'Cutout Animation']"
+   "detail": "บัตร 25462-9 · ตัวอักษรเล็กสุด 12.1px · ตัดคำพร้อมขีด [] · ถูกตัดผิด [] · ตัวอย่าง ['Sports', 'Music Video', 'Zombie', 'Cutout Animation']"
   },
   {
    "name": "F1b. ผู้เล่น Android จอเล็กมาก 320px: แตะทำเครื่องหมาย/ยกเลิกได้",
@@ -33,7 +33,7 @@
   {
    "name": "F1. ผู้เล่น iPhone 13 (จำลองขนาด): บัตร 4×4 เป็นคำภาษาอังกฤษล้วน ไม่มีภาพ/คำแปล ตัวอักษรไม่ถูกตัด",
    "ok": true,
-   "detail": "บัตร 81295-9 · ตัวอักษรเล็กสุด 14.7px · ตัดคำพร้อมขีด [] · ถูกตัดผิด [] · ตัวอย่าง ['Fantasy', 'Music Video', 'Slow Motion', 'Motion Capture']"
+   "detail": "บัตร 14638-9 · ตัวอักษรเล็กสุด 12.2px · ตัดคำพร้อมขีด [] · ถูกตัดผิด [] · ตัวอย่าง ['War', 'Zombie', 'Disaster', 'Romance']"
   },
   {
    "name": "F1b. ผู้เล่น iPhone 13 (จำลองขนาด): แตะทำเครื่องหมาย/ยกเลิกได้",
@@ -46,24 +46,24 @@
    "detail": "published:film-animation"
   },
   {
-   "name": "F2b. สุ่ม 1 คำ → จอใหญ่แสดงสื่อของคำนั้น + “English — ไทย” + ปุ่มเครดิต ไม่ล้นจอ 1366×768",
+   "name": "F2b. สุ่ม 1 คำ → จอใหญ่เล่นคลิป YouTube ของคำนั้น + “English — ไทย” + ปุ่มเครดิต ไม่ล้นจอ 1366×768",
    "ok": true,
-   "detail": "Cutout Animation → IMG 419×419px object-fit:contain · \"Cutout Animation — แอนิเมชันชิ้นส่วน\""
+   "detail": "Fantasy → YouTube l91Km49W9qI (ปิดเสียงเริ่มต้น มีปุ่มเปิดเสียง) กรอบ 419×419px · \"Fantasy — แฟนตาซี\""
   },
   {
    "name": "F2c. ปุ่ม “เครดิตภาพนี้” แสดงชื่อผลงาน ผู้สร้าง ลิงก์ที่มา สัญญาอนุญาต สถานะ และไฟล์ที่ใช้",
    "ok": true,
-   "detail": "Public domain · https://commons.wikimedia.org/wiki/File:Cutout_animation_example_s.png"
+   "detail": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube · https://www.youtube.com/watch?v=l91Km49W9qI"
   },
   {
-   "name": "F2d. ปุ่ม “เครดิต / แหล่งภาพ” แสดงครบ 32 รายการ ทุกรายการตรวจสิทธิ์แล้ว",
+   "name": "F2d. ปุ่ม “เครดิต / แหล่งภาพ” แสดงครบ 32 รายการ ทุกรายการมีช่องที่มา + ภาพปก",
    "ok": true,
-   "detail": "32 รายการ · ตรวจแล้ว 32"
+   "detail": "32 รายการ · ครบ 32"
   },
   {
-   "name": "F2e. คลิป 7 คำ (Romance, Time-Lapse, Slow Motion, Stop Motion, Motion Graphics, Flipbook, Sand Animation) เล่นอัตโนมัติ ไม่มีเสียง มีภาพปก",
+   "name": "F2e. ทั้ง 32 คำเล่นคลิป YouTube ที่ถูกต้อง (ปิดเสียงเริ่มต้น) และกำหนดช่วงเริ่ม/จบได้ · เครื่องเล่นเก่าถูกปิดทุกครั้ง ไม่ซ้อนกัน",
    "ok": true,
-   "detail": "sand-animation:VIDEO ready=4 paused=False, time-lapse:VIDEO ready=4 paused=False, stop-motion:VIDEO ready=4 paused=False, romance:VIDEO ready=4 paused=False, slow-motion:VIDEO ready=4 paused=False, flipbook:VIDEO ready=4 paused=False, motion-graphics:VIDEO ready=4 paused=False"
+   "detail": "ถูกต้อง 32/32 · เครื่องเล่นที่ยังเปิดอยู่ 1 · Slow Motion start=150 end=230"
   },
   {
    "name": "F2f. สุ่มครบ 32 คำ ไม่ซ้ำ และปุ่มสุ่มปิด",
@@ -76,19 +76,24 @@
    "detail": "691×691"
   },
   {
-   "name": "F2h. สื่อทั้งหมดโหลดจาก upload.wikimedia.org/wikipedia/commons เท่านั้น",
+   "name": "F2h. ไม่โหลดสื่อจากแหล่งอื่นนอกจาก YouTube (เครื่องเล่น/ภาพปก) และ Wikimedia Commons (ภาพสำรอง)",
    "ok": true,
-   "detail": "39 คำขอ"
+   "detail": "77 คำขอ · อื่น ๆ []"
+  },
+  {
+   "name": "F2i. ไม่มีอินเทอร์เน็ต/YouTube ถูกบล็อก → จอใหญ่แสดงภาพสำรองจาก Wikimedia พร้อมข้อความแจ้ง",
+   "ok": true,
+   "detail": "cutout-animation: ต้องต่ออินเทอร์เน็ตเพื่อเล่นคลิป YouTube"
   },
   {
    "name": "F3a. สุ่มครบแล้ว → ตรวจบัตรผู้เล่นได้ ✅ และช่องในหน้าตรวจเป็นคำ (ไม่มีภาพ)",
    "ok": true,
-   "detail": "บัตร 32986-8 · บัตรมือถือ · ชุด Film & Animation Bingo"
+   "detail": "บัตร 15683-2 · บัตรมือถือ · ชุด Film & Animation Bingo"
   },
   {
    "name": "F3b. ผู้เล่นแตะครบแถวเองแต่พิธีกรยังไม่เรียกครบ → ตรวจแล้ว ❌ (ใช้ประวัติพิธีกรเท่านั้น)",
    "ok": true,
-   "detail": "บัตร 32986-8 · บัตรมือถือ · ชุด Film & Animation Bingo"
+   "detail": "บัตร 15683-2 · บัตรมือถือ · ชุด Film & Animation Bingo"
   },
   {
    "name": "F4a. Admin: เปิดชุดคำศัพท์ แก้คำแปล ตั้งสถานะสิทธิ์ เพิ่ม/ลบคำได้ · สื่อที่ยังไม่ยืนยันสิทธิ์ถูกทำเครื่องหมายว่าไม่แสดง และบังคับกรอกสัญญาอนุญาตก่อนตั้ง “ตรวจแล้ว”",
