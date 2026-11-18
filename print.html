@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex">
   <title>พิมพ์บัตรบิงโกสำรอง — Character Bingo</title>
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/style.css?v=1.1.2">
+  <link rel="stylesheet" href="assets/css/style.css?v=1.2.0">
   <style>
     @page { size: A4 portrait; margin: 8mm; }
     .sheet { background: #fff; width: 194mm; margin: 0 auto 10mm; box-shadow: var(--shadow); }
@@ -29,7 +29,9 @@
     .slips { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(6, 1fr); gap: 0; }
     .slips div { border: .3mm dashed #888; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2mm; }
     .slips img { width: 26mm; height: 26mm; object-fit: contain; }
-    .slips span { font-weight: 800; font-size: 11pt; }
+    .slips span { font-weight: 800; font-size: 11pt; text-align: center; }
+    .slips div.txt span { font-size: 15pt; line-height: 1.15; } .slips small, .call small { font-weight: 500; font-size: .75em; }
+    .pgrid.txt span { font-size: 12pt; line-height: 1.15; word-break: break-word; } .per4 .pgrid.txt span { font-size: 9pt; }
     .call { display: block; }
     .call table { width: 100%; border-collapse: collapse; font-size: 10.5pt; }
     .call td, .call th { border: .3mm solid #999; padding: 1.2mm 2mm; }
@@ -69,9 +71,9 @@
   </div>
   <div class="sheet" id="out"></div>
   <div id="modalRoot"></div>
-  <script src="assets/js/core.js?v=1.1.2"></script>
-  <script src="assets/js/ui.js?v=1.1.2"></script>
-  <script src="assets/js/themes-local.js?v=1.1.2"></script>
-  <script src="assets/js/print.js?v=1.1.2"></script>
+  <script src="assets/js/core.js?v=1.2.0"></script>
+  <script src="assets/js/ui.js?v=1.2.0"></script>
+  <script src="assets/js/themes-local.js?v=1.2.0"></script>
+  <script src="assets/js/print.js?v=1.2.0"></script>
 </body>
 </html>

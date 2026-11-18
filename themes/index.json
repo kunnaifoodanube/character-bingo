@@ -1,7 +1,13 @@
 {
   "format": "character-bingo-index@1",
-  "default": "sample-monsters",
+  "default": "film-animation",
   "themes": [
+    {
+      "id": "film-animation",
+      "name": "Film & Animation Bingo",
+      "category": "Film & Animation",
+      "file": "film-animation.json"
+    },
     {
       "id": "sample-monsters",
       "name": "มอนสเตอร์ขนม (ชุดตัวอย่าง)",

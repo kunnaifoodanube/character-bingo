@@ -1,0 +1,726 @@
+{
+ "format": "character-bingo-theme@1",
+ "id": "film-animation",
+ "name": "Film & Animation Bingo",
+ "category": "Film & Animation",
+ "display": "text",
+ "updatedAt": "2026-11-18T00:00:00Z",
+ "description": "บัตรผู้เล่นแสดงคำภาษาอังกฤษ 16 คำจาก 32 คำ (ประเภทภาพยนตร์ 15 · รูปแบบงาน 6 · เทคนิคแอนิเมชัน 11) จอพิธีกรแสดงภาพ/คลิปจริงพร้อมคำแปลไทย",
+ "creditsNote": "ภาพและคลิปทั้งหมดมาจาก Wikimedia Commons เป็นสาธารณสมบัติ (Public domain / CC0) หรือใช้สัญญาอนุญาต Creative Commons ที่อนุญาตให้นำไปใช้ซ้ำได้ ตรวจสอบสิทธิ์รายไฟล์เมื่อ 18 พ.ย. 2026 · ไม่มีภาพหรือคลิปที่สร้างด้วย AI · ไฟล์ไม่ได้ถูกคัดลอกมาเก็บในเว็บไซต์นี้ แต่แสดงจาก Wikimedia Commons โดยตรง",
+ "characters": [
+  {
+   "id": "action",
+   "name": "Action",
+   "th": "แอ็กชัน / ฉากไล่ล่า",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Buster_Keaton_on_the_cow-catcher_in_The_General.jpg/960px-Buster_Keaton_on_the_cow-catcher_in_The_General.jpg"
+   },
+   "credit": {
+    "title": "The General (1926) — Buster Keaton บนหัวรถจักรระหว่างฉากไล่ล่า",
+    "author": "Buster Keaton Productions",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Buster_Keaton_on_the_cow-catcher_in_The_General.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Buster_Keaton_on_the_cow-catcher_in_The_General.jpg/960px-Buster_Keaton_on_the_cow-catcher_in_The_General.jpg",
+    "fileName": "Buster Keaton on the cow-catcher in The General.jpg",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "comedy",
+   "name": "Comedy",
+   "th": "ตลก",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Chaplin_The_Kid_edit.jpg/960px-Chaplin_The_Kid_edit.jpg"
+   },
+   "credit": {
+    "title": "The Kid (1921) — Charlie Chaplin และ Jackie Coogan",
+    "author": "ไม่ทราบช่างภาพ (Charles Chaplin Productions)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chaplin_The_Kid_edit.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Chaplin_The_Kid_edit.jpg/960px-Chaplin_The_Kid_edit.jpg",
+    "fileName": "Chaplin The Kid edit.jpg",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "horror",
+   "name": "Horror",
+   "th": "สยองขวัญ",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Nosferatu_%281922%29_-_Count_Orlok_Standing_In_A_Wooden_Doorway.png/960px-Nosferatu_%281922%29_-_Count_Orlok_Standing_In_A_Wooden_Doorway.png"
+   },
+   "credit": {
+    "title": "Nosferatu (1922) — Count Orlok ยืนที่ประตู",
+    "author": "F. W. Murnau / Henrik Galeen",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nosferatu_%281922%29_-_Count_Orlok_Standing_In_A_Wooden_Doorway.png",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Nosferatu_%281922%29_-_Count_Orlok_Standing_In_A_Wooden_Doorway.png/960px-Nosferatu_%281922%29_-_Count_Orlok_Standing_In_A_Wooden_Doorway.png",
+    "fileName": "Nosferatu (1922) - Count Orlok Standing In A Wooden Doorway.png",
+    "note": "งานเก่ากว่า 50 ปี พ้นอายุคุ้มครองตาม พ.ร.บ.ลิขสิทธิ์ไทย และ Commons ระบุเป็นสาธารณสมบัติ (ผู้กำกับเสียชีวิต 1931, ผู้เขียนบทเสียชีวิต 1949)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "romance",
+   "name": "Romance",
+   "th": "โรแมนติก",
+   "group": "genre",
+   "media": {
+    "type": "video",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1e/May_Irwin_Kiss.webm/May_Irwin_Kiss.webm.480p.vp9.webm",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/May_Irwin_Kiss.webm/500px--May_Irwin_Kiss.webm.jpg"
+   },
+   "credit": {
+    "title": "The Kiss / May Irwin Kiss (1896) — หนังฉากจูบเรื่องแรก ๆ ของโลก",
+    "author": "William Heise (Edison Manufacturing Co.)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:May_Irwin_Kiss.webm",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1e/May_Irwin_Kiss.webm/May_Irwin_Kiss.webm.480p.vp9.webm",
+    "fileName": "May Irwin Kiss.webm",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "sci-fi",
+   "name": "Sci-Fi",
+   "th": "วิทยาศาสตร์จินตนาการ",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Le_voyage_dans_la_lune_drawing.jpg"
+   },
+   "credit": {
+    "title": "A Trip to the Moon / Le Voyage dans la Lune (1902) — ภาพวาดจรวดชนดวงจันทร์",
+    "author": "Georges Méliès",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Le_voyage_dans_la_lune_drawing.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Le_voyage_dans_la_lune_drawing.jpg",
+    "fileName": "Le voyage dans la lune drawing.jpg",
+    "note": "งานเก่ากว่า 50 ปี พ้นอายุคุ้มครองตาม พ.ร.บ.ลิขสิทธิ์ไทย และ Commons ระบุเป็นสาธารณสมบัติ (ผู้สร้างเสียชีวิต 1938)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "fantasy",
+   "name": "Fantasy",
+   "th": "แฟนตาซี",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/0/07/Alice_in_Wonderland_1903_film_tea_party.jpg"
+   },
+   "credit": {
+    "title": "Alice in Wonderland (1903) — ฉากงานเลี้ยงน้ำชา",
+    "author": "Cecil M. Hepworth & Percy Stow",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alice_in_Wonderland_1903_film_tea_party.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/0/07/Alice_in_Wonderland_1903_film_tea_party.jpg",
+    "fileName": "Alice in Wonderland 1903 film tea party.jpg",
+    "note": "งานเก่ากว่า 50 ปี พ้นอายุคุ้มครองตาม พ.ร.บ.ลิขสิทธิ์ไทย และ Commons ระบุเป็นสาธารณสมบัติ",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "adventure",
+   "name": "Adventure",
+   "th": "ผจญภัย",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/The_Lost_World_%281925%29_2.jpg/960px-The_Lost_World_%281925%29_2.jpg"
+   },
+   "credit": {
+    "title": "The Lost World (1925) — นักสำรวจกับไดโนเสาร์ในดินแดนลึกลับ",
+    "author": "First National Pictures (ภาพจากภาพยนตร์)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Lost_World_%281925%29_2.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/The_Lost_World_%281925%29_2.jpg/960px-The_Lost_World_%281925%29_2.jpg",
+    "fileName": "The Lost World (1925) 2.jpg",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "musical",
+   "name": "Musical",
+   "th": "ภาพยนตร์เพลง",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Publicity_still_for_The_Broadway_Melody_%281929%29_03.jpg/960px-Publicity_still_for_The_Broadway_Melody_%281929%29_03.jpg"
+   },
+   "credit": {
+    "title": "The Broadway Melody (1929) — ภาพประชาสัมพันธ์ ภาพยนตร์เพลงเรื่องแรกที่ได้ออสการ์",
+    "author": "Employee(s) of MGM",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Publicity_still_for_The_Broadway_Melody_%281929%29_03.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Publicity_still_for_The_Broadway_Melody_%281929%29_03.jpg/960px-Publicity_still_for_The_Broadway_Melody_%281929%29_03.jpg",
+    "fileName": "Publicity still for The Broadway Melody (1929) 03.jpg",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "sports",
+   "name": "Sports",
+   "th": "ภาพยนตร์กีฬา",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Publicity_still_for_Battling_Butler_%281926%29_05.jpg/960px-Publicity_still_for_Battling_Butler_%281926%29_05.jpg"
+   },
+   "credit": {
+    "title": "Battling Butler (1926) — ฉากชกมวย",
+    "author": "Employee(s) of MGM",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Publicity_still_for_Battling_Butler_%281926%29_05.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Publicity_still_for_Battling_Butler_%281926%29_05.jpg/960px-Publicity_still_for_Battling_Butler_%281926%29_05.jpg",
+    "fileName": "Publicity still for Battling Butler (1926) 05.jpg",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "war",
+   "name": "War",
+   "th": "ภาพยนตร์สงคราม",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Lew_Ayres_and_Louis_Wolheim_in_All_Quiet_on_the_Western_Front.jpg/960px-Lew_Ayres_and_Louis_Wolheim_in_All_Quiet_on_the_Western_Front.jpg"
+   },
+   "credit": {
+    "title": "All Quiet on the Western Front (1930) — ทหารในสนามเพลาะ",
+    "author": "ไม่ทราบช่างภาพ (Universal Pictures)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lew_Ayres_and_Louis_Wolheim_in_All_Quiet_on_the_Western_Front.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Lew_Ayres_and_Louis_Wolheim_in_All_Quiet_on_the_Western_Front.jpg/960px-Lew_Ayres_and_Louis_Wolheim_in_All_Quiet_on_the_Western_Front.jpg",
+    "fileName": "Lew Ayres and Louis Wolheim in All Quiet on the Western Front.jpg",
+    "note": "ภาพยนตร์ปี 1930 เป็นสาธารณสมบัติในสหรัฐฯ ตั้งแต่ 1 ม.ค. 2026 และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "disaster",
+   "name": "Disaster",
+   "th": "ภัยพิบัติ",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Noah%27s_Ark_%281928%29_still_2.JPG/960px-Noah%27s_Ark_%281928%29_still_2.JPG"
+   },
+   "credit": {
+    "title": "Noah's Ark (1928) — ฉากเมืองพังทลายจากน้ำท่วมโลก",
+    "author": "ไม่ทราบช่างภาพ (Warner Bros.)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Noah%27s_Ark_%281928%29_still_2.JPG",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Noah%27s_Ark_%281928%29_still_2.JPG/960px-Noah%27s_Ark_%281928%29_still_2.JPG",
+    "fileName": "Noah's Ark (1928) still 2.JPG",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "western",
+   "name": "Western",
+   "th": "คาวบอยตะวันตก",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Great_train_robbery_Barnes.jpg"
+   },
+   "credit": {
+    "title": "The Great Train Robbery (1903) — คาวบอยยิงปืนเข้าหากล้อง",
+    "author": "Edwin S. Porter (Edison)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Great_train_robbery_Barnes.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Great_train_robbery_Barnes.jpg",
+    "fileName": "Great train robbery Barnes.jpg",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "crime",
+   "name": "Crime",
+   "th": "อาชญากรรม / การปล้น",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Underworld_%28film%29_1927._Josef_von_Sternberg%2C_director._George_Bancroft.jpg"
+   },
+   "credit": {
+    "title": "Underworld (1927) — หนังแก๊งสเตอร์ยุคแรก ผู้กำกับ Josef von Sternberg",
+    "author": "Paramount Pictures",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Underworld_%28film%29_1927._Josef_von_Sternberg%2C_director._George_Bancroft.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Underworld_%28film%29_1927._Josef_von_Sternberg%2C_director._George_Bancroft.jpg",
+    "fileName": "Underworld (film) 1927. Josef von Sternberg, director. George Bancroft.jpg",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "zombie",
+   "name": "Zombie",
+   "th": "ซอมบี้",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/White_Zombie_1932.jpg/960px-White_Zombie_1932.jpg"
+   },
+   "credit": {
+    "title": "White Zombie (1932) — ภาพยนตร์ซอมบี้เรื่องยาวเรื่องแรก",
+    "author": "United Artists",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:White_Zombie_1932.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/White_Zombie_1932.jpg/960px-White_Zombie_1932.jpg",
+    "fileName": "White Zombie 1932.jpg",
+    "note": "Commons ระบุเป็นสาธารณสมบัติในสหรัฐฯ (ไม่ได้ต่ออายุลิขสิทธิ์) และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "spy",
+   "name": "Spy",
+   "th": "สายลับ",
+   "group": "genre",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Minox_B_Camera_-_Flickr_-_The_Central_Intelligence_Agency.jpg/960px-Minox_B_Camera_-_Flickr_-_The_Central_Intelligence_Agency.jpg"
+   },
+   "credit": {
+    "title": "Minox B — กล้องจิ๋วของสายลับ (ภาพจากพิพิธภัณฑ์ CIA)",
+    "author": "The Central Intelligence Agency",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Minox_B_Camera_-_Flickr_-_The_Central_Intelligence_Agency.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Minox_B_Camera_-_Flickr_-_The_Central_Intelligence_Agency.jpg/960px-Minox_B_Camera_-_Flickr_-_The_Central_Intelligence_Agency.jpg",
+    "fileName": "Minox B Camera - Flickr - The Central Intelligence Agency.jpg",
+    "note": "ผลงานของหน่วยงานรัฐบาลกลางสหรัฐฯ เป็นสาธารณสมบัติ · ไม่ใช่ภาพจากภาพยนตร์ เพราะไม่พบภาพนิ่งหนังสายลับที่ยืนยันสิทธิ์ได้และไม่มีตัวอักษรบนภาพ",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "documentary",
+   "name": "Documentary",
+   "th": "สารคดี",
+   "group": "format",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/7/78/Nanook_Harpooner_1920.jpg"
+   },
+   "credit": {
+    "title": "Nanook of the North (1922) — สารคดีเรื่องยาวยุคบุกเบิก",
+    "author": "Robert J. Flaherty",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nanook_Harpooner_1920.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/7/78/Nanook_Harpooner_1920.jpg",
+    "fileName": "Nanook Harpooner 1920.jpg",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "music-video",
+   "name": "Music Video",
+   "th": "มิวสิกวิดีโอ",
+   "group": "format",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Rebel_Love_Song_12.jpg/960px-Rebel_Love_Song_12.jpg"
+   },
+   "credit": {
+    "title": "เบื้องหลังการถ่ายทำมิวสิกวิดีโอ \"Rebel Love Song\" (2011)",
+    "author": "Robert Bejil Photography",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rebel_Love_Song_12.jpg",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Rebel_Love_Song_12.jpg/960px-Rebel_Love_Song_12.jpg",
+    "fileName": "Rebel Love Song 12.jpg",
+    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "silent-film",
+   "name": "Silent Film",
+   "th": "ภาพยนตร์เงียบ",
+   "group": "format",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/The_Kid_%281921%29.webm/960px-seek%3D50-The_Kid_%281921%29.webm.jpg"
+   },
+   "credit": {
+    "title": "The Kid (1921) — ไตเติลการ์ด (intertitle) ของภาพยนตร์เงียบ",
+    "author": "Charlie Chaplin",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Kid_%281921%29.webm",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/The_Kid_%281921%29.webm/960px-seek%3D50-The_Kid_%281921%29.webm.jpg",
+    "fileName": "The Kid (1921).webm",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว · ภาพนี้เป็นเฟรมจากไฟล์วิดีโอบน Commons (วินาทีที่ 50)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "found-footage",
+   "name": "Found Footage",
+   "th": "เรื่องเล่าผ่านภาพบันทึกเหตุการณ์",
+   "group": "format",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/An_exemple_of_a_found_footage_film_from_%22_Taped_Up_Families_%28Horror%2C_Found_Footage%2C_2024%29_%22.png/960px-An_exemple_of_a_found_footage_film_from_%22_Taped_Up_Families_%28Horror%2C_Found_Footage%2C_2024%29_%22.png"
+   },
+   "credit": {
+    "title": "Taped Up Families (2024) — ภาพแบบกล้องวิดีโอบันทึกเหตุการณ์ มีวันเวลาบนจอ",
+    "author": "Trash Arts Productions",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:An_exemple_of_a_found_footage_film_from_%22_Taped_Up_Families_%28Horror%2C_Found_Footage%2C_2024%29_%22.png",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/An_exemple_of_a_found_footage_film_from_%22_Taped_Up_Families_%28Horror%2C_Found_Footage%2C_2024%29_%22.png/960px-An_exemple_of_a_found_footage_film_from_%22_Taped_Up_Families_%28Horror%2C_Found_Footage%2C_2024%29_%22.png",
+    "fileName": "An exemple of a found footage film from \" Taped Up Families (Horror, Found Footage, 2024) \".png",
+    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) (เจ้าของเผยแพร่บน YouTube ด้วยสัญญาอนุญาต CC BY)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "time-lapse",
+   "name": "Time-Lapse",
+   "th": "ภาพเร่งเวลา",
+   "group": "format",
+   "media": {
+    "type": "video",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/53/Cloud_time_lapse_1280.ogv/Cloud_time_lapse_1280.ogv.480p.vp9.webm",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Cloud_time_lapse_1280.ogv/960px--Cloud_time_lapse_1280.ogv.jpg"
+   },
+   "credit": {
+    "title": "Cloud time lapse — เมฆเคลื่อนแบบเร่งเวลา",
+    "author": "Error406",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cloud_time_lapse_1280.ogv",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/53/Cloud_time_lapse_1280.ogv/Cloud_time_lapse_1280.ogv.480p.vp9.webm",
+    "fileName": "Cloud time lapse 1280.ogv",
+    "note": "ผู้สร้างประกาศสละสิทธิ์ให้เป็นสาธารณสมบัติ",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "slow-motion",
+   "name": "Slow Motion",
+   "th": "ภาพเคลื่อนไหวช้า",
+   "group": "format",
+   "media": {
+    "type": "video",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6c/Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm/Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm.480p.vp9.webm",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm/960px--Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm.jpg"
+   },
+   "credit": {
+    "title": "Ultra slow-motion — ถ้วยแก้วตกแตกบนพื้นแบบช้ามาก",
+    "author": "Pittigrilli",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6c/Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm/Ultra_slow-motion_video_of_glass_tea_cup_smashed_on_concrete_floor.webm.480p.vp9.webm",
+    "fileName": "Ultra slow-motion video of glass tea cup smashed on concrete floor.webm",
+    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) · หากดัดแปลงต้องเผยแพร่ด้วยสัญญาอนุญาตเดียวกัน (เกมนี้แสดงไฟล์ต้นฉบับโดยไม่ดัดแปลง)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "2d-animation",
+   "name": "2D Animation",
+   "th": "แอนิเมชันสองมิติ",
+   "group": "animation",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Gertie_the_Dinosaur_and_a_boulder.jpg/960px-Gertie_the_Dinosaur_and_a_boulder.jpg"
+   },
+   "credit": {
+    "title": "Gertie the Dinosaur (1914) — ภาพวาดต้นฉบับแอนิเมชัน",
+    "author": "Winsor McCay",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gertie_the_Dinosaur_and_a_boulder.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Gertie_the_Dinosaur_and_a_boulder.jpg/960px-Gertie_the_Dinosaur_and_a_boulder.jpg",
+    "fileName": "Gertie the Dinosaur and a boulder.jpg",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "3d-animation",
+   "name": "3D Animation",
+   "th": "แอนิเมชันสามมิติ",
+   "group": "animation",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Big.Buck.Bunny.-.Frank.Rinky.Gimera.png/960px-Big.Buck.Bunny.-.Frank.Rinky.Gimera.png"
+   },
+   "credit": {
+    "title": "Big Buck Bunny (2008) — แอนิเมชัน 3 มิติโอเพนซอร์สจาก Blender",
+    "author": "Blender Foundation (www.bigbuckbunny.org)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Big.Buck.Bunny.-.Frank.Rinky.Gimera.png",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Big.Buck.Bunny.-.Frank.Rinky.Gimera.png/960px-Big.Buck.Bunny.-.Frank.Rinky.Gimera.png",
+    "fileName": "Big.Buck.Bunny.-.Frank.Rinky.Gimera.png",
+    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "stop-motion",
+   "name": "Stop Motion",
+   "th": "แอนิเมชันถ่ายทีละเฟรม",
+   "group": "animation",
+   "media": {
+    "type": "video",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c7/Cyclops_Park_Stop_Motion_Animation.webm/Cyclops_Park_Stop_Motion_Animation.webm.480p.vp9.webm",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Cyclops_Park_Stop_Motion_Animation.webm/960px--Cyclops_Park_Stop_Motion_Animation.webm.jpg"
+   },
+   "credit": {
+    "title": "Cyclops Park — Stop Motion Animation (2019)",
+    "author": "Nalena",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cyclops_Park_Stop_Motion_Animation.webm",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c7/Cyclops_Park_Stop_Motion_Animation.webm/Cyclops_Park_Stop_Motion_Animation.webm.480p.vp9.webm",
+    "fileName": "Cyclops Park Stop Motion Animation.webm",
+    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) (เผยแพร่บน Vimeo ด้วย CC BY)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "claymation",
+   "name": "Claymation",
+   "th": "แอนิเมชันดินน้ำมัน",
+   "group": "animation",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg/960px-Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg"
+   },
+   "credit": {
+    "title": "Kuzmich — ฉากจากแอนิเมชันดินน้ำมัน (2009)",
+    "author": "Max Sviridov (plastili.com)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg/960px-Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg",
+    "fileName": "Animacion-con-plastilina-y-clay-animation-pelicula-Kuzmich-153.jpg",
+    "note": "ผู้สร้างประกาศให้เป็นสาธารณสมบัติเอง (Own work)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "cutout-animation",
+   "name": "Cutout Animation",
+   "th": "แอนิเมชันชิ้นส่วน",
+   "group": "animation",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Cutout_animation_example_s.png"
+   },
+   "credit": {
+    "title": "ตัวอย่างชิ้นส่วนตัวละครสำหรับ Cutout Animation",
+    "author": "Flash boy (Arabic Wikipedia)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cutout_animation_example_s.png",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Cutout_animation_example_s.png",
+    "fileName": "Cutout animation example s.png",
+    "note": "ผู้สร้างประกาศให้เป็นสาธารณสมบัติเอง",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "pixel-animation",
+   "name": "Pixel Animation",
+   "th": "แอนิเมชันพิกเซล",
+   "group": "animation",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/3/32/Pixel-Art_TAI%D0%AFAUQIT%D0%98A.gif",
+    "pixel": true
+   },
+   "credit": {
+    "title": "Pixel-Art TAIЯAUQITИA — ภาพเคลื่อนไหวพิกเซลอาร์ต (GIF)",
+    "author": "Numerobis (pixelplaza.de)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pixel-Art_TAI%D0%AFAUQIT%D0%98A.gif",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/3/32/Pixel-Art_TAI%D0%AFAUQIT%D0%98A.gif",
+    "fileName": "Pixel-Art TAIЯAUQITИA.gif",
+    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) · หากดัดแปลงต้องเผยแพร่ด้วยสัญญาอนุญาตเดียวกัน (เกมนี้แสดงไฟล์ต้นฉบับโดยไม่ดัดแปลง)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "rotoscoping",
+   "name": "Rotoscoping",
+   "th": "แอนิเมชันวาดตามภาพจริง",
+   "group": "animation",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/US_patent_1242674_figure_3.png/960px-US_patent_1242674_figure_3.png"
+   },
+   "credit": {
+    "title": "สิทธิบัตรเครื่อง Rotoscope ของ Max Fleischer (US 1,242,674, ยื่นปี 1915)",
+    "author": "Max Fleischer (ภาพประกอบสิทธิบัตร)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_patent_1242674_figure_3.png",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/US_patent_1242674_figure_3.png/960px-US_patent_1242674_figure_3.png",
+    "fileName": "US patent 1242674 figure 3.png",
+    "note": "ภาพประกอบสิทธิบัตรสหรัฐฯ ปี 1917 เป็นสาธารณสมบัติ · ไม่พบคลิปโรโตสโคปที่ยืนยันสิทธิ์ได้ จึงใช้ภาพนิ่ง",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "motion-capture",
+   "name": "Motion Capture",
+   "th": "บันทึกการเคลื่อนไหว",
+   "group": "animation",
+   "media": {
+    "type": "image",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/2010_Motion_Capture_Suit.jpg/960px-2010_Motion_Capture_Suit.jpg"
+   },
+   "credit": {
+    "title": "ชุดบันทึกการเคลื่อนไหว (Motion Capture Suit)",
+    "author": "Mbrickn",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2010_Motion_Capture_Suit.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/2010_Motion_Capture_Suit.jpg/960px-2010_Motion_Capture_Suit.jpg",
+    "fileName": "2010 Motion Capture Suit.jpg",
+    "note": "ผู้สร้างสละสิทธิ์ทั้งหมด (CC0)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "motion-graphics",
+   "name": "Motion Graphics",
+   "th": "กราฟิกเคลื่อนไหว",
+   "group": "animation",
+   "media": {
+    "type": "video",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7a/Abstract_Motion_graphics.webm/Abstract_Motion_graphics.webm.480p.vp9.webm",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Abstract_Motion_graphics.webm/960px--Abstract_Motion_graphics.webm.jpg"
+   },
+   "credit": {
+    "title": "Abstract Motion (2012) — กราฟิกเคลื่อนไหว",
+    "author": "I-Cheng Lee",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Abstract_Motion_graphics.webm",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7a/Abstract_Motion_graphics.webm/Abstract_Motion_graphics.webm.480p.vp9.webm",
+    "fileName": "Abstract Motion graphics.webm",
+    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) (เผยแพร่บน Vimeo ด้วย CC BY)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "flipbook",
+   "name": "Flipbook",
+   "th": "ภาพวาดพลิกหน้า",
+   "group": "animation",
+   "media": {
+    "type": "video",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ab/Flip_Book_-_Messi_Example.webm/Flip_Book_-_Messi_Example.webm.480p.vp9.webm",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Flip_Book_-_Messi_Example.webm/330px--Flip_Book_-_Messi_Example.webm.jpg"
+   },
+   "credit": {
+    "title": "Flip Book example — สมุดภาพพลิกหน้าให้ภาพเคลื่อนไหว",
+    "author": "harun uğur",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Flip_Book_-_Messi_Example.webm",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ab/Flip_Book_-_Messi_Example.webm/Flip_Book_-_Messi_Example.webm.480p.vp9.webm",
+    "fileName": "Flip Book - Messi Example.webm",
+    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) (เผยแพร่บน YouTube ด้วย CC BY)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  },
+  {
+   "id": "sand-animation",
+   "name": "Sand Animation",
+   "th": "แอนิเมชันทราย",
+   "group": "animation",
+   "media": {
+    "type": "video",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a3/%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm/%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm.480p.vp9.webm",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm/960px--%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm.jpg",
+    "start": 20,
+    "end": 80
+   },
+   "credit": {
+    "title": "Кот и петух (แมวกับไก่) — นิทานยูเครน · Сказки на песке #3 (2019)",
+    "author": "Телеканал КРТ (KRT TV channel)",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a3/%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm/%D0%9A%D0%BE%D1%82_%D0%B8_%D0%BF%D0%B5%D1%82%D1%83%D1%85_%E2%80%93_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B0_%D0%A1%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8_%D0%BD%D0%B0_%D0%BF%D0%B5%D1%81%D0%BA%D0%B5_-3.webm.480p.vp9.webm",
+    "fileName": "Кот и петух – Украинская сказка Сказки на песке -3.webm",
+    "note": "ใช้ได้ตามสัญญาอนุญาต Creative Commons โดยต้องระบุชื่อผู้สร้างและลิงก์สัญญาอนุญาต (แสดงในหน้าเครดิตแล้ว) (เผยแพร่บน YouTube ด้วย CC BY)",
+    "checked": "2026-11-18 (Wikimedia Commons API)"
+   }
+  }
+ ]
+}

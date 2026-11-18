@@ -80,15 +80,16 @@
       return '<option value="' + esc(t.source + ':' + t.id) + '">' + esc(t.name) + (t.source === 'local' ? ' (ฉบับร่างในเครื่องนี้)' : '') + '</option>';
     }).join('');
     var want = (UI.qs('t')) || S.themeId || src.defaultId || (src.list[0] && src.list[0].id);
-    var entry = findEntry(want) || src.list[0];
+    var entry = findEntry(want, UI.qs('src') === 'local' && UI.qs('t') === want) || src.list[0];
     if (!entry) { UI.modal({ title: 'ยังไม่มีชุดภาพ', html: '<p>ไปที่หน้า “จัดการภาพ” เพื่อสร้างชุดภาพก่อน</p>' }); return; }
     return applyTheme(entry, true);
   }).catch(function (e) {
     UI.modal({ title: 'โหลดชุดภาพไม่สำเร็จ', html: '<p>' + esc(e.message) + '</p>' });
   });
 
-  function findEntry(id) {
+  function findEntry(id, preferLocal) {
     if (!sources || !id) return null;
+    if (preferLocal) { var loc = sources.list.filter(function (t) { return t.id === id && t.source === 'local'; })[0]; if (loc) return loc; }
     var pub = sources.list.filter(function (t) { return t.id === id && t.source === 'published'; })[0];
     return pub || sources.list.filter(function (t) { return t.id === id; })[0] || null;
   }
@@ -113,7 +114,20 @@
       $('fp').textContent = 'รหัสชุด ' + B.fingerprint(t);
       $('lnkPrint').href = 'print.html?t=' + encodeURIComponent(t.id) + (entry.source === 'local' ? '&src=local' : '');
       renderAll(true);
+      warmMedia(t);
     });
+  }
+  /** โหลดภาพนิ่ง/ภาพปกของทุกคำไว้ล่วงหน้า (Service Worker เก็บไว้ → เปิดออฟไลน์ได้) */
+  function warmMedia(t) {
+    var urls = [];
+    t.characters.forEach(function (c) {
+      if (!B.mediaAllowed(c)) return;
+      if (B.mediaType(c) === 'video') { if (c.media && c.media.poster) urls.push(c.media.poster); }
+      else if (/^https:/.test(B.mediaSrc(c))) urls.push(B.mediaSrc(c));
+    });
+    var i = 0;
+    function next() { if (i >= urls.length) return; var im = new Image(); im.onload = im.onerror = next; im.src = urls[i++]; }
+    setTimeout(function () { for (var k = 0; k < 4; k++) next(); }, 1500);
   }
 
   $('themeSel').addEventListener('change', function () {
@@ -139,18 +153,22 @@
     $('patternSel').value = pat.id; $('patternLabel').textContent = 'รางวัลนี้: ' + pat.name;
     $('count').textContent = ids.length + ' / ' + theme.characters.length;
     var last = ids[ids.length - 1];
-    if (last && chars[last]) showBig(chars[last], noAnim); else {
-      $('bigImg').classList.add('hidden'); $('bigName').textContent = ''; $('placeholder').classList.remove('hidden');
+    var text = B.isText(theme);
+    $('reveal').classList.toggle('textmode', text);
+    if (last && chars[last]) showBig(chars[last], noAnim); else if (!spinning) {
+      $('bigMedia').classList.add('hidden'); $('bigMedia').innerHTML = ''; shownId = null;
+      $('bigName').textContent = ''; $('btnCredit').classList.add('hidden'); $('placeholder').classList.remove('hidden');
       $('placeholder').textContent = 'กด “สุ่มตัวถัดไป” เพื่อเริ่ม';
     }
     var order = {}; ids.forEach(function (id, i) { order[id] = i + 1; });
+    $('board').classList.toggle('txt', text);
     $('board').innerHTML = theme.characters.map(function (c) {
-      return '<div class="b' + (order[c.id] ? ' on' : '') + '" title="' + esc(c.name) + '">' + (order[c.id] ? '<span class="o">' + order[c.id] + '</span>' : '') +
-        '<img alt="' + esc(c.name) + '" src="' + esc(c.img) + '"></div>';
+      return '<div class="b' + (order[c.id] ? ' on' : '') + '" title="' + esc(c.name + (c.th ? ' — ' + c.th : '')) + '">' + (order[c.id] ? '<span class="o">' + order[c.id] + '</span>' : '') +
+        (text ? esc(c.name) : '<img alt="' + esc(c.name) + '" src="' + esc(c.img) + '">') + '</div>';
     }).join('');
     $('history').innerHTML = ids.length ? ids.map(function (id, i) {
       var c = chars[id] || { name: '?', img: '' };
-      return '<span class="h"><img alt="" src="' + esc(c.img) + '">' + (i + 1) + '. ' + esc(c.name) + '</span>';
+      return '<span class="h' + (text ? ' t' : '') + '">' + (text ? '' : '<img alt="" src="' + esc(c.img) + '">') + (i + 1) + '. ' + esc(c.name) + '</span>';
     }).reverse().join('') : '<span class="muted small">ยังไม่มี</span>';
     var done = ids.length >= theme.characters.length;
     $('btnDraw').disabled = busy || done;
@@ -158,13 +176,66 @@
     $('btnUndo').disabled = busy || !ids.length;
     renderSyncQR();
   }
+  // ---------- สื่อบนจอใหญ่ (ภาพ / คลิป) ----------
+  var shownId = null, preloaded = {};
+  function mediaNode(c) {
+    var src = B.mediaSrc(c), m = c.media || {};
+    if (B.mediaType(c) === 'video') {
+      var v = document.createElement('video');
+      v.muted = true; v.defaultMuted = true; v.autoplay = true; v.playsInline = true; v.preload = 'auto';
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('disablepictureinpicture', '');
+      var st = +m.start || 0, en = +m.end || 0;
+      v.loop = !en && !st;
+      if (m.poster) v.poster = m.poster;
+      v.addEventListener('loadedmetadata', function () { if (st) { try { v.currentTime = st; } catch (e) { /* */ } } });
+      v.addEventListener('timeupdate', function () { if (en && v.currentTime >= en) { v.currentTime = st; } });
+      v.addEventListener('ended', function () { v.currentTime = st; var p = v.play(); if (p && p.catch) p.catch(function () { }); });
+      v.addEventListener('error', function () { // ออฟไลน์/เล่นไม่ได้ → ใช้ภาพปกแทน
+        if (!m.poster || !v.parentNode) return;
+        var i = new Image(); i.alt = c.name; i.src = m.poster; v.parentNode.replaceChild(i, v);
+      });
+      v.src = src;
+      return v;
+    }
+    var img = new Image(); img.alt = c.name; img.decoding = 'async'; img.src = src;
+    if (m.pixel) img.className = 'pixel';
+    return img;
+  }
+  function preload(c) { if (c && B.mediaAllowed(c) && !preloaded[c.id]) preloaded[c.id] = mediaNode(c); }
+  function nameHtml(c) {
+    return '<span class="en">' + esc(c.name) + '</span>' + (B.isText(theme) && c.th ? '<span class="sep"> — </span><span class="th">' + esc(c.th) + '</span>' : '');
+  }
   function showBig(c, noAnim) {
     $('placeholder').classList.add('hidden');
-    var img = $('bigImg'); img.classList.remove('hidden'); img.src = c.img; img.alt = c.name;
-    $('bigName').textContent = c.name;
+    var box = $('bigMedia'), text = B.isText(theme);
+    box.classList.toggle('dark', text);
+    if (shownId !== c.id) {
+      box.innerHTML = '';
+      if (B.mediaAllowed(c)) {
+        var node = preloaded[c.id] || mediaNode(c); delete preloaded[c.id];
+        box.appendChild(node); box.classList.remove('hidden');
+        if (node.play) { var p = node.play(); if (p && p.catch) p.catch(function () { }); }
+      } else box.classList.add('hidden');
+      shownId = c.id;
+    }
+    $('bigName').innerHTML = nameHtml(c);
+    $('btnCredit').classList.toggle('hidden', !(c.credit || (text && B.mediaSrc(c))));
+    $('btnCredit').dataset.id = c.id;
     var r = $('reveal'); r.classList.remove('revealed');
     if (!noAnim) { void r.offsetWidth; r.classList.add('revealed'); }
   }
+  $('btnCredit').addEventListener('click', function () {
+    var c = chars[this.dataset.id]; if (!c) return;
+    UI.modal({ title: 'เครดิต: ' + c.name, html: B.creditHtml(c) });
+  });
+  function openCredits() {
+    if (!theme) return;
+    UI.modal({
+      title: 'เครดิต / แหล่งที่มาของภาพและคลิป', wide: true,
+      html: '<p class="small"><b>' + esc(theme.name) + '</b>' + (theme.creditsNote ? '<br>' + esc(theme.creditsNote) : '') + '</p>' + B.creditsListHtml(theme)
+    });
+  }
+  $('btnCredits').addEventListener('click', openCredits);
 
   // ---------- สุ่ม ----------
   function draw() {
@@ -176,13 +247,17 @@
     // บันทึกก่อนแสดงผล: รีเฟรชระหว่างแอนิเมชันก็ไม่สุ่มซ้ำ/ไม่หาย
     S.round.draws.push({ id: next, at: new Date().toISOString() });
     save();
-    var r = $('reveal'), img = $('bigImg'), nm = $('bigName');
-    $('placeholder').classList.add('hidden'); img.classList.remove('hidden');
+    var r = $('reveal'), box = $('bigMedia'), nm = $('bigName'), text = B.isText(theme), img = null;
+    preload(chars[next]); // โหลดสื่อของตัวที่ออกระหว่างแอนิเมชัน
+    $('placeholder').classList.add('hidden'); $('btnCredit').classList.add('hidden');
+    shownId = null; box.innerHTML = '';
+    if (text) box.classList.add('hidden');
+    else { img = new Image(); img.alt = ''; box.appendChild(img); box.classList.remove('hidden'); box.classList.remove('dark'); }
     r.classList.add('spinning'); r.classList.remove('revealed');
     var pool = theme.characters, t0 = Date.now();
     var timer = setInterval(function () {
       var c = pool[Math.floor(Math.random() * pool.length)];
-      img.src = c.img; nm.textContent = '…';
+      if (text) nm.textContent = c.name; else { img.src = c.img; nm.textContent = '…'; }
       if (Date.now() - t0 > REVEAL_MS) {
         clearInterval(timer);
         r.classList.remove('spinning');
@@ -252,11 +327,10 @@
     if (res.fullAtDraw) ms.push('เต็มบัตร: ตัวที่ ' + res.fullAtDraw);
     if (ms.length) html += '<p class="small center" style="margin:.3rem 0">ประวัติบัตรนี้ — ' + esc(ms.join(' · ')) + (res.winning.length ? '<br>แนวที่ครบ: ' + esc(res.winning.map(function (w) { return w.name; }).join(' · ')) : '') + '</p>';
     var win = {}; res.winning.forEach(function (w) { w.cells.forEach(function (i) { win[i] = true; }); });
-    html += '<div class="grid4" style="max-width:340px;margin:.6rem auto">' + res.cells.map(function (id, i) {
-      var c = chars[id] || { name: '?', img: '' };
+    html += '<div class="grid4' + (B.isText(theme) ? ' txt' : '') + '" style="max-width:340px;margin:.6rem auto">' + res.cells.map(function (id, i) {
       var cls = win[i] ? 'win' : (res.drawnCells[i] ? 'drawn' : 'notdrawn');
-      return '<div class="cell ' + cls + '" style="cursor:default"><img alt="" src="' + esc(c.img) + '"><div class="nm">' + esc(c.name) + '</div></div>';
-    }).join('') + '</div><p class="small muted center">เขียว = ถูกเรียกแล้ว · เหลือง = แนวที่ชนะ · จาง = ยังไม่ถูกเรียก<br>เทียบภาพบนจอผู้เล่นกับบัตรนี้ให้ตรงกันทุกช่อง</p>';
+      return '<div class="cell ' + cls + '" style="cursor:default">' + B.cellInner(theme, chars[id]) + '</div>';
+    }).join('') + '</div><p class="small muted center">เขียว = ถูกเรียกแล้ว · เหลือง = แนวที่ชนะ · จาง = ยังไม่ถูกเรียก<br>เทียบ' + (B.isText(theme) ? 'คำ' : 'ภาพ') + 'บนจอผู้เล่นกับบัตรนี้ให้ตรงกันทุกช่อง</p>';
     return html;
   }
 
@@ -285,6 +359,7 @@
           if (!p.checked) html += '<div class="banner warn">ไม่ได้พิมพ์เลขตรวจสอบ (หลักสุดท้าย) — บัตรที่ถูกต้องคือ <b class="mono">' + esc(res.code) + '</b> โปรดดูให้ตรงกับบัตรผู้เล่น</div>';
           if (prev.length) html += '<div class="banner warn">บัตรนี้เคยตรวจผ่านแล้วในรอบนี้ เมื่อ ' + new Date(prev[0].at).toLocaleTimeString('th-TH') + '</div>';
           out.innerHTML = html + verifyHtml(res, roundObj, roundObj.pattern);
+          B.fitWords(out);
           if (roundObj === S.round) {
             S.round.checks = S.round.checks || [];
             S.round.checks.push({ code: res.code, bingo: okNow, pattern: pid, atDraw: ids.length, at: new Date().toISOString() });
@@ -358,5 +433,5 @@
   window.addEventListener('beforeunload', function (e) { if (busy) { e.preventDefault(); e.returnValue = ''; } });
 
   // สำหรับการทดสอบอัตโนมัติ
-  window.__host = { state: function () { return S; }, theme: function () { return theme; }, busy: function () { return busy; }, syncText: function () { return syncText(); } };
+  window.__host = { openCredits: openCredits, shownId: function () { return shownId; }, state: function () { return S; }, theme: function () { return theme; }, busy: function () { return busy; }, syncText: function () { return syncText(); } };
 })();

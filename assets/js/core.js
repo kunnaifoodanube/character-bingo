@@ -80,6 +80,76 @@
     return fnv1a(theme.id + '#' + sortedIds(theme).join(',')).toString(36).slice(0, 5).toUpperCase();
   }
 
+  var RE_DATA_IMG = /^data:image\/(png|jpeg|webp|svg\+xml|gif);base64,/;
+  var RE_PATH = /^[\w\-./%]+\.(png|jpe?g|webp|svg|gif|webm|mp4|ogv)$/i;
+  function okImgSrc(u) { return RE_DATA_IMG.test(u) || /^https:\/\/[^\s"'<>]+$/.test(u) || RE_PATH.test(u); }
+  function okMediaSrc(u) { return okImgSrc(u); }
+  /** แหล่งภาพ/คลิปที่จะใช้บนจอพิธีกร */
+  function mediaSrc(c) { return (c && c.media && c.media.src) || (c && c.img) || ''; }
+  function mediaType(c) {
+    if (c && c.media && c.media.type) return c.media.type;
+    return /\.(webm|mp4|ogv)(\?|$)/i.test(mediaSrc(c)) ? 'video' : 'image';
+  }
+
+
+  // ---------- โหมดคำศัพท์ / สื่อ / เครดิต ----------
+  /** ชุดแบบ "คำศัพท์": ผู้เล่นเห็นเฉพาะคำภาษาอังกฤษ, จอพิธีกรแสดงภาพ/คลิป + คำแปล */
+  function isText(theme) { return !!theme && theme.display === 'text'; }
+  var LICENSE_STATUS = {
+    ok: '✅ ตรวจสอบสิทธิ์แล้ว — แสดงในเกมได้',
+    'link-only': '🔗 อ้างอิงลิงก์เท่านั้น — ไม่แสดงในเกม',
+    pending: '⚠️ ยังไม่ยืนยันสิทธิ์ — ไม่แสดงในเกม'
+  };
+  /** แสดงสื่อได้ก็ต่อเมื่อมีสื่อ และ (ไม่มีข้อมูลเครดิต = ภาพของผู้ใช้เอง) หรือสถานะ ok เท่านั้น */
+  function mediaAllowed(c) {
+    if (!mediaSrc(c)) return false;
+    return !(c.credit && c.credit.status && c.credit.status !== 'ok');
+  }
+  /** เนื้อหาในช่องบัตร 4×4 (ผู้เล่น / ตรวจบัตร / ตัวอย่าง) */
+  function cellInner(theme, c) {
+    if (!c) return '<div class="tw">?</div>';
+    if (isText(theme)) return '<div class="tw" lang="en">' + esc(c.name) + '</div>';
+    return '<img alt="" src="' + esc(c.img) + '"><div class="nm">' + esc(c.name) + '</div>';
+  }
+  /** ย่อขนาดตัวอักษรเฉพาะคำที่ยาวเกินช่อง (ไม่ตัดคำกลางคำ) */
+  function fitWords(root) {
+    if (!root || !root.querySelectorAll) return;
+    Array.prototype.forEach.call(root.querySelectorAll('.tw'), function (t) {
+      t.style.fontSize = '';
+      var size = parseFloat(getComputedStyle(t).fontSize), box = t.parentElement, guard = 0;
+      var avail = function () { var cs = getComputedStyle(box); return box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight); };
+      var over = function () { return t.scrollWidth > Math.min(t.clientWidth, avail()) + 0.5 || t.offsetHeight > box.clientHeight - 6; };
+      t.classList.remove('hy');
+      while (over() && size - 0.5 >= 11 && guard++ < 30) { size -= 0.5; t.style.fontSize = size + 'px'; }
+      if (over()) t.classList.add('hy'); // จอเล็กมาก: ยอมตัดคำยาวพร้อมขีด แทนที่จะย่อจนอ่านไม่ออก
+    });
+  }
+  function safeUrl(u) { return /^https?:\/\//i.test(String(u || '')) ? String(u) : ''; }
+  function creditHtml(c, opts) {
+    opts = opts || {};
+    var cr = (c && c.credit) || {};
+    var rows = [];
+    function row(k, v) { if (v) rows.push('<tr><th>' + k + '</th><td>' + v + '</td></tr>'); }
+    function link(u, t) { u = safeUrl(u); return u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(t || u) + '</a>' : esc(t || ''); }
+    row('คำศัพท์', '<b>' + esc(c.name) + '</b>' + (c.th ? ' — ' + esc(c.th) : ''));
+    row('ชื่อผลงาน/ภาพ', esc(cr.title));
+    row('ผู้สร้าง/เจ้าของ', esc(cr.author));
+    row('แหล่งที่มา', link(cr.sourceUrl));
+    row('สัญญาอนุญาต', cr.license ? link(cr.licenseUrl, cr.license) : '');
+    row('สถานะสิทธิ์', esc(LICENSE_STATUS[cr.status] || (cr.status ? cr.status : (mediaSrc(c) ? 'ภาพที่ผู้ดูแลอัปโหลดเอง' : 'ไม่มีสื่อ'))));
+    row('ไฟล์ที่ใช้ในเกม', cr.status === 'ok' || !cr.status ? link(cr.file || (mediaSrc(c).indexOf('data:') === 0 ? '' : mediaSrc(c)), cr.fileName || '') : '—');
+    row('หมายเหตุ', esc(cr.note));
+    return '<table class="credit">' + rows.join('') + '</table>';
+  }
+  function creditsListHtml(theme) {
+    return '<div class="credits">' + theme.characters.map(function (c, i) {
+      var ok = mediaAllowed(c), src = mediaSrc(c), mt = mediaType(c);
+      var thumb = ok ? (mt === 'video' ? ((c.media && c.media.poster) || '') : src) : '';
+      return '<div class="cr-item"><div class="cr-th">' + (thumb ? '<img loading="lazy" alt="" src="' + esc(thumb) + '">' : '<span class="muted small">' + (src ? 'ไม่แสดง' : 'ไม่มีสื่อ') + '</span>') +
+        (ok && mt === 'video' ? '<span class="cr-v">คลิป</span>' : '') + '</div><div class="cr-tx"><div class="small muted">#' + (i + 1) + '</div>' + creditHtml(c) + '</div></div>';
+    }).join('') + '</div>';
+  }
+
   function validateTheme(theme) {
     var errors = [], warnings = [];
     if (!theme || typeof theme !== 'object') return { ok: false, errors: ['ไฟล์ชุดภาพไม่ถูกต้อง'], warnings: [] };
@@ -88,7 +158,7 @@
     var chars = Array.isArray(theme.characters) ? theme.characters : [];
     if (chars.length < MIN_CHARACTERS) errors.push('มีตัวละคร ' + chars.length + ' ตัว ต้องมีอย่างน้อย ' + MIN_CHARACTERS + ' ตัว');
     if (chars.length > MAX_CHARACTERS) errors.push('มีตัวละคร ' + chars.length + ' ตัว เกินสูงสุด ' + MAX_CHARACTERS + ' ตัว');
-    var seenId = {}, seenName = {};
+    var seenId = {}, seenName = {}, missingMedia = [], unverified = [];
     chars.forEach(function (c, i) {
       var label = 'ตัวที่ ' + (i + 1) + (c && c.name ? ' (' + c.name + ')' : '');
       if (!c || !c.id) { errors.push(label + ': ไม่มีรหัส'); return; }
@@ -100,11 +170,16 @@
         if (seenName[k]) warnings.push('ชื่อ "' + c.name + '" ซ้ำกัน — ผู้เล่นอาจสับสน');
         seenName[k] = true;
       }
-      if (!c.img) errors.push(label + ': ไม่มีภาพ');
-      else if (!/^data:image\/(png|jpeg|webp|svg\+xml|gif);base64,/.test(c.img) && !/^[\w\-./]+\.(png|jpe?g|webp|svg)$/i.test(c.img))
-        errors.push(label + ': รูปแบบภาพไม่รองรับ');
+      var textMode = theme.display === 'text';
+      if (!c.img && !textMode) errors.push(label + ': ไม่มีภาพ');
+      else if (c.img && !okImgSrc(c.img)) errors.push(label + ': รูปแบบภาพไม่รองรับ');
+      if (c.media && c.media.src && !okMediaSrc(c.media.src)) errors.push(label + ': ลิงก์สื่อไม่รองรับ (ต้องเป็น https:// หรือไฟล์ภาพ/วิดีโอ)');
+      if (textMode && !mediaSrc(c)) missingMedia.push(c.name || label);
+      else if (mediaSrc(c) && !mediaAllowed(c)) unverified.push(c.name || label);
     });
-    if (chars.length > 36) warnings.push('ตัวละครเกิน 36 ตัว เกมจะใช้เวลานานขึ้น');
+    if (missingMedia.length) warnings.push('ยังไม่มีสื่อประกอบ ' + missingMedia.length + ' คำ (จอพิธีกรจะแสดงเฉพาะชื่อ): ' + missingMedia.join(', '));
+    if (unverified.length) warnings.push('สื่อที่ยังไม่ยืนยันสิทธิ์ (จะไม่แสดงในเกม) ' + unverified.length + ' รายการ: ' + unverified.join(', '));
+    if (chars.length > 36) warnings.push('มีมากกว่า 36 รายการ เกมจะใช้เวลานานขึ้น');
     return { ok: errors.length === 0, errors: errors, warnings: warnings };
   }
 
@@ -320,7 +395,7 @@
     fnv1a: fnv1a, mulberry32: mulberry32, damm: damm, formatCode: formatCode, parseCode: parseCode,
     fingerprint: fingerprint, validateTheme: validateTheme, generateCard: generateCard,
     linesFromMarks: linesFromMarks, verifyCard: verifyCard, PATTERNS: PATTERNS, patternAtDraw: patternAtDraw, missingFor: missingFor, checkCardSet: checkCardSet,
-    randomInt: randomInt, encodeSync: encodeSync, decodeSync: decodeSync, randomPhoneCardNumber: randomPhoneCardNumber, drawNext: drawNext, charMap: charMap,
+    mediaSrc: mediaSrc, mediaType: mediaType, isText: isText, mediaAllowed: mediaAllowed, cellInner: cellInner, fitWords: fitWords, creditHtml: creditHtml, creditsListHtml: creditsListHtml, LICENSE_STATUS: LICENSE_STATUS, randomInt: randomInt, encodeSync: encodeSync, decodeSync: decodeSync, randomPhoneCardNumber: randomPhoneCardNumber, drawNext: drawNext, charMap: charMap,
     store: store, fetchJSON: fetchJSON, loadThemeIndex: loadThemeIndex, loadTheme: loadTheme,
     registerSW: registerSW, esc: esc
   };

@@ -38,12 +38,13 @@
     UI.modal({
       title: 'สร้างชุดภาพใหม่',
       html: '<label class="field"><span>ชื่อชุด เช่น Anime Open House 2026</span><input class="input" id="nn" maxlength="60"></label>' +
-        '<label class="field"><span>ประเภท</span><input class="input" id="nc" list="cats" value="Cartoon"></label>',
+        '<label class="field"><span>ประเภท</span><input class="input" id="nc" list="cats" value="Cartoon"></label>' +
+        '<label class="row small"><input type="checkbox" id="nt"> โหมดคำศัพท์ (บัตรผู้เล่นเป็นคำภาษาอังกฤษ จอพิธีกรแสดงภาพ/คลิป)</label>',
       buttons: [{ label: 'ยกเลิก', value: null, cls: 'ghost' }, {
         label: 'สร้าง', getValue: function (el) {
           var n = el.querySelector('#nn').value.trim();
           if (!n) { UI.toast('กรุณาตั้งชื่อชุด'); return undefined; }
-          return { name: n, category: el.querySelector('#nc').value.trim() };
+          return { name: n, category: el.querySelector('#nc').value.trim(), text: el.querySelector('#nt').checked };
         }
       }],
       onOpen: function (el) { setTimeout(function () { el.querySelector('#nn').focus(); }, 50); }
@@ -53,6 +54,7 @@
         var id = slugify(v.name);
         while (list.some(function (t) { return t.id === id; })) id = slugify(v.name) + '-' + Math.random().toString(36).slice(2, 4);
         var t = { format: 'character-bingo-theme@1', id: id, name: v.name, category: v.category, updatedAt: new Date().toISOString(), characters: [] };
+        if (v.text) t.display = 'text';
         return LocalThemes.put(t).then(function () { openTheme(t); refreshList(); });
       });
     });
@@ -110,7 +112,7 @@
   function openTheme(t) {
     cur = t; originalFp = B.fingerprint(t);
     $('editor').classList.remove('hidden');
-    $('thName').value = t.name || ''; $('thCat').value = t.category || ''; $('thId').value = t.id;
+    $('thName').value = t.name || ''; $('thCat').value = t.category || ''; $('thId').value = t.id; $('thText').checked = B.isText(t);
     renderEditor(); refreshList();
     $('editor').scrollIntoView({ behavior: 'smooth' });
   }
@@ -127,6 +129,10 @@
 
   $('thName').addEventListener('input', function () { cur.name = this.value.trim(); $('edTitle').textContent = cur.name; scheduleSave(); renderValidation(); });
   $('thCat').addEventListener('input', function () { cur.category = this.value.trim(); scheduleSave(); });
+  $('thText').addEventListener('change', function () {
+    if (this.checked) cur.display = 'text'; else delete cur.display;
+    scheduleSave(); renderEditor();
+  });
   $('thId').addEventListener('change', function () {
     var nv = this.value.trim().toLowerCase(), self = this;
     if (!/^[a-z0-9][a-z0-9-]{0,40}$/.test(nv)) { UI.toast('ใช้ได้เฉพาะ a-z, 0-9 และ -'); self.value = cur.id; return; }
@@ -142,16 +148,98 @@
     $('edTitle').textContent = cur.name;
     $('charCount').textContent = '(' + cur.characters.length + ' ตัว)';
     $('fnTheme').textContent = cur.id + '.json';
-    $('btnTryHost').href = 'host.html?t=' + encodeURIComponent(cur.id);
+    $('btnTryHost').href = 'host.html?t=' + encodeURIComponent(cur.id) + '&src=local';
+    var text = B.isText(cur);
+    $('textTools').classList.toggle('hidden', !text);
+    $('itemsLabel').textContent = text ? 'คำศัพท์' : 'ตัวละคร';
     $('chars').innerHTML = cur.characters.map(function (c, i) {
+      if (text) return termCard(c, i);
       var bad = !c.img || !c.name || !String(c.name).trim();
       return '<div class="char' + (bad ? ' bad' : '') + '" data-id="' + esc(c.id) + '"><div class="idx">#' + (i + 1) + (c.bytes ? ' · ' + Math.round(c.bytes / 1024) + ' KB' : '') + '</div>' +
         '<div class="pic">' + (c.img ? '<img alt="" src="' + esc(c.img) + '">' : '<span class="muted">ไม่มีภาพ</span>') + '</div>' +
         '<input value="' + esc(c.name) + '" maxlength="30" data-name aria-label="ชื่อตัวละคร">' +
-        '<div class="tools"><button class="btn secondary" data-rep title="เปลี่ยนภาพ">เปลี่ยนภาพ</button><button class="btn danger" data-del>ลบ</button></div></div>';
+        '<div class="tools"><button class="btn secondary" data-rep title="เปลี่ยนภาพ">เปลี่ยนภาพ</button><button class="btn secondary" data-det title="รายละเอียด/เครดิต">เครดิต</button><button class="btn danger" data-del>ลบ</button></div></div>';
     }).join('');
     renderValidation();
   }
+  function termCard(c, i) {
+    var src = B.mediaSrc(c), ok = B.mediaAllowed(c), vid = B.mediaType(c) === 'video';
+    var thumb = vid ? ((c.media && c.media.poster) || '') : src;
+    var st = (c.credit && c.credit.status) || (src ? '' : 'none');
+    var lic = !src ? '<span class="lic no">ยังไม่มีสื่อ</span>' : ok ? '<span class="lic ok">✓ ' + esc((c.credit && c.credit.license) || 'แสดงได้') + '</span>' : '<span class="lic no">' + esc(B.LICENSE_STATUS[st] || st) + '</span>';
+    return '<div class="char' + (!c.name ? ' bad' : '') + '" data-id="' + esc(c.id) + '"><div class="idx">#' + (i + 1) + '</div>' +
+      '<div class="pic dark">' + (thumb ? '<img alt="" loading="lazy" src="' + esc(thumb) + '">' : '<span class="muted small">' + (vid ? 'คลิป' : 'ไม่มีภาพ') + '</span>') + (vid ? '<span class="cr-v">คลิป</span>' : '') + '</div>' +
+      '<input value="' + esc(c.name) + '" maxlength="40" data-name aria-label="คำภาษาอังกฤษ" placeholder="English">' +
+      '<input value="' + esc(c.th || '') + '" maxlength="60" data-th aria-label="คำแปลภาษาไทย" placeholder="คำแปลไทย">' + lic +
+      '<div class="tools"><button class="btn secondary" data-det>สื่อ/เครดิต</button><button class="btn secondary" data-rep title="อัปโหลดภาพจากเครื่อง">อัปโหลด</button><button class="btn danger" data-del>ลบ</button></div></div>';
+  }
+  function findChar(id) { return cur.characters.filter(function (x) { return x.id === id; })[0]; }
+
+  // ---------- แก้สื่อ / เครดิต ----------
+  function openDetails(c) {
+    var m = c.media || {}, cr = c.credit || {};
+    function f(id, label, val, cls, ph) { return '<label class="field ' + (cls || '') + '"><span>' + label + '</span><input class="input" id="' + id + '" value="' + esc(val || '') + '" placeholder="' + esc(ph || '') + '"></label>'; }
+    var stOpts = Object.keys(B.LICENSE_STATUS).map(function (k) { return '<option value="' + k + '"' + ((cr.status || 'pending') === k ? ' selected' : '') + '>' + esc(B.LICENSE_STATUS[k]) + '</option>'; }).join('');
+    UI.modal({
+      title: 'สื่อและเครดิต: ' + c.name, wide: true,
+      html: '<div class="fgrid">' +
+        '<h4>สื่อบนจอพิธีกร</h4>' +
+        '<label class="field"><span>ชนิดสื่อ</span><select class="input" id="dType"><option value="image"' + (B.mediaType(c) !== 'video' ? ' selected' : '') + '>ภาพนิ่ง</option><option value="video"' + (B.mediaType(c) === 'video' ? ' selected' : '') + '>คลิปวิดีโอ (เล่นวน ไม่มีเสียง)</option></select></label>' +
+        f('dPoster', 'ภาพปกคลิป (ใช้เมื่อออฟไลน์)', m.poster, '', 'https://…') +
+        f('dSrc', 'ลิงก์ไฟล์ภาพ/คลิป (https://…) — เว้นว่างถ้าใช้ภาพที่อัปโหลด', m.src, 'full', 'https://upload.wikimedia.org/…') +
+        f('dStart', 'คลิป: เริ่มที่วินาที', m.start, '', '0') + f('dEnd', 'คลิป: วนกลับที่วินาที', m.end, '', 'เว้นว่าง = ทั้งคลิป') +
+        '<h4>เครดิตและสิทธิ์ (บังคับก่อนแสดง)</h4>' +
+        f('cTitle', 'ชื่อผลงาน/ภาพ', cr.title, 'full') + f('cAuthor', 'ผู้สร้าง/เจ้าของ', cr.author) + f('cLicense', 'ประเภทสัญญาอนุญาต', cr.license, '', 'เช่น Public domain, CC BY 3.0') +
+        f('cSource', 'ลิงก์แหล่งที่มา', cr.sourceUrl, 'full', 'https://commons.wikimedia.org/wiki/File:…') + f('cLicUrl', 'ลิงก์สัญญาอนุญาต', cr.licenseUrl, 'full', 'https://creativecommons.org/licenses/…') +
+        '<label class="field full"><span>สถานะสิทธิ์ — <b>แสดงในเกมเฉพาะ “ตรวจสอบสิทธิ์แล้ว”</b> · การใส่เครดิตอย่างเดียวไม่ถือว่าได้รับอนุญาต</span><select class="input" id="cStatus">' + stOpts + '</select></label>' +
+        f('cNote', 'หมายเหตุ', cr.note, 'full') +
+        '</div>',
+      buttons: [{ label: 'ยกเลิก', value: null, cls: 'ghost' }, { label: 'บันทึก', getValue: function (el) {
+        var g = function (id) { return el.querySelector('#' + id).value.trim(); };
+        var src = g('dSrc');
+        if (src && !/^https:\/\//.test(src)) { UI.toast('ลิงก์สื่อต้องขึ้นต้นด้วย https://'); return undefined; }
+        if (g('cStatus') === 'ok' && (!g('cLicense') || !g('cSource'))) { UI.toast('ก่อนเลือก “ตรวจสอบสิทธิ์แล้ว” ต้องกรอกสัญญาอนุญาตและแหล่งที่มา'); return undefined; }
+        return { type: g('dType'), src: src, poster: g('dPoster'), start: g('dStart'), end: g('dEnd'),
+          credit: { title: g('cTitle'), author: g('cAuthor'), sourceUrl: g('cSource'), license: g('cLicense'), licenseUrl: g('cLicUrl'), status: g('cStatus'), note: g('cNote') } };
+      } }]
+    }).then(function (v) {
+      if (!v) return;
+      if (v.src) {
+        c.media = { type: v.type, src: v.src };
+        if (v.poster) c.media.poster = v.poster;
+        if (+v.start) c.media.start = +v.start;
+        if (+v.end) c.media.end = +v.end;
+        if (m.pixel) c.media.pixel = true;
+      } else delete c.media;
+      var keep = c.credit || {};
+      c.credit = v.credit;
+      if (v.src) c.credit.file = v.src; else if (keep.file && !c.img) c.credit.file = keep.file;
+      Object.keys(c.credit).forEach(function (k) { if (!c.credit[k]) delete c.credit[k]; });
+      scheduleSave(); renderEditor(); UI.toast('บันทึก “' + c.name + '” แล้ว');
+    });
+  }
+  function openCredits() {
+    UI.modal({ title: 'เครดิต / แหล่งที่มาของภาพและคลิป', wide: true, html: '<p class="small"><b>' + esc(cur.name) + '</b>' + (cur.creditsNote ? '<br>' + esc(cur.creditsNote) : '') + '</p>' + B.creditsListHtml(cur) });
+  }
+  $('btnCredits').addEventListener('click', function () { if (cur) openCredits(); });
+  $('btnCreditsCsv').addEventListener('click', function () {
+    if (!cur) return;
+    var cols = ['term', 'thai', 'title', 'author', 'sourceUrl', 'license', 'licenseUrl', 'status', 'mediaType', 'fileUsedInGame', 'note'];
+    var q = function (v) { v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    var rows = cur.characters.map(function (c) {
+      var cr = c.credit || {}, src = B.mediaSrc(c);
+      return [c.name, c.th, cr.title, cr.author, cr.sourceUrl, cr.license, cr.licenseUrl, cr.status || (src ? 'own-upload' : 'no-media'), src ? B.mediaType(c) : '', src.indexOf('data:') === 0 ? '(uploaded image)' : src, cr.note].map(q).join(',');
+    });
+    UI.download(cur.id + '-credits.csv', '\ufeff' + cols.join(',') + '\n' + rows.join('\n'));
+  });
+  $('btnAddTerm').addEventListener('click', function () {
+    if (!cur) return;
+    if (cur.characters.length >= B.MAX_CHARACTERS) { UI.toast('ครบจำนวนสูงสุด ' + B.MAX_CHARACTERS + ' คำแล้ว'); return; }
+    var c = { id: newId(cur), name: 'New term', th: '' };
+    cur.characters.push(c); scheduleSave(); renderEditor();
+    var inp = document.querySelector('.char[data-id="' + c.id + '"] [data-name]'); if (inp) { inp.focus(); inp.select(); }
+  });
+
   function renderValidation() {
     var v = B.validateTheme(cur), html = '';
     var fpNow = B.fingerprint(cur);
@@ -160,23 +248,25 @@
       (v.errors.length > 8 ? '<li>…และอีก ' + (v.errors.length - 8) + ' รายการ</li>' : '') + '</ul></div>';
     v.warnings.forEach(function (w) { html += '<div class="banner warn">' + esc(w) + '</div>'; });
     if (fpNow !== originalFp && cur.characters.length) html += '<div class="banner warn">มีการเพิ่ม/ลบตัวละครในรอบแก้ไขนี้ — ถ้าเคยพิมพ์บัตรกระดาษของชุดนี้ไว้ ต้องพิมพ์ใหม่</div>';
-    var total = cur.characters.reduce(function (s, c) { return s + (c.img ? c.img.length : 0); }, 0);
+    var total = cur.characters.reduce(function (s, c) { return s + (c.img ? c.img.length : 0) + JSON.stringify(c.credit || {}).length; }, 0);
     html += '<p class="small muted">ขนาดไฟล์ชุดภาพโดยประมาณ ' + (total / 1024 / 1024).toFixed(2) + ' MB' + (total > 3 * 1024 * 1024 ? ' — ใหญ่เกินไป ผู้เล่นอาจโหลดช้า' : '') + '</p>';
     $('validation').innerHTML = html;
   }
 
   $('chars').addEventListener('input', function (e) {
-    if (!e.target.matches('[data-name]')) return;
+    if (!e.target.matches('[data-name],[data-th]')) return;
     var id = e.target.closest('.char').dataset.id;
-    var c = cur.characters.filter(function (x) { return x.id === id; })[0];
+    var c = findChar(id);
+    if (e.target.matches('[data-th]')) { c.th = e.target.value.trim(); scheduleSave(); return; }
     c.name = e.target.value.trim();
-    e.target.closest('.char').classList.toggle('bad', !c.name || !c.img);
+    e.target.closest('.char').classList.toggle('bad', !c.name || (!c.img && !B.isText(cur)));
     scheduleSave(); renderValidation();
   });
   $('chars').addEventListener('click', function (e) {
     var card = e.target.closest('.char'); if (!card) return;
     var id = card.dataset.id;
     if (e.target.closest('[data-rep]')) { replaceTarget = id; $('replaceFile').click(); }
+    if (e.target.closest('[data-det]')) openDetails(findChar(id));
     if (e.target.closest('[data-del]')) {
       var c = cur.characters.filter(function (x) { return x.id === id; })[0];
       UI.confirm('ลบ “' + c.name + '”?', '<p>ถ้าเคยพิมพ์บัตรกระดาษของชุดนี้แล้ว การลบตัวละครจะทำให้บัตรเดิมใช้ไม่ได้</p>', 'ลบ', 'danger').then(function (ok) {
@@ -192,6 +282,13 @@
     processFile(f).then(function (r) {
       var c = cur.characters.filter(function (x) { return x.id === replaceTarget; })[0];
       c.img = r.img; c.bytes = r.bytes;
+      if (B.isText(cur)) {
+        // ภาพจากเครื่องแทนลิงก์เดิม: ต้องกรอกเครดิตและยืนยันสิทธิ์ก่อนจึงจะแสดงบนจอ
+        delete c.media;
+        c.credit = { status: 'pending', note: 'ภาพที่อัปโหลดจากเครื่อง — กรอกที่มา/สัญญาอนุญาตแล้วเลือก “ตรวจสอบสิทธิ์แล้ว”' };
+        scheduleSave(); renderEditor(); openDetails(c);
+        return;
+      }
       scheduleSave(); renderEditor(); UI.toast('เปลี่ยนภาพ “' + c.name + '” แล้ว');
     }).catch(function (e) { UI.modal({ title: 'เปลี่ยนภาพไม่สำเร็จ', html: '<p>' + esc(f.name) + ': ' + esc(e.message) + '</p>' }); });
   });
@@ -281,8 +378,8 @@
     var num = B.randomPhoneCardNumber(), cells = B.generateCard(cur, num), m = B.charMap(cur);
     UI.modal({
       title: 'ตัวอย่างบัตร ' + B.formatCode(num),
-      html: '<div class="grid4" style="max-width:360px;margin:auto">' + cells.map(function (id) {
-        return '<div class="cell" style="cursor:default"><img alt="" src="' + esc(m[id].img) + '"><div class="nm">' + esc(m[id].name) + '</div></div>';
+      html: '<div class="grid4' + (B.isText(cur) ? ' txt' : '') + '" style="max-width:360px;margin:auto">' + cells.map(function (id) {
+        return '<div class="cell" style="cursor:default">' + B.cellInner(cur, m[id]) + '</div>';
       }).join('') + '</div><p class="small muted center">แบบนี้คือสิ่งที่ผู้เล่นจะเห็นบนมือถือ</p>'
     });
   });
@@ -291,10 +388,20 @@
   function exportable() {
     var v = B.validateTheme(cur);
     if (!v.ok) { UI.modal({ title: 'ยังส่งออกไม่ได้', html: '<ul>' + v.errors.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join('') + '</ul>' }); return null; }
-    return {
-      format: 'character-bingo-theme@1', id: cur.id, name: cur.name, category: cur.category || '', updatedAt: new Date().toISOString(),
-      characters: cur.characters.map(function (c) { return { id: c.id, name: c.name.trim(), img: c.img }; })
-    };
+    var out = { format: 'character-bingo-theme@1', id: cur.id, name: cur.name, category: cur.category || '', updatedAt: new Date().toISOString() };
+    if (cur.display) out.display = cur.display;
+    if (cur.description) out.description = cur.description;
+    if (cur.creditsNote) out.creditsNote = cur.creditsNote;
+    out.characters = cur.characters.map(function (c) {
+      var o = { id: c.id, name: c.name.trim() };
+      if (c.th) o.th = c.th;
+      if (c.group) o.group = c.group;
+      if (c.img) o.img = c.img;
+      if (c.media) o.media = c.media;
+      if (c.credit) o.credit = c.credit;
+      return o;
+    });
+    return out;
   }
   $('btnExportTheme').addEventListener('click', function () {
     var t = exportable(); if (!t) return;

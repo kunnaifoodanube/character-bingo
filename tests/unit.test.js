@@ -195,3 +195,88 @@ test('QR ซิงก์: ปฏิเสธ QR คนละชุดภาพ /
   const good = B.encodeSync(theme, { id: 'r1', no: 1, pattern: 'line1', draws: [] });
   assert.equal(B.decodeSync(good + '~', theme).ok, false);
 });
+
+// ---------- Film & Animation Bingo (โหมดคำศัพท์ 32 คำ) ----------
+const film = require('../themes/film-animation.json');
+
+test('Film & Animation: 32 คำครบตามรายการ ผ่านการตรวจสอบ ไม่มีคำซ้ำ', () => {
+  const v = B.validateTheme(film);
+  assert.ok(v.ok, v.errors.join());
+  assert.deepEqual(v.warnings, []);
+  assert.equal(film.display, 'text');
+  assert.equal(film.characters.length, 32);
+  const g = {}; film.characters.forEach(c => { g[c.group] = (g[c.group] || 0) + 1; });
+  assert.deepEqual(g, { genre: 15, format: 6, animation: 11 });
+  const names = film.characters.map(c => c.name);
+  assert.equal(new Set(names.map(n => n.toLowerCase())).size, 32);
+  for (const n of ['Action', 'Spy', 'Documentary', 'Slow Motion', '2D Animation', 'Rotoscoping', 'Sand Animation', 'Flipbook']) assert.ok(names.includes(n), n);
+  film.characters.forEach(c => assert.ok(c.th && c.th.trim(), 'ไม่มีคำแปล: ' + c.name));
+});
+
+test('Film & Animation: ทุกสื่อมีเครดิตครบ สถานะตรวจสิทธิ์แล้ว และมาจาก Wikimedia Commons เท่านั้น', () => {
+  const okLic = /^(Public domain|CC0|CC BY 2\.0|CC BY 3\.0|CC BY-SA 3\.0|CC BY-SA 4\.0)$/;
+  film.characters.forEach(c => {
+    const cr = c.credit;
+    assert.ok(cr, 'ไม่มีเครดิต ' + c.name);
+    for (const k of ['title', 'author', 'sourceUrl', 'license', 'licenseUrl', 'status', 'file', 'fileName']) assert.ok(cr[k], c.name + ' ไม่มี ' + k);
+    assert.equal(cr.status, 'ok');
+    assert.match(cr.license, okLic, c.name);
+    assert.match(cr.sourceUrl, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+    assert.match(B.mediaSrc(c), /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//, c.name);
+    assert.equal(cr.file, B.mediaSrc(c));
+    assert.ok(B.mediaAllowed(c));
+    if (B.mediaType(c) === 'video') { assert.match(c.media.src, /\.webm$/); assert.match(c.media.poster, /^https:\/\/upload\.wikimedia\.org\//); }
+  });
+  const vids = film.characters.filter(c => B.mediaType(c) === 'video').map(c => c.name).sort();
+  assert.deepEqual(vids, ['Flipbook', 'Motion Graphics', 'Romance', 'Sand Animation', 'Slow Motion', 'Stop Motion', 'Time-Lapse']);
+});
+
+test('Film & Animation: สื่อที่ยังไม่ยืนยันสิทธิ์จะไม่ถูกแสดง', () => {
+  const c = JSON.parse(JSON.stringify(film.characters[0]));
+  c.credit.status = 'pending'; assert.equal(B.mediaAllowed(c), false);
+  c.credit.status = 'link-only'; assert.equal(B.mediaAllowed(c), false);
+  const t = JSON.parse(JSON.stringify(film)); t.characters[0] = c;
+  assert.match(B.validateTheme(t).warnings.join(), /ยังไม่ยืนยันสิทธิ์/);
+  const own = { id: 'x', name: 'X', img: 'data:image/png;base64,AAAA' }; // ภาพที่อัปโหลดเองในชุดภาพปกติ
+  assert.equal(B.mediaAllowed(own), true);
+});
+
+test('Film & Animation: บัตรผู้เล่นมี 16 คำไม่ซ้ำ เป็นข้อความอย่างเดียว และ 10,000 บัตรไม่มีบัตรซ้ำ', () => {
+  const nums = []; for (let n = 10000; n < 20000; n++) nums.push(n);
+  const chk = B.checkCardSet(film, nums);
+  assert.equal(chk.identicalCards.length, 0);
+  const m = B.charMap(film);
+  for (let n = 1; n <= 200; n++) {
+    const cells = B.generateCard(film, n);
+    assert.equal(cells.length, 16); assert.equal(new Set(cells).size, 16);
+    const html = B.cellInner(film, m[cells[0]]);
+    assert.ok(!/img|video|ภาพ/.test(html) && !html.includes(m[cells[0]].th), html);
+  }
+});
+
+test('Film & Animation: สุ่มครบ 32 คำไม่ซ้ำ และตรวจบิงโกจากประวัติพิธีกรเท่านั้น', () => {
+  let draws = [], x;
+  while ((x = B.drawNext(film, draws)) !== null) draws.push(x);
+  assert.equal(draws.length, 32); assert.equal(new Set(draws).size, 32);
+  const r = B.verifyCard(film, 12345, draws);
+  assert.equal(r.fullAtDraw !== null, true);
+  assert.equal(B.verifyCard(film, 12345, []).bingo, false);
+  // กดมั่ว: ผู้เล่นแตะครบแถวแต่พิธีกรยังไม่เรียก → ไม่ได้รางวัล
+  const card = B.generateCard(film, 777);
+  const partial = card.slice(0, 3);
+  assert.equal(B.verifyCard(film, 777, partial).bingo, false);
+  assert.equal(B.verifyCard(film, 777, card.slice(0, 4)).bingo, true);
+});
+
+test('Film & Animation: จำลองผู้เล่น 100 คน — ผู้ชนะคนแรกมาเมื่อสุ่มกี่คำ', () => {
+  const res = { line1: [], line2: [], full: [] };
+  for (let g = 0; g < 300; g++) {
+    let draws = [], x; while ((x = B.drawNext(film, draws)) !== null) draws.push(x);
+    const cards = []; for (let p = 0; p < 100; p++) cards.push(B.verifyCard(film, 10000 + g * 100 + p, draws));
+    for (const pid of ['line1', 'line2', 'full']) res[pid].push(Math.min(...cards.map(c => B.patternAtDraw(c, pid))));
+  }
+  const avg = a => a.reduce((s, v) => s + v, 0) / a.length;
+  const out = {}; for (const k in res) out[k] = +avg(res[k]).toFixed(1);
+  console.log('ผู้เล่น 100 คน, 32 คำ — เฉลี่ยผู้ชนะคนแรก:', JSON.stringify(out));
+  assert.ok(out.line1 >= 4 && out.line1 < out.line2 && out.line2 < out.full && out.full <= 32);
+});

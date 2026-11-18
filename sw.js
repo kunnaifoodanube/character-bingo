@@ -2,7 +2,8 @@
  * กลยุทธ์: เครือข่ายก่อน (รอไม่เกิน 3.5 วิ) → ถ้าไม่ได้ ใช้สำเนาในเครื่อง
  * เมื่อแก้ไฟล์ในเว็บไซต์ ให้เปลี่ยนเลข VERSION เพื่อล้างแคชเก่า
  */
-var VERSION = 'cb-v1.1.2';
+var VERSION = 'cb-v1.2.0';
+var MEDIA = 'cb-media-v1'; // ภาพจาก Wikimedia Commons (ไม่ลบเมื่ออัปเดตเวอร์ชัน)
 var SHELL = [
   './', 'index.html', 'host.html', 'admin.html', 'print.html',
   'assets/css/style.css', 'assets/js/core.js', 'assets/js/ui.js', 'assets/js/player.js',
@@ -27,7 +28,7 @@ self.addEventListener('install', function (e) {
 
 self.addEventListener('activate', function (e) {
   e.waitUntil(caches.keys().then(function (keys) {
-    return Promise.all(keys.filter(function (k) { return k !== VERSION; }).map(function (k) { return caches.delete(k); }));
+    return Promise.all(keys.filter(function (k) { return k !== VERSION && k !== MEDIA; }).map(function (k) { return caches.delete(k); }));
   }).then(function () { return self.clients.claim(); }));
 });
 
@@ -37,7 +38,22 @@ self.addEventListener('fetch', function (e) {
   var req = e.request;
   if (req.method !== 'GET') return;
   var url = new URL(req.url);
-  if (url.origin !== location.origin) return;
+  if (url.origin !== location.origin) {
+    // ภาพนิ่ง/ภาพปกคลิปจาก Wikimedia: ใช้สำเนาในเครื่องก่อน (ไฟล์บน Commons ไม่เปลี่ยนตาม URL) → เปิดเกมออฟไลน์ได้
+    // คลิปวิดีโอ (.webm) ไม่แคช เพราะไฟล์ใหญ่และเบราว์เซอร์โหลดเป็นช่วง — ออฟไลน์จะแสดงภาพปกแทน
+    if (url.hostname === 'upload.wikimedia.org' && !/\.(webm|ogv|mp4)$/i.test(url.pathname) && req.destination !== 'video') {
+      e.respondWith(caches.open(MEDIA).then(function (c) {
+        return c.match(req, { ignoreVary: true }).then(function (hit) {
+          if (hit) return hit;
+          return fetch(req).then(function (res) {
+            if (res && (res.ok || res.type === 'opaque')) c.put(req, res.clone());
+            return res;
+          });
+        });
+      }));
+    }
+    return;
+  }
   e.respondWith((function () {
     // ตรวจกับเซิร์ฟเวอร์ทุกครั้ง (ไม่ใช้แคช HTTP 10 นาทีของ GitHub Pages) เพื่อไม่ให้ได้ไฟล์คนละเวอร์ชัน
     var net = (req.mode === 'navigate' ? fetch(req) : fetch(req, { cache: 'no-cache' })).then(function (res) {

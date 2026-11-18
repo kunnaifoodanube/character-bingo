@@ -9,7 +9,7 @@
       var root = document.getElementById('modalRoot') || document.body;
       var back = document.createElement('div');
       back.className = 'modal-back';
-      back.innerHTML = '<div class="modal" role="dialog" aria-modal="true"><h2>' + esc(opts.title || '') + '</h2>' +
+      back.innerHTML = '<div class="modal' + (opts.wide ? ' wide' : '') + '" role="dialog" aria-modal="true"><h2>' + esc(opts.title || '') + '</h2>' +
         '<div class="mb">' + (opts.html || '') + '</div><div class="actions"></div></div>';
       var actions = back.querySelector('.actions');
       (opts.buttons || [{ label: 'ตกลง', value: true }]).forEach(function (b) {

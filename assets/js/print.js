@@ -46,12 +46,14 @@
     }).catch(function (err) { $('report').innerHTML = '<div class="banner err">' + esc(err.message) + '</div>'; });
   }
 
+  function pic(c) { return B.isText(theme) || !c.img ? '' : '<img alt="" src="' + esc(c.img) + '">'; }
+  function label(c) { return esc(c.name) + (B.isText(theme) && c.th ? '<br><small>' + esc(c.th) + '</small>' : ''); }
   function cardHtml(num, m, title, fp) {
     var cells = B.generateCard(theme, num);
     return '<div class="pcard"><div class="hd"><div><div class="ttl">' + esc(title) + '</div><div class="sub">ชุด ' + esc(theme.name) + '</div></div>' +
       '<div class="no">' + B.formatCode(num) + '</div></div>' +
       '<div class="nm-line">ชื่อผู้เล่น ______________________________</div>' +
-      '<div class="pgrid">' + cells.map(function (id) { return '<div><img alt="" src="' + esc(m[id].img) + '"><span>' + esc(m[id].name) + '</span></div>'; }).join('') + '</div>' +
+      '<div class="pgrid' + (B.isText(theme) ? ' txt' : '') + '">' + cells.map(function (id) { return '<div>' + pic(m[id]) + '<span>' + esc(m[id].name) + '</span></div>'; }).join('') + '</div>' +
       '<div class="ft"><span>ขีด ✕ ตัวที่ถูกเรียก · ครบแนวนอน/ตั้ง/ทแยง = BINGO</span><span>รหัสชุด ' + fp + '</span></div></div>';
   }
 
@@ -63,16 +65,16 @@
       html += '</div>';
     }
     if ($('incCall').checked) {
-      html += '<div class="page call"><h2>แผ่นบันทึกการเรียกตัวละคร — ' + esc(theme.name) + '</h2><p class="small">เขียนลำดับที่เรียก (1, 2, 3…) ใช้ตรวจรางวัลเมื่อระบบสำรอง · รหัสชุด ' + fp + '</p><table><tr><th>ภาพ</th><th>ชื่อ</th><th style="width:28mm">ลำดับที่เรียก</th><th>ภาพ</th><th>ชื่อ</th><th style="width:28mm">ลำดับที่เรียก</th></tr>';
+      html += '<div class="page call"><h2>แผ่นบันทึกการเรียกตัวละคร — ' + esc(theme.name) + '</h2><p class="small">เขียนลำดับที่เรียก (1, 2, 3…) ใช้ตรวจรางวัลเมื่อระบบสำรอง · รหัสชุด ' + fp + '</p><table><tr><th>' + (B.isText(theme) ? '' : 'ภาพ') + '</th><th>ชื่อ</th><th style="width:28mm">ลำดับที่เรียก</th><th>' + (B.isText(theme) ? '' : 'ภาพ') + '</th><th>ชื่อ</th><th style="width:28mm">ลำดับที่เรียก</th></tr>';
       var cs = theme.characters, half = Math.ceil(cs.length / 2);
       for (var r = 0; r < half; r++) {
-        html += '<tr>' + [cs[r], cs[r + half]].map(function (c) { return c ? '<td><img alt="" src="' + esc(c.img) + '"></td><td>' + esc(c.name) + '</td><td></td>' : '<td></td><td></td><td></td>'; }).join('') + '</tr>';
+        html += '<tr>' + [cs[r], cs[r + half]].map(function (c) { return c ? '<td>' + pic(c) + '</td><td>' + label(c) + '</td><td></td>' : '<td></td><td></td><td></td>'; }).join('') + '</tr>';
       }
       html += '</table></div>';
     }
     if ($('incSlips').checked) {
       for (var s = 0; s < theme.characters.length; s += 24) {
-        html += '<div class="page slips">' + theme.characters.slice(s, s + 24).map(function (c) { return '<div><img alt="" src="' + esc(c.img) + '"><span>' + esc(c.name) + '</span></div>'; }).join('') + '</div>';
+        html += '<div class="page slips">' + theme.characters.slice(s, s + 24).map(function (c) { return '<div' + (B.isText(theme) ? ' class="txt"' : '') + '>' + pic(c) + '<span>' + label(c) + '</span></div>'; }).join('') + '</div>';
       }
     }
     $('out').innerHTML = html;

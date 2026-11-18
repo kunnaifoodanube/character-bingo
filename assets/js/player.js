@@ -149,7 +149,7 @@
     else {
       var n = SY.draws.length, last = SY.draws[n - 1], c = last && chars[last];
       var when = fresh() ? 'สดจากพิธีกร' : (SY.source === 'qr' ? 'จาก QR เมื่อ ' + new Date(SY.at).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) : 'ข้อมูลล่าสุด (ขาดการเชื่อมต่อ)');
-      txt = (c ? '<img alt="" src="' + esc(c.img) + '">' : '') + '<span>รอบที่ ' + esc(SY.roundNo) + ' · เรียกแล้ว <b id="syncCount">' + n + '</b> ตัว' +
+      txt = (c && c.img && !B.isText(theme) ? '<img alt="" src="' + esc(c.img) + '">' : '') + '<span>รอบที่ ' + esc(SY.roundNo) + ' · เรียกแล้ว <b id="syncCount">' + n + '</b> ตัว' +
         (c ? ' · ล่าสุด <b>' + esc(c.name) + '</b>' : '') + '<br><span class="muted small">' + when + ' · รางวัล: ' + esc(B.PATTERNS[SY.pattern || 'line1'].name) + '</span></span>';
     }
     bar.innerHTML = '<span class="dot ' + dot + '"></span>' + txt;
@@ -158,6 +158,7 @@
 
   // ---------- แสดงผล ----------
   var lastBingoCount = 0;
+  window.addEventListener('resize', function () { if (theme && B.isText(theme)) B.fitWords($('grid')); });
   function render() {
     if (!state) return;
     show('play');
@@ -165,16 +166,17 @@
     $('pCode').textContent = state.code;
     $('cardMeta').textContent = 'ชุด: ' + state.themeName + ' · รหัสชุด ' + state.fp + ' · สร้างเมื่อ ' + new Date(state.createdAt).toLocaleString('th-TH');
     var grid = $('grid');
+    grid.classList.toggle('txt', B.isText(theme));
     if (!grid.children.length) {
       state.cells.forEach(function (id, i) {
         var c = chars[id];
         var d = document.createElement('div');
         d.className = 'cell'; d.dataset.i = i; d.setAttribute('role', 'gridcell');
-        d.innerHTML = (c ? '<img alt="" src="' + esc(c.img) + '">' : '<div style="font-size:2rem">?</div>') +
-          '<div class="nm">' + esc(c ? c.name : 'ไม่พบภาพ') + '</div>';
+        d.innerHTML = c ? B.cellInner(theme, c) : '<div style="font-size:2rem">?</div><div class="nm">ไม่พบภาพ</div>';
         grid.appendChild(d);
       });
     }
+    if (B.isText(theme)) B.fitWords(grid);
     renderSyncBar();
     if (syncValid() && state.roundId && SY.roundId && state.roundId !== SY.roundId) showRoundBanner(); else $('roundBanner').classList.add('hidden');
     renderCellsOnly();

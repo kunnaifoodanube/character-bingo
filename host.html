@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex">
   <title>หน้าจอพิธีกร — Character Bingo</title>
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/style.css?v=1.1.2">
+  <link rel="stylesheet" href="assets/css/style.css?v=1.2.0">
 </head>
 <body>
   <div class="host">
@@ -26,8 +26,9 @@
         <div class="count" id="count">0 / 24</div>
         <div class="count" id="patternLabel" style="left:auto;right:22px;color:var(--primary)"></div>
         <div class="placeholder" id="placeholder">กด “สุ่มตัวถัดไป” เพื่อเริ่ม</div>
-        <img id="bigImg" class="hidden" alt="">
+        <div id="bigMedia" class="media hidden"></div>
         <div class="name" id="bigName"></div>
+        <button class="btn ghost credit-btn hidden" id="btnCredit" title="ที่มาและสัญญาอนุญาตของภาพ/คลิปนี้">ⓘ เครดิตภาพนี้</button>
       </div>
 
       <div class="controls">
@@ -49,7 +50,7 @@
           </select></label>
       </div>
       <div class="panel">
-        <div class="row"><h3 class="grow" style="margin:0">ตัวละครทั้งหมด</h3><span class="muted small" id="fp"></span></div>
+        <div class="row"><h3 class="grow" style="margin:0">รายการทั้งหมด</h3><span class="muted small" id="fp"></span></div>
         <div class="board" id="board" style="margin-top:.6rem"></div>
       </div>
       <div class="panel row" style="flex-wrap:nowrap;align-items:center;gap:.8rem">
@@ -64,6 +65,7 @@
         <h3>เมนูอื่น ๆ</h3>
         <div class="row">
           <button class="btn ghost" id="btnRounds">ประวัติทุกรอบ</button>
+          <button class="btn ghost" id="btnCredits">เครดิต / แหล่งภาพ</button>
           <a class="btn ghost" id="lnkPrint" href="print.html" target="_blank">พิมพ์บัตรสำรอง</a>
           <a class="btn ghost" href="admin.html" target="_blank">จัดการภาพ</a>
         </div>
@@ -84,12 +86,12 @@
     <button class="btn" id="btnQRSyncClose">ปิด</button>
   </div>
   <div id="modalRoot"></div>
-  <script src="firebase-config.js?v=1.1.2"></script>
-  <script src="assets/vendor/qrcode.js?v=1.1.2"></script>
-  <script src="assets/js/core.js?v=1.1.2"></script>
-  <script src="assets/js/ui.js?v=1.1.2"></script>
-  <script src="assets/js/themes-local.js?v=1.1.2"></script>
-  <script src="assets/js/sync.js?v=1.1.2"></script>
-  <script src="assets/js/host.js?v=1.1.2"></script>
+  <script src="firebase-config.js?v=1.2.0"></script>
+  <script src="assets/vendor/qrcode.js?v=1.2.0"></script>
+  <script src="assets/js/core.js?v=1.2.0"></script>
+  <script src="assets/js/ui.js?v=1.2.0"></script>
+  <script src="assets/js/themes-local.js?v=1.2.0"></script>
+  <script src="assets/js/sync.js?v=1.2.0"></script>
+  <script src="assets/js/host.js?v=1.2.0"></script>
 </body>
 </html>
