@@ -64,10 +64,34 @@ async function meta(titles) {
     '</div><div class="l">' + esc(r.license) + '</div><div class="n">' + esc(r.artist.slice(0, 80)) + ' · ' + esc(r.mime || '') + ' ' + (r.w || '') + '×' + (r.h || '') + (r.dur ? ' · ' + r.dur + 's' : '') + '</div></div>').join('') + '</div>' +
     '<pre id="json">' + esc(JSON.stringify(rows)) + '</pre>';
 }
+/* tools/media-picker.html?theme=film-animation — แสดงสื่อจริงที่เกมใช้ทั้งหมด + สรุปว่าโหลดได้ครบหรือไม่ */
+async function checkTheme(id) {
+  const t = await (await fetch('../themes/' + id + '.json', { cache: 'no-cache' })).json();
+  const out = document.getElementById('out');
+  out.innerHTML = '<h2 id="sum">กำลังโหลด…</h2><div class="g" style="grid-template-columns:repeat(8,1fr)">' + t.characters.map((c, i) => {
+    const m = c.media || {}, v = m.type === 'video';
+    return '<div class="c" data-i="' + i + '" style="background:#111;color:#fff">' + (v ? '<video muted autoplay loop playsinline style="width:100%;height:96px;object-fit:contain" src="' + esc(m.src) + (m.start ? '#t=' + m.start : '') + '"></video>' : '<img style="height:96px;background:#111" src="' + esc(m.src) + '">') +
+      '<div class="t" style="color:#fff"><b>' + (i + 1) + '. ' + esc(c.name) + '</b>' + (v ? ' 🎬' : '') + '</div><div class="n st" style="color:#ccc">…</div></div>';
+  }).join('') + '</div>';
+  const cards = [...out.querySelectorAll('.c')];
+  const check = () => {
+    let ok = 0;
+    cards.forEach(cd => {
+      const el = cd.querySelector('img,video'), good = el.tagName === 'IMG' ? (el.complete && el.naturalWidth > 0) : el.readyState >= 2;
+      const bad = el.tagName === 'IMG' ? (el.complete && !el.naturalWidth) : !!el.error;
+      cd.querySelector('.st').textContent = good ? '✓ ' + (el.naturalWidth || el.videoWidth) + '×' + (el.naturalHeight || el.videoHeight) : bad ? '✗ โหลดไม่ได้' : '…';
+      cd.style.outline = good ? '3px solid #2b8a3e' : bad ? '3px solid #e03131' : '';
+      if (good) ok++;
+    });
+    document.getElementById('sum').textContent = 'โหลดได้ ' + ok + ' / ' + cards.length + ' (ภาพ ' + cards.filter(c => c.querySelector('img')).length + ' · คลิป ' + cards.filter(c => c.querySelector('video')).length + ')';
+  };
+  setInterval(check, 700);
+}
 (async () => {
   const out = document.getElementById('out');
   try {
     if (P.get('titles')) { out.innerHTML = await meta(P.get('titles')); return; }
+    if (P.get('theme')) { await checkTheme(P.get('theme')); return; }
     const qs = (P.get('q') || '').split(';').filter(Boolean), type = P.get('type') || '', n = +(P.get('n') || 12);
     const parts = await Promise.all(qs.map(q => search(q, type, n)));
     out.innerHTML = parts.join('');
