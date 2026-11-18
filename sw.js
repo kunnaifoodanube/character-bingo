@@ -2,7 +2,7 @@
  * กลยุทธ์: เครือข่ายก่อน (รอไม่เกิน 3.5 วิ) → ถ้าไม่ได้ ใช้สำเนาในเครื่อง
  * เมื่อแก้ไฟล์ในเว็บไซต์ ให้เปลี่ยนเลข VERSION เพื่อล้างแคชเก่า
  */
-var VERSION = 'cb-v1.1.1';
+var VERSION = 'cb-v1.1.2';
 var SHELL = [
   './', 'index.html', 'host.html', 'admin.html', 'print.html',
   'assets/css/style.css', 'assets/js/core.js', 'assets/js/ui.js', 'assets/js/player.js',

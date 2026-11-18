@@ -10,4 +10,8 @@
  * };
  * ค่าเหล่านี้ไม่ใช่รหัสผ่าน เปิดเผยได้ ความปลอดภัยมาจาก Firestore Rules
  */
-window.CB_FIREBASE_CONFIG = null;
+window.CB_FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDV8PEaY0qUVe54r0AwioaPui0GzyCuiaU",
+  authDomain: "character-bingo.firebaseapp.com",
+  projectId: "character-bingo"
+};
