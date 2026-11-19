@@ -152,6 +152,58 @@
       };
     },
 
+    // ---------- ผู้เล่น (สลับบัตร / ตรวจบัตรตามตำแหน่งจริง) ----------
+    // rooms/{room}/players/{uid}   — ผู้เล่นเขียนได้เฉพาะเอกสารของตัวเอง
+    // rooms/{room}/shuffles/{roundId}_{uid} — สร้างได้ครั้งเดียวต่อคนต่อรอบ (แก้/ลบไม่ได้)
+
+    /** รหัสผู้ใช้ของเครื่องนี้ (Firebase: ล็อกอินแบบไม่ระบุตัวตน) */
+    uid: function () {
+      if (mode === 'firebase') return fb().then(function (x) { return fbUser(x); }).then(function (u) { return u.uid; });
+      if (mode === 'mock') return Promise.resolve(mockOwner());
+      return Promise.reject(new Error('off'));
+    },
+
+    /** เขียนเอกสาร (createOnly = สร้างใหม่เท่านั้น ถ้ามีอยู่แล้วจะ error permission-denied) */
+    putDoc: function (path, data, createOnly) {
+      if (mode === 'firebase') {
+        return fb().then(function (x) { return fbUser(x).then(function () {
+          return x.F.setDoc(x.F.doc.apply(null, [x.db].concat(path)), data);
+        }); });
+      }
+      if (mode === 'mock') {
+        return fetch(mockBase + '/docs/' + path.join('/') + (createOnly ? '?create=1' : ''), { method: 'PUT', body: JSON.stringify(data) }).then(function (r) {
+          if (r.status === 403) { var e = new Error('permission-denied'); e.code = 'permission-denied'; throw e; }
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+        });
+      }
+      return Promise.reject(new Error('off'));
+    },
+
+    /** ติดตามเอกสารทั้งหมดในคอลเลกชัน → onData([{id, data}]) · คืนฟังก์ชันยกเลิก */
+    watchCollection: function (path, onData, onError) {
+      var stopped = false, unsub = null, timer = null;
+      if (mode === 'firebase') {
+        fb().then(function (x) {
+          if (stopped) return;
+          var q = x.F.query(x.F.collection.apply(null, [x.db].concat(path)), x.F.limit(200));
+          unsub = x.F.onSnapshot(q, function (snap) {
+            var list = []; snap.forEach(function (d) { list.push({ id: d.id, data: d.data() }); });
+            if (!stopped) onData(list);
+          }, function (err) { if (onError) onError(err); });
+        }).catch(function (e) { if (onError) onError(e); });
+      } else if (mode === 'mock') {
+        var poll = function () {
+          fetch(mockBase + '/docs/' + path.join('/'), { cache: 'no-store' }).then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status); return r.json();
+          }).then(function (all) { if (!stopped) onData(Object.keys(all).map(function (k) { return { id: k, data: all[k] }; })); })
+            .catch(function (e) { if (onError) onError(e); })
+            .then(function () { if (!stopped) timer = setTimeout(poll, 400); });
+        };
+        poll();
+      }
+      return function () { stopped = true; if (unsub) unsub(); if (timer) clearTimeout(timer); };
+    },
+
     newRoomId: function () {
       var a = 'abcdefghijkmnpqrstuvwxyz23456789', s = '';
       for (var i = 0; i < 10; i++) s += a.charAt(Bingo.randomInt(0, a.length - 1));

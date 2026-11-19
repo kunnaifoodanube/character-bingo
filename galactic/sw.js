@@ -3,11 +3,11 @@
  * เมื่อแก้ไฟล์ในเว็บไซต์ ให้เปลี่ยนเลข VERSION เพื่อล้างแคชเก่า
  */
 var PREFIX = 'gx-';             // แต่ละเวอร์ชันเกมใช้ PREFIX ของตัวเอง (โดเมนเดียวกันใช้แคชร่วมกัน)
-var VERSION = PREFIX + 'v1.5.0';
+var VERSION = PREFIX + 'v1.6.0';
 var MEDIA = PREFIX + 'media-v1'; // ภาพจาก Wikimedia Commons (ไม่ลบเมื่ออัปเดตเวอร์ชัน)
 var SHELL = [
   './', 'index.html', 'host.html', 'admin.html', 'print.html',
-  'assets/css/style.css', 'assets/js/core.js', 'assets/js/ui.js', 'assets/js/player.js',
+  'assets/css/style.css', 'assets/css/fonts.css', 'assets/css/galactic.css', 'assets/fonts/prompt-latin-400-normal.woff2', 'assets/fonts/prompt-latin-600-normal.woff2', 'assets/fonts/prompt-latin-700-normal.woff2', 'assets/fonts/prompt-latin-800-normal.woff2', 'assets/fonts/prompt-thai-400-normal.woff2', 'assets/fonts/prompt-thai-600-normal.woff2', 'assets/fonts/prompt-thai-700-normal.woff2', 'assets/fonts/prompt-thai-800-normal.woff2', 'assets/js/core.js', 'assets/js/ui.js', 'assets/js/player.js',
   'assets/js/host.js', 'assets/js/admin.js', 'assets/js/print.js', 'assets/js/themes-local.js',
   'assets/vendor/qrcode.js', 'assets/vendor/jsqr.js', 'assets/js/sync.js', 'firebase-config.js', 'assets/icon.svg', 'assets/icon-192.png', 'assets/icon-512.png',
   'manifest.webmanifest', 'themes/index.json'

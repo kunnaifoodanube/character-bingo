@@ -14,7 +14,14 @@ ROOT = f'http://localhost:{PORT}/'
 GX = ROOT + 'galactic/'
 THEME = json.load(open(os.path.join(SITE, 'galactic', 'themes', 'galactic-stickers.json')))
 BYID = {c['id']: c for c in THEME['characters']}
-results, errors, bad_requests = [], [], []
+# ชื่อแคชของแต่ละเวอร์ชันอ่านจาก sw.js (ไม่ต้องแก้เทสต์ทุกครั้งที่เพิ่มเลขเวอร์ชัน)
+import re as _re
+def _sw_cache(path):
+    s = open(path, encoding='utf-8').read()
+    return _re.search(r"var PREFIX = '([^']+)'", s).group(1) + _re.search(r"var VERSION = PREFIX \+ '([^']+)'", s).group(1)
+CB_CACHE = _sw_cache(os.path.join(SITE, 'sw.js'))
+GX_CACHE = _sw_cache(os.path.join(SITE, 'galactic', 'sw.js'))
+results, errors, bad_requests, failed_requests = [], [], [], []
 
 
 class Quiet(SimpleHTTPRequestHandler):
@@ -43,6 +50,7 @@ def watch(page, label):
     page.on('pageerror', lambda e: errors.append(f'{label}: pageerror {e}'))
     page.on('console', lambda m: m.type == 'error' and errors.append(f'{label}: console.error {m.text}'))
     page.on('response', lambda r: r.status >= 400 and bad_requests.append(f'{label}: {r.status} {r.url}'))
+    page.on('requestfailed', lambda r: failed_requests.append(f'{label}: {r.failure} {r.url}'))
 
 
 with sync_playwright() as p:
@@ -161,10 +169,10 @@ with sync_playwright() as p:
         b.goto(GX + 'host.html')
         poll(b, 'navigator.serviceWorker.ready.then(r => !!r.active)', bool)
         # ภาพที่ SW เก็บล่วงหน้า (ไม่รวมภาพที่หน้าเว็บโหลดเอง): ใช้ cache แยกตรวจตอนติดตั้ง
-        n_img = poll(b, "caches.open('gx-v1.5.0').then(c => c.keys()).then(k => k.filter(r => r.url.endsWith('.webp')).length)", lambda v: v >= 33)
+        n_img = poll(b, "caches.open('" + GX_CACHE + "').then(c => c.keys()).then(k => k.filter(r => r.url.endsWith('.webp')).length)", lambda v: v >= 33)
         a.reload(); poll(a, 'navigator.serviceWorker.ready.then(r => !!r.active)', bool)
         keys = b.evaluate('caches.keys()')
-        record('G5a. แคชของสองเวอร์ชันอยู่ร่วมกัน (cb- และ gx-) และ Galactic เก็บภาพ 33 ภาพไว้ในเครื่องแล้ว', 'cb-v1.5.0' in keys and 'gx-v1.5.0' in keys and n_img >= 33, f'{keys} · ภาพในแคช {n_img}')
+        record('G5a. แคชของสองเวอร์ชันอยู่ร่วมกัน (cb- และ gx-) และ Galactic เก็บภาพ 33 ภาพไว้ในเครื่องแล้ว', CB_CACHE in keys and GX_CACHE in keys and n_img >= 33, f'{keys} · ภาพในแคช {n_img}')
         b.reload(); b.wait_for_function("navigator.serviceWorker.controller !== null", timeout=15000)
         ctx.set_offline(True)
         c = ctx.new_page(); watch(c, 'sw-offline')
@@ -192,5 +200,6 @@ with sync_playwright() as p:
     record('G7. ไม่มี JavaScript error และไม่มีไฟล์หาย (404)', not real and not bad, '; '.join((real + bad)[:5]))
     browser.close()
 
+print('failed requests:', failed_requests[:8])
 json.dump(results, open(os.path.join(OUT, 'e2e-galactic-results.json'), 'w'), ensure_ascii=False, indent=1)
 print(f'{sum(r["ok"] for r in results)}/{len(results)} passed')

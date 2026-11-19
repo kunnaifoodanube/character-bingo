@@ -5,16 +5,21 @@
   เปิดสองเวอร์ชันบนเครื่องเดียวกันได้โดยไม่ทับกัน
 - เวอร์ชันหลัก (/character-bingo/) ไม่ถูกแก้ชุดภาพหรือหน้าตา
 
-ใช้:  python3 tools/build-galactic.py <โฟลเดอร์ภาพต้นฉบับ 1.png..33.png>
+- หน้าตาแนว "คืนอวกาศ" + ฟอนต์ Prompt อยู่ที่ tools/galactic-theme/ (คัดลอกเข้า galactic/ ให้อัตโนมัติ)
+
+ใช้:  python3 tools/build-galactic.py                 อัปเดตโค้ดเกมเป็นรุ่นล่าสุด ใช้ภาพและชื่อสติกเกอร์เดิมใน galactic/themes/
+      python3 tools/build-galactic.py <โฟลเดอร์ภาพ>    สร้างภาพใหม่จากต้นฉบับ 1.png..33.png, 32b.png
 ภาพต้นฉบับ: Google Drive โฟลเดอร์ "สติกเกอร กาแลคติก" (Digital Arts SPU) — ไม่เก็บไฟล์ต้นฉบับขนาดใหญ่ใน repo
 """
-import json, os, re, shutil, sys
+import json, os, re, shutil, sys, tempfile
 from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 OUT = os.path.join(ROOT, 'galactic')
-SRC = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/galactic-src'
+SRC = sys.argv[1] if len(sys.argv) > 1 else None   # None = ใช้ภาพ/ชื่อเดิม
+THEME_DIR = os.path.join(HERE, 'galactic-theme')
+GX_VERSION = 'v1.6.0'   # เลขเวอร์ชันของ Galactic — เพิ่มทุกครั้งที่สร้างใหม่ (ล้างแคชเก่าในเครื่องผู้เล่น)
 
 # (เลขไฟล์, ชื่อที่แสดงบนบัตร) — ข้อ 32 ใช้ไฟล์ปรับปรุง 32_(1.2).png
 STICKERS = [
@@ -48,13 +53,28 @@ def sticker(src, dst):
 
 
 def main():
+    keep = None
+    if SRC is None:
+        # เก็บภาพ + ชื่อสติกเกอร์เดิมไว้ก่อน แล้วค่อยใส่กลับ
+        keep = tempfile.mkdtemp()
+        shutil.copytree(os.path.join(OUT, 'themes'), os.path.join(keep, 'themes'))
     if os.path.isdir(OUT):
         shutil.rmtree(OUT)
-    os.makedirs(os.path.join(OUT, 'themes', 'galactic'))
+    os.makedirs(OUT)
+    if keep is None:
+        os.makedirs(os.path.join(OUT, 'themes', 'galactic'))
     for f in SITE_FILES:
         shutil.copy(os.path.join(ROOT, f), os.path.join(OUT, f))
     for d in SITE_DIRS:
         shutil.copytree(os.path.join(ROOT, d), os.path.join(OUT, d))
+
+    if keep is not None:
+        shutil.copytree(os.path.join(keep, 'themes'), os.path.join(OUT, 'themes'))
+        shutil.rmtree(keep)
+        n = len(json.load(open(os.path.join(OUT, 'themes', 'galactic-stickers.json'), encoding='utf-8'))['characters'])
+        finish()
+        print('built', OUT, n, 'stickers (kept existing images)')
+        return
 
     chars = []
     for i, (num, name) in enumerate(STICKERS, 1):
@@ -76,6 +96,11 @@ def main():
                'themes': [{'id': theme['id'], 'name': theme['name'], 'category': theme['category'], 'file': 'galactic-stickers.json'}]},
               open(os.path.join(OUT, 'themes', 'index.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
+    finish()
+    print('built', OUT, len(chars), 'stickers')
+
+
+def finish():
     # แยกพื้นที่เก็บข้อมูล + ชื่อเกม
     for f in ['index.html', 'host.html', 'admin.html', 'print.html']:
         p = os.path.join(OUT, f)
@@ -83,17 +108,35 @@ def main():
         s = s.replace('<html lang="th">', '<html lang="th" data-ns="gx.">', 1)
         s = s.replace('Character Bingo · Digital Media Open House', 'Galactic Bingo · Digital Media Open House')
         s = s.replace('Character Bingo', 'Galactic Bingo')
+        # ?v= ของไฟล์ css/js ใช้เลขของ Galactic
+        s = re.sub(r'\?v=[0-9.]+', '?v=' + GX_VERSION[1:], s)
+        # ฟอนต์ Prompt ทุกหน้า + สีแนวคืนอวกาศ (ยกเว้นหน้าพิมพ์บัตร ให้พื้นขาวเหมือนเดิม)
+        css = '\n  <link rel="stylesheet" href="assets/css/fonts.css?v=%s">' % GX_VERSION[1:]
+        if f != 'print.html':
+            css += '\n  <link rel="stylesheet" href="assets/css/galactic.css?v=%s">' % GX_VERSION[1:]
+            s = s.replace('<meta name="theme-color" content="#6b3df5">', '<meta name="theme-color" content="#0f1433">')
+        s, n = re.subn(r'(<link rel="stylesheet" href="assets/css/style\.css[^"]*">)', lambda m: m.group(1) + css, s, count=1)
+        assert n == 1, f
         open(p, 'w', encoding='utf-8').write(s)
+    shutil.copy(os.path.join(THEME_DIR, 'fonts.css'), os.path.join(OUT, 'assets', 'css', 'fonts.css'))
+    shutil.copy(os.path.join(THEME_DIR, 'galactic.css'), os.path.join(OUT, 'assets', 'css', 'galactic.css'))
+    shutil.copytree(os.path.join(THEME_DIR, 'fonts'), os.path.join(OUT, 'assets', 'fonts'))
+    fonts = sorted(x for x in os.listdir(os.path.join(OUT, 'assets', 'fonts')) if x.endswith('.woff2'))
     p = os.path.join(OUT, 'sw.js')
     s = open(p).read()
     s, n = re.subn(r"var PREFIX = 'cb-';", "var PREFIX = 'gx-';", s)
+    assert n == 1
+    s, n = re.subn(r"var VERSION = PREFIX \+ '[^']*';", "var VERSION = PREFIX + '%s';" % GX_VERSION, s)
+    assert n == 1
+    extra = ["'assets/css/fonts.css'", "'assets/css/galactic.css'"] + ["'assets/fonts/%s'" % x for x in fonts]
+    s, n = re.subn(r"('assets/css/style\.css',)", lambda m: m.group(1) + ' ' + ', '.join(extra) + ',', s, count=1)
     assert n == 1
     open(p, 'w').write(s)
     p = os.path.join(OUT, 'manifest.webmanifest')
     m = json.load(open(p))
     m['name'], m['short_name'] = 'Galactic Bingo', 'Galactic'
+    m['background_color'], m['theme_color'] = '#0f1433', '#0f1433'
     json.dump(m, open(p, 'w'), ensure_ascii=False, indent=2)
-    print('built', OUT, len(chars), 'stickers')
 
 
 if __name__ == '__main__':
