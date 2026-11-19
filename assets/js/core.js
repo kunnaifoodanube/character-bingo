@@ -227,11 +227,18 @@
   }
 
   /** ตรวจรางวัลจริง: ใช้ประวัติการสุ่มของพิธีกรเท่านั้น ไม่สนใจว่าผู้เล่นแตะอะไร */
-  function verifyCard(theme, num, drawIds) {
+  /*  opts (บัตรมือถือที่ส่งข้อมูลขึ้นระบบ):
+   *   cells  — ลำดับคำบนบัตรหลังถูกสลับตำแหน่ง (ต้องเป็นคำชุดเดียวกับบัตรเดิม 16 คำ)
+   *   marked — คำที่ผู้เล่นแตะทันเวลา (ถ้าส่งมา จะนับเฉพาะคำที่ถูกเรียก + แตะทัน) */
+  function verifyCard(theme, num, drawIds, opts) {
     var cells = generateCard(theme, num);
+    opts = opts || {};
+    if (opts.cells && opts.cells.length === cells.length && opts.cells.slice().sort().join('|') === cells.slice().sort().join('|')) cells = opts.cells.slice();
+    var okMark = null;
+    if (opts.marked) { okMark = {}; opts.marked.forEach(function (id) { okMark[id] = true; }); }
     var pos = {};
     (drawIds || []).forEach(function (id, i) { if (pos[id] === undefined) pos[id] = i + 1; });
-    var drawnCells = cells.map(function (id) { return pos[id] !== undefined; });
+    var drawnCells = cells.map(function (id) { return pos[id] !== undefined && (!okMark || !!okMark[id]); });
     var winning = [];
     LINES.forEach(function (l) {
       if (l.cells.every(function (i) { return drawnCells[i]; })) {

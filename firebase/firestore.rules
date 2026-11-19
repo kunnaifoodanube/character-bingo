@@ -2,6 +2,8 @@ rules_version = '2';
 // กฎความปลอดภัยสำหรับ Character Bingo
 // - ทุกคนอ่านข้อมูลห้องเกมได้ (ผู้เล่นต้องรู้ว่าพิธีกรเรียกตัวไหนแล้ว)
 // - เฉพาะเครื่องพิธีกรที่สร้างห้องเท่านั้นที่แก้ไขห้องนั้นได้
+// - ผู้เล่นเขียนได้เฉพาะข้อมูลบัตรของตัวเอง (players/{uid})
+// - สลับบัตร: สร้างได้ 1 ครั้งต่อคนต่อรอบ (shuffles/{roundId}_{uid}) แก้หรือลบไม่ได้
 // - ห้ามลบ และห้ามเขียนส่วนอื่นของฐานข้อมูล
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -16,6 +18,30 @@ service cloud.firestore {
         && request.resource.data.ownerUid == request.auth.uid
         && request.resource.data.draws.size() <= 60;
       allow delete: if false;
+
+      match /players/{uid} {
+        allow read: if true;
+        allow create, update: if request.auth != null && request.auth.uid == uid
+          && request.resource.data.name is string && request.resource.data.name.size() <= 30
+          && request.resource.data.code is string && request.resource.data.code.size() <= 10
+          && request.resource.data.roundId is string && request.resource.data.roundId.size() <= 40
+          && request.resource.data.cells is list && request.resource.data.cells.size() == 16
+          && request.resource.data.marked is list && request.resource.data.marked.size() <= 16
+          && request.resource.data.shuffledBy is list && request.resource.data.shuffledBy.size() <= 20;
+        allow delete: if false;
+      }
+
+      match /shuffles/{shuffleId} {
+        allow read: if true;
+        allow create: if request.auth != null
+          && request.resource.data.from == request.auth.uid
+          && request.resource.data.roundId is string && request.resource.data.roundId.size() <= 40
+          && shuffleId == request.resource.data.roundId + '_' + request.auth.uid
+          && request.resource.data.target is string && request.resource.data.target.size() <= 128
+          && request.resource.data.fromName is string && request.resource.data.fromName.size() <= 30
+          && request.resource.data.seed is int;
+        allow update, delete: if false;
+      }
     }
     match /{document=**} {
       allow read, write: if false;

@@ -15,11 +15,17 @@
   var S = store.get(KEY, null);
   if (!S || !S.round) S = { themeId: null, round: null, archive: [] };
   if (!S.roomId) S.roomId = Sync.newRoomId();
+  if (S.timer == null) S.timer = 5;      // วินาทีที่ผู้เล่นมีให้แตะคำ (0 = ไม่จับเวลา)
+  if (S.shuffle == null) S.shuffle = false; // เปิดสิทธิ์สลับบัตร (ต้องตั้งกฎ Firebase ก่อน)
   var spinning = false;
   function save() { if (!store.set(KEY, S)) UI.toast('บันทึกสถานะไม่สำเร็จ!'); schedulePublish(); }
   function drawIds() { return S.round ? S.round.draws.map(function (d) { return d.id; }) : []; }
 
   /** ตัวที่ "เปิดเผยแล้ว" — ระหว่างแอนิเมชันยังไม่ส่งตัวล่าสุดให้ผู้เล่น */
+  function lastShownAt() {
+    var d = S.round && S.round.draws[S.round.draws.length - 1];
+    return (d && !spinning && d.shown) || 0;
+  }
   function visibleDraws() {
     var ids = drawIds();
     return spinning ? ids.slice(0, -1) : ids;
@@ -38,7 +44,8 @@
     if (pubBusy) { pubAgain = true; return; }
     pubBusy = true; syncPill('ซิงก์: กำลังส่ง…', true);
     var data = { v: 1, themeId: theme.id, fp: B.fingerprint(theme), roundId: S.round.id, roundNo: S.round.no,
-      pattern: S.round.pattern || 'line1', draws: visibleDraws(), updatedAt: Date.now() };
+      pattern: S.round.pattern || 'line1', draws: visibleDraws(), updatedAt: Date.now(),
+      timer: +S.timer || 0, shuffle: !!S.shuffle, shownAt: lastShownAt() };
     Sync.publish(S.roomId, data).then(function () {
       syncPill('ซิงก์: ส่งแล้ว ✓ (' + data.draws.length + ')', true);
     }).catch(function (e) {
@@ -152,6 +159,7 @@
   // ---------- แสดงผล ----------
   function renderAll(noAnim) {
     if (!theme) return;
+    watchPlayers(); renderSettings();
     var ids = drawIds();
     $('roundPill').textContent = 'รอบที่ ' + S.round.no;
     var pat = B.PATTERNS[S.round.pattern || 'line1'];
@@ -328,12 +336,70 @@
         clearInterval(timer);
         r.classList.remove('spinning');
         spinning = false;
+        var dd = S.round.draws[S.round.draws.length - 1]; if (dd) { dd.shown = Date.now(); store.set(KEY, S); }
         renderAll(false);
         schedulePublish(0);
+        startCountdown(dd && dd.shown);
         setTimeout(function () { busy = false; renderAll(true); }, COOLDOWN_MS);
       }
     }, 90);
   }
+  // ---------- นับถอยหลังเวลาแตะ (แสดงบนจอให้ทั้งห้องเห็น) ----------
+  var cdTimer = null;
+  function stopCountdown() { clearInterval(cdTimer); cdTimer = null; $('cd').classList.add('hidden'); }
+  function startCountdown(shownAt) {
+    stopCountdown();
+    var sec = +S.timer || 0;
+    if (!sec || !shownAt) return;
+    var el = $('cd');
+    function tick() {
+      var left = sec - (Date.now() - shownAt) / 1000;
+      if (left <= 0) {
+        el.textContent = 'หมดเวลา'; el.classList.add('done'); el.style.setProperty('--p', 0);
+        clearInterval(cdTimer); cdTimer = setTimeout(function () { el.classList.add('hidden'); }, 1500);
+        return;
+      }
+      el.classList.remove('done', 'hidden');
+      el.textContent = Math.ceil(left);
+      el.style.setProperty('--p', Math.max(0, left / sec));
+    }
+    tick(); cdTimer = setInterval(tick, 100);
+  }
+
+  // ---------- ตั้งค่า: เวลาแตะ / สิทธิ์สลับบัตร ----------
+  function renderSettings() {
+    $('timerSel').value = String(+S.timer || 0);
+    $('shuffleChk').checked = !!S.shuffle;
+    $('shuffleNote').classList.toggle('hidden', !S.shuffle || !Sync.enabled());
+  }
+  $('timerSel').addEventListener('change', function () {
+    S.timer = +this.value; save(); renderSettings();
+    UI.toast(S.timer ? 'ผู้เล่นมีเวลาแตะ ' + S.timer + ' วินาทีต่อภาพ' : 'ปิดการจับเวลาแล้ว');
+  });
+  $('shuffleChk').addEventListener('change', function () {
+    if (this.checked && !Sync.enabled()) { this.checked = false; UI.toast('ต้องเปิดซิงก์เรียลไทม์ (Firebase) ก่อน'); return; }
+    S.shuffle = this.checked; save(); renderSettings();
+    UI.toast(S.shuffle ? 'เปิดสิทธิ์สลับบัตรแล้ว — คนละ 1 ครั้งต่อรอบ' : 'ปิดสิทธิ์สลับบัตรแล้ว');
+  });
+
+  // ---------- ข้อมูลบัตรมือถือที่ส่งขึ้นระบบ (ตำแหน่งหลังสลับ + คำที่แตะทันเวลา) ----------
+  var livePlayers = {}, unwatchPlayers = null, watchedRoom = null;
+  function watchPlayers() {
+    if (!Sync.enabled() || watchedRoom === S.roomId) return;
+    if (unwatchPlayers) unwatchPlayers();
+    watchedRoom = S.roomId;
+    unwatchPlayers = Sync.watchCollection(['rooms', S.roomId, 'players'], function (list) {
+      var m = {};
+      list.forEach(function (p) { var d = p.data || {}; if (d.code) m[d.code + '|' + d.roundId] = d; });
+      livePlayers = m;
+    }, function () { /* ยังไม่ได้ตั้งกฎ Firebase สำหรับผู้เล่น → ตรวจแบบเดิม */ });
+  }
+  function livePlayer(code, roundObj) {
+    var d = livePlayers[code + '|' + roundObj.id];
+    if (!d || !Array.isArray(d.cells) || d.cells.length !== B.CELLS) return null;
+    return d;
+  }
+
   $('btnDraw').addEventListener('click', draw);
   document.addEventListener('keydown', function (e) {
     if (document.querySelector('.modal-back') || /INPUT|SELECT|TEXTAREA/.test((e.target.tagName || ''))) return;
@@ -345,7 +411,7 @@
     var ids = drawIds(); if (!ids.length || busy) return;
     var c = chars[ids[ids.length - 1]] || { name: '?' };
     UI.confirm('ยกเลิกตัวล่าสุด?', '<p>จะลบ “<b>' + esc(c.name) + '</b>” (ลำดับที่ ' + ids.length + ') ออกจากประวัติ ใช้เมื่อกดสุ่มผิดพลาดเท่านั้น และควรประกาศให้ผู้เล่นทราบ</p>', 'ยกเลิกตัวนี้', 'danger')
-      .then(function (ok) { if (!ok) return; S.round.draws.pop(); save(); renderAll(true); UI.toast('ยกเลิก ' + c.name + ' แล้ว'); });
+      .then(function (ok) { if (!ok) return; stopCountdown(); S.round.draws.pop(); save(); renderAll(true); UI.toast('ยกเลิก ' + c.name + ' แล้ว'); });
   });
 
   function archiveRound() {
@@ -372,7 +438,7 @@
       if (!ok) return;
       var no = S.round.no + 1;
       if (S.round.draws.length || (S.round.checks && S.round.checks.length)) archiveRound();
-      S.round = newRound(no, theme.id); save(); renderAll(true);
+      stopCountdown(); S.round = newRound(no, theme.id); save(); renderAll(true);
       UI.toast('เริ่มรอบที่ ' + no + ' แล้ว — แจ้งผู้เล่นให้ล้างเครื่องหมายหรือขอบัตรใหม่');
     });
   });
@@ -417,13 +483,17 @@
           var p = B.parseCode(inp.value), out = el.querySelector('#vout');
           if (!p.ok) { out.innerHTML = '<div class="banner err">' + esc(p.error) + '</div>'; return; }
           var ids = roundObj.draws.map(function (d) { return d.id; });
-          var res = B.verifyCard(theme, p.num, ids);
+          var lp = livePlayer(B.formatCode(p.num), roundObj);
+          var res = B.verifyCard(theme, p.num, ids, lp ? { cells: lp.cells, marked: lp.timed ? (lp.marked || []) : null } : null);
           var pid = roundObj.pattern || 'line1', okNow = !!B.patternAtDraw(res, pid);
           var prev = (roundObj.checks || []).filter(function (c) { return c.code === res.code && c.bingo && (c.pattern || 'line1') === pid; });
           var html = '<p class="center" style="margin:.6rem 0 0">บัตร <b class="mono" style="font-size:1.4rem">' + esc(res.code) + '</b> · ' +
             (p.num <= B.PRINT_RANGE_MAX ? 'บัตรกระดาษ' : 'บัตรมือถือ') + ' · ชุด ' + esc(theme.name) + '</p>';
           if (!p.checked) html += '<div class="banner warn">ไม่ได้พิมพ์เลขตรวจสอบ (หลักสุดท้าย) — บัตรที่ถูกต้องคือ <b class="mono">' + esc(res.code) + '</b> โปรดดูให้ตรงกับบัตรผู้เล่น</div>';
           if (prev.length) html += '<div class="banner warn">บัตรนี้เคยตรวจผ่านแล้วในรอบนี้ เมื่อ ' + new Date(prev[0].at).toLocaleTimeString('th-TH') + '</div>';
+          if (lp) html += '<div class="banner ok small">บัตรมือถือที่เชื่อมระบบ' + (lp.name ? ' (' + esc(lp.name) + ')' : '') + ' — ตรวจตามตำแหน่งบนเครื่องผู้เล่น' +
+            (lp.shuffledBy && lp.shuffledBy.length ? ' · ถูกสลับโดย ' + esc(lp.shuffledBy.join(', ')) : '') +
+            (lp.timed ? '<br>นับเฉพาะคำที่ถูกเรียก <b>และผู้เล่นแตะทันเวลา</b>' : '') + '</div>';
           out.innerHTML = html + verifyHtml(res, roundObj, roundObj.pattern);
           B.fitWords(out);
           if (roundObj === S.round) {

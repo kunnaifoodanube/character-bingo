@@ -72,8 +72,9 @@ with sync_playwright() as p:
     pixel = p.devices['Pixel 7']
     hctx = br.new_context(viewport={'width': 1366, 'height': 768}); hctx.add_init_script(INIT_MOCK)
     host = hctx.new_page(); watch(host, 'host')
-    host.goto(BASE + 'host.html')
+    host.goto(BASE + 'host.html?t=sample-monsters')
     host.wait_for_function("document.querySelectorAll('#board .b').length === 24")
+    host.select_option('#timerSel', '0')  # ชุดทดสอบนี้ทดสอบโหมดไม่จับเวลา (จับเวลา: tests/e2e_timer_shuffle.py)
     H_ = lambda: host.evaluate('window.__host.state()')
 
     def draw():

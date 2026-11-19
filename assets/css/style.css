@@ -233,3 +233,20 @@ ol.steps li { margin: .35rem 0; }
 @keyframes shake { 25% { transform: translateX(-4px) } 75% { transform: translateX(4px) } }
 .bingo-flag.pending { background: linear-gradient(135deg, #f08c00, #b35c00); font-size: 1.6rem; }
 .scanner video { width: 100%; border-radius: 14px; background: #000; aspect-ratio: 1/1; object-fit: cover; }
+
+/* นับถอยหลังเวลาแตะบนจอพิธีกร */
+.big-reveal .cd { position: absolute; top: 56px; right: 22px; width: 84px; height: 84px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 2.3rem; font-weight: 800; color: var(--primary); background: conic-gradient(var(--primary) calc(var(--p, 1) * 360deg), rgba(0,0,0,.08) 0); z-index: 3; }
+.big-reveal .cd::before { content: ''; position: absolute; inset: 7px; border-radius: 50%; background: #fff; z-index: -1; }
+.big-reveal .cd { isolation: isolate; }
+.big-reveal .cd.done { font-size: 1rem; color: #b91c1c; background: #fee2e2; }
+/* ผู้เล่น: จับเวลา / พลาด / สลับบัตร */
+.timebar { margin: .5rem 0 0; padding: .55rem .8rem; border-radius: 14px; background: #fff7ed; border: 2px solid #fb923c; font-weight: 700; }
+.timebar .tb-track { height: 8px; border-radius: 6px; background: #fed7aa; margin-top: .35rem; overflow: hidden; }
+.timebar .tb-fill { height: 100%; background: #ea580c; transform-origin: left center; }
+.cell.missed { opacity: .5; filter: grayscale(1); }
+.cell .missedTag { position: absolute; left: 4px; bottom: 3px; font-size: .62rem; font-weight: 800; color: #fff; background: #6b7280; border-radius: 6px; padding: 0 .3rem; }
+.grid4.shuffling .cell { animation: cbShuffle .55s ease; }
+@keyframes cbShuffle { 0% { transform: scale(1) rotate(0); } 40% { transform: scale(.82) rotate(-6deg); } 100% { transform: scale(1) rotate(0); } }
+.shuffle-list { display: flex; flex-direction: column; gap: .4rem; max-height: 52vh; overflow: auto; margin-top: .5rem; }
+.shuffle-list button { text-align: left; justify-content: flex-start; }

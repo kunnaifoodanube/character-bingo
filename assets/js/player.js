@@ -113,12 +113,189 @@
     if (data.fp && data.fp !== state.fp) { SY = { source: source, fp: data.fp, mismatch: true, at: Date.now(), draws: [] }; render(); return; }
     hostMissing = false;
     SY = { source: source, fp: state.fp, roundId: data.roundId, roundNo: data.roundNo, pattern: data.pattern || 'line1',
-      draws: (data.draws || []).filter(function (id) { return chars[id]; }), at: Date.now() };
+      draws: (data.draws || []).filter(function (id) { return chars[id]; }), at: Date.now(),
+      timer: source === 'live' ? (+data.timer || 0) : 0, shuffle: source === 'live' && !!data.shuffle,
+      shownAt: +data.shownAt || 0, roomId: state.room || data._roomId || (SY && SY.roomId) || null };
     store.set(SKEY, SY);
     // ยังไม่ได้แตะอะไร → ใช้รอบปัจจุบันของพิธีกรได้เลย (เช่น เพิ่งเปิดบัตร หรือจอพิธีกรเปลี่ยนรอบ/เปลี่ยนเครื่อง)
     if (!state.roundId || (state.roundId !== SY.roundId && !state.marks.length)) { state.roundId = SY.roundId; save(); }
+    updateSeen();
     render();
+    startShuffleWatch();
+    schedulePlayerPush();
   }
+
+  // ---------- จับเวลาแตะ ----------
+  // state.seen = { roundId, init, at: {รหัสคำ: เวลาที่เครื่องนี้เห็นคำนั้นครั้งแรก (ms)} } — 1 = เรียกก่อนเข้าร่วม (หมดเวลาแล้ว)
+  function updateSeen() {
+    if (!SY || SY.source !== 'live' || state.roundId !== SY.roundId) return;
+    if (!state.seen || state.seen.roundId !== SY.roundId) state.seen = { roundId: SY.roundId, init: false, at: {} };
+    var at = state.seen.at, now = Date.now(), first = !state.seen.init, last = SY.draws[SY.draws.length - 1], changed = first;
+    SY.draws.forEach(function (id) {
+      if (at[id]) return;
+      changed = true;
+      if (first && id !== last) at[id] = 1;
+      else if (first && SY.shownAt) at[id] = Math.min(now, SY.shownAt);
+      else at[id] = now;
+    });
+    state.seen.init = true;
+    if (changed) save();
+  }
+  function timed() { return fresh() && SY.timer > 0 && state.roundId === SY.roundId && !!state.seen && state.seen.roundId === SY.roundId; }
+  function leftMs(id) {
+    var t = state.seen && state.seen.at[id];
+    if (!t) return SY.timer * 1000;
+    return SY.timer * 1000 - (Date.now() - t);
+  }
+  var tbTimer = null;
+  function renderTimeBar() {
+    var bar = $('timeBar');
+    if (!timed()) { bar.classList.add('hidden'); clearInterval(tbTimer); tbTimer = null; return; }
+    var last = SY.draws[SY.draws.length - 1], c = last && chars[last];
+    var left = last ? leftMs(last) : 0;
+    var markedIds = {}; state.marks.forEach(function (i) { markedIds[state.cells[i]] = true; });
+    var anyActive = SY.draws.some(function (id) { var l = leftMs(id); return l > 0 && l <= SY.timer * 1000 + 1000; });
+    if (!c || left <= 0) bar.classList.add('hidden');
+    else {
+      bar.classList.remove('hidden');
+      bar.innerHTML = markedIds[last]
+        ? '✓ แตะ “' + esc(c.name) + '” ทันเวลาแล้ว'
+        : '⏱ เหลือ ' + Math.ceil(left / 1000) + ' วินาที — มี “' + esc(c.name) + '” ในบัตรไหม? หาให้เจอแล้วแตะ!' +
+          '<div class="tb-track"><div class="tb-fill" style="transform:scaleX(' + Math.max(0, Math.min(1, left / (SY.timer * 1000))).toFixed(3) + ')"></div></div>';
+    }
+    if (anyActive && !tbTimer) tbTimer = setInterval(function () { renderTimeBar(); renderCellsOnly(); }, 200);
+    if (!anyActive && tbTimer) { clearInterval(tbTimer); tbTimer = null; }
+  }
+
+  // ---------- ส่งข้อมูลบัตรขึ้นระบบ (ให้พิธีกรตรวจตามตำแหน่งจริง + ให้เพื่อนเลือกสลับบัตรได้) ----------
+  var pushTimer = null, myUid = null, lastPushSig = '', lastPushAt = 0;
+  function canPush() { return Sync.enabled() && state && SY && !SY.mismatch && SY.source === 'live' && SY.roomId && state.roundId === SY.roundId; }
+  function schedulePlayerPush() {
+    if (!canPush() || pushTimer) return; // มีรอส่งอยู่แล้ว (ไม่เลื่อนออกไปเรื่อย ๆ)
+    pushTimer = setTimeout(function () { pushTimer = null; pushPlayer(); }, 600);
+  }
+  function pushPlayer() {
+    if (!canPush()) return;
+    var room = SY.roomId;
+    var data = {
+      v: 1, name: state.name, code: state.code, roundId: state.roundId, cells: state.cells.slice(),
+      marked: state.marks.map(function (i) { return state.cells[i]; }), timed: timed(),
+      shuffledBy: (state.shuffledBy || []).slice(-20)
+    };
+    var sig = room + '|' + JSON.stringify(data);
+    if (sig === lastPushSig && Date.now() - lastPushAt < 10 * 60 * 1000) return; // ไม่มีอะไรเปลี่ยน → ไม่เขียนซ้ำ (ประหยัดโควตาฟรี)
+    data.updatedAt = Date.now();
+    Sync.uid().then(function (uid) {
+      myUid = uid;
+      return Sync.putDoc(['rooms', room, 'players', uid], data);
+    }).then(function () { lastPushSig = sig; lastPushAt = Date.now(); })
+      .catch(function () { /* ยังไม่ได้ตั้งกฎ Firebase สำหรับผู้เล่น — เล่นต่อได้ตามปกติ */ });
+  }
+
+  // ---------- สลับบัตร (คนละ 1 ครั้งต่อรอบ) ----------
+  var unwatchShuffle = null, watchedShuffleRoom = null;
+  function shuffleOn() { return canPush() && SY.shuffle && fresh(); }
+  function shuffleState() {
+    if (!state.shuf || state.shuf.roundId !== state.roundId) state.shuf = { roundId: state.roundId, used: false, applied: [] };
+    return state.shuf;
+  }
+  function startShuffleWatch() {
+    if (!shuffleOn()) { if (unwatchShuffle) { unwatchShuffle(); unwatchShuffle = null; watchedShuffleRoom = null; } return; }
+    if (watchedShuffleRoom === SY.roomId) return;
+    if (unwatchShuffle) unwatchShuffle();
+    watchedShuffleRoom = SY.roomId;
+    Sync.uid().then(function (uid) {
+      myUid = uid;
+      unwatchShuffle = Sync.watchCollection(['rooms', SY.roomId, 'shuffles'], function (list) {
+        if (!state) return;
+        var sh = shuffleState(), changed = false;
+        list.forEach(function (it) {
+          var d = it.data || {};
+          if (d.roundId !== state.roundId) return;
+          if (it.id === state.roundId + '_' + uid && !sh.used) { sh.used = true; changed = true; }
+          if (d.target === uid && sh.applied.indexOf(it.id) < 0) {
+            sh.applied.push(it.id); changed = true;
+            applyShuffle(+d.seed || 1, d.from === uid ? null : String(d.fromName || 'เพื่อน').slice(0, 24));
+          }
+        });
+        if (changed) { save(); renderShuffleBtn(); }
+      }, function () { /* */ });
+    }).catch(function () { /* */ });
+  }
+  function applyShuffle(seed, byName) {
+    var markedIds = state.marks.map(function (i) { return state.cells[i]; });
+    var cells = state.cells.slice(), rng = B.mulberry32(seed >>> 0);
+    for (var i = cells.length - 1; i > 0; i--) { var j = Math.floor(rng() * (i + 1)); var t = cells[i]; cells[i] = cells[j]; cells[j] = t; }
+    if (cells.join('|') === state.cells.join('|')) cells.push(cells.shift());
+    state.cells = cells;
+    state.marks = markedIds.map(function (id) { return cells.indexOf(id); }).filter(function (i) { return i >= 0; });
+    state.shuffledBy = (state.shuffledBy || []).concat([byName || 'ตัวเอง']);
+    save();
+    var grid = $('grid'); grid.innerHTML = ''; render();
+    grid.classList.remove('shuffling'); void grid.offsetWidth; grid.classList.add('shuffling');
+    UI.toast(byName ? '🔀 ' + byName + ' สลับบัตรของคุณ! ตำแหน่งคำเปลี่ยนแล้ว' : '🔀 สลับตำแหน่งบัตรของคุณแล้ว', 3500);
+    if (navigator.vibrate) { try { navigator.vibrate([80, 40, 80, 40, 80]); } catch (e) { /* */ } }
+    schedulePlayerPush();
+  }
+  function renderShuffleBtn() {
+    var b = $('btnShuffle');
+    if (!shuffleOn()) { b.classList.add('hidden'); return; }
+    var used = shuffleState().used;
+    b.classList.remove('hidden'); b.disabled = used;
+    b.textContent = used ? 'ใช้สิทธิ์สลับบัตรแล้ว (รอบนี้)' : '🔀 สลับบัตร (เหลือ 1 ครั้ง)';
+  }
+  $('btnShuffle').addEventListener('click', function () {
+    if (!shuffleOn() || shuffleState().used) return;
+    var room = SY.roomId, roundId = state.roundId, btn = this;
+    btn.disabled = true;
+    Sync.uid().then(function (uid) {
+      myUid = uid;
+      return new Promise(function (res) {
+        var stop = Sync.watchCollection(['rooms', room, 'players'], function (list) { stop(); res(list); }, function () { stop(); res([]); });
+      }).then(function (list) {
+        var now = Date.now();
+        var others = list.filter(function (p) { var d = p.data || {}; return p.id !== uid && d.roundId === roundId && now - (d.updatedAt || 0) < 3 * 3600 * 1000; })
+          .sort(function (a, b) { return String(a.data.name).localeCompare(String(b.data.name), 'th'); });
+        var opts = '<button type="button" class="btn block" data-t="' + esc(uid) + '" data-n="">🔀 บัตรของฉันเอง</button>' +
+          others.map(function (p) { return '<button type="button" class="btn ghost block" data-t="' + esc(p.id) + '" data-n="' + esc(p.data.name || '') + '">' + esc(p.data.name || 'ผู้เล่น') + ' <span class="muted small mono">· บัตร ' + esc(p.data.code || '') + '</span></button>'; }).join('');
+        choice = null;
+        return UI.modal({
+          title: 'สลับบัตรของใคร?',
+          html: '<p class="small">สลับตำแหน่งคำทั้ง 16 ช่อง (คำเดิม ช่องที่แตะแล้วยังอยู่) · ใช้ได้ <b>ครั้งเดียวต่อรอบ</b></p>' +
+            (others.length ? '' : '<p class="small muted">ยังไม่มีเพื่อนที่ออนไลน์ในรอบนี้</p>') + '<div class="shuffle-list">' + opts + '</div>',
+          buttons: [{ label: 'ยกเลิก', value: null, cls: 'ghost' }],
+          onOpen: function (el) {
+            Array.prototype.forEach.call(el.querySelectorAll('.shuffle-list button'), function (b2) {
+              b2.addEventListener('click', function () {
+                choice = { t: b2.getAttribute('data-t'), n: b2.getAttribute('data-n') };
+                var c = el.querySelector('.actions .btn'); if (c) c.click();
+              });
+            });
+          }
+        }).then(function () { return choice; });
+      });
+    }).then(function (ch) {
+      if (!ch) return;
+      var self = ch.t === myUid;
+      return UI.confirm(self ? 'สลับบัตรของตัวเอง?' : 'สลับบัตรของ ' + ch.n + '?', '<p>ใช้สิทธิ์ได้ครั้งเดียวในรอบนี้ ยกเลิกไม่ได้</p>', 'สลับเลย').then(function (ok) {
+        if (!ok) return;
+        var seed = B.randomInt(1, 2147483646);
+        return Sync.putDoc(['rooms', room, 'shuffles', roundId + '_' + myUid], {
+          roundId: roundId, from: myUid, fromName: state.name, target: ch.t, targetName: ch.n || state.name, seed: seed, at: Date.now()
+        }, true).then(function () {
+          var sh = shuffleState(); sh.used = true;
+          if (self) { sh.applied.push(roundId + '_' + myUid); save(); applyShuffle(seed, null); }
+          else { save(); UI.toast('🔀 สลับบัตรของ ' + ch.n + ' แล้ว!'); }
+        }, function (e) {
+          var denied = e && (e.code === 'permission-denied' || /permission/i.test(e.message || ''));
+          if (denied) { shuffleState().used = true; save(); }
+          UI.toast(denied ? 'ใช้สิทธิ์สลับบัตรไปแล้ว หรือระบบสลับบัตรยังไม่พร้อม — แจ้งอาจารย์' : 'สลับไม่สำเร็จ ลองใหม่อีกครั้ง', 4000);
+        });
+      });
+    }).catch(function () { UI.toast('เชื่อมต่อระบบไม่ได้ ลองใหม่อีกครั้ง'); })
+      .then(function () { renderShuffleBtn(); });
+  });
+  var choice = null;
 
   function showRoundBanner() {
     var b = $('roundBanner');
@@ -126,22 +303,22 @@
       '<div class="row" style="margin-top:.5rem"><button class="btn" id="rbClear" type="button">ล้างเครื่องหมาย เล่นรอบใหม่</button>' +
       '<button class="btn ghost" id="rbNew" type="button">ขอบัตรใบใหม่</button></div>';
     b.classList.remove('hidden');
-    $('rbClear').onclick = function () { state.marks = []; state.roundId = SY.roundId; save(); render(); UI.toast('พร้อมเล่นรอบที่ ' + SY.roundNo); };
+    $('rbClear').onclick = function () { state.marks = []; state.roundId = SY.roundId; updateSeen(); save(); render(); startShuffleWatch(); schedulePlayerPush(); UI.toast('พร้อมเล่นรอบที่ ' + SY.roundNo); };
     $('rbNew').onclick = function () { $('btnNew').click(); };
   }
 
   function startLive() {
     if (unsubscribe) { unsubscribe(); unsubscribe = null; }
     if (!Sync.enabled() || !state) { liveStatus = 'off'; render(); return; }
-    var onSt = function (st) { liveStatus = st; if (state) { renderSyncBar(); renderCellsOnly(); } };
+    var onSt = function (st) { liveStatus = st; if (state) { renderSyncBar(); renderCellsOnly(); renderTimeBar(); renderShuffleBtn(); startShuffleWatch(); } };
     if (state.room) {
       unsubscribe = Sync.subscribe(state.room, function (data) {
         if (data) applySync(data, 'live'); else render();
       }, onSt);
     } else {
       // เปิดลิงก์ตรง → เชื่อมกับจอพิธีกรชุดเดียวกันที่เปิดอยู่ล่าสุดโดยอัตโนมัติ
-      unsubscribe = Sync.subscribeLatest(state.fp, function (data) {
-        if (data) applySync(data, 'live'); else { hostMissing = true; render(); }
+      unsubscribe = Sync.subscribeLatest(state.fp, function (data, roomId) {
+        if (data) { data = Object.assign({}, data, { _roomId: roomId }); applySync(data, 'live'); } else { hostMissing = true; render(); }
       }, onSt);
     }
   }
@@ -189,7 +366,7 @@
     if (B.isText(theme)) B.fitWords(grid);
     renderSyncBar();
     if (syncValid() && state.roundId && SY.roundId && state.roundId !== SY.roundId) showRoundBanner(); else $('roundBanner').classList.add('hidden');
-    renderCellsOnly();
+    renderCellsOnly(); renderTimeBar(); renderShuffleBtn();
   }
 
   function renderCellsOnly() {
@@ -200,17 +377,27 @@
     var lines = B.linesFromMarks(state.marks);
     var verified = known ? lines.filter(function (l) { return l.cells.every(function (i) { return D[state.cells[i]]; }); }) : lines;
     var win = {}; verified.forEach(function (l) { l.cells.forEach(function (i) { win[i] = true; }); });
+    var T = known && timed();
     Array.prototype.forEach.call(grid.children, function (d, i) {
       var called = !!D[state.cells[i]];
+      // จับเวลาอยู่: ไม่บอกว่าช่องไหนถูกเรียก (ต้องหาเอง) — หมดเวลาแล้วยังไม่แตะ = พลาด
+      var missed = T && called && !marks[i] && leftMs(state.cells[i]) <= 0;
+      var showCalled = known && called && (!T || !!marks[i]);
       d.classList.toggle('marked', !!marks[i]);
       d.classList.toggle('win', !!win[i]);
+      d.classList.toggle('missed', missed);
       d.classList.toggle('unverified', known && !!marks[i] && !called);
       var badge = d.querySelector('.called');
-      if (known && called && !badge) { badge = document.createElement('span'); badge.className = 'called'; badge.textContent = 'เรียกแล้ว'; d.appendChild(badge); }
-      if ((!known || !called) && badge) badge.remove();
+      if (showCalled && !badge) { badge = document.createElement('span'); badge.className = 'called'; badge.textContent = 'เรียกแล้ว'; d.appendChild(badge); }
+      if (!showCalled && badge) badge.remove();
+      var mt = d.querySelector('.missedTag');
+      if (missed && !mt) { mt = document.createElement('span'); mt.className = 'missedTag'; mt.textContent = 'พลาด'; d.appendChild(mt); }
+      if (!missed && mt) mt.remove();
       d.setAttribute('aria-pressed', marks[i] ? 'true' : 'false');
     });
-    $('legend').innerHTML = (known && fresh())
+    $('legend').innerHTML = T
+      ? 'จับเวลาอยู่ — ภาพขึ้นจอแล้วมีเวลา <b>' + SY.timer + ' วินาที</b> หาคำในบัตรแล้วแตะ · แตะผิดไม่ได้ · หมดเวลา = พลาด · ครบแนวนอน แนวตั้ง หรือทแยง = BINGO'
+      : (known && fresh())
       ? 'ซิงก์กับพิธีกรอยู่ — <b>แตะได้เฉพาะตัวที่ขึ้น “เรียกแล้ว”</b> · ครบแนวนอน แนวตั้ง หรือทแยง = BINGO'
       : 'แตะช่องเมื่อพิธีกรเรียกตัวละครนั้น · แตะซ้ำเพื่อยกเลิก · ครบ 4 ช่องแนวนอน แนวตั้ง หรือทแยง = BINGO' +
         (known ? '' : '<br><b>BINGO จะขึ้นเมื่อบัตรเชื่อมกับจอพิธีกรแล้วเท่านั้น</b>') + '<br>บัตรถูกบันทึกในเครื่องนี้ รีเฟรชหรือเน็ตหลุดก็ไม่หาย';
@@ -249,17 +436,17 @@
     var cell = e.target.closest('.cell'); if (!cell || !state) return;
     var i = +cell.dataset.i;
     var k = state.marks.indexOf(i);
-    if (k >= 0) state.marks.splice(k, 1);
-    else {
+    var blocked = function (msg) { cell.classList.remove('blocked'); void cell.offsetWidth; cell.classList.add('blocked'); UI.toast(msg); };
+    if (k >= 0) {
+      if (timed()) { UI.toast('แตะช่องนี้แล้ว'); return; } // จับเวลาอยู่ → ห้ามยกเลิก (แตะใหม่ไม่ได้)
+      state.marks.splice(k, 1);
+    } else {
       var sameRound = !state.roundId || (SY && SY.roundId === state.roundId);
-      if (fresh() && sameRound && !drawnSet()[state.cells[i]]) {
-        cell.classList.remove('blocked'); void cell.offsetWidth; cell.classList.add('blocked');
-        UI.toast('“' + (chars[state.cells[i]] || {}).name + '” ยังไม่ถูกเรียก');
-        return;
-      }
+      if (fresh() && sameRound && !drawnSet()[state.cells[i]]) { blocked('“' + (chars[state.cells[i]] || {}).name + '” ยังไม่ถูกเรียก'); return; }
+      if (timed() && leftMs(state.cells[i]) <= 0) { blocked('หมดเวลาแล้ว — “' + (chars[state.cells[i]] || {}).name + '” พลาดไปแล้ว'); return; }
       state.marks.push(i);
     }
-    save(); renderCellsOnly();
+    save(); renderCellsOnly(); renderTimeBar(); schedulePlayerPush();
   });
 
   $('btnClear').addEventListener('click', function () {
