@@ -6,9 +6,9 @@
   <meta name="robots" content="noindex">
   <title>หน้าจอพิธีกร — Galactic Bingo</title>
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/style.css?v=1.6.0">
-  <link rel="stylesheet" href="assets/css/fonts.css?v=1.6.0">
-  <link rel="stylesheet" href="assets/css/galactic.css?v=1.6.0">
+  <link rel="stylesheet" href="assets/css/style.css?v=1.6.1">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=1.6.1">
+  <link rel="stylesheet" href="assets/css/galactic.css?v=1.6.1">
 </head>
 <body>
   <div class="host">
@@ -28,6 +28,7 @@
         <div class="count" id="count">0 / 24</div>
         <div class="count" id="patternLabel" style="left:auto;right:22px;color:var(--primary)"></div>
         <div class="cd hidden" id="cd" role="timer" aria-live="off"></div>
+        <div class="swin-banner hidden" id="swinBanner" role="timer" aria-live="off"></div>
         <div class="placeholder" id="placeholder">กด “สุ่มตัวถัดไป” เพื่อเริ่ม</div>
         <div id="bigMedia" class="media hidden"></div>
         <div class="name" id="bigName"></div>
@@ -37,6 +38,7 @@
 
       <div class="controls">
         <button class="btn big" id="btnDraw">🎲 สุ่มตัวถัดไป</button>
+        <button class="btn swin-btn" id="btnSwin" type="button" title="เปิดช่วงเวลาให้ผู้เล่นสลับบัตร">🔀 เปิดสลับบัตร 10 วิ</button>
         <span class="muted small">ปุ่มลัด: Space / → / PageDown (รีโมตพรีเซนต์)</span>
         <span class="grow"></span>
         <button class="btn ghost" id="btnUndo">↶ ยกเลิกตัวล่าสุด</button>
@@ -56,8 +58,11 @@
           <select class="input" id="timerSel" style="padding:.45rem .7rem;font-size:.95rem" aria-label="เวลาให้ผู้เล่นแตะคำ">
             <option value="0">ไม่จับเวลา</option><option value="3">3 วินาที (ยาก)</option><option value="5">5 วินาที</option><option value="8">8 วินาที</option><option value="10">10 วินาที</option><option value="15">15 วินาที (ง่าย)</option><option value="20">20 วินาที</option>
           </select></label>
-        <label class="row small" style="margin:.6rem 0 0;gap:.5rem;align-items:center;cursor:pointer"><input type="checkbox" id="shuffleChk" style="width:20px;height:20px"> เปิดสิทธิ์สลับบัตร (คนละ 1 ครั้งต่อรอบ)</label>
-        <p class="small muted hidden" id="shuffleNote" style="margin:.3rem 0 0">ผู้เล่นกด “🔀 สลับบัตร” แล้วเลือกบัตรของตัวเองหรือของเพื่อน — ตำแหน่งคำในบัตรถูกสลับ คำและช่องที่แตะแล้วยังอยู่ครบ</p>
+        <label class="field" style="margin:.5rem 0 0"><span class="small">ช่วงสลับบัตร (กดปุ่ม 🔀 ใต้จอเมื่อต้องการ)</span>
+          <select class="input" id="swinSel" style="padding:.45rem .7rem;font-size:.95rem" aria-label="ระยะเวลาช่วงสลับบัตร">
+            <option value="5">เปิด 5 วินาที</option><option value="10">เปิด 10 วินาที</option><option value="15">เปิด 15 วินาที</option><option value="20">เปิด 20 วินาที</option><option value="30">เปิด 30 วินาที</option>
+          </select></label>
+        <p class="small muted" id="shuffleNote" style="margin:.3rem 0 0">ผู้เล่นมีสิทธิ์สลับบัตร 1 ครั้งต่อรอบ ใช้ได้เฉพาะตอนเปิดช่วงสลับ — จะสลับบัตรเพื่อน สลับของตัวเอง หรือเก็บสิทธิ์ไว้ช่วงหน้าก็ได้</p>
       </div>
       <div class="panel">
         <div class="row"><h3 class="grow" style="margin:0">รายการทั้งหมด</h3><span class="muted small" id="fp"></span></div>
@@ -96,12 +101,12 @@
     <button class="btn" id="btnQRSyncClose">ปิด</button>
   </div>
   <div id="modalRoot"></div>
-  <script src="firebase-config.js?v=1.6.0"></script>
-  <script src="assets/vendor/qrcode.js?v=1.6.0"></script>
-  <script src="assets/js/core.js?v=1.6.0"></script>
-  <script src="assets/js/ui.js?v=1.6.0"></script>
-  <script src="assets/js/themes-local.js?v=1.6.0"></script>
-  <script src="assets/js/sync.js?v=1.6.0"></script>
-  <script src="assets/js/host.js?v=1.6.0"></script>
+  <script src="firebase-config.js?v=1.6.1"></script>
+  <script src="assets/vendor/qrcode.js?v=1.6.1"></script>
+  <script src="assets/js/core.js?v=1.6.1"></script>
+  <script src="assets/js/ui.js?v=1.6.1"></script>
+  <script src="assets/js/themes-local.js?v=1.6.1"></script>
+  <script src="assets/js/sync.js?v=1.6.1"></script>
+  <script src="assets/js/host.js?v=1.6.1"></script>
 </body>
 </html>

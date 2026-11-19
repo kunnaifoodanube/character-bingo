@@ -16,7 +16,10 @@
   if (!S || !S.round) S = { themeId: null, round: null, archive: [] };
   if (!S.roomId) S.roomId = Sync.newRoomId();
   if (S.timer == null) S.timer = 5;      // วินาทีที่ผู้เล่นมีให้แตะคำ (0 = ไม่จับเวลา)
-  if (S.shuffle == null) S.shuffle = false; // เปิดสิทธิ์สลับบัตร (ต้องตั้งกฎ Firebase ก่อน)
+  if (!S.shuffleSec) S.shuffleSec = 10;   // ระยะเวลาช่วงสลับบัตรเมื่อพิธีกรกดเปิด (วินาที)
+  delete S.shuffle;                       // แบบเก่า (ติ๊กเปิดตลอด) เลิกใช้แล้ว
+  // S.swin = { id, roundId, sec, at } ช่วงสลับบัตรที่เปิดอยู่ (ไม่มี = ปิด)
+  function swinOpen() { return !!(S.swin && S.round && S.swin.roundId === S.round.id && Date.now() < S.swin.at + S.swin.sec * 1000); }
   var spinning = false;
   function save() { if (!store.set(KEY, S)) UI.toast('บันทึกสถานะไม่สำเร็จ!'); schedulePublish(); }
   function drawIds() { return S.round ? S.round.draws.map(function (d) { return d.id; }) : []; }
@@ -45,7 +48,7 @@
     pubBusy = true; syncPill('ซิงก์: กำลังส่ง…', true);
     var data = { v: 1, themeId: theme.id, fp: B.fingerprint(theme), roundId: S.round.id, roundNo: S.round.no,
       pattern: S.round.pattern || 'line1', draws: visibleDraws(), updatedAt: Date.now(),
-      timer: +S.timer || 0, shuffle: !!S.shuffle, shownAt: lastShownAt() };
+      timer: +S.timer || 0, shuffle: swinOpen(), swin: swinOpen() ? { id: S.swin.id, sec: S.swin.sec } : null, shownAt: lastShownAt() };
     Sync.publish(S.roomId, data).then(function () {
       syncPill('ซิงก์: ส่งแล้ว ✓ (' + data.draws.length + ')', true);
     }).catch(function (e) {
@@ -366,20 +369,55 @@
     tick(); cdTimer = setInterval(tick, 100);
   }
 
-  // ---------- ตั้งค่า: เวลาแตะ / สิทธิ์สลับบัตร ----------
+  // ---------- ตั้งค่า: เวลาแตะ / ช่วงสลับบัตร ----------
+  var rulesBad = false; // กฎ Firebase ยังไม่รองรับข้อมูลผู้เล่น/สลับบัตร
   function renderSettings() {
     $('timerSel').value = String(+S.timer || 0);
-    $('shuffleChk').checked = !!S.shuffle;
-    $('shuffleNote').classList.toggle('hidden', !S.shuffle || !Sync.enabled());
+    $('swinSel').value = String(S.shuffleSec);
+    var note = $('shuffleNote');
+    if (!Sync.enabled()) note.innerHTML = '⚠️ สลับบัตรใช้ได้เมื่อเปิดซิงก์เรียลไทม์ (Firebase) เท่านั้น';
+    else if (rulesBad) note.innerHTML = '⚠️ <b>ระบบสลับบัตรยังไม่พร้อม</b> — ต้องอัปเดตกฎ Firebase (ทำครั้งเดียว ไม่ต้องทำทุกครั้งที่จัดกิจกรรม)';
+    else note.textContent = 'ผู้เล่นมีสิทธิ์สลับบัตร 1 ครั้งต่อรอบ ใช้ได้เฉพาะตอนเปิดช่วงสลับ — จะสลับบัตรเพื่อน สลับของตัวเอง หรือเก็บสิทธิ์ไว้ช่วงหน้าก็ได้';
+    note.classList.toggle('warn', !Sync.enabled() || rulesBad);
+    renderSwin();
   }
   $('timerSel').addEventListener('change', function () {
     S.timer = +this.value; save(); renderSettings();
     UI.toast(S.timer ? 'ผู้เล่นมีเวลาแตะ ' + S.timer + ' วินาทีต่อภาพ' : 'ปิดการจับเวลาแล้ว');
   });
-  $('shuffleChk').addEventListener('change', function () {
-    if (this.checked && !Sync.enabled()) { this.checked = false; UI.toast('ต้องเปิดซิงก์เรียลไทม์ (Firebase) ก่อน'); return; }
-    S.shuffle = this.checked; save(); renderSettings();
-    UI.toast(S.shuffle ? 'เปิดสิทธิ์สลับบัตรแล้ว — คนละ 1 ครั้งต่อรอบ' : 'ปิดสิทธิ์สลับบัตรแล้ว');
+  $('swinSel').addEventListener('change', function () { S.shuffleSec = +this.value || 10; store.set(KEY, S); renderSwin(); });
+
+  var swinTimer = null;
+  function renderSwin() {
+    var btn = $('btnSwin'), ban = $('swinBanner'), open = swinOpen();
+    if (open) {
+      var left = Math.max(0, Math.ceil((S.swin.at + S.swin.sec * 1000 - Date.now()) / 1000));
+      btn.textContent = '⏹ ปิดสลับบัตร (เหลือ ' + left + ' วิ)';
+      btn.classList.add('on');
+      ban.innerHTML = '<div class="sw-t">🔀 สลับบัตรได้แล้ว!</div><div class="sw-n">' + left + '</div>' +
+        '<div class="sw-s">สลับบัตรเพื่อน · สลับของตัวเอง · หรือเก็บสิทธิ์ไว้ใช้ช่วงหน้า</div>';
+      ban.style.setProperty('--p', Math.max(0, Math.min(1, (S.swin.at + S.swin.sec * 1000 - Date.now()) / (S.swin.sec * 1000))).toFixed(3));
+      ban.classList.remove('hidden');
+      if (!swinTimer) swinTimer = setInterval(renderSwin, 200);
+    } else {
+      btn.textContent = '🔀 เปิดสลับบัตร ' + S.shuffleSec + ' วิ';
+      btn.classList.remove('on');
+      ban.classList.add('hidden');
+      if (swinTimer) { clearInterval(swinTimer); swinTimer = null; }
+      if (S.swin) { S.swin = null; save(); UI.toast('ปิดช่วงสลับบัตรแล้ว'); } // หมดเวลา → แจ้งผู้เล่นว่าปิดแล้ว
+    }
+  }
+  $('btnSwin').addEventListener('click', function () {
+    if (swinOpen()) { S.swin = null; save(); renderSwin(); return; } // กดซ้ำ = ปิดก่อนเวลา
+    if (!Sync.enabled()) { UI.toast('สลับบัตรใช้ได้เมื่อเปิดซิงก์เรียลไทม์ (Firebase) เท่านั้น', 4000); return; }
+    if (rulesBad) {
+      UI.modal({ title: 'ระบบสลับบัตรยังไม่พร้อม', html: '<p>ฐานข้อมูล Firebase ของเกมยังไม่ได้อัปเดตกฎให้รองรับการสลับบัตร (ทำครั้งเดียว) จึงยังเปิดช่วงสลับไม่ได้</p><p class="small muted">เกมส่วนอื่นเล่นได้ตามปกติ</p>' });
+      return;
+    }
+    if (!theme || !S.round) return;
+    S.swin = { id: 'w' + Date.now().toString(36), roundId: S.round.id, sec: +S.shuffleSec || 10, at: Date.now() };
+    save(); schedulePublish(0); renderSwin();
+    UI.toast('🔀 เปิดสลับบัตร ' + S.swin.sec + ' วินาที');
   });
 
   // ---------- ข้อมูลบัตรมือถือที่ส่งขึ้นระบบ (ตำแหน่งหลังสลับ + คำที่แตะทันเวลา) ----------
@@ -392,7 +430,9 @@
       var m = {};
       list.forEach(function (p) { var d = p.data || {}; if (d.code) m[d.code + '|' + d.roundId] = d; });
       livePlayers = m;
-    }, function () { /* ยังไม่ได้ตั้งกฎ Firebase สำหรับผู้เล่น → ตรวจแบบเดิม */ });
+    }, function (err) { // ยังไม่ได้ตั้งกฎ Firebase สำหรับผู้เล่น → ตรวจแบบเดิม + ปิดปุ่มสลับบัตร
+      if (err && (err.code === 'permission-denied' || /permission/i.test(err.message || ''))) { rulesBad = true; renderSettings(); }
+    });
   }
   function livePlayer(code, roundObj) {
     var d = livePlayers[code + '|' + roundObj.id];

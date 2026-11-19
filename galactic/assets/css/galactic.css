@@ -118,3 +118,8 @@ select.input option { background: var(--card); color: var(--ink); }
 .cr-item { border-color: var(--line); }
 .cr-v { background: var(--primary); color: var(--primary-ink); }
 .wrap .panel[style*="faf7ff"] { background: var(--card2) !important; }
+
+/* ช่วงสลับบัตร (ธีมคืนอวกาศ) */
+.big-reveal .swin-banner { background: linear-gradient(135deg, #7b5cf0, #ff7a3d); box-shadow: 0 10px 34px rgba(123, 92, 240, .5); }
+.controls .swin-btn, #btnShuffle.swin-on { background: linear-gradient(135deg, #7b5cf0, #ff7a3d); }
+#shuffleNote.warn { color: #ffcf8a; }

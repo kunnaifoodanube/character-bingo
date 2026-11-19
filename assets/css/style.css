@@ -250,3 +250,21 @@ ol.steps li { margin: .35rem 0; }
 @keyframes cbShuffle { 0% { transform: scale(1) rotate(0); } 40% { transform: scale(.82) rotate(-6deg); } 100% { transform: scale(1) rotate(0); } }
 .shuffle-list { display: flex; flex-direction: column; gap: .4rem; max-height: 52vh; overflow: auto; margin-top: .5rem; }
 .shuffle-list button { text-align: left; justify-content: flex-start; }
+
+/* ช่วงสลับบัตร: ปุ่มพิธีกร + ป้ายบนจอโปรเจกเตอร์ + ปุ่มผู้เล่น */
+.controls .swin-btn { background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; border: 0; font-weight: 800; }
+.controls .swin-btn.on { background: #111827; color: #fde047; animation: swPulse 1s ease-in-out infinite; }
+.big-reveal .swin-banner { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); z-index: 5; min-width: min(560px, 86%);
+  padding: .7rem 1.4rem .9rem; border-radius: 22px; text-align: center; color: #fff;
+  background: linear-gradient(135deg, #ec4899, #8b5cf6); box-shadow: 0 10px 34px rgba(139, 92, 246, .45); animation: swPop .35s ease; }
+.big-reveal .swin-banner::after { content: ''; position: absolute; left: 16px; right: 16px; bottom: 7px; height: 6px; border-radius: 4px;
+  background: linear-gradient(90deg, #fde047 calc(var(--p, 1) * 100%), rgba(255,255,255,.25) 0); }
+.big-reveal .swin-banner .sw-t { font-size: clamp(1.4rem, 3.2vw, 2.4rem); font-weight: 800; line-height: 1.15; }
+.big-reveal .swin-banner .sw-n { font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 800; line-height: 1; color: #fde047; }
+.big-reveal .swin-banner .sw-s { font-size: clamp(.85rem, 1.5vw, 1.1rem); opacity: .95; }
+#btnShuffle small { display: block; font-size: .78rem; font-weight: 500; opacity: .85; margin-top: .15rem; }
+#btnShuffle:disabled { opacity: .7; }
+#btnShuffle.swin-on { background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; border: 0; font-size: 1.15rem; padding: .85rem 1rem; animation: swPulse 1s ease-in-out infinite; }
+#shuffleNote.warn { color: #b45309; }
+@keyframes swPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, .45); } 50% { box-shadow: 0 0 0 9px rgba(236, 72, 153, .12); } }
+@keyframes swPop { from { transform: translateX(-50%) scale(.7); opacity: 0; } to { transform: translateX(-50%) scale(1); opacity: 1; } }

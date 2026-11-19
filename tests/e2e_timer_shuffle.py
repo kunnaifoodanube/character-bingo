@@ -1,5 +1,7 @@
-"""End-to-end: จับเวลาแตะ + สลับบัตร (Film & Animation Bingo) ด้วยระบบซิงก์จำลอง (mock)
-ใช้: python3 tests/e2e_timer_shuffle.py <site_dir> [out_dir สำหรับภาพหน้าจอ]
+"""End-to-end: จับเวลาแตะ + ช่วงสลับบัตร (พิธีกรกดเปิด N วินาที) ด้วยระบบซิงก์จำลอง (mock)
+ใช้: python3 tests/e2e_timer_shuffle.py <site_dir> [out_dir สำหรับภาพหน้าจอ] [theme_id]
+   Film & Animation: python3 tests/e2e_timer_shuffle.py .
+   Galactic:         python3 tests/e2e_timer_shuffle.py galactic "" galactic-stickers
 - mock เลียนแบบกฎ Firestore: ห้องแก้ได้เฉพาะเจ้าของ · shuffles สร้างได้ครั้งเดียว (ซ้ำ = 403)
 """
 import json, os, sys, threading, time, traceback
@@ -14,7 +16,9 @@ BASE = f'http://localhost:{PORT}/'
 MOCK = BASE + '__mock'
 ROOMS, DOCS = {}, {}
 results, errors = [], []
-THEME = json.load(open(os.path.join(SITE, 'themes', 'film-animation.json')))
+TID = sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] else 'film-animation'
+OUT = sys.argv[2] if len(sys.argv) > 2 and sys.argv[2] else None
+THEME = json.load(open(os.path.join(SITE, 'themes', TID + '.json')))
 NAME2ID = {c['name']: c['id'] for c in THEME['characters']}
 
 
@@ -72,15 +76,15 @@ with sync_playwright() as p:
     hctx = br.new_context(viewport={'width': 1366, 'height': 768}, service_workers='block'); hctx.add_init_script(INIT)
     hctx.route('**/*', lambda r: r.abort() if not r.request.url.startswith(BASE) else r.continue_())
     host = hctx.new_page(); host.on('pageerror', lambda e: errors.append('host: %s' % e))
-    host.goto(BASE + 'host.html?t=film-animation')
-    host.wait_for_function("document.querySelectorAll('#board .b').length === 32", timeout=20000)
+    host.goto(BASE + 'host.html?t=' + TID)
+    host.wait_for_function("document.querySelectorAll('#board .b').length === %d" % len(THEME['characters']), timeout=20000)
     room = host.evaluate('window.__host.state().roomId')
 
     def player(name):
         ctx = br.new_context(viewport={'width': 390, 'height': 844}, service_workers='block'); ctx.add_init_script(INIT)
         ctx.route('**/*', lambda r: r.abort() if not r.request.url.startswith(BASE) else r.continue_())
         pg = ctx.new_page(); pg.on('pageerror', lambda e: errors.append(name + ': %s' % e))
-        pg.goto(BASE + 'index.html?t=film-animation&room=' + room)
+        pg.goto(BASE + 'index.html?t=' + TID + '&room=' + room)
         pg.fill('#nameInput', name); pg.click('#joinForm button[type=submit]')
         pg.wait_for_selector('#play:not(.hidden)')
         pg.wait_for_function("window.__player.live() === 'live'", timeout=15000)
@@ -97,12 +101,14 @@ with sync_playwright() as p:
     def wait_seen(pg, wid):
         pg.wait_for_function("(window.__player.sync()||{draws:[]}).draws.indexOf('%s') >= 0" % wid, timeout=10000)
 
-    A = player('เอ'); Bp = player('บี')
-    host.select_option('#timerSel', '5'); host.check('#shuffleChk'); host.wait_for_timeout(800)
+    A = player('เอ'); Bp = player('บี'); C = player('ซี')
+    host.select_option('#timerSel', '5'); host.select_option('#swinSel', '10'); host.wait_for_timeout(800)
+
+    def hidden(pg, sel): return pg.evaluate("document.getElementById('%s').classList.contains('hidden')" % sel)
 
     def t1():
-        A.wait_for_function("(window.__player.sync()||{}).timer === 5 && (window.__player.sync()||{}).shuffle === true", timeout=10000)
-        record('T1. ผู้เล่นได้รับค่าเวลา 5 วิ และสิทธิ์สลับบัตรจากจอพิธีกร', True)
+        A.wait_for_function("(window.__player.sync()||{}).timer === 5", timeout=10000)
+        record('T1. ผู้เล่นได้รับค่าเวลา 5 วิ · ยังไม่เปิดช่วงสลับ → ไม่มีปุ่มสลับบัตร', hidden(A, 'btnShuffle') and hidden(host, 'swinBanner'))
     run('T1', t1)
 
     st = {}
@@ -115,7 +121,7 @@ with sync_playwright() as p:
             if wid in cA: break
         wait_seen(A, wid)
         bar = A.inner_text('#timeBar')
-        if len(sys.argv) > 2: A.screenshot(path=os.path.join(sys.argv[2], 'timer-player.png')); host.screenshot(path=os.path.join(sys.argv[2], 'timer-host.png'))
+        if OUT: A.screenshot(path=os.path.join(OUT, 'timer-player.png')); host.screenshot(path=os.path.join(OUT, 'timer-host.png'))
         # ห้ามเฉลยตำแหน่ง: ช่องที่ถูกเรียกแต่ยังไม่แตะ ต้องไม่มีป้าย "เรียกแล้ว"
         badge = A.evaluate("document.querySelectorAll('#grid .cell .called').length")
         # แตะช่องที่ยังไม่ถูกเรียก → แตะไม่ได้
@@ -142,7 +148,7 @@ with sync_playwright() as p:
         A.wait_for_timeout(5600)
         i = cells(A).index(wid)
         A.locator('#grid .cell').nth(i).click()
-        if len(sys.argv) > 2: A.wait_for_timeout(300); A.screenshot(path=os.path.join(sys.argv[2], 'timer-missed.png'))
+        if OUT: A.wait_for_timeout(300); A.screenshot(path=os.path.join(OUT, 'timer-missed.png'))
         cls = A.locator('#grid .cell').nth(i).get_attribute('class')
         tag = A.locator('#grid .cell').nth(i).inner_text()
         record('T3. หมดเวลา 5 วิ → คำนั้นล็อก (พลาด) แตะไม่ได้', i not in marks(A) and 'missed' in cls and 'พลาด' in tag, cls)
@@ -154,12 +160,15 @@ with sync_playwright() as p:
     def t4():
         A.wait_for_timeout(1200)
         b_before = cells(Bp); b_marks_words = sorted(b_before[i] for i in marks(Bp))
-        A.wait_for_function("!document.getElementById('btnShuffle').classList.contains('hidden')", timeout=10000)
+        host.click('#btnSwin')
+        A.wait_for_function("!document.getElementById('btnShuffle').disabled && !document.getElementById('btnShuffle').classList.contains('hidden')", timeout=10000)
+        ban = host.inner_text('#swinBanner'); btxt = A.inner_text('#btnShuffle')
+        if OUT: A.screenshot(path=os.path.join(OUT, 'swin-player.png')); host.screenshot(path=os.path.join(OUT, 'swin-host.png'))
+        record('T4a. พิธีกรกดเปิดสลับบัตร 10 วิ → จอใหญ่ขึ้นป้ายนับถอยหลัง · มือถือขึ้นปุ่มสลับพร้อมเวลา', 'สลับบัตรได้แล้ว' in ban and 'เหลือ' in btxt, btxt.replace('\n', ' '))
         A.click('#btnShuffle')
         A.wait_for_selector('.shuffle-list button', timeout=10000)
-        if len(sys.argv) > 2: A.screenshot(path=os.path.join(sys.argv[2], 'shuffle-pick.png'))
+        if OUT: A.screenshot(path=os.path.join(OUT, 'shuffle-pick.png'))
         A.locator('.shuffle-list button', has_text='บี').click()
-        A.locator('.modal .actions .btn', has_text='สลับเลย').click()
         Bp.wait_for_function("JSON.stringify(%s) !== JSON.stringify(JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.endsWith('cb.player.v1')))).cells)" % json.dumps(b_before), timeout=10000)
         b_after = cells(Bp)
         same_words = sorted(b_after) == sorted(b_before)
@@ -177,11 +186,37 @@ with sync_playwright() as p:
         before = cells(Bp); mw = sorted(before[i] for i in marks(Bp))
         Bp.click('#btnShuffle'); Bp.wait_for_selector('.shuffle-list button', timeout=10000)
         Bp.locator('.shuffle-list button', has_text='บัตรของฉันเอง').click()
-        Bp.locator('.modal .actions .btn', has_text='สลับเลย').click()
         Bp.wait_for_timeout(800)
         after = cells(Bp)
         record('T5. B สลับบัตรตัวเอง: ตำแหน่งเปลี่ยน ช่องที่แตะยังอยู่', after != before and sorted(after) == sorted(before) and sorted(after[i] for i in marks(Bp)) == mw)
     run('T5', t5)
+
+    def t5b():
+        # ซี ไม่ใช้สิทธิ์ในช่วงแรก → พิธีกรปิดก่อนเวลา → ปุ่มกดไม่ได้ แต่ยังบอกว่าเหลือสิทธิ์ 1 ครั้ง
+        host.click('#btnSwin')
+        C.wait_for_function("document.getElementById('btnShuffle').disabled", timeout=10000)
+        txt = C.inner_text('#btnShuffle'); before = cells(C)
+        C.click('#btnShuffle', force=True); C.wait_for_timeout(600)
+        none = C.locator('.shuffle-list').count() == 0 and cells(C) == before
+        if OUT: C.screenshot(path=os.path.join(OUT, 'swin-saved.png'))
+        record('T5b. นอกช่วงสลับ: กดสลับไม่ได้ · คนที่ยังไม่ใช้ เห็นว่าเก็บสิทธิ์ไว้ 1 ครั้ง · ป้ายจอใหญ่หายไป', none and 'เหลือ 1 ครั้ง' in txt and hidden(host, 'swinBanner'), txt.replace('\n', ' '))
+        A.wait_for_timeout(300)
+        record('T5c. คนที่ใช้สิทธิ์แล้ว ไม่เห็นปุ่มนอกช่วงสลับ', hidden(A, 'btnShuffle'))
+    run('T5b', t5b)
+
+    def t5d():
+        # ช่วงสลับครั้งที่ 2 (5 วิ): ซี ใช้สิทธิ์ที่เก็บไว้สลับบัตรตัวเอง · หมดเวลาแล้วปิดเอง
+        host.select_option('#swinSel', '5'); host.click('#btnSwin')
+        C.wait_for_function("!document.getElementById('btnShuffle').disabled && !document.getElementById('btnShuffle').classList.contains('hidden')", timeout=10000)
+        before = cells(C); C.click('#btnShuffle'); C.wait_for_selector('.shuffle-list button', timeout=10000)
+        C.locator('.shuffle-list button', has_text='บัตรของฉันเอง').click(); C.wait_for_timeout(800)
+        after = cells(C)
+        record('T5d. ช่วงสลับครั้งที่ 2: ซี ใช้สิทธิ์ที่เก็บไว้สลับบัตรตัวเองได้', after != before and sorted(after) == sorted(before))
+        host.wait_for_function("document.getElementById('swinBanner').classList.contains('hidden')", timeout=9000)
+        host.wait_for_timeout(1500)
+        swin = ROOMS[room].get('swin')
+        record('T5e. ครบ 5 วิ ช่วงสลับปิดเองบนจอพิธีกร และแจ้งมือถือว่าปิดแล้ว', swin is None and hidden(C, 'btnShuffle'), swin)
+    run('T5d', t5d)
 
     def t6():
         host.wait_for_timeout(1500)

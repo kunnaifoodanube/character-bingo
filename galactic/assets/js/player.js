@@ -114,12 +114,14 @@
     hostMissing = false;
     SY = { source: source, fp: state.fp, roundId: data.roundId, roundNo: data.roundNo, pattern: data.pattern || 'line1',
       draws: (data.draws || []).filter(function (id) { return chars[id]; }), at: Date.now(),
-      timer: source === 'live' ? (+data.timer || 0) : 0, shuffle: source === 'live' && !!data.shuffle,
+      timer: source === 'live' ? (+data.timer || 0) : 0,
+      swin: source === 'live' && data.swin && data.swin.id ? { id: String(data.swin.id), sec: Math.max(1, Math.min(60, +data.swin.sec || 10)) } : null,
       shownAt: +data.shownAt || 0, roomId: state.room || data._roomId || (SY && SY.roomId) || null };
     store.set(SKEY, SY);
     // ยังไม่ได้แตะอะไร → ใช้รอบปัจจุบันของพิธีกรได้เลย (เช่น เพิ่งเปิดบัตร หรือจอพิธีกรเปลี่ยนรอบ/เปลี่ยนเครื่อง)
     if (!state.roundId || (state.roundId !== SY.roundId && !state.marks.length)) { state.roundId = SY.roundId; save(); }
     updateSeen();
+    noteSwin();
     render();
     startShuffleWatch();
     schedulePlayerPush();
@@ -194,11 +196,31 @@
 
   // ---------- สลับบัตร (คนละ 1 ครั้งต่อรอบ) ----------
   var unwatchShuffle = null, watchedShuffleRoom = null;
-  function shuffleOn() { return canPush() && SY.shuffle && fresh(); }
+  // ใช้สิทธิ์ได้เฉพาะตอนพิธีกรเปิด "ช่วงสลับบัตร" · ไม่ใช้ = เก็บสิทธิ์ไว้ช่วงถัดไปในรอบเดียวกัน
   function shuffleState() {
     if (!state.shuf || state.shuf.roundId !== state.roundId) state.shuf = { roundId: state.roundId, used: false, applied: [] };
     return state.shuf;
   }
+  /** จำเวลาที่เครื่องนี้เห็นช่วงสลับบัตรครั้งแรก (นับถอยหลังด้วยนาฬิกาเครื่องตัวเอง ไม่ขึ้นกับนาฬิกาจอพิธีกร) */
+  function noteSwin() {
+    if (!SY || !SY.swin || !state || state.roundId !== SY.roundId) return;
+    if (!state.swinSeen || state.swinSeen.id !== SY.swin.id) {
+      state.swinSeen = { id: SY.swin.id, at: Date.now() };
+      var sh = shuffleState(); sh.seenWin = true;
+      save();
+      if (!sh.used && liveOk()) { // เตือนให้รู้ตัวทันที (ช่วงสลับสั้น)
+        UI.toast('🔀 พิธีกรเปิดสลับบัตร ' + SY.swin.sec + ' วินาที! ปุ่มอยู่ใต้บัตร', 3000);
+        if (navigator.vibrate) { try { navigator.vibrate([60, 40, 60]); } catch (e) { /* */ } }
+      }
+    }
+  }
+  function swinLeft() {
+    if (!SY || !SY.swin || !state || !state.swinSeen || state.swinSeen.id !== SY.swin.id || state.roundId !== SY.roundId) return 0;
+    return SY.swin.sec * 1000 - (Date.now() - state.swinSeen.at);
+  }
+  function liveOk() { return canPush() && fresh(); }
+  function swinOpenNow() { return liveOk() && swinLeft() > 0; }
+  function shuffleOn() { return liveOk() && (swinLeft() > 0 || !!shuffleState().seenWin); }
   function startShuffleWatch() {
     if (!shuffleOn()) { if (unwatchShuffle) { unwatchShuffle(); unwatchShuffle = null; watchedShuffleRoom = null; } return; }
     if (watchedShuffleRoom === SY.roomId) return;
@@ -237,15 +259,38 @@
     if (navigator.vibrate) { try { navigator.vibrate([80, 40, 80, 40, 80]); } catch (e) { /* */ } }
     schedulePlayerPush();
   }
+  var swTick = null, wasOpen = false;
   function renderShuffleBtn() {
     var b = $('btnShuffle');
+    var open = swinOpenNow();
+    if (open && !swTick) swTick = setInterval(renderShuffleBtn, 250);
+    if (!open && swTick) { clearInterval(swTick); swTick = null; }
+    if (wasOpen && !open) closeShufflePicker();
+    wasOpen = open;
     if (!shuffleOn()) { b.classList.add('hidden'); return; }
     var used = shuffleState().used;
-    b.classList.remove('hidden'); b.disabled = used;
-    b.textContent = used ? 'ใช้สิทธิ์สลับบัตรแล้ว (รอบนี้)' : '🔀 สลับบัตร (เหลือ 1 ครั้ง)';
+    b.classList.toggle('swin-on', open && !used);
+    if (used) {
+      if (!open) { b.classList.add('hidden'); return; }
+      b.disabled = true; b.innerHTML = 'ใช้สิทธิ์สลับบัตรไปแล้ว (รอบนี้)';
+    } else if (open) {
+      b.disabled = false;
+      b.innerHTML = '🔀 สลับบัตรได้ตอนนี้! เหลือ ' + Math.ceil(swinLeft() / 1000) + ' วิ' +
+        '<small>แตะเพื่อเลือกบัตรเพื่อนหรือของตัวเอง · ไม่แตะ = เก็บสิทธิ์ไว้ช่วงหน้า</small>';
+    } else {
+      b.disabled = true;
+      b.innerHTML = '🔀 สิทธิ์สลับบัตร: เหลือ 1 ครั้ง<small>รอพิธีกรเปิดช่วงสลับบัตร</small>';
+    }
+    b.classList.remove('hidden');
+  }
+  function closeShufflePicker() {
+    var list = document.querySelector('.shuffle-list');
+    if (!list) return;
+    var back = list.closest('.modal-back'), c = back && back.querySelector('.actions .btn');
+    if (c) { c.click(); UI.toast('หมดเวลาสลับบัตร — สิทธิ์ยังอยู่ ใช้ได้ในช่วงสลับครั้งหน้า', 3500); }
   }
   $('btnShuffle').addEventListener('click', function () {
-    if (!shuffleOn() || shuffleState().used) return;
+    if (!swinOpenNow() || shuffleState().used) return;
     var room = SY.roomId, roundId = state.roundId, btn = this;
     btn.disabled = true;
     Sync.uid().then(function (uid) {
@@ -261,7 +306,7 @@
         choice = null;
         return UI.modal({
           title: 'สลับบัตรของใคร?',
-          html: '<p class="small">สลับตำแหน่งคำทั้ง 16 ช่อง (คำเดิม ช่องที่แตะแล้วยังอยู่) · ใช้ได้ <b>ครั้งเดียวต่อรอบ</b></p>' +
+          html: '<p class="small">แตะชื่อแล้ว<b>สลับทันที</b> · สลับตำแหน่งคำทั้ง 16 ช่อง (คำเดิม ช่องที่แตะแล้วยังอยู่) · ใช้ได้ <b>ครั้งเดียวต่อรอบ</b></p>' +
             (others.length ? '' : '<p class="small muted">ยังไม่มีเพื่อนที่ออนไลน์ในรอบนี้</p>') + '<div class="shuffle-list">' + opts + '</div>',
           buttons: [{ label: 'ยกเลิก', value: null, cls: 'ghost' }],
           onOpen: function (el) {
@@ -277,20 +322,18 @@
     }).then(function (ch) {
       if (!ch) return;
       var self = ch.t === myUid;
-      return UI.confirm(self ? 'สลับบัตรของตัวเอง?' : 'สลับบัตรของ ' + ch.n + '?', '<p>ใช้สิทธิ์ได้ครั้งเดียวในรอบนี้ ยกเลิกไม่ได้</p>', 'สลับเลย').then(function (ok) {
-        if (!ok) return;
-        var seed = B.randomInt(1, 2147483646);
-        return Sync.putDoc(['rooms', room, 'shuffles', roundId + '_' + myUid], {
-          roundId: roundId, from: myUid, fromName: state.name, target: ch.t, targetName: ch.n || state.name, seed: seed, at: Date.now()
-        }, true).then(function () {
-          var sh = shuffleState(); sh.used = true;
-          if (self) { sh.applied.push(roundId + '_' + myUid); save(); applyShuffle(seed, null); }
-          else { save(); UI.toast('🔀 สลับบัตรของ ' + ch.n + ' แล้ว!'); }
-        }, function (e) {
-          var denied = e && (e.code === 'permission-denied' || /permission/i.test(e.message || ''));
-          if (denied) { shuffleState().used = true; save(); }
-          UI.toast(denied ? 'ใช้สิทธิ์สลับบัตรไปแล้ว หรือระบบสลับบัตรยังไม่พร้อม — แจ้งอาจารย์' : 'สลับไม่สำเร็จ ลองใหม่อีกครั้ง', 4000);
-        });
+      if (swinLeft() < -1500 || !liveOk()) { UI.toast('หมดเวลาสลับบัตรแล้ว — สิทธิ์ยังอยู่ ใช้ได้ในช่วงสลับครั้งหน้า', 3500); return; } // เผื่อเน็ตช้าเล็กน้อย
+      var seed = B.randomInt(1, 2147483646);
+      return Sync.putDoc(['rooms', room, 'shuffles', roundId + '_' + myUid], {
+        roundId: roundId, from: myUid, fromName: state.name, target: ch.t, targetName: ch.n || state.name, seed: seed, at: Date.now()
+      }, true).then(function () {
+        var sh = shuffleState(); sh.used = true;
+        if (self) { sh.applied.push(roundId + '_' + myUid); save(); applyShuffle(seed, null); }
+        else { save(); UI.toast('🔀 สลับบัตรของ ' + ch.n + ' แล้ว!'); }
+      }, function (e) {
+        var denied = e && (e.code === 'permission-denied' || /permission/i.test(e.message || ''));
+        if (denied) { shuffleState().used = true; save(); }
+        UI.toast(denied ? 'ใช้สิทธิ์สลับบัตรไปแล้ว หรือระบบสลับบัตรยังไม่พร้อม — แจ้งอาจารย์' : 'สลับไม่สำเร็จ ลองใหม่อีกครั้ง', 4000);
       });
     }).catch(function () { UI.toast('เชื่อมต่อระบบไม่ได้ ลองใหม่อีกครั้ง'); })
       .then(function () { renderShuffleBtn(); });
@@ -303,7 +346,7 @@
       '<div class="row" style="margin-top:.5rem"><button class="btn" id="rbClear" type="button">ล้างเครื่องหมาย เล่นรอบใหม่</button>' +
       '<button class="btn ghost" id="rbNew" type="button">ขอบัตรใบใหม่</button></div>';
     b.classList.remove('hidden');
-    $('rbClear').onclick = function () { state.marks = []; state.roundId = SY.roundId; updateSeen(); save(); render(); startShuffleWatch(); schedulePlayerPush(); UI.toast('พร้อมเล่นรอบที่ ' + SY.roundNo); };
+    $('rbClear').onclick = function () { state.marks = []; state.roundId = SY.roundId; updateSeen(); noteSwin(); save(); render(); startShuffleWatch(); schedulePlayerPush(); UI.toast('พร้อมเล่นรอบที่ ' + SY.roundNo); };
     $('rbNew').onclick = function () { $('btnNew').click(); };
   }
 
