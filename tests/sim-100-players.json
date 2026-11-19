@@ -1,7 +1,7 @@
 {
   "games": 1000,
   "players": 100,
-  "pctGamesWithSameCardNumber": "6.4%",
+  "pctGamesWithSameCardNumber": "4.9%",
   "pctGamesWithIdenticalCardsBesidesSameNumber": "0.0%",
   "firstWinnerAtDraw_avg": "5.8",
   "firstWinnerAtDraw_p10_p50_p90": [
@@ -9,9 +9,9 @@
     6,
     7
   ],
-  "simultaneousWinners_avg": "1.59",
-  "pctGamesWithMoreThanOneFirstWinner": "35.7%",
-  "maxSimultaneousWinners": 7,
+  "simultaneousWinners_avg": "1.63",
+  "pctGamesWithMoreThanOneFirstWinner": "39.9%",
+  "maxSimultaneousWinners": 8,
   "byPattern": {
     "line1": {
       "name": "ครบ 1 แนว",
@@ -21,9 +21,9 @@
         6,
         7
       ],
-      "simultaneousWinners_avg": "1.59",
-      "pctGamesWithTie": "35.7%",
-      "maxSimultaneousWinners": 7
+      "simultaneousWinners_avg": "1.63",
+      "pctGamesWithTie": "39.9%",
+      "maxSimultaneousWinners": 8
     },
     "line2": {
       "name": "ครบ 2 แนว",
@@ -33,21 +33,21 @@
         10,
         11
       ],
-      "simultaneousWinners_avg": "1.67",
-      "pctGamesWithTie": "40.1%",
-      "maxSimultaneousWinners": 8
+      "simultaneousWinners_avg": "1.62",
+      "pctGamesWithTie": "37.0%",
+      "maxSimultaneousWinners": 7
     },
     "full": {
       "name": "เต็มบัตร 16 ช่อง",
-      "firstWinnerAtDraw_avg": "20.5",
+      "firstWinnerAtDraw_avg": "20.4",
       "firstWinnerAtDraw_p10_p50_p90": [
         19,
         21,
         21
       ],
-      "simultaneousWinners_avg": "2.18",
-      "pctGamesWithTie": "45.9%",
-      "maxSimultaneousWinners": 14
+      "simultaneousWinners_avg": "2.03",
+      "pctGamesWithTie": "46.3%",
+      "maxSimultaneousWinners": 13
     }
   }
 }

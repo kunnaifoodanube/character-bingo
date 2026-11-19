@@ -487,7 +487,7 @@
 
   // ---------- กันเปิดหลายแท็บ ----------
   window.addEventListener('storage', function (e) {
-    if (e.key !== KEY || !e.newValue) return;
+    if (e.key !== store.key(KEY) || !e.newValue) return;
     try { S = JSON.parse(e.newValue); } catch (err) { return; }
     renderAll(true);
     UI.toast('มีการสุ่มจากอีกแท็บหนึ่ง — ควรเปิดหน้าพิธีกรแท็บเดียว', 4000);

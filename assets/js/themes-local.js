@@ -1,7 +1,8 @@
 /* ชุดภาพฉบับร่างในเครื่อง (IndexedDB) + ตัวรวมรายการชุดภาพ (เผยแพร่แล้ว + ในเครื่อง) */
 (function () {
   'use strict';
-  var DB = 'cb-admin', STORE = 'themes';
+  var NS = document.documentElement.getAttribute('data-ns') || '';
+  var DB = NS + 'cb-admin', STORE = 'themes';
 
   function open() {
     return new Promise(function (res, rej) {

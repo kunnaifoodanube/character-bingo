@@ -340,14 +340,18 @@
   }
 
   // ---------- Browser helpers ----------
+  // แยกพื้นที่เก็บข้อมูลของแต่ละเวอร์ชันเกมที่อยู่โดเมนเดียวกัน (<html data-ns="gx.">) — เวอร์ชันหลักไม่มี ns
+  var NS = (typeof document !== 'undefined' && document.documentElement && document.documentElement.getAttribute('data-ns')) || '';
   var store = {
+    ns: NS,
+    key: function (k) { return NS + k; },
     get: function (k, def) {
-      try { var v = localStorage.getItem(k); return v === null ? def : JSON.parse(v); } catch (e) { return def; }
+      try { var v = localStorage.getItem(NS + k); return v === null ? def : JSON.parse(v); } catch (e) { return def; }
     },
     set: function (k, v) {
-      try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; }
+      try { localStorage.setItem(NS + k, JSON.stringify(v)); return true; } catch (e) { return false; }
     },
-    del: function (k) { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } }
+    del: function (k) { try { localStorage.removeItem(NS + k); } catch (e) { /* ignore */ } }
   };
 
   function fetchJSON(url, timeoutMs) {

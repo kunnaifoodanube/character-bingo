@@ -1,0 +1,12 @@
+{
+ "format": "character-bingo-index@1",
+ "default": "galactic-stickers",
+ "themes": [
+  {
+   "id": "galactic-stickers",
+   "name": "Galactic Bingo — สติกเกอร์ SDM",
+   "category": "มาสคอตคณะ",
+   "file": "galactic-stickers.json"
+  }
+ ]
+}

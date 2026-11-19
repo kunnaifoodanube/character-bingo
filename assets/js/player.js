@@ -340,7 +340,7 @@
   keepAwake();
 
   window.addEventListener('storage', function (e) {
-    if (e.key === KEY && e.newValue) { try { state = JSON.parse(e.newValue); $('grid').innerHTML = ''; render(); } catch (err) { /* */ } }
+    if (e.key === store.key(KEY) && e.newValue) { try { state = JSON.parse(e.newValue); $('grid').innerHTML = ''; render(); } catch (err) { /* */ } }
   });
 
   window.__player = { applySyncText: applySyncText, sync: function () { return SY; }, live: function () { return liveStatus; } };

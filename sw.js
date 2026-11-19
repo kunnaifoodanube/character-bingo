@@ -2,8 +2,9 @@
  * กลยุทธ์: เครือข่ายก่อน (รอไม่เกิน 3.5 วิ) → ถ้าไม่ได้ ใช้สำเนาในเครื่อง
  * เมื่อแก้ไฟล์ในเว็บไซต์ ให้เปลี่ยนเลข VERSION เพื่อล้างแคชเก่า
  */
-var VERSION = 'cb-v1.3.0';
-var MEDIA = 'cb-media-v1'; // ภาพจาก Wikimedia Commons (ไม่ลบเมื่ออัปเดตเวอร์ชัน)
+var PREFIX = 'cb-';             // แต่ละเวอร์ชันเกมใช้ PREFIX ของตัวเอง (โดเมนเดียวกันใช้แคชร่วมกัน)
+var VERSION = PREFIX + 'v1.4.0';
+var MEDIA = PREFIX + 'media-v1'; // ภาพจาก Wikimedia Commons (ไม่ลบเมื่ออัปเดตเวอร์ชัน)
 var SHELL = [
   './', 'index.html', 'host.html', 'admin.html', 'print.html',
   'assets/css/style.css', 'assets/js/core.js', 'assets/js/ui.js', 'assets/js/player.js',
@@ -20,7 +21,16 @@ self.addEventListener('install', function (e) {
     // แคชชุดภาพทุกชุดที่อยู่ใน index.json ล่วงหน้า
     return fetch('themes/index.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (idx) {
       return caches.open(VERSION).then(function (c) {
-        return Promise.all((idx.themes || []).map(function (t) { return c.add('themes/' + t.file).catch(function () {}); }));
+        return Promise.all((idx.themes || []).map(function (t) {
+          // ชุดภาพ + ไฟล์ภาพในเว็บไซต์ที่ชุดนั้นอ้างถึง (เปิดเล่นออฟไลน์ได้)
+          return fetch('themes/' + t.file, { cache: 'reload' }).then(function (r) {
+            if (!r.ok) return;
+            return c.put('themes/' + t.file, r.clone()).then(function () { return r.json(); }).then(function (th) {
+              var imgs = (th.characters || []).map(function (ch) { return ch.img; }).filter(function (u) { return u && /^[\w\-./%]+\.(png|jpe?g|webp|svg|gif)$/i.test(u); });
+              return Promise.all(imgs.map(function (u) { return c.add(u).catch(function () {}); }));
+            });
+          }).catch(function () {});
+        }));
       });
     }).catch(function () {});
   }).then(function () { return self.skipWaiting(); }));
@@ -28,7 +38,7 @@ self.addEventListener('install', function (e) {
 
 self.addEventListener('activate', function (e) {
   e.waitUntil(caches.keys().then(function (keys) {
-    return Promise.all(keys.filter(function (k) { return k !== VERSION && k !== MEDIA; }).map(function (k) { return caches.delete(k); }));
+    return Promise.all(keys.filter(function (k) { return k.indexOf(PREFIX) === 0 && k !== VERSION && k !== MEDIA; }).map(function (k) { return caches.delete(k); }));
   }).then(function () { return self.clients.claim(); }));
 });
 

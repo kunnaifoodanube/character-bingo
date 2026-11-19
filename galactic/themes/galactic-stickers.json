@@ -1,0 +1,175 @@
+{
+ "format": "character-bingo-theme@1",
+ "id": "galactic-stickers",
+ "name": "Galactic Bingo — สติกเกอร์ SDM",
+ "category": "มาสคอตคณะ",
+ "updatedAt": "2026-11-19T00:00:00.000Z",
+ "creditsNote": "ภาพสติกเกอร์ชุด \"กาแลคติก\" มาสคอตคณะดิจิทัลมีเดีย มหาวิทยาลัยศรีปทุม (SDM) · ผลงานจาก Digital Arts SPU · ใช้ในกิจกรรมของคณะ",
+ "characters": [
+  {
+   "id": "g01",
+   "name": "กุ้งหงุดหงิด",
+   "img": "themes/galactic/g01.webp"
+  },
+  {
+   "id": "g02",
+   "name": "เขินจัง",
+   "img": "themes/galactic/g02.webp"
+  },
+  {
+   "id": "g03",
+   "name": "หลับปุ๋ย",
+   "img": "themes/galactic/g03.webp"
+  },
+  {
+   "id": "g04",
+   "name": "เยี่ยมไปเลย",
+   "img": "themes/galactic/g04.webp"
+  },
+  {
+   "id": "g05",
+   "name": "ข้าวไข่ดาว",
+   "img": "themes/galactic/g05.webp"
+  },
+  {
+   "id": "g06",
+   "name": "รีบส่งงาน",
+   "img": "themes/galactic/g06.webp"
+  },
+  {
+   "id": "g07",
+   "name": "โบกผ้าลา",
+   "img": "themes/galactic/g07.webp"
+  },
+  {
+   "id": "g08",
+   "name": "รักนะ",
+   "img": "themes/galactic/g08.webp"
+  },
+  {
+   "id": "g09",
+   "name": "เสียใจ",
+   "img": "themes/galactic/g09.webp"
+  },
+  {
+   "id": "g10",
+   "name": "โอเค",
+   "img": "themes/galactic/g10.webp"
+  },
+  {
+   "id": "g11",
+   "name": "เซอร์ไพรส์",
+   "img": "themes/galactic/g11.webp"
+  },
+  {
+   "id": "g12",
+   "name": "ตาวิบวับ",
+   "img": "themes/galactic/g12.webp"
+  },
+  {
+   "id": "g13",
+   "name": "ไปเรียนกัน",
+   "img": "themes/galactic/g13.webp"
+  },
+  {
+   "id": "g14",
+   "name": "เต้นเพลิน",
+   "img": "themes/galactic/g14.webp"
+  },
+  {
+   "id": "g15",
+   "name": "แอบมอง",
+   "img": "themes/galactic/g15.webp"
+  },
+  {
+   "id": "g16",
+   "name": "ขอบคุณ",
+   "img": "themes/galactic/g16.webp"
+  },
+  {
+   "id": "g17",
+   "name": "เชียร์สุดใจ",
+   "img": "themes/galactic/g17.webp"
+  },
+  {
+   "id": "g18",
+   "name": "โกรธแล้วนะ",
+   "img": "themes/galactic/g18.webp"
+  },
+  {
+   "id": "g19",
+   "name": "ไม่ได้จ้า",
+   "img": "themes/galactic/g19.webp"
+  },
+  {
+   "id": "g20",
+   "name": "ไม่สบาย",
+   "img": "themes/galactic/g20.webp"
+  },
+  {
+   "id": "g21",
+   "name": "สวัสดี",
+   "img": "themes/galactic/g21.webp"
+  },
+  {
+   "id": "g22",
+   "name": "ตกใจ",
+   "img": "themes/galactic/g22.webp"
+  },
+  {
+   "id": "g23",
+   "name": "ฟังเพลง",
+   "img": "themes/galactic/g23.webp"
+  },
+  {
+   "id": "g24",
+   "name": "โลก VR",
+   "img": "themes/galactic/g24.webp"
+  },
+  {
+   "id": "g25",
+   "name": "ส้มร่าเริง",
+   "img": "themes/galactic/g25.webp"
+  },
+  {
+   "id": "g26",
+   "name": "บินฉิว",
+   "img": "themes/galactic/g26.webp"
+  },
+  {
+   "id": "g27",
+   "name": "มาราคัส",
+   "img": "themes/galactic/g27.webp"
+  },
+  {
+   "id": "g28",
+   "name": "หน้านิ่ง",
+   "img": "themes/galactic/g28.webp"
+  },
+  {
+   "id": "g29",
+   "name": "วาดรูป",
+   "img": "themes/galactic/g29.webp"
+  },
+  {
+   "id": "g30",
+   "name": "สงสัยจัง",
+   "img": "themes/galactic/g30.webp"
+  },
+  {
+   "id": "g31",
+   "name": "เป่าฟอง",
+   "img": "themes/galactic/g31.webp"
+  },
+  {
+   "id": "g32",
+   "name": "เล่นเกม",
+   "img": "themes/galactic/g32.webp"
+  },
+  {
+   "id": "g33",
+   "name": "ต่อบล็อก",
+   "img": "themes/galactic/g33.webp"
+  }
+ ]
+}
