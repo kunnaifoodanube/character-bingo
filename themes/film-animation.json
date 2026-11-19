@@ -4,9 +4,9 @@
  "name": "Film & Animation Bingo",
  "category": "Film & Animation",
  "display": "text",
- "updatedAt": "2026-11-19T03:00:00Z",
- "description": "บัตรผู้เล่นแสดงคำภาษาอังกฤษ 16 คำจาก 32 คำ (ประเภทภาพยนตร์ 15 · รูปแบบงาน 6 · เทคนิคแอนิเมชัน 11) จอพิธีกรแสดงภาพ/คลิปจริงพร้อมคำแปลไทย",
- "creditsNote": "จอพิธีกรแสดงโปสเตอร์ภาพยนตร์/แอนิเมชัน 26 ภาพ (จาก IMDb) และภาพจากคลิปของช่องเจ้าของผลงาน 6 ภาพ (คำที่เป็นเทคนิค) ลิขสิทธิ์เป็นของเจ้าของผลงานแต่ละราย ใส่เครดิตทุกภาพ ใช้ประกอบการเรียนการสอน ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์นี้ · ถ้าโหลดภาพไม่ได้ (ไม่มีอินเทอร์เน็ต) จะแสดงภาพสำรองจาก Wikimedia Commons แทน · ไม่มีภาพที่สร้างด้วย AI",
+ "updatedAt": "2026-11-19T06:00:00Z",
+ "description": "บัตรผู้เล่นแสดงคำภาษาอังกฤษ 16 คำจาก 32 คำ (ประเภทภาพยนตร์ 15 · รูปแบบงาน 6 · เทคนิคแอนิเมชัน 11) จอพิธีกรแสดงการ์ดภาพสเก็ตดินสอประกอบคำ พร้อมคำแปลไทย",
+ "creditsNote": "จอพิธีกรแสดงการ์ดภาพประกอบสเก็ตดินสอ 32 ภาพ ออกแบบโดย ผศ.เปรมวดี วินิจฉัยกุล ใน Canva ใช้ประกอบการเรียนการสอน · โปสเตอร์ภาพยนตร์ที่เคยใช้ยังอ้างอิงไว้ในหมายเหตุเครดิตของแต่ละคำ · ถ้าโหลดการ์ดไม่ได้ จะแสดงภาพสำรองจาก Wikimedia Commons แทน",
  "characters": [
   {
    "id": "action",
@@ -15,19 +15,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BZDRkODJhOTgtOTc1OC00NTgzLTk4NjItNDgxZDY4YjlmNDY2XkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/action.webp"
    },
    "credit": {
-    "title": "Mad Max: Fury Road (2015) — โปสเตอร์ภาพยนตร์",
-    "author": "Warner Bros. Pictures / Village Roadshow Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt1392190/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Action — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/action.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BZDRkODJhOTgtOTc1OC00NTgzLTk4NjItNDgxZDY4YjlmNDY2XkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=hEJnMQG9ev8",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/action.webp",
+    "fileName": "action.webp",
+    "note": "สื่ออ้างอิงเดิม: Mad Max: Fury Road (2015) — โปสเตอร์ภาพยนตร์ — Warner Bros. Pictures / Village Roadshow Pictures · https://www.imdb.com/title/tt1392190/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -48,19 +48,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BYjI3NDU0ZGYtYjA2YS00Y2RlLTgwZDAtYTE2YTM5ZjE1M2JlXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/comedy.webp"
    },
    "credit": {
-    "title": "Barbie (2023) — โปสเตอร์ภาพยนตร์",
-    "author": "Warner Bros. Pictures / Mattel Films",
-    "sourceUrl": "https://www.imdb.com/title/tt1517268/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Comedy — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/comedy.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BYjI3NDU0ZGYtYjA2YS00Y2RlLTgwZDAtYTE2YTM5ZjE1M2JlXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=pBk4NYhWNMM",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/comedy.webp",
+    "fileName": "comedy.webp",
+    "note": "สื่ออ้างอิงเดิม: Barbie (2023) — โปสเตอร์ภาพยนตร์ — Warner Bros. Pictures / Mattel Films · https://www.imdb.com/title/tt1517268/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -81,19 +81,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BM2VmMzRkYzgtMzg2ZC00OTFkLTkwMTYtNTMxNjM2YzI1MjgyXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/horror.webp"
    },
    "credit": {
-    "title": "The Conjuring: Last Rites (2025) — โปสเตอร์ภาพยนตร์",
-    "author": "Warner Bros. Pictures / New Line Cinema",
-    "sourceUrl": "https://www.imdb.com/title/tt22898462/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Horror — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/horror.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BM2VmMzRkYzgtMzg2ZC00OTFkLTkwMTYtNTMxNjM2YzI1MjgyXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=mcfyqO1ERW8",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/horror.webp",
+    "fileName": "horror.webp",
+    "note": "สื่ออ้างอิงเดิม: The Conjuring: Last Rites (2025) — โปสเตอร์ภาพยนตร์ — Warner Bros. Pictures / New Line Cinema · https://www.imdb.com/title/tt22898462/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -114,19 +114,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BMTQ2NjE4NDE2NV5BMl5BanBnXkFtZTgwOTcwNDE5NzE@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/romance.webp"
    },
    "credit": {
-    "title": "Me Before You (2016) — โปสเตอร์ภาพยนตร์",
-    "author": "Warner Bros. Pictures / Metro-Goldwyn-Mayer",
-    "sourceUrl": "https://www.imdb.com/title/tt2674426/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Romance — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/romance.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BMTQ2NjE4NDE2NV5BMl5BanBnXkFtZTgwOTcwNDE5NzE@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=BUbCupJWFSE",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/romance.webp",
+    "fileName": "romance.webp",
+    "note": "สื่ออ้างอิงเดิม: Me Before You (2016) — โปสเตอร์ภาพยนตร์ — Warner Bros. Pictures / Metro-Goldwyn-Mayer · https://www.imdb.com/title/tt2674426/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "video",
@@ -148,19 +148,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/sci-fi.webp"
    },
    "credit": {
-    "title": "Dune: Part Two (2024) — โปสเตอร์ภาพยนตร์",
-    "author": "Legendary Pictures / Warner Bros. Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt15239678/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Sci-Fi — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/sci-fi.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=poWiludgQCw",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/sci-fi.webp",
+    "fileName": "sci-fi.webp",
+    "note": "สื่ออ้างอิงเดิม: Dune: Part Two (2024) — โปสเตอร์ภาพยนตร์ — Legendary Pictures / Warner Bros. Pictures · https://www.imdb.com/title/tt15239678/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -181,19 +181,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BNTU1MzgyMDMtMzBlZS00YzczLThmYWEtMjU3YmFlOWEyMjE1XkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/fantasy.webp"
    },
    "credit": {
-    "title": "Harry Potter and the Philosopher's Stone (2001) — โปสเตอร์ภาพยนตร์",
-    "author": "Warner Bros. Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt0241527/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Fantasy — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/fantasy.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BNTU1MzgyMDMtMzBlZS00YzczLThmYWEtMjU3YmFlOWEyMjE1XkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=l91Km49W9qI",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/fantasy.webp",
+    "fileName": "fantasy.webp",
+    "note": "สื่ออ้างอิงเดิม: Harry Potter and the Philosopher's Stone (2001) — โปสเตอร์ภาพยนตร์ — Warner Bros. Pictures · https://www.imdb.com/title/tt0241527/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -214,19 +214,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BZjI5MzdmODctYjA4NS00ZmMxLWJlOWUtOGVhMjA0OGMxMWYzXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/adventure.webp"
    },
    "credit": {
-    "title": "Jumanji: Welcome to the Jungle (2017) — โปสเตอร์ภาพยนตร์",
-    "author": "Columbia Pictures / Sony Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt2283362/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Adventure — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/adventure.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BZjI5MzdmODctYjA4NS00ZmMxLWJlOWUtOGVhMjA0OGMxMWYzXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=2QKg5SZ_35I",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/adventure.webp",
+    "fileName": "adventure.webp",
+    "note": "สื่ออ้างอิงเดิม: Jumanji: Welcome to the Jungle (2017) — โปสเตอร์ภาพยนตร์ — Columbia Pictures / Sony Pictures · https://www.imdb.com/title/tt2283362/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -247,19 +247,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BOWMwYjYzYmMtMWQ2Ni00NWUwLTg2MzAtYzkzMDBiZDIwOTMwXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/musical.webp"
    },
    "credit": {
-    "title": "Wicked (2024) — โปสเตอร์ภาพยนตร์",
-    "author": "Universal Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt1262426/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Musical — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/musical.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BOWMwYjYzYmMtMWQ2Ni00NWUwLTg2MzAtYzkzMDBiZDIwOTMwXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=pqi45Qhq3CI",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/musical.webp",
+    "fileName": "musical.webp",
+    "note": "สื่ออ้างอิงเดิม: Wicked (2024) — โปสเตอร์ภาพยนตร์ — Universal Pictures · https://www.imdb.com/title/tt1262426/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -280,19 +280,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BNGI0MDI4NjEtOWU3ZS00ODQyLWFhYTgtNGYxM2ZkM2Q2YjE3XkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/sports.webp"
    },
    "credit": {
-    "title": "F1: The Movie (2025) — โปสเตอร์ภาพยนตร์",
-    "author": "Apple Original Films / Warner Bros. Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt16311594/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Sports — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/sports.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BNGI0MDI4NjEtOWU3ZS00ODQyLWFhYTgtNGYxM2ZkM2Q2YjE3XkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=CT2_P2DZBR0",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/sports.webp",
+    "fileName": "sports.webp",
+    "note": "สื่ออ้างอิงเดิม: F1: The Movie (2025) — โปสเตอร์ภาพยนตร์ — Apple Original Films / Warner Bros. Pictures · https://www.imdb.com/title/tt16311594/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -313,19 +313,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BYzkxZjg2NDQtMGVjMy00NWZkLTk0ZDEtZWE3NDYwYjAyMTg1XkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/war.webp"
    },
    "credit": {
-    "title": "1917 (2019) — โปสเตอร์ภาพยนตร์",
-    "author": "Universal Pictures / DreamWorks Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt8579674/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "War — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/war.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BYzkxZjg2NDQtMGVjMy00NWZkLTk0ZDEtZWE3NDYwYjAyMTg1XkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=YqNYrYUiMfg",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/war.webp",
+    "fileName": "war.webp",
+    "note": "สื่ออ้างอิงเดิม: 1917 (2019) — โปสเตอร์ภาพยนตร์ — Universal Pictures / DreamWorks Pictures · https://www.imdb.com/title/tt8579674/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -346,19 +346,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BNjM4MWEwMTEtNTcwYi00ZDI4LWEwMzUtNDMzODBhZmI5MWE1XkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/disaster.webp"
    },
    "credit": {
-    "title": "Twisters (2024) — โปสเตอร์ภาพยนตร์",
-    "author": "Universal Pictures / Warner Bros. Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt12584954/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Disaster — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/disaster.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BNjM4MWEwMTEtNTcwYi00ZDI4LWEwMzUtNDMzODBhZmI5MWE1XkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=wdok0rZdmx4",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/disaster.webp",
+    "fileName": "disaster.webp",
+    "note": "สื่ออ้างอิงเดิม: Twisters (2024) — โปสเตอร์ภาพยนตร์ — Universal Pictures / Warner Bros. Pictures · https://www.imdb.com/title/tt12584954/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -379,19 +379,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BMTUzNTc0NTAyM15BMl5BanBnXkFtZTgwMTk1ODA5OTE@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/western.webp"
    },
    "credit": {
-    "title": "The Magnificent Seven (2016) — โปสเตอร์ภาพยนตร์",
-    "author": "Metro-Goldwyn-Mayer / Columbia Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt2404435/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Western — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/western.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BMTUzNTc0NTAyM15BMl5BanBnXkFtZTgwMTk1ODA5OTE@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=HDKLdFwphcQ",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/western.webp",
+    "fileName": "western.webp",
+    "note": "สื่ออ้างอิงเดิม: The Magnificent Seven (2016) — โปสเตอร์ภาพยนตร์ — Metro-Goldwyn-Mayer / Columbia Pictures · https://www.imdb.com/title/tt2404435/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -412,19 +412,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BMjM3MjQ1MzkxNl5BMl5BanBnXkFtZTgwODk1ODgyMjI@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/crime.webp"
    },
    "credit": {
-    "title": "Baby Driver (2017) — โปสเตอร์ภาพยนตร์",
-    "author": "TriStar Pictures / Sony Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt3890160/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Crime — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/crime.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BMjM3MjQ1MzkxNl5BMl5BanBnXkFtZTgwODk1ODgyMjI@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=zTvJJnoWIPk",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/crime.webp",
+    "fileName": "crime.webp",
+    "note": "สื่ออ้างอิงเดิม: Baby Driver (2017) — โปสเตอร์ภาพยนตร์ — TriStar Pictures / Sony Pictures · https://www.imdb.com/title/tt3890160/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -445,19 +445,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BODA3OTM4NWQtMjU1OS00NzA2LTlhZDAtYjU2YjM5MWUxNTdiXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/zombie.webp"
    },
    "credit": {
-    "title": "Train to Busan (2016) — โปสเตอร์ภาพยนตร์",
-    "author": "Next Entertainment World",
-    "sourceUrl": "https://www.imdb.com/title/tt5700672/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Zombie — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/zombie.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BODA3OTM4NWQtMjU1OS00NzA2LTlhZDAtYjU2YjM5MWUxNTdiXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=fVEURju797Y",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/zombie.webp",
+    "fileName": "zombie.webp",
+    "note": "สื่ออ้างอิงเดิม: Train to Busan (2016) — โปสเตอร์ภาพยนตร์ — Next Entertainment World · https://www.imdb.com/title/tt5700672/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -478,19 +478,19 @@
    "group": "genre",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BN2U4OTdmM2QtZTkxYy00ZmQyLTg2N2UtMDdmMGJmNDhlZDU1XkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/spy.webp"
    },
    "credit": {
-    "title": "Mission: Impossible – Dead Reckoning Part One (2023) — โปสเตอร์ภาพยนตร์",
-    "author": "Paramount Pictures / Skydance",
-    "sourceUrl": "https://www.imdb.com/title/tt9603212/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Spy — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/spy.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BN2U4OTdmM2QtZTkxYy00ZmQyLTg2N2UtMDdmMGJmNDhlZDU1XkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=ajAG-tv_sKI",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/spy.webp",
+    "fileName": "spy.webp",
+    "note": "สื่ออ้างอิงเดิม: Mission: Impossible – Dead Reckoning Part One (2023) — โปสเตอร์ภาพยนตร์ — Paramount Pictures / Skydance · https://www.imdb.com/title/tt9603212/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -511,19 +511,19 @@
    "group": "format",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BMjA2YTAxMzMtNzA2Mi00NTcyLTg4NzUtODIxYzFiYzdiNWNlXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/documentary.webp"
    },
    "credit": {
-    "title": "Free Solo (2018) — โปสเตอร์ภาพยนตร์สารคดี",
-    "author": "National Geographic Documentary Films",
-    "sourceUrl": "https://www.imdb.com/title/tt7775622/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Documentary — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/documentary.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BMjA2YTAxMzMtNzA2Mi00NTcyLTg4NzUtODIxYzFiYzdiNWNlXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=urRVZ4SW7WU",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/documentary.webp",
+    "fileName": "documentary.webp",
+    "note": "สื่ออ้างอิงเดิม: Free Solo (2018) — โปสเตอร์ภาพยนตร์สารคดี — National Geographic Documentary Films · https://www.imdb.com/title/tt7775622/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -544,19 +544,19 @@
    "group": "format",
    "media": {
     "type": "image",
-    "src": "https://i.ytimg.com/vi/ioNng23DkIM/maxresdefault.jpg"
+    "src": "themes/film-animation/music-video.webp"
    },
    "credit": {
-    "title": "BLACKPINK – How You Like That (2020) — ภาพจากมิวสิกวิดีโอ",
-    "author": "YG Entertainment (ช่อง YouTube BLACKPINK)",
-    "sourceUrl": "https://www.youtube.com/watch?v=ioNng23DkIM",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Music Video — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/music-video.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://i.ytimg.com/vi/ioNng23DkIM/maxresdefault.jpg",
-    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
-    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=ioNng23DkIM",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/music-video.webp",
+    "fileName": "music-video.webp",
+    "note": "สื่ออ้างอิงเดิม: BLACKPINK – How You Like That (2020) — ภาพจากมิวสิกวิดีโอ — YG Entertainment (ช่อง YouTube BLACKPINK) · https://www.youtube.com/watch?v=ioNng23DkIM",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -577,19 +577,19 @@
    "group": "format",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BYjEwOGZmM2QtNjY4Mi00NjI0LTkyZjItZDEzZGI1YTEzMDg1XkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/silent-film.webp"
    },
    "credit": {
-    "title": "The Artist (2011) — โปสเตอร์ภาพยนตร์เงียบ ได้ออสการ์ภาพยนตร์ยอดเยี่ยม",
-    "author": "La Petite Reine / Warner Bros. France",
-    "sourceUrl": "https://www.imdb.com/title/tt1655442/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Silent Film — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/silent-film.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BYjEwOGZmM2QtNjY4Mi00NjI0LTkyZjItZDEzZGI1YTEzMDg1XkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://commons.wikimedia.org/wiki/File:The_Kid_%281921%29.webm",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/silent-film.webp",
+    "fileName": "silent-film.webp",
+    "note": "สื่ออ้างอิงเดิม: The Artist (2011) — โปสเตอร์ภาพยนตร์เงียบ ได้ออสการ์ภาพยนตร์ยอดเยี่ยม — La Petite Reine / Warner Bros. France · https://www.imdb.com/title/tt1655442/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "video",
@@ -613,19 +613,19 @@
    "group": "format",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BMjY1NjcxODQ4MV5BMl5BanBnXkFtZTcwMzUxNjM4Mg@@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/found-footage.webp"
    },
    "credit": {
-    "title": "Paranormal Activity (2007) — โปสเตอร์ภาพยนตร์",
-    "author": "Paramount Pictures / Blumhouse Productions",
-    "sourceUrl": "https://www.imdb.com/title/tt1179904/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Found Footage — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/found-footage.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BMjY1NjcxODQ4MV5BMl5BanBnXkFtZTcwMzUxNjM4Mg@@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=F27H2998dak",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/found-footage.webp",
+    "fileName": "found-footage.webp",
+    "note": "สื่ออ้างอิงเดิม: Paranormal Activity (2007) — โปสเตอร์ภาพยนตร์ — Paramount Pictures / Blumhouse Productions · https://www.imdb.com/title/tt1179904/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -646,19 +646,19 @@
    "group": "format",
    "media": {
     "type": "image",
-    "src": "https://i.ytimg.com/vi/bEYSyfEL8nY/maxresdefault.jpg"
+    "src": "themes/film-animation/time-lapse.webp"
    },
    "credit": {
-    "title": "Planet Earth II (2016) — Epic Cities Hyperlapse — ภาพจากคลิป",
-    "author": "BBC Earth (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=bEYSyfEL8nY",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Time-Lapse — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/time-lapse.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://i.ytimg.com/vi/bEYSyfEL8nY/maxresdefault.jpg",
-    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
-    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=bEYSyfEL8nY",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/time-lapse.webp",
+    "fileName": "time-lapse.webp",
+    "note": "สื่ออ้างอิงเดิม: Planet Earth II (2016) — Epic Cities Hyperlapse — ภาพจากคลิป — BBC Earth (ช่อง YouTube) · https://www.youtube.com/watch?v=bEYSyfEL8nY",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "video",
@@ -680,19 +680,19 @@
    "group": "format",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/slow-motion.webp"
    },
    "credit": {
-    "title": "The Matrix (1999) — โปสเตอร์ภาพยนตร์ ต้นตำรับฉาก bullet time (ภาพช้า)",
-    "author": "Warner Bros. Pictures / Village Roadshow Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt0133093/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Slow Motion — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/slow-motion.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=v2hjeC_PoYw",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/slow-motion.webp",
+    "fileName": "slow-motion.webp",
+    "note": "สื่ออ้างอิงเดิม: The Matrix (1999) — โปสเตอร์ภาพยนตร์ ต้นตำรับฉาก bullet time (ภาพช้า) — Warner Bros. Pictures / Village Roadshow Pictures · https://www.imdb.com/title/tt0133093/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "video",
@@ -714,19 +714,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BNTEyNmEwOWUtYzkyOC00ZTQ4LTllZmUtMjk0Y2YwOGUzYjRiXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/2d-animation.webp"
    },
    "credit": {
-    "title": "Spirited Away (2001) — โปสเตอร์แอนิเมชัน",
-    "author": "Studio Ghibli",
-    "sourceUrl": "https://www.imdb.com/title/tt0245429/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "2D Animation — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/2d-animation.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BNTEyNmEwOWUtYzkyOC00ZTQ4LTllZmUtMjk0Y2YwOGUzYjRiXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=ByXuk9QqQkk",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/2d-animation.webp",
+    "fileName": "2d-animation.webp",
+    "note": "สื่ออ้างอิงเดิม: Spirited Away (2001) — โปสเตอร์แอนิเมชัน — Studio Ghibli · https://www.imdb.com/title/tt0245429/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -747,19 +747,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BYWY3MDE2Y2UtOTE3Zi00MGUzLTg2MTItZjE1ZWVkMGVlODRmXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/3d-animation.webp"
    },
    "credit": {
-    "title": "Inside Out 2 (2024) — โปสเตอร์แอนิเมชัน",
-    "author": "Walt Disney Studios / Pixar Animation Studios",
-    "sourceUrl": "https://www.imdb.com/title/tt22022452/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "3D Animation — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/3d-animation.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BYWY3MDE2Y2UtOTE3Zi00MGUzLTg2MTItZjE1ZWVkMGVlODRmXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=LEjhY15eCx0",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/3d-animation.webp",
+    "fileName": "3d-animation.webp",
+    "note": "สื่ออ้างอิงเดิม: Inside Out 2 (2024) — โปสเตอร์แอนิเมชัน — Walt Disney Studios / Pixar Animation Studios · https://www.imdb.com/title/tt22022452/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -780,19 +780,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BMzQxNjM5NzkxNV5BMl5BanBnXkFtZTcwMzg5NDMwMg@@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/stop-motion.webp"
    },
    "credit": {
-    "title": "Coraline (2009) — โปสเตอร์แอนิเมชัน",
-    "author": "LAIKA / Focus Features",
-    "sourceUrl": "https://www.imdb.com/title/tt0327597/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Stop Motion — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/stop-motion.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BMzQxNjM5NzkxNV5BMl5BanBnXkFtZTcwMzg5NDMwMg@@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=P8lfdvXkhu0",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/stop-motion.webp",
+    "fileName": "stop-motion.webp",
+    "note": "สื่ออ้างอิงเดิม: Coraline (2009) — โปสเตอร์แอนิเมชัน — LAIKA / Focus Features · https://www.imdb.com/title/tt0327597/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "video",
@@ -814,19 +814,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BMTk3M2YwMGUtZDJiZS00MDNkLWIyZDEtY2VjMWYyZDFmZjMzXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/claymation.webp"
    },
    "credit": {
-    "title": "Wallace & Gromit: Vengeance Most Fowl (2024) — โปสเตอร์แอนิเมชัน",
-    "author": "Aardman Animations / BBC / Netflix",
-    "sourceUrl": "https://www.imdb.com/title/tt17163970/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Claymation — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/claymation.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BMTk3M2YwMGUtZDJiZS00MDNkLWIyZDEtY2VjMWYyZDFmZjMzXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=ZYGh16zIfGw",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/claymation.webp",
+    "fileName": "claymation.webp",
+    "note": "สื่ออ้างอิงเดิม: Wallace & Gromit: Vengeance Most Fowl (2024) — โปสเตอร์แอนิเมชัน — Aardman Animations / BBC / Netflix · https://www.imdb.com/title/tt17163970/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -847,19 +847,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://i.ytimg.com/vi/LaG_EiFX7a0/maxresdefault.jpg"
+    "src": "themes/film-animation/cutout-animation.webp"
    },
    "credit": {
-    "title": "Terry Gilliam สาธิตแอนิเมชันชิ้นส่วน (BBC, 1974) — ภาพจากคลิป",
-    "author": "BBC Archive (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=LaG_EiFX7a0",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Cutout Animation — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/cutout-animation.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://i.ytimg.com/vi/LaG_EiFX7a0/maxresdefault.jpg",
-    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
-    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=LaG_EiFX7a0",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/cutout-animation.webp",
+    "fileName": "cutout-animation.webp",
+    "note": "สื่ออ้างอิงเดิม: Terry Gilliam สาธิตแอนิเมชันชิ้นส่วน (BBC, 1974) — ภาพจากคลิป — BBC Archive (ช่อง YouTube) · https://www.youtube.com/watch?v=LaG_EiFX7a0",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -880,19 +880,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BMGZhOTkwY2MtYWFhZC00NTJiLTgzOWUtN2VhNGQ2NmE0NmYwXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/pixel-animation.webp"
    },
    "credit": {
-    "title": "Stardew Valley (2016) — ภาพปกเกมพิกเซลอาร์ต",
-    "author": "ConcernedApe",
-    "sourceUrl": "https://www.imdb.com/title/tt5580378/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Pixel Animation — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/pixel-animation.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BMGZhOTkwY2MtYWFhZC00NTJiLTgzOWUtN2VhNGQ2NmE0NmYwXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=ot7uXNQskhs",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/pixel-animation.webp",
+    "fileName": "pixel-animation.webp",
+    "note": "สื่ออ้างอิงเดิม: Stardew Valley (2016) — ภาพปกเกมพิกเซลอาร์ต — ConcernedApe · https://www.imdb.com/title/tt5580378/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -914,19 +914,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BMDliMjJiYTYtYWU0YS00OTUzLWI4MjMtYmM1YzgxNDcwOTZjXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/rotoscoping.webp"
    },
    "credit": {
-    "title": "A Scanner Darkly (2006) — โปสเตอร์ภาพยนตร์ทำด้วยเทคนิคโรโตสโคปทั้งเรื่อง",
-    "author": "Warner Independent Pictures",
-    "sourceUrl": "https://www.imdb.com/title/tt0405296/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Rotoscoping — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/rotoscoping.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BMDliMjJiYTYtYWU0YS00OTUzLWI4MjMtYmM1YzgxNDcwOTZjXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=djV11Xbc914",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/rotoscoping.webp",
+    "fileName": "rotoscoping.webp",
+    "note": "สื่ออ้างอิงเดิม: A Scanner Darkly (2006) — โปสเตอร์ภาพยนตร์ทำด้วยเทคนิคโรโตสโคปทั้งเรื่อง — Warner Independent Pictures · https://www.imdb.com/title/tt0405296/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -947,19 +947,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://m.media-amazon.com/images/M/MV5BNWI0Y2NkOWEtMmM2OC00MjQ3LWI1YzItZGQxYzQ3NzI4NWZmXkEyXkFqcGc@._V1_SY1200_.jpg"
+    "src": "themes/film-animation/motion-capture.webp"
    },
    "credit": {
-    "title": "Avatar: The Way of Water (2022) — โปสเตอร์ภาพยนตร์ (ถ่ายทำด้วย motion capture)",
-    "author": "20th Century Studios / Lightstorm Entertainment",
-    "sourceUrl": "https://www.imdb.com/title/tt1630029/",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Motion Capture — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/motion-capture.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://m.media-amazon.com/images/M/MV5BNWI0Y2NkOWEtMmM2OC00MjQ3LWI1YzItZGQxYzQ3NzI4NWZmXkEyXkFqcGc@._V1_SY1200_.jpg",
-    "fileName": "โปสเตอร์จาก IMDb",
-    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=_zvv3ER2DNw",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/motion-capture.webp",
+    "fileName": "motion-capture.webp",
+    "note": "สื่ออ้างอิงเดิม: Avatar: The Way of Water (2022) — โปสเตอร์ภาพยนตร์ (ถ่ายทำด้วย motion capture) — 20th Century Studios / Lightstorm Entertainment · https://www.imdb.com/title/tt1630029/",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "image",
@@ -980,19 +980,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://i.ytimg.com/vi/h6fcK_fRYaI/maxresdefault.jpg"
+    "src": "themes/film-animation/motion-graphics.webp"
    },
    "credit": {
-    "title": "Kurzgesagt – The Egg — ภาพจากคลิปกราฟิกเคลื่อนไหว",
-    "author": "Kurzgesagt – In a Nutshell (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=h6fcK_fRYaI",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Motion Graphics — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/motion-graphics.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://i.ytimg.com/vi/h6fcK_fRYaI/maxresdefault.jpg",
-    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
-    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=h6fcK_fRYaI",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/motion-graphics.webp",
+    "fileName": "motion-graphics.webp",
+    "note": "สื่ออ้างอิงเดิม: Kurzgesagt – The Egg — ภาพจากคลิปกราฟิกเคลื่อนไหว — Kurzgesagt – In a Nutshell (ช่อง YouTube) · https://www.youtube.com/watch?v=h6fcK_fRYaI",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "video",
@@ -1014,19 +1014,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://i.ytimg.com/vi/7Al-XT_vNms/maxresdefault.jpg"
+    "src": "themes/film-animation/flipbook.webp"
    },
    "credit": {
-    "title": "Andymation — Remaking My Favorite Flipbook — ภาพจากคลิป",
-    "author": "Andymation (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=7Al-XT_vNms",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Flipbook — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/flipbook.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://i.ytimg.com/vi/7Al-XT_vNms/maxresdefault.jpg",
-    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
-    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=7Al-XT_vNms",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/flipbook.webp",
+    "fileName": "flipbook.webp",
+    "note": "สื่ออ้างอิงเดิม: Andymation — Remaking My Favorite Flipbook — ภาพจากคลิป — Andymation (ช่อง YouTube) · https://www.youtube.com/watch?v=7Al-XT_vNms",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "video",
@@ -1048,19 +1048,19 @@
    "group": "animation",
    "media": {
     "type": "image",
-    "src": "https://i.ytimg.com/vi/_pCRomJW5wE/maxresdefault.jpg"
+    "src": "themes/film-animation/sand-animation.webp"
    },
    "credit": {
-    "title": "Kseniya Simonova — Sand Art — ภาพจากคลิป",
-    "author": "Kseniya Simonova (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=_pCRomJW5wE",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "title": "Sand Animation — การ์ดภาพประกอบสำหรับจออาจารย์ (สเก็ตดินสอ)",
+    "author": "ผศ.เปรมวดี วินิจฉัยกุล (ออกแบบใน Canva)",
+    "sourceUrl": "https://github.com/kunnaifoodanube/character-bingo/blob/main/themes/film-animation/sand-animation.webp",
+    "license": "ผลงานของผู้สอน · ใช้ประกอบการเรียนการสอน",
     "licenseUrl": "",
-    "status": "poster",
-    "file": "https://i.ytimg.com/vi/_pCRomJW5wE/maxresdefault.jpg",
-    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
-    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=_pCRomJW5wE",
-    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+    "status": "ok",
+    "file": "themes/film-animation/sand-animation.webp",
+    "fileName": "sand-animation.webp",
+    "note": "สื่ออ้างอิงเดิม: Kseniya Simonova — Sand Art — ภาพจากคลิป — Kseniya Simonova (ช่อง YouTube) · https://www.youtube.com/watch?v=_pCRomJW5wE",
+    "checked": "2026-11-19 (ตรวจภาพตรงกับคำครบ 32 ภาพ)"
    },
    "fallback": {
     "type": "video",

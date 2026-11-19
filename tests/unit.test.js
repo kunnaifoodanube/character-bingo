@@ -213,15 +213,16 @@ test('Film & Animation: 32 คำครบตามรายการ ผ่า�
   film.characters.forEach(c => assert.ok(c.th && c.th.trim(), 'ไม่มีคำแปล: ' + c.name));
 });
 
-test('Film & Animation: ทุกคำเป็นโปสเตอร์/ภาพนิ่งพร้อมเครดิต และมีภาพสำรองจาก Wikimedia Commons', () => {
+test('Film & Animation: ทุกคำเป็นการ์ดภาพของอาจารย์ (ไฟล์ในเว็บไซต์ 1920×1080) พร้อมเครดิต และมีภาพสำรองจาก Wikimedia Commons', () => {
   const okLic = /^(Public domain|CC0|CC BY 2\.0|CC BY 3\.0|CC BY-SA 3\.0|CC BY-SA 4\.0)$/;
+  const fs = require('node:fs'), path = require('node:path');
   const srcs = new Set();
   film.characters.forEach(c => {
     const cr = c.credit;
     for (const k of ['title', 'author', 'sourceUrl', 'license', 'status', 'file']) assert.ok(cr[k], c.name + ' ไม่มี ' + k);
-    assert.equal(cr.status, 'poster'); assert.equal(B.mediaType(c), 'image'); assert.ok(B.mediaAllowed(c));
-    assert.match(B.mediaSrc(c), /^https:\/\/(m\.media-amazon\.com|i\.ytimg\.com)\//); srcs.add(B.mediaSrc(c));
-    assert.match(cr.sourceUrl, /^https:\/\/www\.(imdb\.com\/title|youtube\.com\/watch)/);
+    assert.equal(cr.status, 'ok'); assert.equal(B.mediaType(c), 'image'); assert.ok(B.mediaAllowed(c));
+    assert.equal(B.mediaSrc(c), 'themes/film-animation/' + c.id + '.webp'); srcs.add(B.mediaSrc(c));
+    assert.ok(fs.existsSync(path.join(__dirname, '..', B.mediaSrc(c))), 'ไม่พบไฟล์ ' + B.mediaSrc(c));
     const f = c.fallback, fc = c.fallbackCredit;
     assert.ok(f && fc, 'ไม่มีภาพสำรอง ' + c.name);
     assert.match(f.type === 'video' ? f.poster : f.src, /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//);
