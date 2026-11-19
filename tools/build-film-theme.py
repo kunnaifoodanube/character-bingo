@@ -59,9 +59,9 @@ T = [
    dict(title='Nanook of the North (1922) — สารคดีเรื่องยาวยุคบุกเบิก', author='Robert J. Flaherty', lic='Public domain', note=NOTE_US_OLD)),
  ('music-video','format','Music Video','มิวสิกวิดีโอ','Rebel Love Song 12.jpg','7/7a','img',
    dict(title='เบื้องหลังการถ่ายทำมิวสิกวิดีโอ "Rebel Love Song" (2011)', author='Robert Bejil Photography', lic='CC BY 2.0', note=NOTE_CC)),
- ('silent-film','format','Silent Film','ภาพยนตร์เงียบ','The Kid (1921).webm','e/ea','still',
-   dict(title='The Kid (1921) — ไตเติลการ์ด (intertitle) ของภาพยนตร์เงียบ', author='Charlie Chaplin', lic='Public domain', note=NOTE_US_OLD + ' · ภาพนี้เป็นเฟรมจากไฟล์วิดีโอบน Commons (วินาทีที่ 50)',
-        src=C + 'thumb/e/ea/The_Kid_%281921%29.webm/960px-seek%3D50-The_Kid_%281921%29.webm.jpg')),
+ ('silent-film','format','Silent Film','ภาพยนตร์เงียบ','The Kid (1921).webm','e/ea','video',
+   dict(title='The Kid (1921) — Charlie Chaplin ในบท The Tramp เดินเข้าตรอก ก่อนพบทารก (ภาพยนตร์เงียบเรื่องยาวเรื่องแรกของ Chaplin)', author='Charlie Chaplin', lic='Public domain', note=NOTE_US_OLD + ' · เล่นช่วงนาทีที่ 7:45–9:45 ของไฟล์วิดีโอบน Commons (ตรวจสิทธิ์จาก Commons API 19 พ.ย. 2026)',
+        checked='2026-11-19 (Wikimedia Commons API)', start=465, end=585, poster=C + 'thumb/e/ea/The_Kid_%281921%29.webm/960px-seek%3D470-The_Kid_%281921%29.webm.jpg')),
  ('found-footage','format','Found Footage','เรื่องเล่าผ่านภาพบันทึกเหตุการณ์','An exemple of a found footage film from " Taped Up Families (Horror, Found Footage, 2024) ".png','5/57','img',
    dict(title='Taped Up Families (2024) — ภาพแบบกล้องวิดีโอบันทึกเหตุการณ์ มีวันเวลาบนจอ', author='Trash Arts Productions', lic='CC BY 3.0', note=NOTE_CC + ' (เจ้าของเผยแพร่บน YouTube ด้วยสัญญาอนุญาต CC BY)')),
  ('time-lapse','format','Time-Lapse','ภาพเร่งเวลา','Cloud time lapse 1280.ogv','5/53','video',
@@ -112,7 +112,7 @@ def build():
             'credit': {
                 'title': x['title'], 'author': x['author'], 'sourceUrl': page(fname),
                 'license': x['lic'], 'licenseUrl': LIC[x['lic']], 'status': 'ok',
-                'file': src, 'fileName': fname, 'note': x['note'], 'checked': '2026-11-18 (Wikimedia Commons API)'
+                'file': src, 'fileName': fname, 'note': x['note'], 'checked': x.get('checked', '2026-11-18 (Wikimedia Commons API)')
             }
         })
     # ---- ชั้นที่ 2: คลิป YouTube จากช่องทางการ (ภาพ Commons ข้างบนเก็บเป็นภาพสำรองเมื่อเล่นคลิปไม่ได้) ----
@@ -120,6 +120,8 @@ def build():
     yt = json.load(open(os.path.join(here0, 'film-youtube.json'), encoding='utf-8'))
     for c in chars:
         y = yt[c['id']]
+        if y.get('commons'):  # ใช้สื่อ Commons (สิทธิ์ยืนยันแล้ว) เป็นสื่อหลัก ไม่ใช้ YouTube
+            continue
         c['fallback'] = c['media']
         oc = c['credit']
         c['fallbackCredit'] = {k: oc[k] for k in ('title', 'author', 'sourceUrl', 'license', 'licenseUrl')}
@@ -136,9 +138,9 @@ def build():
         }
     theme = {
         'format': 'character-bingo-theme@1', 'id': 'film-animation', 'name': 'Film & Animation Bingo',
-        'category': 'Film & Animation', 'display': 'text', 'updatedAt': '2026-11-18T00:00:00Z',
+        'category': 'Film & Animation', 'display': 'text', 'updatedAt': '2026-11-19T00:00:00Z',
         'description': 'บัตรผู้เล่นแสดงคำภาษาอังกฤษ 16 คำจาก 32 คำ (ประเภทภาพยนตร์ 15 · รูปแบบงาน 6 · เทคนิคแอนิเมชัน 11) จอพิธีกรแสดงภาพ/คลิปจริงพร้อมคำแปลไทย',
-        'creditsNote': 'คลิปทั้ง 32 รายการเป็นตัวอย่างภาพยนตร์/คลิปจริง ฝังด้วยเครื่องเล่น YouTube จากช่องทางการของสตูดิโอ ผู้จัดจำหน่าย หรือผู้สร้าง (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์นี้ ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงานแต่ละราย · เมื่อไม่มีอินเทอร์เน็ตหรือคลิปเล่นไม่ได้ จะแสดงภาพสำรองจาก Wikimedia Commons (สาธารณสมบัติ/Creative Commons) แทน · ไม่มีภาพหรือคลิปที่สร้างด้วย AI',
+        'creditsNote': 'คลิป 31 รายการเป็นตัวอย่างภาพยนตร์/คลิปจริง ฝังด้วยเครื่องเล่น YouTube จากช่องทางการของสตูดิโอ ผู้จัดจำหน่าย หรือผู้สร้าง (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์นี้ ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงานแต่ละราย · เมื่อไม่มีอินเทอร์เน็ตหรือคลิปเล่นไม่ได้ จะแสดงภาพสำรองจาก Wikimedia Commons (สาธารณสมบัติ/Creative Commons) แทน · ไม่มีภาพหรือคลิปที่สร้างด้วย AI · Silent Film ใช้คลิป The Kid (1921) ซึ่งเป็นสาธารณสมบัติจาก Wikimedia Commons โดยตรง',
         'characters': chars,
     }
     assert len(chars) == 32 and len({c['id'] for c in chars}) == 32

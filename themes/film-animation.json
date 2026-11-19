@@ -4,9 +4,9 @@
  "name": "Film & Animation Bingo",
  "category": "Film & Animation",
  "display": "text",
- "updatedAt": "2026-11-18T00:00:00Z",
+ "updatedAt": "2026-11-19T00:00:00Z",
  "description": "บัตรผู้เล่นแสดงคำภาษาอังกฤษ 16 คำจาก 32 คำ (ประเภทภาพยนตร์ 15 · รูปแบบงาน 6 · เทคนิคแอนิเมชัน 11) จอพิธีกรแสดงภาพ/คลิปจริงพร้อมคำแปลไทย",
- "creditsNote": "คลิปทั้ง 32 รายการเป็นตัวอย่างภาพยนตร์/คลิปจริง ฝังด้วยเครื่องเล่น YouTube จากช่องทางการของสตูดิโอ ผู้จัดจำหน่าย หรือผู้สร้าง (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์นี้ ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงานแต่ละราย · เมื่อไม่มีอินเทอร์เน็ตหรือคลิปเล่นไม่ได้ จะแสดงภาพสำรองจาก Wikimedia Commons (สาธารณสมบัติ/Creative Commons) แทน · ไม่มีภาพหรือคลิปที่สร้างด้วย AI",
+ "creditsNote": "คลิป 31 รายการเป็นตัวอย่างภาพยนตร์/คลิปจริง ฝังด้วยเครื่องเล่น YouTube จากช่องทางการของสตูดิโอ ผู้จัดจำหน่าย หรือผู้สร้าง (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์นี้ ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงานแต่ละราย · เมื่อไม่มีอินเทอร์เน็ตหรือคลิปเล่นไม่ได้ จะแสดงภาพสำรองจาก Wikimedia Commons (สาธารณสมบัติ/Creative Commons) แทน · ไม่มีภาพหรือคลิปที่สร้างด้วย AI · Silent Film ใช้คลิป The Kid (1921) ซึ่งเป็นสาธารณสมบัติจาก Wikimedia Commons โดยตรง",
  "characters": [
   {
    "id": "action",
@@ -576,31 +576,23 @@
    "th": "ภาพยนตร์เงียบ",
    "group": "format",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=O8K9AZcSQJE"
+    "type": "video",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ea/The_Kid_%281921%29.webm/The_Kid_%281921%29.webm.480p.vp9.webm",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/The_Kid_%281921%29.webm/960px-seek%3D470-The_Kid_%281921%29.webm.jpg",
+    "start": 465,
+    "end": 585
    },
    "credit": {
-    "title": "The Artist (2011) — หนังเงียบยุคใหม่ ได้ออสการ์ภาพยนตร์ยอดเยี่ยม — Trailer",
-    "author": "TrailersApplecom (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=O8K9AZcSQJE",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=O8K9AZcSQJE",
-    "fileName": "YouTube O8K9AZcSQJE",
-    "note": "ช่องรวมตัวอย่างภาพยนตร์ ไม่ใช่ช่องของสตูดิโอโดยตรง (ไม่พบคลิปจากช่องสตูดิโอที่เปิดให้ฝัง) · ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
-   },
-   "fallback": {
-    "type": "image",
-    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/The_Kid_%281921%29.webm/960px-seek%3D50-The_Kid_%281921%29.webm.jpg"
-   },
-   "fallbackCredit": {
-    "title": "The Kid (1921) — ไตเติลการ์ด (intertitle) ของภาพยนตร์เงียบ",
+    "title": "The Kid (1921) — Charlie Chaplin ในบท The Tramp เดินเข้าตรอก ก่อนพบทารก (ภาพยนตร์เงียบเรื่องยาวเรื่องแรกของ Chaplin)",
     "author": "Charlie Chaplin",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Kid_%281921%29.webm",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "status": "ok",
+    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ea/The_Kid_%281921%29.webm/The_Kid_%281921%29.webm.480p.vp9.webm",
+    "fileName": "The Kid (1921).webm",
+    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว · เล่นช่วงนาทีที่ 7:45–9:45 ของไฟล์วิดีโอบน Commons (ตรวจสิทธิ์จาก Commons API 19 พ.ย. 2026)",
+    "checked": "2026-11-19 (Wikimedia Commons API)"
    }
   },
   {

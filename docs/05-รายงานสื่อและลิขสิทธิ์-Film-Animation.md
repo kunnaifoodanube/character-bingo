@@ -1,6 +1,13 @@
 # รายงานสื่อและลิขสิทธิ์ — Film & Animation Bingo
 
-อัปเดต 19 พ.ย. 2026 (v1.3) · ไฟล์ชุดคำ: `themes/film-animation.json` · สร้างจาก `tools/build-film-theme.py` + `tools/film-youtube.json`
+อัปเดต 19 พ.ย. 2026 (v1.3.1) · ไฟล์ชุดคำ: `themes/film-animation.json` · สร้างจาก `tools/build-film-theme.py` + `tools/film-youtube.json`
+
+## v1.3.1 (19 พ.ย. 2026 เช้า) — ตรวจซ้ำและแก้ข้อ Silent Film
+
+- ตรวจคลิป YouTube ทั้ง 32 รายการซ้ำผ่าน YouTube oEmbed: **ทุกคลิปยังเปิดให้ฝัง** และชื่อช่องตรงกับตาราง
+- **Silent Film:** คลิปเดิม (ตัวอย่าง The Artist จากช่อง TrailersApplecom) มาจากช่องรวมตัวอย่างหนัง **ไม่ใช่เจ้าของสิทธิ์** จึงยืนยันสิทธิ์ไม่ได้ → เปลี่ยนเป็นคลิป **The Kid (1921) ของ Charlie Chaplin จาก Wikimedia Commons (สาธารณสมบัติ ตรวจจาก Commons API)** เล่นช่วงนาทีที่ 7:45–9:45 (The Tramp เดินเข้าตรอกก่อนพบทารก) วนซ้ำ ไม่ได้ดาวน์โหลดไฟล์มาเก็บ
+- ตอนนี้สื่อหลัก: คลิป YouTube จากช่องทางการ/ผู้จัดจำหน่าย/ผู้สร้าง **31 คำ** + คลิปสาธารณสมบัติจาก Commons **1 คำ**
+- หมายเหตุ: เครื่องมือ `tools/yt-check.html` ใช้ไม่ได้บนเบราว์เซอร์ในศูนย์ข้อมูล (YouTube บล็อกทุกคลิปรวมถึงคลิปทั่วไป) จึงใช้ oEmbed แทน
 
 ## สรุป (v1.3 — คลิปหนังจริงจาก YouTube)
 
@@ -15,7 +22,7 @@
 
 | คำ | หมายเหตุ |
 |---|---|
-| Silent Film | ใช้ตัวอย่าง The Artist (2011) จากช่องรวมตัวอย่างหนัง (TrailersApplecom) — ไม่พบคลิปจากช่องสตูดิโอที่เปิดให้ฝัง |
+| Silent Film | ~~ตัวอย่าง The Artist (2011) จากช่อง TrailersApplecom~~ → **v1.3.1 เปลี่ยนเป็น The Kid (1921) จาก Commons (สาธารณสมบัติ)** เพราะช่องเดิมไม่ใช่เจ้าของสิทธิ์ |
 | 2D Animation | Spirited Away จากช่องผู้จัดจำหน่าย (Crunchyroll Store Australia) — ช่องทางการของ Ghibli/ผู้จัดจำหน่ายรายอื่นปิดการฝัง |
 | Motion Capture | ใช้ featurette Avatar: The Way of Water จากช่อง 20th Century Studios **เนเธอร์แลนด์** (บรรยายภาษาอังกฤษ มีซับดัตช์) |
 | Spy · Musical | ใช้ช่องสาขาของสตูดิโอ (Paramount Pictures NZ / Universal Pictures) |
@@ -43,7 +50,7 @@
 | 15 | Spy — สายลับ | Mission: Impossible – Dead Reckoning Part One (2023) · Official Trailer | Paramount Pictures New Zealand | [ajAG-tv_sKI](https://www.youtube.com/watch?v=ajAG-tv_sKI) | ทั้งคลิป |
 | 16 | Documentary — สารคดี | Free Solo (2018) · Trailer | National Geographic | [urRVZ4SW7WU](https://www.youtube.com/watch?v=urRVZ4SW7WU) | ทั้งคลิป |
 | 17 | Music Video — มิวสิกวิดีโอ | BLACKPINK – How You Like That (2020) · Official M/V | BLACKPINK | [ioNng23DkIM](https://www.youtube.com/watch?v=ioNng23DkIM) | ทั้งคลิป |
-| 18 | Silent Film — ภาพยนตร์เงียบ | The Artist (2011) — หนังเงียบยุคใหม่ ได้ออสการ์ภาพยนตร์ยอดเยี่ยม · Trailer | TrailersApplecom | [O8K9AZcSQJE](https://www.youtube.com/watch?v=O8K9AZcSQJE) | ทั้งคลิป |
+| 18 | Silent Film — ภาพยนตร์เงียบ | The Kid (1921) — Charlie Chaplin (สาธารณสมบัติ) | Wikimedia Commons | [The Kid (1921).webm](https://commons.wikimedia.org/wiki/File:The_Kid_%281921%29.webm) | 465–585 วิ |
 | 19 | Found Footage — เรื่องเล่าผ่านภาพบันทึกเหตุการณ์ | Paranormal Activity: The Ghost Dimension (2015) · Trailer | Paramount Pictures UK | [F27H2998dak](https://www.youtube.com/watch?v=F27H2998dak) | ทั้งคลิป |
 | 20 | Time-Lapse — ภาพเร่งเวลา | Planet Earth II (2016) — Cities · Epic Cities Hyperlapse | BBC Earth | [bEYSyfEL8nY](https://www.youtube.com/watch?v=bEYSyfEL8nY) | ทั้งคลิป |
 | 21 | Slow Motion — ภาพเคลื่อนไหวช้า | The Slow Mo Guys · 1000 Paint-Covered Mousetraps in 4K Slow Motion | The Slow Mo Guys | [v2hjeC_PoYw](https://www.youtube.com/watch?v=v2hjeC_PoYw) | 150–230 วิ |

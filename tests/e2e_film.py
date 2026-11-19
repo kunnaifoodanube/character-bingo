@@ -168,6 +168,8 @@ with sync_playwright() as p:
                sel.endswith(':film-animation') and board_txt and 'film-animation' == hstate()['themeId'], sel)
         draw_once()
         ids = [d['id'] for d in hstate()['round']['draws']]
+        if BYID[ids[-1]]['media']['type'] != 'youtube':  # F2b–c ตรวจคำที่เป็น YouTube (คำที่ใช้คลิป Commons ตรวจใน F2e)
+            draw_once(); ids = [d['id'] for d in hstate()['round']['draws']]
         c = BYID[ids[-1]]
         b = big_info()
         name_ok = c['name'] in b['name'] and c['th'] in b['name']
@@ -191,7 +193,7 @@ with sync_playwright() as p:
         # หน้ารวมเครดิต
         host.click('#btnCredits'); host.wait_for_selector('.modal .credits')
         n = host.evaluate("document.querySelectorAll('.modal .cr-item').length")
-        okc = host.evaluate("[...document.querySelectorAll('.modal .cr-item')].filter(e => e.innerText.includes('ฝังจากช่อง YouTube') && e.querySelector('img')).length")
+        okc = host.evaluate("[...document.querySelectorAll('.modal .cr-item')].filter(e => (e.innerText.includes('ฝังจากช่อง YouTube') || e.innerText.includes('Public domain')) && e.querySelector('img')).length")
         host.screenshot(path=os.path.join(OUT, 'F2-host-credits-all.png'))
         host.click('.modal .actions .btn')
         record('F2d. ปุ่ม “เครดิต / แหล่งภาพ” แสดงครบ 32 รายการ ทุกรายการมีช่องที่มา + ภาพปก', n == 32 and okc == 32, f'{n} รายการ · ครบ {okc}')
@@ -200,18 +202,23 @@ with sync_playwright() as p:
         vids = []
         def grab():
             cid = hstate()['round']['draws'][-1]['id']
-            host.wait_for_function("window.__host.ytPlayer() && window.__host.ytPlayer()._vid", timeout=8000)
+            if BYID[cid]['media']['type'] == 'youtube':
+                host.wait_for_function("window.__host.ytPlayer() && window.__host.ytPlayer()._vid", timeout=8000)
+            else:
+                host.wait_for_function("document.querySelector('#bigMedia video,#bigMedia img')", timeout=8000)
             b = big_info(); b['id'] = cid; vids.append(b)
         grab()
         while len(hstate()['round']['draws']) < 32:
             draw_once(); grab()
         alive = host.evaluate("window.__yt.filter(p => !p._destroyed).length")
         ids = [d['id'] for d in hstate()['round']['draws']]
-        good = [v for v in vids if v['ytVid'] == BYID[v['id']]['media']['src'].split('v=')[1] and v['tag'] == 'IFRAME' and v['ytVars'].get('mute') == 1]
+        NYT = sum(1 for c in THEME['characters'] if c['media']['type'] == 'youtube')
+        good = [v for v in vids if BYID[v['id']]['media']['type'] == 'youtube' and v['ytVid'] == BYID[v['id']]['media']['src'].split('v=')[1] and v['tag'] == 'IFRAME' and v['ytVars'].get('mute') == 1]
+        good_cm = [v for v in vids if BYID[v['id']]['media']['type'] == 'video' and v['tag'] == 'VIDEO' and v['src'] == BYID[v['id']]['media']['src'] and v['muted']]
         sm = [v for v in vids if v['id'] == 'slow-motion'][0]
-        record('F2e. ทั้ง 32 คำเล่นคลิป YouTube ที่ถูกต้อง (ปิดเสียงเริ่มต้น) และกำหนดช่วงเริ่ม/จบได้ · เครื่องเล่นเก่าถูกปิดทุกครั้ง ไม่ซ้อนกัน',
-               len(good) == 32 and sm['ytVars'].get('start') == 150 and sm['ytVars'].get('end') == 230 and alive == 1,
-               f'ถูกต้อง {len(good)}/32 · เครื่องเล่นที่ยังเปิดอยู่ {alive} · Slow Motion start={sm["ytVars"].get("start")} end={sm["ytVars"].get("end")}')
+        record(f'F2e. คลิป YouTube {NYT} คำ + คลิป Commons {32 - NYT} คำ เล่นถูกต้อง (ปิดเสียงเริ่มต้น) และกำหนดช่วงเริ่ม/จบได้ · เครื่องเล่นเก่าถูกปิดทุกครั้ง ไม่ซ้อนกัน',
+               len(good) == NYT and len(good_cm) == 32 - NYT and sm['ytVars'].get('start') == 150 and sm['ytVars'].get('end') == 230 and alive <= 1,
+               f'YouTube {len(good)}/{NYT} · Commons {len(good_cm)}/{32 - NYT} · เครื่องเล่น YouTube ที่ยังเปิด {alive} · Slow Motion start={sm["ytVars"].get("start")} end={sm["ytVars"].get("end")}')
         record('F2f. สุ่มครบ 32 คำ ไม่ซ้ำ และปุ่มสุ่มปิด', len(ids) == 32 and len(set(ids)) == 32 and host.is_disabled('#btnDraw'), host.inner_text('#btnDraw'))
         # จอใหญ่ 1920×1080
         host.set_viewport_size({'width': 1920, 'height': 1080}); host.wait_for_timeout(300)
@@ -228,6 +235,8 @@ with sync_playwright() as p:
         op = octx.new_page(); watch(op, 'host-noyt')
         op.goto(BASE + 'host.html'); op.wait_for_function("document.querySelectorAll('#board .b').length === 32", timeout=15000)
         op.wait_for_function('!window.__host.busy()'); op.click('#btnDraw'); op.wait_for_function('!window.__host.busy()', timeout=10000)
+        if BYID[op.evaluate('window.__host.state().round.draws.slice(-1)[0].id')]['media']['type'] != 'youtube':
+            op.click('#btnDraw'); op.wait_for_function('!window.__host.busy()', timeout=10000)
         op.wait_for_selector('#bigMedia .yt img', timeout=15000)
         cid = op.evaluate('window.__host.state().round.draws.slice(-1)[0].id')
         fb = BYID[cid]['fallback']; want = fb['poster'] if fb['type'] == 'video' else fb['src']

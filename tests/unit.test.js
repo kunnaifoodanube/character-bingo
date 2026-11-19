@@ -213,24 +213,33 @@ test('Film & Animation: 32 คำครบตามรายการ ผ่า�
   film.characters.forEach(c => assert.ok(c.th && c.th.trim(), 'ไม่มีคำแปล: ' + c.name));
 });
 
-test('Film & Animation: ทุกคำเป็นคลิป YouTube จากช่องที่เปิดให้ฝัง มีเครดิตครบ และมีภาพสำรองจาก Wikimedia Commons', () => {
+test('Film & Animation: คลิป YouTube จากช่องที่เปิดให้ฝัง (มีภาพสำรองจาก Commons) หรือสื่อเสรีจาก Commons โดยตรง · เครดิตครบ', () => {
   const okLic = /^(Public domain|CC0|CC BY 2\.0|CC BY 3\.0|CC BY-SA 3\.0|CC BY-SA 4\.0)$/;
-  const ids = new Set();
+  const ids = new Set(); let yt = 0, commons = 0;
   film.characters.forEach(c => {
     const cr = c.credit;
     for (const k of ['title', 'author', 'sourceUrl', 'license', 'licenseUrl', 'status', 'file']) assert.ok(cr[k], c.name + ' ไม่มี ' + k);
-    assert.equal(cr.status, 'embed');
-    assert.equal(B.mediaType(c), 'youtube');
-    const id = B.youtubeId(B.mediaSrc(c)); assert.match(id, /^[\w-]{11}$/); ids.add(id);
-    assert.ok(B.mediaAllowed(c));
-    assert.equal(cr.sourceUrl, 'https://www.youtube.com/watch?v=' + id);
-    // ภาพสำรองเมื่อออฟไลน์: ต้องเป็นสื่อเสรีจาก Commons เท่านั้น
-    const f = c.fallback, fc = c.fallbackCredit;
-    assert.ok(f && fc, 'ไม่มีภาพสำรอง ' + c.name);
-    assert.match(f.type === 'video' ? f.poster : f.src, /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//);
-    assert.match(fc.license, okLic); assert.match(fc.sourceUrl, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+    assert.ok(B.mediaAllowed(c), c.name);
+    if (B.mediaType(c) === 'youtube') {
+      yt++;
+      assert.equal(cr.status, 'embed');
+      const id = B.youtubeId(B.mediaSrc(c)); assert.match(id, /^[\w-]{11}$/); ids.add(id);
+      assert.equal(cr.sourceUrl, 'https://www.youtube.com/watch?v=' + id);
+      // ภาพสำรองเมื่อออฟไลน์: ต้องเป็นสื่อเสรีจาก Commons เท่านั้น
+      const f = c.fallback, fc = c.fallbackCredit;
+      assert.ok(f && fc, 'ไม่มีภาพสำรอง ' + c.name);
+      assert.match(f.type === 'video' ? f.poster : f.src, /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//);
+      assert.match(fc.license, okLic); assert.match(fc.sourceUrl, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+    } else {
+      commons++;   // สื่อหลักจาก Commons ที่ตรวจสิทธิ์แล้ว (ไม่ใช้ YouTube)
+      assert.equal(cr.status, 'ok');
+      assert.match(B.mediaSrc(c), /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//);
+      assert.match(cr.license, okLic); assert.match(cr.sourceUrl, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+      if (B.mediaType(c) === 'video') assert.match(c.media.poster, /^https:\/\/upload\.wikimedia\.org\//);
+    }
   });
-  assert.equal(ids.size, 32, 'คลิปซ้ำกัน');
+  assert.equal(yt + commons, 32);
+  assert.equal(ids.size, yt, 'คลิปซ้ำกัน');
 });
 
 test('Film & Animation: สื่อที่ยังไม่ยืนยันสิทธิ์จะไม่ถูกแสดง', () => {

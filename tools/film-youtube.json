@@ -17,7 +17,7 @@
  "spy":              {"id": "ajAG-tv_sKI", "film": "Mission: Impossible – Dead Reckoning Part One (2023)", "what": "Official Trailer", "channel": "Paramount Pictures New Zealand"},
  "documentary":      {"id": "urRVZ4SW7WU", "film": "Free Solo (2018)", "what": "Trailer", "channel": "National Geographic"},
  "music-video":      {"id": "ioNng23DkIM", "film": "BLACKPINK – How You Like That (2020)", "what": "Official M/V", "channel": "BLACKPINK"},
- "silent-film":      {"id": "O8K9AZcSQJE", "film": "The Artist (2011) — หนังเงียบยุคใหม่ ได้ออสการ์ภาพยนตร์ยอดเยี่ยม", "what": "Trailer", "channel": "TrailersApplecom", "note": "ช่องรวมตัวอย่างภาพยนตร์ ไม่ใช่ช่องของสตูดิโอโดยตรง (ไม่พบคลิปจากช่องสตูดิโอที่เปิดให้ฝัง)"},
+ "silent-film":      {"commons": true, "replaced": "O8K9AZcSQJE (The Artist trailer จากช่อง TrailersApplecom ซึ่งไม่ใช่เจ้าของสิทธิ์) — 19 พ.ย. 2026 เปลี่ยนเป็นคลิป The Kid (1921) สาธารณสมบัติจาก Commons"},
  "found-footage":    {"id": "F27H2998dak", "film": "Paranormal Activity: The Ghost Dimension (2015)", "what": "Trailer", "channel": "Paramount Pictures UK"},
  "time-lapse":       {"id": "bEYSyfEL8nY", "film": "Planet Earth II (2016) — Cities", "what": "Epic Cities Hyperlapse", "channel": "BBC Earth"},
  "slow-motion":      {"id": "v2hjeC_PoYw", "film": "The Slow Mo Guys", "what": "1000 Paint-Covered Mousetraps in 4K Slow Motion", "channel": "The Slow Mo Guys", "start": 150, "end": 230},
