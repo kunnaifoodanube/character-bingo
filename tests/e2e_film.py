@@ -159,6 +159,11 @@ with sync_playwright() as p:
             overflowY: document.documentElement.scrollHeight > innerHeight + 1, overflowX: document.documentElement.scrollWidth > innerWidth + 1 };
         }""")
 
+    def fits():
+        return host.evaluate("""() => { const r = document.getElementById('reveal').getBoundingClientRect(), i = document.querySelector('#bigMedia img').getBoundingClientRect(),
+          c = document.querySelector('#reveal .count').getBoundingClientRect(), n = document.getElementById('bigName').getBoundingClientRect();
+          return i.top >= c.bottom - 2 && i.bottom <= n.top + 2 && i.left >= r.left && i.right <= r.right && i.width > 100 }""")
+
     def t_host():
         host.goto(BASE + 'host.html')
         host.wait_for_function("document.querySelectorAll('#board .b').length === 32", timeout=15000)
@@ -176,7 +181,7 @@ with sync_playwright() as p:
         src_ok = b['tag'] == 'IMG' and b['src'] == c['media']['src'] and b['fit'] == 'contain'
         host.screenshot(path=os.path.join(OUT, f'F2-host-reveal-{c["id"]}.png'))
         record('F2b. สุ่ม 1 คำ → จอใหญ่แสดงโปสเตอร์ของคำนั้น (ไม่ตัดภาพ) + “English — ไทย” + ปุ่มเครดิต ไม่ล้นจอ 1366×768',
-               (not b['hidden']) and src_ok and name_ok and b['credit'] and not b['overflowY'] and not b['overflowX'] and abs(b['w'] - b['h']) < 2,
+               (not b['hidden']) and src_ok and name_ok and b['credit'] and not b['overflowY'] and not b['overflowX'] and fits(),
                f'{c["name"]} → {b["src"][-50:]} กรอบ {b["w"]:.0f}×{b["h"]:.0f}px · "{b["name"]}"')
         host.click('#btnCredit'); host.wait_for_selector('.modal table.credit')
         t = host.inner_text('.modal'); links = host.eval_on_selector_all('.modal a', 'as => as.map(a => a.href)')
@@ -208,7 +213,7 @@ with sync_playwright() as p:
         host.set_viewport_size({'width': 1920, 'height': 1080}); host.wait_for_timeout(300)
         b = big_info(); host.screenshot(path=os.path.join(OUT, 'F2-host-1920.png'))
         host.set_viewport_size({'width': 1366, 'height': 768})
-        record('F2g. จอ Full HD 1920×1080 ไม่ล้นจอ สื่อเป็นสี่เหลี่ยมจัตุรัส', not b['overflowY'] and abs(b['w'] - b['h']) < 2, f'{b["w"]:.0f}×{b["h"]:.0f}')
+        record('F2g. จอ Full HD 1920×1080 ไม่ล้นจอ ภาพอยู่ในกรอบครบ', not b['overflowY'] and fits(), f'{b["w"]:.0f}×{b["h"]:.0f}')
         others = [u for u in wm_requests if not (u.startswith('https://upload.wikimedia.org/wikipedia/commons/') or u.startswith('https://i.ytimg.com/') or u.startswith('https://m.media-amazon.com/'))]
         record('F2h. โหลดภาพจาก IMDb / YouTube (ภาพปก) / Wikimedia เท่านั้น', not others, f'{len(wm_requests)} คำขอ · อื่น ๆ {others[:3]}')
         octx = browser.new_context(viewport={'width': 1366, 'height': 768}, service_workers='block')

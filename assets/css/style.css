@@ -133,6 +133,19 @@ a.btn { text-decoration: none; display: inline-block; }
 .big-reveal .media.dark { background: #111; }
 .big-reveal .media img, .big-reveal .media video { width: 100%; height: 100%; max-height: none; aspect-ratio: auto; object-fit: contain; display: block; }
 .big-reveal .media img.pixel { image-rendering: pixelated; }
+/* ภาพนิ่ง (โปสเตอร์ 2:3 / ภาพปกคลิป 16:9): กรอบปรับตามสัดส่วนภาพ ไม่มีแถบดำ ไม่ทับตัวนับด้านบน/ปุ่มเครดิตด้านล่าง */
+.big-reveal.textmode { padding: 3.2rem 1.5rem 3.4rem; }
+.big-reveal .media:has(> img), .big-reveal .media.dark:has(> img) { aspect-ratio: auto; flex: 1 1 0; min-height: 0; height: auto; max-height: none; width: 100%; max-width: 100%; background: none; overflow: visible; border-radius: 0; }
+.big-reveal .media > img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 14px; box-shadow: 0 10px 30px rgba(20,15,40,.28); }
+.big-reveal.textmode .name { margin-top: .9rem; }
+.big-reveal.textmode .name .sep { display: none; }
+.big-reveal.textmode .name .th { display: block; font-size: .55em; margin-top: .25rem; }
+@media (max-width: 900px) {
+  .big-reveal.textmode { padding: 2.8rem .9rem 3.4rem; }
+  .big-reveal.textmode .media:has(> img) { flex: none; height: 52vh; }
+  .big-reveal.textmode .name { font-size: clamp(1.7rem, 8vw, 2.6rem); }
+  .big-reveal.textmode .name .th { font-size: .6em; }
+}
 .big-reveal .media .yt { position: relative; width: 100%; height: 100%; background: #000; }
 .big-reveal .media .yt .yt-p, .big-reveal .media .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .big-reveal .media .yt img { position: absolute; inset: 0; }
