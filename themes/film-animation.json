@@ -4,9 +4,9 @@
  "name": "Film & Animation Bingo",
  "category": "Film & Animation",
  "display": "text",
- "updatedAt": "2026-11-19T00:00:00Z",
+ "updatedAt": "2026-11-19T03:00:00Z",
  "description": "บัตรผู้เล่นแสดงคำภาษาอังกฤษ 16 คำจาก 32 คำ (ประเภทภาพยนตร์ 15 · รูปแบบงาน 6 · เทคนิคแอนิเมชัน 11) จอพิธีกรแสดงภาพ/คลิปจริงพร้อมคำแปลไทย",
- "creditsNote": "คลิป 31 รายการเป็นตัวอย่างภาพยนตร์/คลิปจริง ฝังด้วยเครื่องเล่น YouTube จากช่องทางการของสตูดิโอ ผู้จัดจำหน่าย หรือผู้สร้าง (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์นี้ ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงานแต่ละราย · เมื่อไม่มีอินเทอร์เน็ตหรือคลิปเล่นไม่ได้ จะแสดงภาพสำรองจาก Wikimedia Commons (สาธารณสมบัติ/Creative Commons) แทน · ไม่มีภาพหรือคลิปที่สร้างด้วย AI · Silent Film ใช้คลิป The Kid (1921) ซึ่งเป็นสาธารณสมบัติจาก Wikimedia Commons โดยตรง",
+ "creditsNote": "จอพิธีกรแสดงโปสเตอร์ภาพยนตร์/แอนิเมชัน 26 ภาพ (จาก IMDb) และภาพจากคลิปของช่องเจ้าของผลงาน 6 ภาพ (คำที่เป็นเทคนิค) ลิขสิทธิ์เป็นของเจ้าของผลงานแต่ละราย ใส่เครดิตทุกภาพ ใช้ประกอบการเรียนการสอน ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์นี้ · ถ้าโหลดภาพไม่ได้ (ไม่มีอินเทอร์เน็ต) จะแสดงภาพสำรองจาก Wikimedia Commons แทน · ไม่มีภาพที่สร้างด้วย AI",
  "characters": [
   {
    "id": "action",
@@ -14,20 +14,20 @@
    "th": "แอ็กชัน / ฉากไล่ล่า",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=hEJnMQG9ev8"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BZDRkODJhOTgtOTc1OC00NTgzLTk4NjItNDgxZDY4YjlmNDY2XkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Mad Max: Fury Road (2015) — Official Main Trailer",
-    "author": "Warner Bros. (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=hEJnMQG9ev8",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=hEJnMQG9ev8",
-    "fileName": "YouTube hEJnMQG9ev8",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Mad Max: Fury Road (2015) — โปสเตอร์ภาพยนตร์",
+    "author": "Warner Bros. Pictures / Village Roadshow Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt1392190/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BZDRkODJhOTgtOTc1OC00NTgzLTk4NjItNDgxZDY4YjlmNDY2XkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=hEJnMQG9ev8",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -47,20 +47,20 @@
    "th": "ตลก",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=pBk4NYhWNMM"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BYjI3NDU0ZGYtYjA2YS00Y2RlLTgwZDAtYTE2YTM5ZjE1M2JlXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Barbie (2023) — Main Trailer",
-    "author": "Warner Bros. (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=pBk4NYhWNMM",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=pBk4NYhWNMM",
-    "fileName": "YouTube pBk4NYhWNMM",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Barbie (2023) — โปสเตอร์ภาพยนตร์",
+    "author": "Warner Bros. Pictures / Mattel Films",
+    "sourceUrl": "https://www.imdb.com/title/tt1517268/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BYjI3NDU0ZGYtYjA2YS00Y2RlLTgwZDAtYTE2YTM5ZjE1M2JlXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=pBk4NYhWNMM",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -80,20 +80,20 @@
    "th": "สยองขวัญ",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=mcfyqO1ERW8"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BM2VmMzRkYzgtMzg2ZC00OTFkLTkwMTYtNTMxNjM2YzI1MjgyXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "The Conjuring: Last Rites (2025) — Official Trailer",
-    "author": "Warner Bros. India (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=mcfyqO1ERW8",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=mcfyqO1ERW8",
-    "fileName": "YouTube mcfyqO1ERW8",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "The Conjuring: Last Rites (2025) — โปสเตอร์ภาพยนตร์",
+    "author": "Warner Bros. Pictures / New Line Cinema",
+    "sourceUrl": "https://www.imdb.com/title/tt22898462/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BM2VmMzRkYzgtMzg2ZC00OTFkLTkwMTYtNTMxNjM2YzI1MjgyXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=mcfyqO1ERW8",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -113,20 +113,20 @@
    "th": "โรแมนติก",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=BUbCupJWFSE"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BMTQ2NjE4NDE2NV5BMl5BanBnXkFtZTgwOTcwNDE5NzE@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Me Before You (2016) — Extended Trailer",
-    "author": "Warner Bros. UK & Ireland (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=BUbCupJWFSE",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=BUbCupJWFSE",
-    "fileName": "YouTube BUbCupJWFSE",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Me Before You (2016) — โปสเตอร์ภาพยนตร์",
+    "author": "Warner Bros. Pictures / Metro-Goldwyn-Mayer",
+    "sourceUrl": "https://www.imdb.com/title/tt2674426/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BMTQ2NjE4NDE2NV5BMl5BanBnXkFtZTgwOTcwNDE5NzE@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=BUbCupJWFSE",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "video",
@@ -147,20 +147,20 @@
    "th": "วิทยาศาสตร์จินตนาการ",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=poWiludgQCw"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Dune: Part Two (2024) — Official Trailer 3",
-    "author": "Legendary (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=poWiludgQCw",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=poWiludgQCw",
-    "fileName": "YouTube poWiludgQCw",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Dune: Part Two (2024) — โปสเตอร์ภาพยนตร์",
+    "author": "Legendary Pictures / Warner Bros. Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt15239678/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=poWiludgQCw",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -180,20 +180,20 @@
    "th": "แฟนตาซี",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=l91Km49W9qI"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BNTU1MzgyMDMtMzBlZS00YzczLThmYWEtMjU3YmFlOWEyMjE1XkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Harry Potter and the Philosopher's Stone (2001) — Official Trailer",
-    "author": "Harry Potter (ช่องทางการ) (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=l91Km49W9qI",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=l91Km49W9qI",
-    "fileName": "YouTube l91Km49W9qI",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Harry Potter and the Philosopher's Stone (2001) — โปสเตอร์ภาพยนตร์",
+    "author": "Warner Bros. Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt0241527/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BNTU1MzgyMDMtMzBlZS00YzczLThmYWEtMjU3YmFlOWEyMjE1XkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=l91Km49W9qI",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -213,20 +213,20 @@
    "th": "ผจญภัย",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=2QKg5SZ_35I"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BZjI5MzdmODctYjA4NS00ZmMxLWJlOWUtOGVhMjA0OGMxMWYzXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Jumanji: Welcome to the Jungle (2017) — Official Trailer",
-    "author": "Sony Pictures Entertainment (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=2QKg5SZ_35I",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=2QKg5SZ_35I",
-    "fileName": "YouTube 2QKg5SZ_35I",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Jumanji: Welcome to the Jungle (2017) — โปสเตอร์ภาพยนตร์",
+    "author": "Columbia Pictures / Sony Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt2283362/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BZjI5MzdmODctYjA4NS00ZmMxLWJlOWUtOGVhMjA0OGMxMWYzXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=2QKg5SZ_35I",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -246,20 +246,20 @@
    "th": "ภาพยนตร์เพลง",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=pqi45Qhq3CI"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BOWMwYjYzYmMtMWQ2Ni00NWUwLTg2MzAtYzkzMDBiZDIwOTMwXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Wicked (2024) — Official Trailer 2",
-    "author": "Universal Pictures (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=pqi45Qhq3CI",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=pqi45Qhq3CI",
-    "fileName": "YouTube pqi45Qhq3CI",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Wicked (2024) — โปสเตอร์ภาพยนตร์",
+    "author": "Universal Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt1262426/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BOWMwYjYzYmMtMWQ2Ni00NWUwLTg2MzAtYzkzMDBiZDIwOTMwXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=pqi45Qhq3CI",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -279,20 +279,20 @@
    "th": "ภาพยนตร์กีฬา",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=CT2_P2DZBR0"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BNGI0MDI4NjEtOWU3ZS00ODQyLWFhYTgtNGYxM2ZkM2Q2YjE3XkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "F1 The Movie (2025) — Official Trailer",
-    "author": "Warner Bros. (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=CT2_P2DZBR0",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=CT2_P2DZBR0",
-    "fileName": "YouTube CT2_P2DZBR0",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "F1: The Movie (2025) — โปสเตอร์ภาพยนตร์",
+    "author": "Apple Original Films / Warner Bros. Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt16311594/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BNGI0MDI4NjEtOWU3ZS00ODQyLWFhYTgtNGYxM2ZkM2Q2YjE3XkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=CT2_P2DZBR0",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -312,20 +312,20 @@
    "th": "ภาพยนตร์สงคราม",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=YqNYrYUiMfg"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BYzkxZjg2NDQtMGVjMy00NWZkLTk0ZDEtZWE3NDYwYjAyMTg1XkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "1917 (2019) — Official Trailer",
-    "author": "Universal Pictures (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=YqNYrYUiMfg",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=YqNYrYUiMfg",
-    "fileName": "YouTube YqNYrYUiMfg",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "1917 (2019) — โปสเตอร์ภาพยนตร์",
+    "author": "Universal Pictures / DreamWorks Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt8579674/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BYzkxZjg2NDQtMGVjMy00NWZkLTk0ZDEtZWE3NDYwYjAyMTg1XkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=YqNYrYUiMfg",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -345,20 +345,20 @@
    "th": "ภัยพิบัติ",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=wdok0rZdmx4"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BNjM4MWEwMTEtNTcwYi00ZDI4LWEwMzUtNDMzODBhZmI5MWE1XkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Twisters (2024) — Official Trailer",
-    "author": "Universal Pictures (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=wdok0rZdmx4",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=wdok0rZdmx4",
-    "fileName": "YouTube wdok0rZdmx4",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Twisters (2024) — โปสเตอร์ภาพยนตร์",
+    "author": "Universal Pictures / Warner Bros. Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt12584954/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BNjM4MWEwMTEtNTcwYi00ZDI4LWEwMzUtNDMzODBhZmI5MWE1XkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=wdok0rZdmx4",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -378,20 +378,20 @@
    "th": "คาวบอยตะวันตก",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=HDKLdFwphcQ"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BMTUzNTc0NTAyM15BMl5BanBnXkFtZTgwMTk1ODA5OTE@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "The Magnificent Seven (2016) — Official International Trailer",
-    "author": "Sony Pictures Releasing UK (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=HDKLdFwphcQ",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=HDKLdFwphcQ",
-    "fileName": "YouTube HDKLdFwphcQ",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "The Magnificent Seven (2016) — โปสเตอร์ภาพยนตร์",
+    "author": "Metro-Goldwyn-Mayer / Columbia Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt2404435/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BMTUzNTc0NTAyM15BMl5BanBnXkFtZTgwMTk1ODA5OTE@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=HDKLdFwphcQ",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -411,20 +411,20 @@
    "th": "อาชญากรรม / การปล้น",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=zTvJJnoWIPk"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BMjM3MjQ1MzkxNl5BMl5BanBnXkFtZTgwODk1ODgyMjI@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Baby Driver (2017) — Official Trailer",
-    "author": "Sony Pictures Entertainment (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=zTvJJnoWIPk",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=zTvJJnoWIPk",
-    "fileName": "YouTube zTvJJnoWIPk",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Baby Driver (2017) — โปสเตอร์ภาพยนตร์",
+    "author": "TriStar Pictures / Sony Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt3890160/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BMjM3MjQ1MzkxNl5BMl5BanBnXkFtZTgwODk1ODgyMjI@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=zTvJJnoWIPk",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -444,20 +444,20 @@
    "th": "ซอมบี้",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=fVEURju797Y"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BODA3OTM4NWQtMjU1OS00NzA2LTlhZDAtYjU2YjM5MWUxNTdiXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Train to Busan (2016) — 10th Anniversary Official Trailer",
-    "author": "Well Go USA Entertainment (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=fVEURju797Y",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=fVEURju797Y",
-    "fileName": "YouTube fVEURju797Y",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Train to Busan (2016) — โปสเตอร์ภาพยนตร์",
+    "author": "Next Entertainment World",
+    "sourceUrl": "https://www.imdb.com/title/tt5700672/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BODA3OTM4NWQtMjU1OS00NzA2LTlhZDAtYjU2YjM5MWUxNTdiXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=fVEURju797Y",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -477,20 +477,20 @@
    "th": "สายลับ",
    "group": "genre",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=ajAG-tv_sKI"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BN2U4OTdmM2QtZTkxYy00ZmQyLTg2N2UtMDdmMGJmNDhlZDU1XkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Mission: Impossible – Dead Reckoning Part One (2023) — Official Trailer",
-    "author": "Paramount Pictures New Zealand (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=ajAG-tv_sKI",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=ajAG-tv_sKI",
-    "fileName": "YouTube ajAG-tv_sKI",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Mission: Impossible – Dead Reckoning Part One (2023) — โปสเตอร์ภาพยนตร์",
+    "author": "Paramount Pictures / Skydance",
+    "sourceUrl": "https://www.imdb.com/title/tt9603212/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BN2U4OTdmM2QtZTkxYy00ZmQyLTg2N2UtMDdmMGJmNDhlZDU1XkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=ajAG-tv_sKI",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -510,20 +510,20 @@
    "th": "สารคดี",
    "group": "format",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=urRVZ4SW7WU"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BMjA2YTAxMzMtNzA2Mi00NTcyLTg4NzUtODIxYzFiYzdiNWNlXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Free Solo (2018) — Trailer",
-    "author": "National Geographic (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=urRVZ4SW7WU",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=urRVZ4SW7WU",
-    "fileName": "YouTube urRVZ4SW7WU",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Free Solo (2018) — โปสเตอร์ภาพยนตร์สารคดี",
+    "author": "National Geographic Documentary Films",
+    "sourceUrl": "https://www.imdb.com/title/tt7775622/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BMjA2YTAxMzMtNzA2Mi00NTcyLTg4NzUtODIxYzFiYzdiNWNlXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=urRVZ4SW7WU",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -543,20 +543,20 @@
    "th": "มิวสิกวิดีโอ",
    "group": "format",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=ioNng23DkIM"
+    "type": "image",
+    "src": "https://i.ytimg.com/vi/ioNng23DkIM/maxresdefault.jpg"
    },
    "credit": {
-    "title": "BLACKPINK – How You Like That (2020) — Official M/V",
-    "author": "BLACKPINK (ช่อง YouTube)",
+    "title": "BLACKPINK – How You Like That (2020) — ภาพจากมิวสิกวิดีโอ",
+    "author": "YG Entertainment (ช่อง YouTube BLACKPINK)",
     "sourceUrl": "https://www.youtube.com/watch?v=ioNng23DkIM",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=ioNng23DkIM",
-    "fileName": "YouTube ioNng23DkIM",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://i.ytimg.com/vi/ioNng23DkIM/maxresdefault.jpg",
+    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
+    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=ioNng23DkIM",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -576,23 +576,34 @@
    "th": "ภาพยนตร์เงียบ",
    "group": "format",
    "media": {
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BYjEwOGZmM2QtNjY4Mi00NjI0LTkyZjItZDEzZGI1YTEzMDg1XkEyXkFqcGc@._V1_SY1200_.jpg"
+   },
+   "credit": {
+    "title": "The Artist (2011) — โปสเตอร์ภาพยนตร์เงียบ ได้ออสการ์ภาพยนตร์ยอดเยี่ยม",
+    "author": "La Petite Reine / Warner Bros. France",
+    "sourceUrl": "https://www.imdb.com/title/tt1655442/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BYjEwOGZmM2QtNjY4Mi00NjI0LTkyZjItZDEzZGI1YTEzMDg1XkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://commons.wikimedia.org/wiki/File:The_Kid_%281921%29.webm",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
+   },
+   "fallback": {
     "type": "video",
     "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ea/The_Kid_%281921%29.webm/The_Kid_%281921%29.webm.480p.vp9.webm",
     "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/The_Kid_%281921%29.webm/960px-seek%3D470-The_Kid_%281921%29.webm.jpg",
     "start": 465,
     "end": 585
    },
-   "credit": {
+   "fallbackCredit": {
     "title": "The Kid (1921) — Charlie Chaplin ในบท The Tramp เดินเข้าตรอก ก่อนพบทารก (ภาพยนตร์เงียบเรื่องยาวเรื่องแรกของ Chaplin)",
     "author": "Charlie Chaplin",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Kid_%281921%29.webm",
     "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "status": "ok",
-    "file": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ea/The_Kid_%281921%29.webm/The_Kid_%281921%29.webm.480p.vp9.webm",
-    "fileName": "The Kid (1921).webm",
-    "note": "เผยแพร่ครั้งแรกในสหรัฐฯ ก่อนปี 1931 จึงเป็นสาธารณสมบัติในสหรัฐฯ และพ้นอายุคุ้มครอง 50 ปีตาม พ.ร.บ.ลิขสิทธิ์ไทยแล้ว · เล่นช่วงนาทีที่ 7:45–9:45 ของไฟล์วิดีโอบน Commons (ตรวจสิทธิ์จาก Commons API 19 พ.ย. 2026)",
-    "checked": "2026-11-19 (Wikimedia Commons API)"
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
    }
   },
   {
@@ -601,20 +612,20 @@
    "th": "เรื่องเล่าผ่านภาพบันทึกเหตุการณ์",
    "group": "format",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=F27H2998dak"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BMjY1NjcxODQ4MV5BMl5BanBnXkFtZTcwMzUxNjM4Mg@@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Paranormal Activity: The Ghost Dimension (2015) — Trailer",
-    "author": "Paramount Pictures UK (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=F27H2998dak",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=F27H2998dak",
-    "fileName": "YouTube F27H2998dak",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Paranormal Activity (2007) — โปสเตอร์ภาพยนตร์",
+    "author": "Paramount Pictures / Blumhouse Productions",
+    "sourceUrl": "https://www.imdb.com/title/tt1179904/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BMjY1NjcxODQ4MV5BMl5BanBnXkFtZTcwMzUxNjM4Mg@@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=F27H2998dak",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -634,20 +645,20 @@
    "th": "ภาพเร่งเวลา",
    "group": "format",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=bEYSyfEL8nY"
+    "type": "image",
+    "src": "https://i.ytimg.com/vi/bEYSyfEL8nY/maxresdefault.jpg"
    },
    "credit": {
-    "title": "Planet Earth II (2016) — Cities — Epic Cities Hyperlapse",
+    "title": "Planet Earth II (2016) — Epic Cities Hyperlapse — ภาพจากคลิป",
     "author": "BBC Earth (ช่อง YouTube)",
     "sourceUrl": "https://www.youtube.com/watch?v=bEYSyfEL8nY",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=bEYSyfEL8nY",
-    "fileName": "YouTube bEYSyfEL8nY",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://i.ytimg.com/vi/bEYSyfEL8nY/maxresdefault.jpg",
+    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
+    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=bEYSyfEL8nY",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "video",
@@ -668,22 +679,20 @@
    "th": "ภาพเคลื่อนไหวช้า",
    "group": "format",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=v2hjeC_PoYw",
-    "start": 150,
-    "end": 230
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "The Slow Mo Guys — 1000 Paint-Covered Mousetraps in 4K Slow Motion",
-    "author": "The Slow Mo Guys (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=v2hjeC_PoYw",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=v2hjeC_PoYw",
-    "fileName": "YouTube v2hjeC_PoYw",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "The Matrix (1999) — โปสเตอร์ภาพยนตร์ ต้นตำรับฉาก bullet time (ภาพช้า)",
+    "author": "Warner Bros. Pictures / Village Roadshow Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt0133093/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=v2hjeC_PoYw",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "video",
@@ -704,20 +713,20 @@
    "th": "แอนิเมชันสองมิติ",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=ByXuk9QqQkk"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BNTEyNmEwOWUtYzkyOC00ZTQ4LTllZmUtMjk0Y2YwOGUzYjRiXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Spirited Away (2001) — Studio Ghibli — Official Trailer",
-    "author": "Crunchyroll Store Australia (ผู้จัดจำหน่าย) (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=ByXuk9QqQkk",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=ByXuk9QqQkk",
-    "fileName": "YouTube ByXuk9QqQkk",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Spirited Away (2001) — โปสเตอร์แอนิเมชัน",
+    "author": "Studio Ghibli",
+    "sourceUrl": "https://www.imdb.com/title/tt0245429/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BNTEyNmEwOWUtYzkyOC00ZTQ4LTllZmUtMjk0Y2YwOGUzYjRiXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=ByXuk9QqQkk",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -737,20 +746,20 @@
    "th": "แอนิเมชันสามมิติ",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=LEjhY15eCx0"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BYWY3MDE2Y2UtOTE3Zi00MGUzLTg2MTItZjE1ZWVkMGVlODRmXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Inside Out 2 (2024) — Pixar — Official Trailer",
-    "author": "Pixar (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=LEjhY15eCx0",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=LEjhY15eCx0",
-    "fileName": "YouTube LEjhY15eCx0",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Inside Out 2 (2024) — โปสเตอร์แอนิเมชัน",
+    "author": "Walt Disney Studios / Pixar Animation Studios",
+    "sourceUrl": "https://www.imdb.com/title/tt22022452/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BYWY3MDE2Y2UtOTE3Zi00MGUzLTg2MTItZjE1ZWVkMGVlODRmXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=LEjhY15eCx0",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -770,20 +779,20 @@
    "th": "แอนิเมชันถ่ายทีละเฟรม",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=P8lfdvXkhu0"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BMzQxNjM5NzkxNV5BMl5BanBnXkFtZTcwMzg5NDMwMg@@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Coraline (2009) — LAIKA — Official Theatrical Trailer",
-    "author": "LAIKA Studios (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=P8lfdvXkhu0",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=P8lfdvXkhu0",
-    "fileName": "YouTube P8lfdvXkhu0",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Coraline (2009) — โปสเตอร์แอนิเมชัน",
+    "author": "LAIKA / Focus Features",
+    "sourceUrl": "https://www.imdb.com/title/tt0327597/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BMzQxNjM5NzkxNV5BMl5BanBnXkFtZTcwMzg5NDMwMg@@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=P8lfdvXkhu0",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "video",
@@ -804,20 +813,20 @@
    "th": "แอนิเมชันดินน้ำมัน",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=ZYGh16zIfGw"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BMTk3M2YwMGUtZDJiZS00MDNkLWIyZDEtY2VjMWYyZDFmZjMzXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Wallace & Gromit: Vengeance Most Fowl (2024) — Aardman — Official Netflix Trailer",
-    "author": "Aardman (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=ZYGh16zIfGw",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=ZYGh16zIfGw",
-    "fileName": "YouTube ZYGh16zIfGw",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Wallace & Gromit: Vengeance Most Fowl (2024) — โปสเตอร์แอนิเมชัน",
+    "author": "Aardman Animations / BBC / Netflix",
+    "sourceUrl": "https://www.imdb.com/title/tt17163970/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BMTk3M2YwMGUtZDJiZS00MDNkLWIyZDEtY2VjMWYyZDFmZjMzXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=ZYGh16zIfGw",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -837,21 +846,20 @@
    "th": "แอนิเมชันชิ้นส่วน",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=LaG_EiFX7a0",
-    "start": 20
+    "type": "image",
+    "src": "https://i.ytimg.com/vi/LaG_EiFX7a0/maxresdefault.jpg"
    },
    "credit": {
-    "title": "Terry Gilliam สาธิตแอนิเมชันชิ้นส่วน (Monty Python) — 1974: Terry Gilliam on Cutout Animation",
+    "title": "Terry Gilliam สาธิตแอนิเมชันชิ้นส่วน (BBC, 1974) — ภาพจากคลิป",
     "author": "BBC Archive (ช่อง YouTube)",
     "sourceUrl": "https://www.youtube.com/watch?v=LaG_EiFX7a0",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=LaG_EiFX7a0",
-    "fileName": "YouTube LaG_EiFX7a0",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://i.ytimg.com/vi/LaG_EiFX7a0/maxresdefault.jpg",
+    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
+    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=LaG_EiFX7a0",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -871,20 +879,20 @@
    "th": "แอนิเมชันพิกเซล",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=ot7uXNQskhs"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BMGZhOTkwY2MtYWFhZC00NTJiLTgzOWUtN2VhNGQ2NmE0NmYwXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Stardew Valley (2016) — Trailer",
-    "author": "ConcernedApe (ผู้สร้างเกม) (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=ot7uXNQskhs",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=ot7uXNQskhs",
-    "fileName": "YouTube ot7uXNQskhs",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Stardew Valley (2016) — ภาพปกเกมพิกเซลอาร์ต",
+    "author": "ConcernedApe",
+    "sourceUrl": "https://www.imdb.com/title/tt5580378/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BMGZhOTkwY2MtYWFhZC00NTJiLTgzOWUtN2VhNGQ2NmE0NmYwXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=ot7uXNQskhs",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -905,20 +913,20 @@
    "th": "แอนิเมชันวาดตามภาพจริง",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=djV11Xbc914"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BMDliMjJiYTYtYWU0YS00OTUzLWI4MjMtYmM1YzgxNDcwOTZjXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "a-ha – Take On Me (1985) — MV โรโตสโคปที่โด่งดังที่สุด — Official Video [4K]",
-    "author": "a-ha (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=djV11Xbc914",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=djV11Xbc914",
-    "fileName": "YouTube djV11Xbc914",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "A Scanner Darkly (2006) — โปสเตอร์ภาพยนตร์ทำด้วยเทคนิคโรโตสโคปทั้งเรื่อง",
+    "author": "Warner Independent Pictures",
+    "sourceUrl": "https://www.imdb.com/title/tt0405296/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BMDliMjJiYTYtYWU0YS00OTUzLWI4MjMtYmM1YzgxNDcwOTZjXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=djV11Xbc914",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -938,20 +946,20 @@
    "th": "บันทึกการเคลื่อนไหว",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=_zvv3ER2DNw"
+    "type": "image",
+    "src": "https://m.media-amazon.com/images/M/MV5BNWI0Y2NkOWEtMmM2OC00MjQ3LWI1YzItZGQxYzQ3NzI4NWZmXkEyXkFqcGc@._V1_SY1200_.jpg"
    },
    "credit": {
-    "title": "Avatar: The Way of Water (2022) — Featurette: Acting in the Volume",
-    "author": "20th Century Studios NL (ช่อง YouTube)",
-    "sourceUrl": "https://www.youtube.com/watch?v=_zvv3ER2DNw",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=_zvv3ER2DNw",
-    "fileName": "YouTube _zvv3ER2DNw",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "title": "Avatar: The Way of Water (2022) — โปสเตอร์ภาพยนตร์ (ถ่ายทำด้วย motion capture)",
+    "author": "20th Century Studios / Lightstorm Entertainment",
+    "sourceUrl": "https://www.imdb.com/title/tt1630029/",
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://m.media-amazon.com/images/M/MV5BNWI0Y2NkOWEtMmM2OC00MjQ3LWI1YzItZGQxYzQ3NzI4NWZmXkEyXkFqcGc@._V1_SY1200_.jpg",
+    "fileName": "โปสเตอร์จาก IMDb",
+    "note": "โปสเตอร์จาก IMDb · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=_zvv3ER2DNw",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "image",
@@ -971,20 +979,20 @@
    "th": "กราฟิกเคลื่อนไหว",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=h6fcK_fRYaI"
+    "type": "image",
+    "src": "https://i.ytimg.com/vi/h6fcK_fRYaI/maxresdefault.jpg"
    },
    "credit": {
-    "title": "Kurzgesagt – In a Nutshell — The Egg – A Short Story",
+    "title": "Kurzgesagt – The Egg — ภาพจากคลิปกราฟิกเคลื่อนไหว",
     "author": "Kurzgesagt – In a Nutshell (ช่อง YouTube)",
     "sourceUrl": "https://www.youtube.com/watch?v=h6fcK_fRYaI",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=h6fcK_fRYaI",
-    "fileName": "YouTube h6fcK_fRYaI",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://i.ytimg.com/vi/h6fcK_fRYaI/maxresdefault.jpg",
+    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
+    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=h6fcK_fRYaI",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "video",
@@ -1005,21 +1013,20 @@
    "th": "ภาพวาดพลิกหน้า",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=7Al-XT_vNms",
-    "start": 30
+    "type": "image",
+    "src": "https://i.ytimg.com/vi/7Al-XT_vNms/maxresdefault.jpg"
    },
    "credit": {
-    "title": "Andymation — Remaking My Favorite Flipbook 30 Years Later",
+    "title": "Andymation — Remaking My Favorite Flipbook — ภาพจากคลิป",
     "author": "Andymation (ช่อง YouTube)",
     "sourceUrl": "https://www.youtube.com/watch?v=7Al-XT_vNms",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=7Al-XT_vNms",
-    "fileName": "YouTube 7Al-XT_vNms",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://i.ytimg.com/vi/7Al-XT_vNms/maxresdefault.jpg",
+    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
+    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=7Al-XT_vNms",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "video",
@@ -1040,20 +1047,20 @@
    "th": "แอนิเมชันทราย",
    "group": "animation",
    "media": {
-    "type": "youtube",
-    "src": "https://www.youtube.com/watch?v=_pCRomJW5wE"
+    "type": "image",
+    "src": "https://i.ytimg.com/vi/_pCRomJW5wE/maxresdefault.jpg"
    },
    "credit": {
-    "title": "Kseniya Simonova — Ukraine's Got Talent — Incredible Sand Art (the Winner)",
-    "author": "Sand Artist Kseniya Simonova (ช่อง YouTube)",
+    "title": "Kseniya Simonova — Sand Art — ภาพจากคลิป",
+    "author": "Kseniya Simonova (ช่อง YouTube)",
     "sourceUrl": "https://www.youtube.com/watch?v=_pCRomJW5wE",
-    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ฝังผ่าน YouTube",
-    "licenseUrl": "https://www.youtube.com/t/terms",
-    "status": "embed",
-    "file": "https://www.youtube.com/watch?v=_pCRomJW5wE",
-    "fileName": "YouTube _pCRomJW5wE",
-    "note": "ฝังด้วยเครื่องเล่น YouTube จากช่องที่เผยแพร่ (เจ้าของเปิดให้ฝังได้) ไม่ได้คัดลอกไฟล์มาเก็บ · ใช้ประกอบการเรียนการสอน ลิขสิทธิ์เป็นของเจ้าของผลงาน",
-    "checked": "2026-11-19 (YouTube IFrame API: embed OK)"
+    "license": "ลิขสิทธิ์ของเจ้าของผลงาน · ใช้ประกอบการเรียนการสอน",
+    "licenseUrl": "",
+    "status": "poster",
+    "file": "https://i.ytimg.com/vi/_pCRomJW5wE/maxresdefault.jpg",
+    "fileName": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ",
+    "note": "ภาพปกคลิปจากช่อง YouTube ของเจ้าของ · ไม่ได้คัดลอกไฟล์มาเก็บในเว็บไซต์ · คลิปตัวอย่างที่เคยใช้: https://www.youtube.com/watch?v=_pCRomJW5wE",
+    "checked": "2026-11-19 (เปิดภาพตรวจแล้ว)"
    },
    "fallback": {
     "type": "video",

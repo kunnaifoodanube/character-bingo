@@ -104,6 +104,7 @@
   var LICENSE_STATUS = {
     ok: '✅ ตรวจสอบสิทธิ์แล้ว — แสดงในเกมได้',
     embed: '▶️ ฝังจากช่อง YouTube ทางการ — เล่นผ่าน YouTube ไม่คัดลอกไฟล์',
+    poster: '🎬 โปสเตอร์/ภาพประชาสัมพันธ์ — ลิขสิทธิ์ของเจ้าของผลงาน ใส่เครดิตแล้ว ใช้ประกอบการเรียนการสอน',
     'link-only': '🔗 อ้างอิงลิงก์เท่านั้น — ไม่แสดงในเกม',
     pending: '⚠️ ยังไม่ยืนยันสิทธิ์ — ไม่แสดงในเกม'
   };
@@ -111,7 +112,7 @@
   function mediaAllowed(c) {
     if (!mediaSrc(c)) return false;
     var st = c.credit && c.credit.status;
-    return !st || st === 'ok' || st === 'embed';
+    return !st || st === 'ok' || st === 'embed' || st === 'poster';
   }
   /** เนื้อหาในช่องบัตร 4×4 (ผู้เล่น / ตรวจบัตร / ตัวอย่าง) */
   function cellInner(theme, c) {
@@ -145,10 +146,10 @@
     row('แหล่งที่มา', link(cr.sourceUrl));
     row('สัญญาอนุญาต', cr.license ? link(cr.licenseUrl, cr.license) : '');
     row('สถานะสิทธิ์', esc(LICENSE_STATUS[cr.status] || (cr.status ? cr.status : (mediaSrc(c) ? 'ภาพที่ผู้ดูแลอัปโหลดเอง' : 'ไม่มีสื่อ'))));
-    row('ไฟล์ที่ใช้ในเกม', cr.status === 'ok' || cr.status === 'embed' || !cr.status ? link(cr.file || (mediaSrc(c).indexOf('data:') === 0 ? '' : mediaSrc(c)), cr.fileName || '') : '—');
+    row('ไฟล์ที่ใช้ในเกม', cr.status === 'ok' || cr.status === 'embed' || cr.status === 'poster' || !cr.status ? link(cr.file || (mediaSrc(c).indexOf('data:') === 0 ? '' : mediaSrc(c)), cr.fileName || '') : '—');
     row('หมายเหตุ', esc(cr.note));
     var fc = c.fallbackCredit;
-    if (fc) row('ภาพสำรอง (ใช้เมื่อเล่นคลิปไม่ได้)', esc(fc.title) + (fc.author ? ' · ' + esc(fc.author) : '') + (fc.license ? ' · ' + link(fc.licenseUrl, fc.license) : '') + (fc.sourceUrl ? ' · ' + link(fc.sourceUrl, 'ที่มา') : ''));
+    if (fc) row('ภาพสำรอง (ใช้เมื่อโหลดสื่อหลักไม่ได้)', esc(fc.title) + (fc.author ? ' · ' + esc(fc.author) : '') + (fc.license ? ' · ' + link(fc.licenseUrl, fc.license) : '') + (fc.sourceUrl ? ' · ' + link(fc.sourceUrl, 'ที่มา') : ''));
     return '<table class="credit">' + rows.join('') + '</table>';
   }
   function creditsListHtml(theme) {

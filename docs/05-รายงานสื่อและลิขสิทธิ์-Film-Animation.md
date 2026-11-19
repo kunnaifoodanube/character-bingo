@@ -1,6 +1,56 @@
-# รายงานสื่อและลิขสิทธิ์ — Film & Animation Bingo
+# รายงานสื่อ — Film & Animation Bingo
 
-อัปเดต 19 พ.ย. 2026 (v1.3.1) · ไฟล์ชุดคำ: `themes/film-animation.json` · สร้างจาก `tools/build-film-theme.py` + `tools/film-youtube.json`
+อัปเดต 19 พ.ย. 2026 (v1.4 — โปสเตอร์) · ไฟล์ชุดคำ: `themes/film-animation.json` · สร้างจาก `tools/build-film-theme.py` + `tools/apply-film-posters.py` + `tools/film-posters.json`
+
+## v1.4 — เปลี่ยนคลิปเป็นโปสเตอร์ (ตามที่อาจารย์ขอ 19 พ.ย. 2026)
+
+- จอพิธีกรแสดง **ภาพนิ่งขนาดใหญ่** แทนคลิป: โปสเตอร์ภาพยนตร์/แอนิเมชัน **26 ภาพ** (จาก IMDb ความละเอียดสูง ~800×1200) และภาพปกคลิปจากช่อง YouTube ของเจ้าของผลงาน **6 ภาพ** สำหรับคำที่เป็นเทคนิคและไม่มีโปสเตอร์หนัง (Music Video, Time-Lapse, Cutout, Motion Graphics, Flipbook, Sand Animation)
+- อาจารย์ยืนยันว่าเกมนี้ใช้ภาพที่มีลิขสิทธิ์ได้ โดยใส่เครดิตให้เจ้าของ — ทุกภาพมีเครดิต (ชื่อผลงาน เจ้าของลิขสิทธิ์ ลิงก์ที่มา) ที่ปุ่ม **ⓘ เครดิตภาพนี้** และ **เครดิต / แหล่งภาพ** · ใช้ประกอบการเรียนการสอน
+- ไม่ได้ดาวน์โหลดไฟล์มาเก็บใน GitHub — เกมแสดงภาพจาก IMDb / YouTube โดยตรง
+- ถ้าโหลดโปสเตอร์ไม่ได้ (ไม่มีอินเทอร์เน็ต) จอใหญ่จะแสดงภาพสำรองจาก Wikimedia Commons (ชุดเดิม สิทธิ์เปิด) อัตโนมัติ
+- คำที่เปลี่ยนเรื่อง: Slow Motion → **The Matrix** (ฉาก bullet time) · Rotoscoping → **A Scanner Darkly** (โรโตสโคปทั้งเรื่อง) · Silent Film → **The Artist** · Found Footage → **Paranormal Activity** (2007) · Pixel Animation → ภาพปกเกม **Stardew Valley**
+- ไม่มีภาพที่สร้างด้วย AI
+
+## รายการภาพทั้ง 32 คำ
+
+| # | คำ | ภาพ | เจ้าของลิขสิทธิ์ | ลิงก์ |
+|---|---|---|---|---|
+| 1 | Action — แอ็กชัน / ฉากไล่ล่า | Mad Max: Fury Road (2015) — โปสเตอร์ภาพยนตร์ | Warner Bros. Pictures / Village Roadshow Pictures | [ที่มา](https://www.imdb.com/title/tt1392190/) |
+| 2 | Comedy — ตลก | Barbie (2023) — โปสเตอร์ภาพยนตร์ | Warner Bros. Pictures / Mattel Films | [ที่มา](https://www.imdb.com/title/tt1517268/) |
+| 3 | Horror — สยองขวัญ | The Conjuring: Last Rites (2025) — โปสเตอร์ภาพยนตร์ | Warner Bros. Pictures / New Line Cinema | [ที่มา](https://www.imdb.com/title/tt22898462/) |
+| 4 | Romance — โรแมนติก | Me Before You (2016) — โปสเตอร์ภาพยนตร์ | Warner Bros. Pictures / Metro-Goldwyn-Mayer | [ที่มา](https://www.imdb.com/title/tt2674426/) |
+| 5 | Sci-Fi — วิทยาศาสตร์จินตนาการ | Dune: Part Two (2024) — โปสเตอร์ภาพยนตร์ | Legendary Pictures / Warner Bros. Pictures | [ที่มา](https://www.imdb.com/title/tt15239678/) |
+| 6 | Fantasy — แฟนตาซี | Harry Potter and the Philosopher's Stone (2001) — โปสเตอร์ภาพยนตร์ | Warner Bros. Pictures | [ที่มา](https://www.imdb.com/title/tt0241527/) |
+| 7 | Adventure — ผจญภัย | Jumanji: Welcome to the Jungle (2017) — โปสเตอร์ภาพยนตร์ | Columbia Pictures / Sony Pictures | [ที่มา](https://www.imdb.com/title/tt2283362/) |
+| 8 | Musical — ภาพยนตร์เพลง | Wicked (2024) — โปสเตอร์ภาพยนตร์ | Universal Pictures | [ที่มา](https://www.imdb.com/title/tt1262426/) |
+| 9 | Sports — ภาพยนตร์กีฬา | F1: The Movie (2025) — โปสเตอร์ภาพยนตร์ | Apple Original Films / Warner Bros. Pictures | [ที่มา](https://www.imdb.com/title/tt16311594/) |
+| 10 | War — ภาพยนตร์สงคราม | 1917 (2019) — โปสเตอร์ภาพยนตร์ | Universal Pictures / DreamWorks Pictures | [ที่มา](https://www.imdb.com/title/tt8579674/) |
+| 11 | Disaster — ภัยพิบัติ | Twisters (2024) — โปสเตอร์ภาพยนตร์ | Universal Pictures / Warner Bros. Pictures | [ที่มา](https://www.imdb.com/title/tt12584954/) |
+| 12 | Western — คาวบอยตะวันตก | The Magnificent Seven (2016) — โปสเตอร์ภาพยนตร์ | Metro-Goldwyn-Mayer / Columbia Pictures | [ที่มา](https://www.imdb.com/title/tt2404435/) |
+| 13 | Crime — อาชญากรรม / การปล้น | Baby Driver (2017) — โปสเตอร์ภาพยนตร์ | TriStar Pictures / Sony Pictures | [ที่มา](https://www.imdb.com/title/tt3890160/) |
+| 14 | Zombie — ซอมบี้ | Train to Busan (2016) — โปสเตอร์ภาพยนตร์ | Next Entertainment World | [ที่มา](https://www.imdb.com/title/tt5700672/) |
+| 15 | Spy — สายลับ | Mission: Impossible – Dead Reckoning Part One (2023) — โปสเตอร์ภาพยนตร์ | Paramount Pictures / Skydance | [ที่มา](https://www.imdb.com/title/tt9603212/) |
+| 16 | Documentary — สารคดี | Free Solo (2018) — โปสเตอร์ภาพยนตร์สารคดี | National Geographic Documentary Films | [ที่มา](https://www.imdb.com/title/tt7775622/) |
+| 17 | Music Video — มิวสิกวิดีโอ | BLACKPINK – How You Like That (2020) — ภาพจากมิวสิกวิดีโอ | YG Entertainment (ช่อง YouTube BLACKPINK) | [ที่มา](https://www.youtube.com/watch?v=ioNng23DkIM) |
+| 18 | Silent Film — ภาพยนตร์เงียบ | The Artist (2011) — โปสเตอร์ภาพยนตร์เงียบ ได้ออสการ์ภาพยนตร์ยอดเยี่ยม | La Petite Reine / Warner Bros. France | [ที่มา](https://www.imdb.com/title/tt1655442/) |
+| 19 | Found Footage — เรื่องเล่าผ่านภาพบันทึกเหตุการณ์ | Paranormal Activity (2007) — โปสเตอร์ภาพยนตร์ | Paramount Pictures / Blumhouse Productions | [ที่มา](https://www.imdb.com/title/tt1179904/) |
+| 20 | Time-Lapse — ภาพเร่งเวลา | Planet Earth II (2016) — Epic Cities Hyperlapse — ภาพจากคลิป | BBC Earth (ช่อง YouTube) | [ที่มา](https://www.youtube.com/watch?v=bEYSyfEL8nY) |
+| 21 | Slow Motion — ภาพเคลื่อนไหวช้า | The Matrix (1999) — โปสเตอร์ภาพยนตร์ ต้นตำรับฉาก bullet time (ภาพช้า) | Warner Bros. Pictures / Village Roadshow Pictures | [ที่มา](https://www.imdb.com/title/tt0133093/) |
+| 22 | 2D Animation — แอนิเมชันสองมิติ | Spirited Away (2001) — โปสเตอร์แอนิเมชัน | Studio Ghibli | [ที่มา](https://www.imdb.com/title/tt0245429/) |
+| 23 | 3D Animation — แอนิเมชันสามมิติ | Inside Out 2 (2024) — โปสเตอร์แอนิเมชัน | Walt Disney Studios / Pixar Animation Studios | [ที่มา](https://www.imdb.com/title/tt22022452/) |
+| 24 | Stop Motion — แอนิเมชันถ่ายทีละเฟรม | Coraline (2009) — โปสเตอร์แอนิเมชัน | LAIKA / Focus Features | [ที่มา](https://www.imdb.com/title/tt0327597/) |
+| 25 | Claymation — แอนิเมชันดินน้ำมัน | Wallace & Gromit: Vengeance Most Fowl (2024) — โปสเตอร์แอนิเมชัน | Aardman Animations / BBC / Netflix | [ที่มา](https://www.imdb.com/title/tt17163970/) |
+| 26 | Cutout Animation — แอนิเมชันชิ้นส่วน | Terry Gilliam สาธิตแอนิเมชันชิ้นส่วน (BBC, 1974) — ภาพจากคลิป | BBC Archive (ช่อง YouTube) | [ที่มา](https://www.youtube.com/watch?v=LaG_EiFX7a0) |
+| 27 | Pixel Animation — แอนิเมชันพิกเซล | Stardew Valley (2016) — ภาพปกเกมพิกเซลอาร์ต | ConcernedApe | [ที่มา](https://www.imdb.com/title/tt5580378/) |
+| 28 | Rotoscoping — แอนิเมชันวาดตามภาพจริง | A Scanner Darkly (2006) — โปสเตอร์ภาพยนตร์ทำด้วยเทคนิคโรโตสโคปทั้งเรื่อง | Warner Independent Pictures | [ที่มา](https://www.imdb.com/title/tt0405296/) |
+| 29 | Motion Capture — บันทึกการเคลื่อนไหว | Avatar: The Way of Water (2022) — โปสเตอร์ภาพยนตร์ (ถ่ายทำด้วย motion capture) | 20th Century Studios / Lightstorm Entertainment | [ที่มา](https://www.imdb.com/title/tt1630029/) |
+| 30 | Motion Graphics — กราฟิกเคลื่อนไหว | Kurzgesagt – The Egg — ภาพจากคลิปกราฟิกเคลื่อนไหว | Kurzgesagt – In a Nutshell (ช่อง YouTube) | [ที่มา](https://www.youtube.com/watch?v=h6fcK_fRYaI) |
+| 31 | Flipbook — ภาพวาดพลิกหน้า | Andymation — Remaking My Favorite Flipbook — ภาพจากคลิป | Andymation (ช่อง YouTube) | [ที่มา](https://www.youtube.com/watch?v=7Al-XT_vNms) |
+| 32 | Sand Animation — แอนิเมชันทราย | Kseniya Simonova — Sand Art — ภาพจากคลิป | Kseniya Simonova (ช่อง YouTube) | [ที่มา](https://www.youtube.com/watch?v=_pCRomJW5wE) |
+
+---
+
+# ประวัติเดิม (v1.3 คลิป YouTube และ v1.2 ภาพ Commons)
 
 ## v1.3.1 (19 พ.ย. 2026 เช้า) — ตรวจซ้ำและแก้ข้อ Silent Film
 

@@ -200,7 +200,7 @@
         var src = g('dSrc');
         if (src && !/^https:\/\//.test(src)) { UI.toast('ลิงก์สื่อต้องขึ้นต้นด้วย https://'); return undefined; }
         if (g('dType') === 'youtube' && !B.youtubeId(src)) { UI.toast('ลิงก์ YouTube ไม่ถูกต้อง'); return undefined; }
-        if ((g('cStatus') === 'ok' || g('cStatus') === 'embed') && (!g('cLicense') || !g('cSource'))) { UI.toast('ก่อนเลือก “ตรวจสอบสิทธิ์แล้ว” ต้องกรอกสัญญาอนุญาตและแหล่งที่มา'); return undefined; }
+        if ((g('cStatus') === 'ok' || g('cStatus') === 'embed' || g('cStatus') === 'poster') && (!g('cLicense') || !g('cSource'))) { UI.toast('ก่อนเลือก “ตรวจสอบสิทธิ์แล้ว” ต้องกรอกสัญญาอนุญาตและแหล่งที่มา'); return undefined; }
         return { type: B.youtubeId(src) ? 'youtube' : g('dType'), src: src, poster: g('dPoster'), start: g('dStart'), end: g('dEnd'),
           credit: { title: g('cTitle'), author: g('cAuthor'), sourceUrl: g('cSource'), license: g('cLicense'), licenseUrl: g('cLicUrl'), status: g('cStatus'), note: g('cNote') } };
       } }]

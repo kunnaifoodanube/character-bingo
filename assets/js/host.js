@@ -255,8 +255,11 @@
       v.src = src;
       return v;
     }
-    var img = new Image(); img.alt = c.name; img.decoding = 'async'; img.src = src;
+    var img = new Image(); img.alt = c.name; img.decoding = 'async';
     if (m.pixel) img.className = 'pixel';
+    // โปสเตอร์จากเว็บภายนอกโหลดไม่ได้ (ออฟไลน์/ถูกบล็อก) → ใช้ภาพสำรองจาก Commons
+    if (c.fallback) img.onerror = function () { img.onerror = null; var f = c.fallback, fs = f.type === 'video' ? f.poster : f.src; if (fs && fs !== img.src) img.src = fs; };
+    img.src = src;
     return img;
   }
   function preload(c) {
