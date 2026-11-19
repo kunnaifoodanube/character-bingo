@@ -202,8 +202,9 @@ with sync_playwright() as p:
         flag = page.is_visible('#bingoFlag')
         page.screenshot(path=os.path.join(OUT, 'player-bingo.png'), full_page=True)
         txt2 = verify(code)
-        record('6b. ผู้เล่นแตะครบแนวเอง (ตัวละครยังไม่ถูกเรียก) → มือถือขึ้น BINGO แต่ตรวจแล้ว ❌', flag and '❌' in txt2,
-               f'มือถือแสดง BINGO={flag} · ผลตรวจ: {first_result(txt2)}')
+        ftxt = page.inner_text('#bingoFlag') if flag else ''
+        record('6b. ผู้เล่นแตะครบแนวเอง (ไม่ได้เชื่อมกับจอพิธีกร) → มือถือไม่ขึ้น BINGO (ขึ้น “ยังยืนยันไม่ได้”) และตรวจแล้ว ❌', flag and 'BINGO' not in ftxt and 'ยังยืนยันไม่ได้' in ftxt and '❌' in txt2,
+               f'มือถือแสดง: {ftxt.splitlines()[0] if ftxt else "-"} · ผลตรวจ: {first_result(txt2)}')
         # ตรวจผู้เล่น 30 คน เทียบกับผลคำนวณอิสระใน Node
         new_round()
         for _ in range(7):

@@ -5,7 +5,7 @@
   var KEY = 'cb.player.v1', HIST = 'cb.player.history', SKEY = 'cb.player.sync';
   var theme = null, chars = {}, state = null;
   // ข้อมูลซิงก์ล่าสุด {source:'live'|'qr', fp, roundId, roundNo, pattern, draws:[ids], at}
-  var SY = store.get(SKEY, null), liveStatus = 'off', unsubscribe = null;
+  var SY = store.get(SKEY, null), liveStatus = 'off', unsubscribe = null, hostMissing = false;
 
   var $ = function (id) { return document.getElementById(id); };
   function show(id) { ['loading', 'error', 'join', 'play'].forEach(function (s) { $(s).classList.toggle('hidden', s !== id); }); }
@@ -111,10 +111,12 @@
   function applySync(data, source) {
     if (!data || !state) return;
     if (data.fp && data.fp !== state.fp) { SY = { source: source, fp: data.fp, mismatch: true, at: Date.now(), draws: [] }; render(); return; }
+    hostMissing = false;
     SY = { source: source, fp: state.fp, roundId: data.roundId, roundNo: data.roundNo, pattern: data.pattern || 'line1',
       draws: (data.draws || []).filter(function (id) { return chars[id]; }), at: Date.now() };
     store.set(SKEY, SY);
-    if (!state.roundId) { state.roundId = SY.roundId; save(); }
+    // ยังไม่ได้แตะอะไร → ใช้รอบปัจจุบันของพิธีกรได้เลย (เช่น เพิ่งเปิดบัตร หรือจอพิธีกรเปลี่ยนรอบ/เปลี่ยนเครื่อง)
+    if (!state.roundId || (state.roundId !== SY.roundId && !state.marks.length)) { state.roundId = SY.roundId; save(); }
     render();
   }
 
@@ -130,10 +132,18 @@
 
   function startLive() {
     if (unsubscribe) { unsubscribe(); unsubscribe = null; }
-    if (!Sync.enabled() || !state || !state.room) { liveStatus = 'off'; render(); return; }
-    unsubscribe = Sync.subscribe(state.room, function (data) {
-      if (data) applySync(data, 'live'); else render();
-    }, function (st) { liveStatus = st; if (state) { renderSyncBar(); renderCellsOnly(); } });
+    if (!Sync.enabled() || !state) { liveStatus = 'off'; render(); return; }
+    var onSt = function (st) { liveStatus = st; if (state) { renderSyncBar(); renderCellsOnly(); } };
+    if (state.room) {
+      unsubscribe = Sync.subscribe(state.room, function (data) {
+        if (data) applySync(data, 'live'); else render();
+      }, onSt);
+    } else {
+      // เปิดลิงก์ตรง → เชื่อมกับจอพิธีกรชุดเดียวกันที่เปิดอยู่ล่าสุดโดยอัตโนมัติ
+      unsubscribe = Sync.subscribeLatest(state.fp, function (data) {
+        if (data) applySync(data, 'live'); else { hostMissing = true; render(); }
+      }, onSt);
+    }
   }
 
   function renderSyncBar() {
@@ -145,7 +155,7 @@
     if (!syncValid() && liveStatus === 'off') { bar.classList.add('hidden'); return; }
     var dot = fresh() ? 'live' : (syncValid() ? 'stale' : '');
     var txt;
-    if (!syncValid()) txt = '<span>' + (liveStatus === 'offline' || liveStatus === 'error' ? 'เชื่อมต่อพิธีกรไม่ได้ — แตะเองได้ตามปกติ' : (liveStatus === 'connecting' ? 'กำลังเชื่อมต่อกับพิธีกร…' : 'รอพิธีกรเริ่มเกม…')) + '</span>';
+    if (!syncValid()) txt = '<span>' + (liveStatus === 'offline' || liveStatus === 'error' ? 'เชื่อมต่อจอพิธีกรไม่ได้ — แตะได้ แต่ต้องให้เจ้าหน้าที่ตรวจบัตร' : (liveStatus === 'connecting' ? 'กำลังเชื่อมต่อกับจอพิธีกร…' : (hostMissing ? 'ยังไม่พบจอพิธีกร — รอพิธีกรเปิดเกม หรือสแกน “QR เข้าเกม” บนจอ' : 'รอพิธีกรเริ่มเกม…'))) + '</span>';
     else {
       var n = SY.draws.length, last = SY.draws[n - 1], c = last && chars[last];
       var when = fresh() ? 'สดจากพิธีกร' : (SY.source === 'qr' ? 'จาก QR เมื่อ ' + new Date(SY.at).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) : 'ข้อมูลล่าสุด (ขาดการเชื่อมต่อ)');
@@ -202,19 +212,26 @@
     });
     $('legend').innerHTML = (known && fresh())
       ? 'ซิงก์กับพิธีกรอยู่ — <b>แตะได้เฉพาะตัวที่ขึ้น “เรียกแล้ว”</b> · ครบแนวนอน แนวตั้ง หรือทแยง = BINGO'
-      : 'แตะช่องเมื่อพิธีกรเรียกตัวละครนั้น · แตะซ้ำเพื่อยกเลิก · ครบ 4 ช่องแนวนอน แนวตั้ง หรือทแยง = BINGO<br>บัตรถูกบันทึกในเครื่องนี้ รีเฟรชหรือเน็ตหลุดก็ไม่หาย';
+      : 'แตะช่องเมื่อพิธีกรเรียกตัวละครนั้น · แตะซ้ำเพื่อยกเลิก · ครบ 4 ช่องแนวนอน แนวตั้ง หรือทแยง = BINGO' +
+        (known ? '' : '<br><b>BINGO จะขึ้นเมื่อบัตรเชื่อมกับจอพิธีกรแล้วเท่านั้น</b>') + '<br>บัตรถูกบันทึกในเครื่องนี้ รีเฟรชหรือเน็ตหลุดก็ไม่หาย';
 
     var flag = $('bingoFlag'), pid = (known && SY.pattern) || 'line1', pat = B.PATTERNS[pid];
     var full = state.marks.length >= B.CELLS && (!known || state.cells.every(function (id) { return D[id]; }));
     var meets = pid === 'full' ? full : verified.length >= pat.lines;
     flag.classList.remove('pending');
-    if (meets || (!known && lines.length)) {
+    if (known && meets) {
       flag.classList.remove('hidden');
       flag.firstChild.nodeValue = full ? 'เต็มบัตร!' : 'BINGO!';
       $('bingoLines').innerHTML = (full ? 'ครบทั้ง 16 ช่อง' : 'ครบ ' + verified.length + ' แนว') + ' — ' + esc(verified.map(function (l) { return l.name; }).join(' · ')) +
-        (known ? '<br>✓ ตรงกับตัวที่พิธีกรเรียกแล้ว' : '') +
+        '<br>✓ ตรงกับตัวที่พิธีกรเรียกแล้ว' +
         '<br>ยกมือ แล้วแสดงหน้าจอนี้และเลขบัตร <span class="mono">' + esc(state.code) + '</span> ให้เจ้าหน้าที่ตรวจ';
       if (verified.length > lastBingoCount && navigator.vibrate) { try { navigator.vibrate([120, 60, 120]); } catch (e) { /* */ } }
+    } else if (!known && lines.length) {
+      // ไม่ได้เชื่อมกับจอพิธีกร → ยืนยันเองไม่ได้ ห้ามขึ้น BINGO
+      flag.classList.remove('hidden'); flag.classList.add('pending');
+      flag.firstChild.nodeValue = 'ยังยืนยันไม่ได้';
+      $('bingoLines').innerHTML = 'บัตรนี้ยังไม่ได้เชื่อมกับจอพิธีกร จึงไม่รู้ว่าตัวที่แตะถูกเรียกจริงหรือไม่' +
+        '<br>สแกน “QR เข้าเกม” บนจอ หรือกด “ซิงก์จากจอ” · ถ้าคิดว่าครบแล้ว ยกมือให้เจ้าหน้าที่ตรวจเลขบัตร <span class="mono">' + esc(state.code) + '</span>';
     } else if (known && lines.length > verified.length) {
       flag.classList.remove('hidden'); flag.classList.add('pending');
       flag.firstChild.nodeValue = 'ยังไม่ BINGO';

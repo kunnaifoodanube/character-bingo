@@ -57,6 +57,7 @@
     });
   }
   if (!Sync.enabled()) syncPill('ซิงก์: ใช้ QR', false);
+  else setInterval(function () { if (!document.hidden) schedulePublish(0); }, 10 * 60 * 1000); // ให้ผู้เล่นที่เปิดลิงก์ตรงหาจอนี้เจอ
   window.addEventListener('online', function () { schedulePublish(0); });
 
   // ---------- QR ซิงก์ ----------

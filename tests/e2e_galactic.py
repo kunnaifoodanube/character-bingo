@@ -161,10 +161,10 @@ with sync_playwright() as p:
         b.goto(GX + 'host.html')
         poll(b, 'navigator.serviceWorker.ready.then(r => !!r.active)', bool)
         # ภาพที่ SW เก็บล่วงหน้า (ไม่รวมภาพที่หน้าเว็บโหลดเอง): ใช้ cache แยกตรวจตอนติดตั้ง
-        n_img = poll(b, "caches.open('gx-v1.4.0').then(c => c.keys()).then(k => k.filter(r => r.url.endsWith('.webp')).length)", lambda v: v >= 33)
+        n_img = poll(b, "caches.open('gx-v1.5.0').then(c => c.keys()).then(k => k.filter(r => r.url.endsWith('.webp')).length)", lambda v: v >= 33)
         a.reload(); poll(a, 'navigator.serviceWorker.ready.then(r => !!r.active)', bool)
         keys = b.evaluate('caches.keys()')
-        record('G5a. แคชของสองเวอร์ชันอยู่ร่วมกัน (cb- และ gx-) และ Galactic เก็บภาพ 33 ภาพไว้ในเครื่องแล้ว', 'cb-v1.4.0' in keys and 'gx-v1.4.0' in keys and n_img >= 33, f'{keys} · ภาพในแคช {n_img}')
+        record('G5a. แคชของสองเวอร์ชันอยู่ร่วมกัน (cb- และ gx-) และ Galactic เก็บภาพ 33 ภาพไว้ในเครื่องแล้ว', 'cb-v1.5.0' in keys and 'gx-v1.5.0' in keys and n_img >= 33, f'{keys} · ภาพในแคช {n_img}')
         b.reload(); b.wait_for_function("navigator.serviceWorker.controller !== null", timeout=15000)
         ctx.set_offline(True)
         c = ctx.new_page(); watch(c, 'sw-offline')

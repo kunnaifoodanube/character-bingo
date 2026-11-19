@@ -24,6 +24,9 @@ class H(SimpleHTTPRequestHandler):
         super().end_headers()
 
     def do_GET(self):
+        if self.path.rstrip('/') == '/__mock/rooms' or self.path.startswith('/__mock/rooms?'):
+            body = json.dumps(ROOMS).encode()
+            self.send_response(200); self.send_header('Content-Type', 'application/json'); self.end_headers(); self.wfile.write(body); return
         if self.path.startswith('/__mock/rooms/'):
             rid = self.path.split('/')[-1]
             if rid not in ROOMS:
@@ -229,6 +232,51 @@ with sync_playwright() as p:
         record('S11. สแกน QR ของเกมคนละชุดภาพ → ปฏิเสธ', ok is False, pg.inner_text('#toast'))
         c4.close(); br2.close(); c3.close()
     run('S9-11', t_qr)
+
+    def t_plain_link():
+        # ผู้เล่นเปิดลิงก์ตรง (ไม่มีรหัสห้อง เช่น ลิงก์ที่ส่งทาง LINE) → ต้องเชื่อมกับจอพิธีกรเองอัตโนมัติ
+        ctx = br.new_context(**pixel); ctx.add_init_script(INIT_MOCK)
+        pg = ctx.new_page(); watch(pg, 'player-plain')
+        pg.goto(BASE + 'index.html'); pg.fill('#nameInput', 'ลิงก์ตรง'); pg.click('#joinForm button[type=submit]')
+        pg.wait_for_selector('#play:not(.hidden)')
+        pg.wait_for_function("window.__player.live() === 'live' && document.querySelector('#syncCount')", timeout=10000)
+        draws = [d['id'] for d in H_()['round']['draws']]
+        n = pg.inner_text('#syncCount'); room = pg.evaluate("JSON.parse(localStorage.getItem('cb.player.v1')).room")
+        cells = pg.evaluate("JSON.parse(localStorage.getItem('cb.player.v1')).cells")
+        uncalled = [i for i, c in enumerate(cells) if c not in draws]
+        for i in uncalled[:4]: pg.locator('#grid .cell').nth(i).click()
+        marks = pg.evaluate("JSON.parse(localStorage.getItem('cb.player.v1')).marks")
+        flag = pg.evaluate("(() => { const f = document.getElementById('bingoFlag'); return f.classList.contains('hidden') ? '' : f.innerText; })()")
+        pg.screenshot(path=os.path.join(OUT, 'sync-player-plain-link.png'), full_page=True)
+        record('S13. เปิดลิงก์ตรง (ไม่ได้สแกน QR) → มือถือเชื่อมกับจอพิธีกรเอง แตะมั่วไม่ได้ และไม่ขึ้น BINGO',
+               room is None and n == str(len(draws)) and marks == [] and 'BINGO' not in flag, f'เรียกแล้ว {n}/{len(draws)} · แตะตัวที่ยังไม่เรียก 4 ครั้ง → เครื่องหมาย {marks}')
+        ctx.close()
+        # ไม่มีระบบซิงก์เลย (ปิด Firebase/ออฟไลน์) → แตะครบแถวเองได้ แต่ไม่ขึ้น BINGO ต้องให้เจ้าหน้าที่ตรวจ
+        ctx = br.new_context(**pixel); pg = ctx.new_page(); watch(pg, 'player-nosync')
+        pg.goto(BASE + 'index.html'); pg.fill('#nameInput', 'ไม่มีซิงก์'); pg.click('#joinForm button[type=submit]')
+        pg.wait_for_selector('#play:not(.hidden)')
+        for i in (0, 1, 2, 3): pg.locator('#grid .cell').nth(i).click()
+        flag = pg.inner_text('#bingoFlag')
+        pg.screenshot(path=os.path.join(OUT, 'sync-player-nosync.png'), full_page=True)
+        record('S14. ไม่ได้เชื่อมกับจอพิธีกร → แตะครบแถวแล้วขึ้น “ยังยืนยันไม่ได้” ไม่ขึ้น BINGO', 'BINGO' not in flag and 'ยังยืนยันไม่ได้' in flag, flag.splitlines()[0])
+        ctx.close()
+    run('S13-14', t_plain_link)
+
+    def t_real_bingo():
+        # เชื่อมกับจอแล้ว + พิธีกรเรียกครบแถว → BINGO ของจริง
+        ctx = br.new_context(**pixel); ctx.add_init_script(INIT_MOCK)
+        pg = ctx.new_page(); watch(pg, 'player-real')
+        pg.goto(BASE + 'index.html'); pg.fill('#nameInput', 'ของจริง'); pg.click('#joinForm button[type=submit]')
+        pg.wait_for_selector('#play:not(.hidden)')
+        pg.wait_for_function("window.__player.live() === 'live' && document.querySelector('#syncCount')", timeout=10000)
+        while not host.is_disabled('#btnDraw'): draw()
+        pg.wait_for_function(f"document.querySelector('#syncCount').textContent === '{len(H_()['round']['draws'])}'", timeout=10000)
+        for i in (0, 1, 2, 3): pg.locator('#grid .cell').nth(i).click()
+        pg.wait_for_selector('#bingoFlag:not(.hidden)')
+        flag = pg.inner_text('#bingoFlag')
+        record('S15. เชื่อมกับจอแล้ว และพิธีกรเรียกครบแถว → ขึ้น BINGO! พร้อม ✓ ตรงกับตัวที่พิธีกรเรียก', 'BINGO!' in flag and '✓' in flag, flag.splitlines()[0])
+        ctx.close()
+    run('S15', t_real_bingo)
 
     st['ctx'].close(); hctx.close(); br.close()
 

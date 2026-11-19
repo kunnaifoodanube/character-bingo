@@ -20,7 +20,7 @@
   var fbp = null;
   function fb() {
     if (!fbp) {
-      fbp = (window.CBFirebase ? Promise.resolve() : loadScript('assets/vendor/firebase.js?v=11.10.0')).then(function () {
+      fbp = (window.CBFirebase ? Promise.resolve() : loadScript('assets/vendor/firebase.js?v=11.10.0b')).then(function () {
         var F = window.CBFirebase;
         var app = F.initializeApp(cfg);
         var db = F.initializeFirestore(app, { experimentalAutoDetectLongPolling: true });
@@ -104,6 +104,48 @@
         };
         poll();
       }
+      return function () {
+        stopped = true; window.removeEventListener('offline', goOffline);
+        if (unsub) unsub(); if (timer) clearTimeout(timer);
+      };
+    },
+
+    /** ผู้เล่นที่เปิดลิงก์ตรง (ไม่ได้สแกน QR ของพิธีกร): ติดตามห้องของพิธีกรที่ใช้ชุดภาพเดียวกันและอัปเดตล่าสุด
+     *  onData(data|null, roomId) — null = ยังไม่พบจอพิธีกรที่เปิดอยู่ */
+    subscribeLatest: function (fp, onData, onStatus) {
+      var stopped = false, unsub = null, timer = null, MAXAGE = 12 * 3600 * 1000;
+      function st(s, e) { if (!stopped) onStatus(s, e); }
+      function pick(list) {
+        var now = Date.now(), best = null;
+        list.forEach(function (r) {
+          if (!r.data || r.data.fp !== fp || !(now - (r.data.updatedAt || 0) < MAXAGE)) return;
+          if (!best || r.data.updatedAt > best.data.updatedAt) best = r;
+        });
+        if (!stopped) onData(best ? best.data : null, best ? best.id : null);
+      }
+      function goOffline() { st('offline'); }
+      window.addEventListener('offline', goOffline);
+      st(navigator.onLine === false ? 'offline' : 'connecting');
+      if (mode === 'firebase') {
+        fb().then(function (x) {
+          if (stopped) return;
+          var q = x.F.query(x.F.collection(x.db, 'rooms'), x.F.orderBy('updatedAt', 'desc'), x.F.limit(20));
+          unsub = x.F.onSnapshot(q, { includeMetadataChanges: true }, function (snap) {
+            st(snap.metadata.fromCache || navigator.onLine === false ? 'cache' : 'live');
+            var list = []; snap.forEach(function (d) { list.push({ id: d.id, data: d.data() }); });
+            pick(list);
+          }, function (err) { st('error', err); });
+        }).catch(function (e) { st('error', e); });
+      } else if (mode === 'mock') {
+        var poll = function () {
+          fetch(mockBase + '/rooms', { cache: 'no-store' }).then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status); return r.json();
+          }).then(function (all) { st('live'); pick(Object.keys(all).map(function (k) { return { id: k, data: all[k] }; })); })
+            .catch(function () { st('offline'); })
+            .then(function () { if (!stopped) timer = setTimeout(poll, 400); });
+        };
+        poll();
+      } else st('off');
       return function () {
         stopped = true; window.removeEventListener('offline', goOffline);
         if (unsub) unsub(); if (timer) clearTimeout(timer);
