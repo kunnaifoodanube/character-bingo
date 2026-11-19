@@ -101,7 +101,7 @@ with sync_playwright() as p:
     def wait_seen(pg, wid):
         pg.wait_for_function("(window.__player.sync()||{draws:[]}).draws.indexOf('%s') >= 0" % wid, timeout=10000)
 
-    A = player('เอ'); Bp = player('บี'); C = player('ซี')
+    A = player('เอ'); Bp = player('บี'); C = player('ซี'); D = player('ดี'); F = player('เอฟ')
     host.select_option('#timerSel', '5'); host.select_option('#swinSel', '10'); host.wait_for_timeout(800)
 
     def hidden(pg, sel): return pg.evaluate("document.getElementById('%s').classList.contains('hidden')" % sel)
@@ -228,6 +228,39 @@ with sync_playwright() as p:
         record('T6. พิธีกรตรวจบัตรตามตำแหน่งหลังสลับ (บัตรมือถือที่เชื่อมระบบ)', 'ตรวจตามตำแหน่งบนเครื่องผู้เล่น' in out and 'ถูกสลับโดย' in out, out[:200].replace('\n', ' '))
         host.keyboard.press('Escape')
     run('T6', t6)
+
+    def state(pg): return pg.evaluate("JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.endsWith('cb.player.v1'))))")
+
+    def t7():
+        # บีโดนเอสลับไปแล้ว 1 ครั้ง · เปิดช่วงสลับ 30 วิ
+        host.select_option('#swinSel', '30'); host.click('#btnSwin')
+        for pg in (D, F):
+            pg.wait_for_function("!document.getElementById('btnShuffle').disabled && !document.getElementById('btnShuffle').classList.contains('hidden')", timeout=10000)
+        # เอฟเปิดรายชื่อค้างไว้ก่อน (ตอนนั้นบียังโดน 1/2)
+        F.click('#btnShuffle'); F.wait_for_selector('.shuffle-list button', timeout=10000)
+        f_txt = F.locator('.shuffle-list button', has_text='บี').inner_text()
+        # ดีสลับบี → ครั้งที่ 2/2
+        b0 = cells(Bp)
+        D.click('#btnShuffle'); D.wait_for_selector('.shuffle-list button', timeout=10000)
+        D.locator('.shuffle-list button', has_text='บี').click()
+        Bp.wait_for_function("JSON.stringify(%s) !== JSON.stringify(JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.endsWith('cb.player.v1')))).cells)" % json.dumps(b0), timeout=10000)
+        record('T7. เพื่อนคนที่ 2 สลับบีได้ (บีโดน 2/2) · รายชื่อบอกจำนวนครั้งที่โดน', len(state(Bp)['shuf']['hits']) == 2 and '1/2' in f_txt, f_txt.replace('\n', ' '))
+        # เอฟกดบีจากรายชื่อเก่า (เหมือนกดพร้อมกัน) → บีไม่ถูกสลับ · เอฟได้สิทธิ์คืน
+        b1 = cells(Bp)
+        F.locator('.shuffle-list button', has_text='บี').click()
+        F.wait_for_function("(() => { const s = JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.endsWith('cb.player.v1')))).shuf; return s && s.retry === 1 && !s.used; })()", timeout=12000)
+        toast = F.inner_text('#toast')
+        if OUT: F.screenshot(path=os.path.join(OUT, 'cap-refund.png'))
+        record('T7b. โดนครบ 2 ครั้งแล้ว: คำสลับที่ 3 ไม่มีผลกับบี และคนสลับได้สิทธิ์คืน', cells(Bp) == b1 and len(state(Bp)['shuf']['blocked']) == 1 and 'ได้สิทธิ์คืน' in toast, toast)
+        # เอฟเปิดรายชื่อใหม่ → บีกดไม่ได้ · ใช้สิทธิ์ที่ได้คืนสลับบัตรตัวเองได้
+        F.wait_for_function("!document.getElementById('btnShuffle').disabled", timeout=5000)
+        F.click('#btnShuffle'); F.wait_for_selector('.shuffle-list button', timeout=10000)
+        bdis = F.locator('.shuffle-list button', has_text='บี').is_disabled()
+        if OUT: F.screenshot(path=os.path.join(OUT, 'cap-picker.png'))
+        f0 = cells(F); F.locator('.shuffle-list button', has_text='บัตรของฉันเอง').click(); F.wait_for_timeout(800)
+        record('T7c. รายชื่อใหม่: บีกดไม่ได้ (ครบแล้ว) · ใช้สิทธิ์ที่ได้คืนสลับบัตรตัวเองได้', bdis and cells(F) != f0 and state(F)['shuf']['used'])
+        host.click('#btnSwin')
+    run('T7', t7)
 
     print('page errors:', errors[:5]); print('DOCS', list(DOCS.keys()))
     br.close()

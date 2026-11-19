@@ -184,6 +184,10 @@
       marked: state.marks.map(function (i) { return state.cells[i]; }), timed: timed(),
       shuffledBy: (state.shuffledBy || []).slice(-20)
     };
+    if (state.shuf && state.shuf.roundId === state.roundId) { // ผลการรับคำสลับจากเพื่อน (ให้ผู้สลับรู้ว่าสำเร็จหรือช้าไป)
+      data.hitBy = (state.shuf.hits || []).slice(0, MAX_HITS);
+      data.blocked = (state.shuf.blocked || []).slice(-30);
+    }
     var sig = room + '|' + JSON.stringify(data);
     if (sig === lastPushSig && Date.now() - lastPushAt < 10 * 60 * 1000) return; // ไม่มีอะไรเปลี่ยน → ไม่เขียนซ้ำ (ประหยัดโควตาฟรี)
     data.updatedAt = Date.now();
@@ -197,9 +201,25 @@
   // ---------- สลับบัตร (คนละ 1 ครั้งต่อรอบ) ----------
   var unwatchShuffle = null, watchedShuffleRoom = null;
   // ใช้สิทธิ์ได้เฉพาะตอนพิธีกรเปิด "ช่วงสลับบัตร" · ไม่ใช้ = เก็บสิทธิ์ไว้ช่วงถัดไปในรอบเดียวกัน
+  // เพื่อนสลับบัตรคนหนึ่งได้ไม่เกิน MAX_HITS ครั้งต่อรอบ (สลับบัตรตัวเองไม่นับ) · คำสลับที่เกินโควตา → คนสลับได้สิทธิ์คืน
+  var MAX_HITS = 2, lastShufList = [];
   function shuffleState() {
-    if (!state.shuf || state.shuf.roundId !== state.roundId) state.shuf = { roundId: state.roundId, used: false, applied: [] };
-    return state.shuf;
+    if (!state.shuf || state.shuf.roundId !== state.roundId) state.shuf = { roundId: state.roundId, used: false, applied: [], hits: [], blocked: [], retry: 0 };
+    var sh = state.shuf; sh.hits = sh.hits || []; sh.blocked = sh.blocked || []; sh.retry = sh.retry || 0;
+    return sh;
+  }
+  function baseRound(r) { return String(r || '').split('~')[0]; }
+  /** รหัสรอบที่ใช้ตั้งชื่อคำสลับครั้งนี้ (ได้สิทธิ์คืน → ต่อท้าย ~1, ~2 เพื่อสร้างเอกสารใหม่ได้ตามกฎ Firebase เดิม) */
+  function shotRound() { var sh = shuffleState(); return state.roundId + (sh.retry ? '~' + sh.retry : ''); }
+  /** นับว่าเพื่อนแต่ละคนโดนเพื่อนสลับไปแล้วกี่ครั้งในรอบนี้ (จากคำสลับที่เห็นในระบบ) */
+  function hitCounts() {
+    var m = {};
+    lastShufList.forEach(function (it) {
+      var d = it.data || {};
+      if (baseRound(d.roundId) !== state.roundId || !d.target || d.from === d.target) return;
+      m[d.target] = (m[d.target] || 0) + 1;
+    });
+    return m;
   }
   /** จำเวลาที่เครื่องนี้เห็นช่วงสลับบัตรครั้งแรก (นับถอยหลังด้วยนาฬิกาเครื่องตัวเอง ไม่ขึ้นกับนาฬิกาจอพิธีกร) */
   function noteSwin() {
@@ -230,17 +250,20 @@
       myUid = uid;
       unwatchShuffle = Sync.watchCollection(['rooms', SY.roomId, 'shuffles'], function (list) {
         if (!state) return;
+        lastShufList = list;
         var sh = shuffleState(), changed = false;
         list.forEach(function (it) {
           var d = it.data || {};
-          if (d.roundId !== state.roundId) return;
-          if (it.id === state.roundId + '_' + uid && !sh.used) { sh.used = true; changed = true; }
-          if (d.target === uid && sh.applied.indexOf(it.id) < 0) {
-            sh.applied.push(it.id); changed = true;
-            applyShuffle(+d.seed || 1, d.from === uid ? null : String(d.fromName || 'เพื่อน').slice(0, 24));
-          }
+          if (baseRound(d.roundId) !== state.roundId) return;
+          if (it.id === shotRound() + '_' + uid && !sh.used) { sh.used = true; changed = true; }
+          if (d.target !== uid || sh.applied.indexOf(it.id) >= 0 || sh.hits.indexOf(it.id) >= 0 || sh.blocked.indexOf(it.id) >= 0) return;
+          changed = true;
+          if (d.from === uid) { sh.applied.push(it.id); applyShuffle(+d.seed || 1, null); return; }
+          if (sh.hits.length >= MAX_HITS) { sh.blocked.push(it.id); return; } // โดนครบแล้ว → ไม่สลับ (คนสลับได้สิทธิ์คืน)
+          sh.hits.push(it.id);
+          applyShuffle(+d.seed || 1, String(d.fromName || 'เพื่อน').slice(0, 24));
         });
-        if (changed) { save(); renderShuffleBtn(); }
+        if (changed) { save(); renderShuffleBtn(); schedulePlayerPush(); }
       }, function () { /* */ });
     }).catch(function () { /* */ });
   }
@@ -255,7 +278,8 @@
     save();
     var grid = $('grid'); grid.innerHTML = ''; render();
     grid.classList.remove('shuffling'); void grid.offsetWidth; grid.classList.add('shuffling');
-    UI.toast(byName ? '🔀 ' + byName + ' สลับบัตรของคุณ! ตำแหน่งคำเปลี่ยนแล้ว' : '🔀 สลับตำแหน่งบัตรของคุณแล้ว', 3500);
+    var nh = shuffleState().hits.length;
+    UI.toast(byName ? '🔀 ' + byName + ' สลับบัตรของคุณ! (โดนเพื่อนสลับ ' + nh + '/' + MAX_HITS + ')' : '🔀 สลับตำแหน่งบัตรของคุณแล้ว', 3500);
     if (navigator.vibrate) { try { navigator.vibrate([80, 40, 80, 40, 80]); } catch (e) { /* */ } }
     schedulePlayerPush();
   }
@@ -268,18 +292,19 @@
     if (wasOpen && !open) closeShufflePicker();
     wasOpen = open;
     if (!shuffleOn()) { b.classList.add('hidden'); return; }
-    var used = shuffleState().used;
+    var used = shuffleState().used, nh = shuffleState().hits.length;
+    var hitTxt = nh >= MAX_HITS ? 'โดนเพื่อนสลับครบ ' + MAX_HITS + ' ครั้งแล้ว — เพื่อนสลับบัตรคุณไม่ได้อีกในรอบนี้' : (nh ? 'โดนเพื่อนสลับแล้ว ' + nh + '/' + MAX_HITS + ' ครั้ง' : '');
     b.classList.toggle('swin-on', open && !used);
     if (used) {
       if (!open) { b.classList.add('hidden'); return; }
-      b.disabled = true; b.innerHTML = 'ใช้สิทธิ์สลับบัตรไปแล้ว (รอบนี้)';
+      b.disabled = true; b.innerHTML = 'ใช้สิทธิ์สลับบัตรไปแล้ว (รอบนี้)' + (hitTxt ? '<small>' + hitTxt + '</small>' : '');
     } else if (open) {
       b.disabled = false;
       b.innerHTML = '🔀 สลับบัตรได้ตอนนี้! เหลือ ' + Math.ceil(swinLeft() / 1000) + ' วิ' +
-        '<small>แตะเพื่อเลือกบัตรเพื่อนหรือของตัวเอง · ไม่แตะ = เก็บสิทธิ์ไว้ช่วงหน้า</small>';
+        '<small>แตะเพื่อเลือกบัตรเพื่อนหรือของตัวเอง · ไม่แตะ = เก็บสิทธิ์ไว้ช่วงหน้า' + (hitTxt ? '<br>' + hitTxt : '') + '</small>';
     } else {
       b.disabled = true;
-      b.innerHTML = '🔀 สิทธิ์สลับบัตร: เหลือ 1 ครั้ง<small>รอพิธีกรเปิดช่วงสลับบัตร</small>';
+      b.innerHTML = '🔀 สิทธิ์สลับบัตร: เหลือ 1 ครั้ง<small>รอพิธีกรเปิดช่วงสลับบัตร' + (hitTxt ? '<br>' + hitTxt : '') + '</small>';
     }
     b.classList.remove('hidden');
   }
@@ -301,12 +326,19 @@
         var now = Date.now();
         var others = list.filter(function (p) { var d = p.data || {}; return p.id !== uid && d.roundId === roundId && now - (d.updatedAt || 0) < 3 * 3600 * 1000; })
           .sort(function (a, b) { return String(a.data.name).localeCompare(String(b.data.name), 'th'); });
+        var hc = hitCounts();
+        others.forEach(function (p) { hc[p.id] = Math.max(hc[p.id] || 0, (p.data.hitBy || []).length); });
         var opts = '<button type="button" class="btn block" data-t="' + esc(uid) + '" data-n="">🔀 บัตรของฉันเอง</button>' +
-          others.map(function (p) { return '<button type="button" class="btn ghost block" data-t="' + esc(p.id) + '" data-n="' + esc(p.data.name || '') + '">' + esc(p.data.name || 'ผู้เล่น') + ' <span class="muted small mono">· บัตร ' + esc(p.data.code || '') + '</span></button>'; }).join('');
+          others.map(function (p) {
+            var n = hc[p.id] || 0, full = n >= MAX_HITS;
+            return '<button type="button" class="btn ghost block"' + (full ? ' disabled' : '') + ' data-t="' + esc(p.id) + '" data-n="' + esc(p.data.name || '') + '">' + esc(p.data.name || 'ผู้เล่น') +
+              ' <span class="muted small mono">· บัตร ' + esc(p.data.code || '') + '</span>' +
+              (full ? ' <span class="small">· โดนสลับครบ ' + MAX_HITS + ' ครั้งแล้ว</span>' : (n ? ' <span class="small">· โดนสลับแล้ว ' + n + '/' + MAX_HITS + '</span>' : '')) + '</button>';
+          }).join('');
         choice = null;
         return UI.modal({
           title: 'สลับบัตรของใคร?',
-          html: '<p class="small">แตะชื่อแล้ว<b>สลับทันที</b> · สลับตำแหน่งคำทั้ง 16 ช่อง (คำเดิม ช่องที่แตะแล้วยังอยู่) · ใช้ได้ <b>ครั้งเดียวต่อรอบ</b></p>' +
+          html: '<p class="small">แตะชื่อแล้ว<b>สลับทันที</b> · สลับตำแหน่งคำทั้ง 16 ช่อง (คำเดิม ช่องที่แตะแล้วยังอยู่) · ใช้ได้ <b>ครั้งเดียวต่อรอบ</b> · แต่ละคนโดนเพื่อนสลับได้ไม่เกิน ' + MAX_HITS + ' ครั้ง</p>' +
             (others.length ? '' : '<p class="small muted">ยังไม่มีเพื่อนที่ออนไลน์ในรอบนี้</p>') + '<div class="shuffle-list">' + opts + '</div>',
           buttons: [{ label: 'ยกเลิก', value: null, cls: 'ghost' }],
           onOpen: function (el) {
@@ -323,13 +355,13 @@
       if (!ch) return;
       var self = ch.t === myUid;
       if (swinLeft() < -1500 || !liveOk()) { UI.toast('หมดเวลาสลับบัตรแล้ว — สิทธิ์ยังอยู่ ใช้ได้ในช่วงสลับครั้งหน้า', 3500); return; } // เผื่อเน็ตช้าเล็กน้อย
-      var seed = B.randomInt(1, 2147483646);
-      return Sync.putDoc(['rooms', room, 'shuffles', roundId + '_' + myUid], {
-        roundId: roundId, from: myUid, fromName: state.name, target: ch.t, targetName: ch.n || state.name, seed: seed, at: Date.now()
+      var seed = B.randomInt(1, 2147483646), sr = shotRound(), shotId = sr + '_' + myUid;
+      return Sync.putDoc(['rooms', room, 'shuffles', shotId], {
+        roundId: sr, from: myUid, fromName: state.name, target: ch.t, targetName: ch.n || state.name, seed: seed, at: Date.now()
       }, true).then(function () {
         var sh = shuffleState(); sh.used = true;
-        if (self) { sh.applied.push(roundId + '_' + myUid); save(); applyShuffle(seed, null); }
-        else { save(); UI.toast('🔀 สลับบัตรของ ' + ch.n + ' แล้ว!'); }
+        if (self) { sh.applied.push(shotId); save(); applyShuffle(seed, null); }
+        else { save(); UI.toast('🔀 สลับบัตรของ ' + ch.n + ' แล้ว!'); watchShotResult(room, ch, shotId, roundId); }
       }, function (e) {
         var denied = e && (e.code === 'permission-denied' || /permission/i.test(e.message || ''));
         if (denied) { shuffleState().used = true; save(); }
@@ -339,6 +371,25 @@
       .then(function () { renderShuffleBtn(); });
   });
   var choice = null;
+  /** รอดูผลจากเครื่องเพื่อน ~10 วิ: ถ้าเพื่อนโดนสลับครบโควตาไปก่อน (กดพร้อมกันหลายคน) → คืนสิทธิ์ให้เลือกใหม่ */
+  function watchShotResult(room, ch, shotId, roundId) {
+    var done = false, stop = null;
+    var finish = function () { done = true; if (stop) { stop(); stop = null; } };
+    stop = Sync.watchCollection(['rooms', room, 'players'], function (list) {
+      if (done) return;
+      var p = list.filter(function (x) { return x.id === ch.t; })[0], d = p && p.data;
+      if (!d || d.roundId !== roundId) return;
+      if ((d.hitBy || []).indexOf(shotId) >= 0) { finish(); return; }
+      if ((d.blocked || []).indexOf(shotId) >= 0) {
+        finish();
+        if (!state || state.roundId !== roundId) return;
+        var sh = shuffleState(); sh.used = false; sh.retry += 1; save();
+        UI.toast('ช้าไปนิด! ' + (ch.n || 'เพื่อน') + ' โดนสลับครบ ' + MAX_HITS + ' ครั้งแล้ว — ได้สิทธิ์คืน เลือกใหม่ได้', 4500);
+        renderShuffleBtn();
+      }
+    }, function () { finish(); });
+    setTimeout(finish, 10000);
+  }
 
   function showRoundBanner() {
     var b = $('roundBanner');
