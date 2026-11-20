@@ -98,22 +98,11 @@
   }
 
 
-  // ---------- โหมดคำศัพท์ / สื่อ / เครดิต ----------
+  // ---------- โหมดคำศัพท์ / สื่อ ----------
   /** ชุดแบบ "คำศัพท์": ผู้เล่นเห็นเฉพาะคำภาษาอังกฤษ, จอพิธีกรแสดงภาพ/คลิป + คำแปล */
   function isText(theme) { return !!theme && theme.display === 'text'; }
-  var LICENSE_STATUS = {
-    ok: '✅ ตรวจสอบสิทธิ์แล้ว — แสดงในเกมได้',
-    embed: '▶️ ฝังจากช่อง YouTube ทางการ — เล่นผ่าน YouTube ไม่คัดลอกไฟล์',
-    poster: '🎬 โปสเตอร์/ภาพประชาสัมพันธ์ — ลิขสิทธิ์ของเจ้าของผลงาน ใส่เครดิตแล้ว ใช้ประกอบการเรียนการสอน',
-    'link-only': '🔗 อ้างอิงลิงก์เท่านั้น — ไม่แสดงในเกม',
-    pending: '⚠️ ยังไม่ยืนยันสิทธิ์ — ไม่แสดงในเกม'
-  };
-  /** แสดงสื่อได้ก็ต่อเมื่อมีสื่อ และ (ไม่มีข้อมูลเครดิต = ภาพของผู้ใช้เอง) หรือสถานะ ok เท่านั้น */
-  function mediaAllowed(c) {
-    if (!mediaSrc(c)) return false;
-    var st = c.credit && c.credit.status;
-    return !st || st === 'ok' || st === 'embed' || st === 'poster';
-  }
+  /** แสดงสื่อเมื่อมีสื่อ (ภาพทั้งหมดเป็นของผู้ใช้/คณะเอง — ไม่มีระบบเครดิตแล้ว) */
+  function mediaAllowed(c) { return !!mediaSrc(c); }
   /** เนื้อหาในช่องบัตร 4×4 (ผู้เล่น / ตรวจบัตร / ตัวอย่าง) */
   function cellInner(theme, c) {
     if (!c) return '<div class="tw">?</div>';
@@ -133,35 +122,6 @@
       if (over()) t.classList.add('hy'); // จอเล็กมาก: ยอมตัดคำยาวพร้อมขีด แทนที่จะย่อจนอ่านไม่ออก
     });
   }
-  function safeUrl(u) { return /^https?:\/\//i.test(String(u || '')) ? String(u) : ''; }
-  function creditHtml(c, opts) {
-    opts = opts || {};
-    var cr = (c && c.credit) || {};
-    var rows = [];
-    function row(k, v) { if (v) rows.push('<tr><th>' + k + '</th><td>' + v + '</td></tr>'); }
-    function link(u, t) { u = safeUrl(u); return u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(t || u) + '</a>' : esc(t || ''); }
-    row('คำศัพท์', '<b>' + esc(c.name) + '</b>' + (c.th ? ' — ' + esc(c.th) : ''));
-    row('ชื่อผลงาน/ภาพ', esc(cr.title));
-    row('ผู้สร้าง/เจ้าของ', esc(cr.author));
-    row('แหล่งที่มา', link(cr.sourceUrl));
-    row('สัญญาอนุญาต', cr.license ? link(cr.licenseUrl, cr.license) : '');
-    row('สถานะสิทธิ์', esc(LICENSE_STATUS[cr.status] || (cr.status ? cr.status : (mediaSrc(c) ? 'ภาพที่ผู้ดูแลอัปโหลดเอง' : 'ไม่มีสื่อ'))));
-    row('ไฟล์ที่ใช้ในเกม', cr.status === 'ok' || cr.status === 'embed' || cr.status === 'poster' || !cr.status ? link(cr.file || (mediaSrc(c).indexOf('data:') === 0 ? '' : mediaSrc(c)), cr.fileName || '') : '—');
-    row('หมายเหตุ', esc(cr.note));
-    var fc = c.fallbackCredit;
-    if (fc) row('ภาพสำรอง (ใช้เมื่อโหลดสื่อหลักไม่ได้)', esc(fc.title) + (fc.author ? ' · ' + esc(fc.author) : '') + (fc.license ? ' · ' + link(fc.licenseUrl, fc.license) : '') + (fc.sourceUrl ? ' · ' + link(fc.sourceUrl, 'ที่มา') : ''));
-    return '<table class="credit">' + rows.join('') + '</table>';
-  }
-  function creditsListHtml(theme) {
-    return '<div class="credits">' + theme.characters.map(function (c, i) {
-      var ok = mediaAllowed(c), src = mediaSrc(c), mt = mediaType(c);
-      var yt = mt === 'youtube' ? youtubeId(src) : '';
-      var thumb = ok ? (yt ? 'https://i.ytimg.com/vi/' + yt + '/mqdefault.jpg' : mt === 'video' ? ((c.media && c.media.poster) || '') : src) : '';
-      return '<div class="cr-item"><div class="cr-th">' + (thumb ? '<img loading="lazy" alt="" src="' + esc(thumb) + '">' : '<span class="muted small">' + (src ? 'ไม่แสดง' : 'ไม่มีสื่อ') + '</span>') +
-        (ok && mt === 'video' ? '<span class="cr-v">คลิป</span>' : '') + (ok && yt ? '<span class="cr-v">YouTube</span>' : '') + '</div><div class="cr-tx"><div class="small muted">#' + (i + 1) + '</div>' + creditHtml(c) + '</div></div>';
-    }).join('') + '</div>';
-  }
-
   function validateTheme(theme) {
     var errors = [], warnings = [];
     if (!theme || typeof theme !== 'object') return { ok: false, errors: ['ไฟล์ชุดภาพไม่ถูกต้อง'], warnings: [] };
@@ -187,10 +147,8 @@
       else if (c.img && !okImgSrc(c.img)) errors.push(label + ': รูปแบบภาพไม่รองรับ');
       if (c.media && c.media.src && !okMediaSrc(c.media.src)) errors.push(label + ': ลิงก์สื่อไม่รองรับ (ต้องเป็น https:// หรือไฟล์ภาพ/วิดีโอ)');
       if (textMode && !mediaSrc(c)) missingMedia.push(c.name || label);
-      else if (mediaSrc(c) && !mediaAllowed(c)) unverified.push(c.name || label);
     });
     if (missingMedia.length) warnings.push('ยังไม่มีสื่อประกอบ ' + missingMedia.length + ' คำ (จอพิธีกรจะแสดงเฉพาะชื่อ): ' + missingMedia.join(', '));
-    if (unverified.length) warnings.push('สื่อที่ยังไม่ยืนยันสิทธิ์ (จะไม่แสดงในเกม) ' + unverified.length + ' รายการ: ' + unverified.join(', '));
     if (chars.length > 36) warnings.push('มีมากกว่า 36 รายการ เกมจะใช้เวลานานขึ้น');
     return { ok: errors.length === 0, errors: errors, warnings: warnings };
   }
@@ -418,7 +376,7 @@
     fnv1a: fnv1a, mulberry32: mulberry32, damm: damm, formatCode: formatCode, parseCode: parseCode,
     fingerprint: fingerprint, validateTheme: validateTheme, generateCard: generateCard,
     linesFromMarks: linesFromMarks, verifyCard: verifyCard, PATTERNS: PATTERNS, patternAtDraw: patternAtDraw, missingFor: missingFor, checkCardSet: checkCardSet,
-    mediaSrc: mediaSrc, mediaType: mediaType, youtubeId: youtubeId, isText: isText, mediaAllowed: mediaAllowed, cellInner: cellInner, fitWords: fitWords, creditHtml: creditHtml, creditsListHtml: creditsListHtml, LICENSE_STATUS: LICENSE_STATUS, randomInt: randomInt, encodeSync: encodeSync, decodeSync: decodeSync, randomPhoneCardNumber: randomPhoneCardNumber, drawNext: drawNext, charMap: charMap,
+    mediaSrc: mediaSrc, mediaType: mediaType, youtubeId: youtubeId, isText: isText, mediaAllowed: mediaAllowed, cellInner: cellInner, fitWords: fitWords, randomInt: randomInt, encodeSync: encodeSync, decodeSync: decodeSync, randomPhoneCardNumber: randomPhoneCardNumber, drawNext: drawNext, charMap: charMap,
     store: store, fetchJSON: fetchJSON, loadThemeIndex: loadThemeIndex, loadTheme: loadTheme,
     registerSW: registerSW, esc: esc
   };

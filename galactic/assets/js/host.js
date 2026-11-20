@@ -173,7 +173,7 @@
     $('reveal').classList.toggle('textmode', text);
     if (last && chars[last]) showBig(chars[last], noAnim); else if (!spinning) {
       stopYT(); $('bigMedia').classList.add('hidden'); $('bigMedia').innerHTML = ''; shownId = null;
-      $('bigName').textContent = ''; $('btnCredit').classList.add('hidden'); $('placeholder').classList.remove('hidden');
+      $('bigName').textContent = ''; $('placeholder').classList.remove('hidden');
       $('placeholder').textContent = 'กด “สุ่มตัวถัดไป” เพื่อเริ่ม';
     }
     var order = {}; ids.forEach(function (id, i) { order[id] = i + 1; });
@@ -296,23 +296,9 @@
       shownId = c.id;
     }
     $('bigName').innerHTML = nameHtml(c);
-    $('btnCredit').classList.toggle('hidden', !(c.credit || (text && B.mediaSrc(c))));
-    $('btnCredit').dataset.id = c.id;
     var r = $('reveal'); r.classList.remove('revealed');
     if (!noAnim) { void r.offsetWidth; r.classList.add('revealed'); }
   }
-  $('btnCredit').addEventListener('click', function () {
-    var c = chars[this.dataset.id]; if (!c) return;
-    UI.modal({ title: 'เครดิต: ' + c.name, html: B.creditHtml(c) });
-  });
-  function openCredits() {
-    if (!theme) return;
-    UI.modal({
-      title: 'เครดิต / แหล่งที่มาของภาพและคลิป', wide: true,
-      html: '<p class="small"><b>' + esc(theme.name) + '</b>' + (theme.creditsNote ? '<br>' + esc(theme.creditsNote) : '') + '</p>' + B.creditsListHtml(theme)
-    });
-  }
-  $('btnCredits').addEventListener('click', openCredits);
 
   // ---------- สุ่ม ----------
   function draw() {
@@ -326,7 +312,7 @@
     save();
     var r = $('reveal'), box = $('bigMedia'), nm = $('bigName'), text = B.isText(theme), img = null;
     preload(chars[next]); // โหลดสื่อของตัวที่ออกระหว่างแอนิเมชัน
-    $('placeholder').classList.add('hidden'); $('btnCredit').classList.add('hidden');
+    $('placeholder').classList.add('hidden');
     shownId = null; stopYT(); box.innerHTML = '';
     if (text) box.classList.add('hidden');
     else { img = new Image(); img.alt = ''; box.appendChild(img); box.classList.remove('hidden'); box.classList.remove('dark'); }
@@ -609,5 +595,5 @@
   window.addEventListener('beforeunload', function (e) { if (busy) { e.preventDefault(); e.returnValue = ''; } });
 
   // สำหรับการทดสอบอัตโนมัติ
-  window.__host = { ytPlayer: function () { return ytPlayer; }, openCredits: openCredits, shownId: function () { return shownId; }, state: function () { return S; }, theme: function () { return theme; }, busy: function () { return busy; }, syncText: function () { return syncText(); } };
+  window.__host = { ytPlayer: function () { return ytPlayer; }, shownId: function () { return shownId; }, state: function () { return S; }, theme: function () { return theme; }, busy: function () { return busy; }, syncText: function () { return syncText(); } };
 })();

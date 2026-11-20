@@ -155,7 +155,7 @@ with sync_playwright() as p:
             poster: el && el.poster || '', muted: el && el.muted, loop: el && el.loop, ready: el && el.readyState, paused: el && el.paused,
             playsinline: el && el.hasAttribute('playsinline'), fit: el ? getComputedStyle(el).objectFit : '',
             w: r.width, h: r.height, name: document.getElementById('bigName').innerText,
-            credit: !document.getElementById('btnCredit').classList.contains('hidden'),
+            credit: !!document.getElementById('btnCredit') || !!document.getElementById('btnCredits'),
             overflowY: document.documentElement.scrollHeight > innerHeight + 1, overflowX: document.documentElement.scrollWidth > innerWidth + 1 };
         }""")
 
@@ -180,23 +180,11 @@ with sync_playwright() as p:
         name_ok = c['name'] in b['name'] and c['th'] in b['name']
         src_ok = b['tag'] == 'IMG' and b['src'] == c['media']['src'] and b['fit'] == 'contain'
         host.screenshot(path=os.path.join(OUT, f'F2-host-reveal-{c["id"]}.png'))
-        record('F2b. สุ่ม 1 คำ → จอใหญ่แสดงโปสเตอร์ของคำนั้น (ไม่ตัดภาพ) + “English — ไทย” + ปุ่มเครดิต ไม่ล้นจอ 1366×768',
-               (not b['hidden']) and src_ok and name_ok and b['credit'] and not b['overflowY'] and not b['overflowX'] and fits(),
+        record('F2b. สุ่ม 1 คำ → จอใหญ่แสดงการ์ดภาพของคำนั้น (ไม่ตัดภาพ) + “English — ไทย” ไม่ล้นจอ 1366×768',
+               (not b['hidden']) and src_ok and name_ok and not b['overflowY'] and not b['overflowX'] and fits(),
                f'{c["name"]} → {b["src"][-50:]} กรอบ {b["w"]:.0f}×{b["h"]:.0f}px · "{b["name"]}"')
-        host.click('#btnCredit'); host.wait_for_selector('.modal table.credit')
-        t = host.inner_text('.modal'); links = host.eval_on_selector_all('.modal a', 'as => as.map(a => a.href)')
-        host.screenshot(path=os.path.join(OUT, 'F2-host-credit-one.png'))
-        host.click('.modal .actions .btn')
-        cr = c['credit']
-        record('F2c. ปุ่ม “เครดิตภาพนี้” แสดงชื่อผลงาน เจ้าของลิขสิทธิ์ ลิงก์ที่มา สถานะ และภาพสำรอง',
-               cr['title'] in t and cr['author'] in t and cr['sourceUrl'] in links and 'โปสเตอร์' in t and c['fallbackCredit']['license'] in t,
-               f'{cr["title"][:50]} · {cr["sourceUrl"]}')
-        host.click('#btnCredits'); host.wait_for_selector('.modal .credits')
-        n = host.evaluate("document.querySelectorAll('.modal .cr-item').length")
-        okc = host.evaluate("[...document.querySelectorAll('.modal .cr-item')].filter(e => e.innerText.includes('โปสเตอร์') && e.querySelector('img')).length")
-        host.screenshot(path=os.path.join(OUT, 'F2-host-credits-all.png'))
-        host.click('.modal .actions .btn')
-        record('F2d. ปุ่ม “เครดิต / แหล่งภาพ” แสดงครบ 32 รายการ ทุกรายการมีเครดิต + ภาพย่อ', n == 32 and okc == 32, f'{n} รายการ · ครบ {okc}')
+        page_txt = host.inner_text('body')
+        record('F2c. ไม่มีปุ่ม/ข้อความเครดิตหรือลิขสิทธิ์บนจอพิธีกรแล้ว', not b['credit'] and 'เครดิต' not in page_txt and 'ลิขสิทธิ์' not in page_txt)
         vids = []
         def grab():
             cid = hstate()['round']['draws'][-1]['id']
@@ -281,47 +269,34 @@ with sync_playwright() as p:
         # แก้คำแปลของคำแรก
         card = '#chars .char[data-id="action"]'
         ad.fill(card + ' [data-th]', 'แอ็กชัน (แก้ไข)')
-        # เปลี่ยนสถานะสิทธิ์เป็น "ยังไม่ยืนยัน"
-        ad.click(card + ' [data-det]'); ad.wait_for_selector('.modal #cStatus')
+        # หน้าต่างสื่อไม่มีช่องเครดิต/สิทธิ์แล้ว
+        ad.click(card + ' [data-det]'); ad.wait_for_selector('.modal #dSrc')
         ad.screenshot(path=os.path.join(OUT, 'F4-admin-details.png'))
-        ad.select_option('.modal #cStatus', 'pending'); ad.click('.modal .actions .btn:not(.ghost)')
-        ad.wait_for_timeout(500)
-        lic = ad.inner_text(card + ' .lic'); warn = ad.inner_text('#validation')
-        # ลองตั้ง "ตรวจแล้ว" โดยไม่มีสัญญาอนุญาต → ต้องไม่ยอม
-        ad.click(card + ' [data-det]'); ad.fill('.modal #cLicense', ''); ad.select_option('.modal #cStatus', 'ok')
-        ad.click('.modal .actions .btn:not(.ghost)'); ad.wait_for_timeout(300)
-        still_open = ad.is_visible('.modal #cStatus')
-        ad.click('.modal .actions .btn.ghost')
+        no_credit_fields = ad.locator('.modal #cStatus, .modal #cLicense').count() == 0 and 'เครดิต' not in ad.inner_text('.modal')
+        ad.click('.modal .actions .btn:not(.ghost)'); ad.wait_for_timeout(500)
         # เพิ่มคำใหม่แล้วลบ
         ad.click('#btnAddTerm'); n_add = ad.evaluate("document.querySelectorAll('#chars .char').length")
         last = ad.evaluate("[...document.querySelectorAll('#chars .char')].pop().dataset.id")
         ad.click(f'#chars .char[data-id="{last}"] [data-del]'); ad.click('.modal .actions .btn.danger')
         ad.wait_for_function("document.querySelectorAll('#chars .char').length === 32")
-        record('F4a. Admin: เปิดชุดคำศัพท์ แก้คำแปล ตั้งสถานะสิทธิ์ เพิ่ม/ลบคำได้ · สื่อที่ยังไม่ยืนยันสิทธิ์ถูกทำเครื่องหมายว่าไม่แสดง และบังคับกรอกสัญญาอนุญาตก่อนตั้ง “ตรวจแล้ว”',
-               checked and 'ไม่แสดงในเกม' in lic and 'ยังไม่ยืนยันสิทธิ์' in warn and still_open and n_add == 33, f'{lic} · {warn.splitlines()[1] if len(warn.splitlines()) > 1 else warn}')
+        record('F4a. Admin: เปิดชุดคำศัพท์ แก้คำแปล แก้สื่อ เพิ่ม/ลบคำได้ · ไม่มีช่องเครดิต/สิทธิ์และปุ่มเครดิตแล้ว',
+               checked and no_credit_fields and n_add == 33 and ad.locator('#btnCredits, #btnCreditsCsv').count() == 0 and 'เครดิต' not in ad.inner_text('body'))
         ad.wait_for_timeout(600)
         with ad.expect_download() as d1: ad.click('#btnExportTheme')
         exp = json.load(open(d1.value.path()))
         a = [c for c in exp['characters'] if c['id'] == 'action'][0]
         sand = [c for c in exp['characters'] if c['id'] == 'sand-animation'][0]
-        with ad.expect_download() as d2: ad.click('#btnCreditsCsv')
-        rows = list(csv.reader(io.StringIO(open(d2.value.path(), encoding='utf-8-sig').read())))
-        record('F4b. ส่งออก JSON เก็บโหมดคำศัพท์ คำแปล สื่อ เครดิต ครบ + ส่งออกเครดิตเป็น CSV 32 แถว',
-               exp['display'] == 'text' and len(exp['characters']) == 32 and a['th'] == 'แอ็กชัน (แก้ไข)' and a['credit']['status'] == 'pending'
-               and sand['media'] == BYID['sand-animation']['media'] and sand['fallback'] == BYID['sand-animation']['fallback'] and sand['credit']['status'] == 'poster' and len(rows) == 33 and rows[0][0] == 'term',
-               f'CSV {len(rows) - 1} แถว · หัวตาราง {rows[0][:6]}')
-        # เครดิตใน Admin
-        ad.click('#btnCredits'); ad.wait_for_selector('.modal .credits')
-        n = ad.evaluate("document.querySelectorAll('.modal .cr-item').length"); ad.click('.modal .actions .btn')
-        record('F4c. ปุ่ม “เครดิต / แหล่งภาพ” ในหน้า Admin แสดงครบ', n == 32, f'{n} รายการ')
+        record('F4b. ส่งออก JSON เก็บโหมดคำศัพท์ คำแปล สื่อ ครบ · ไม่มีข้อมูลเครดิต',
+               exp['display'] == 'text' and len(exp['characters']) == 32 and a['th'] == 'แอ็กชัน (แก้ไข)' and sand['media'] == BYID['sand-animation']['media']
+               and not any(k in c for c in exp['characters'] for k in ('credit', 'fallback', 'fallbackCredit')) and 'creditsNote' not in exp)
         # ทดลองบนหน้าพิธีกรด้วยฉบับร่าง: คำที่ยังไม่ยืนยันสิทธิ์ต้องไม่แสดงภาพ
         h2 = actx.new_page(); watch(h2, 'host-local')
         h2.goto(BASE + 'host.html?t=film-animation&src=local')
         h2.wait_for_function("document.querySelectorAll('#board .b').length === 32", timeout=15000)
         shown = h2.evaluate("""() => { const t = window.__host.theme(); const c = t.characters.find(x => x.id === 'action');
             return { local: t._source, allowed: Bingo.mediaAllowed(c), th: c.th }; }""")
-        record('F4d. ฉบับร่างในเครื่องใช้บนหน้าพิธีกรได้ และสื่อที่ตั้ง “ยังไม่ยืนยันสิทธิ์” จะไม่ถูกแสดง',
-               shown['allowed'] is False and shown['th'] == 'แอ็กชัน (แก้ไข)', json.dumps(shown, ensure_ascii=False))
+        record('F4d. ฉบับร่างในเครื่องใช้บนหน้าพิธีกรได้ และแสดงการ์ดภาพตามปกติ',
+               shown['allowed'] is True and shown['th'] == 'แอ็กชัน (แก้ไข)', json.dumps(shown, ensure_ascii=False))
         actx.close()
     run('F4', t_admin)
 

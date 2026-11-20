@@ -213,32 +213,23 @@ test('Film & Animation: 32 คำครบตามรายการ ผ่า�
   film.characters.forEach(c => assert.ok(c.th && c.th.trim(), 'ไม่มีคำแปล: ' + c.name));
 });
 
-test('Film & Animation: ทุกคำเป็นการ์ดภาพของอาจารย์ (ไฟล์ในเว็บไซต์ 1920×1080) พร้อมเครดิต และมีภาพสำรองจาก Wikimedia Commons', () => {
-  const okLic = /^(Public domain|CC0|CC BY 2\.0|CC BY 3\.0|CC BY-SA 3\.0|CC BY-SA 4\.0)$/;
+test('Film & Animation: ทุกคำเป็นการ์ดภาพของอาจารย์ (ไฟล์ในเว็บไซต์) · ไม่มีข้อมูลเครดิต/ภาพภายนอก', () => {
   const fs = require('node:fs'), path = require('node:path');
   const srcs = new Set();
   film.characters.forEach(c => {
-    const cr = c.credit;
-    for (const k of ['title', 'author', 'sourceUrl', 'license', 'status', 'file']) assert.ok(cr[k], c.name + ' ไม่มี ' + k);
-    assert.equal(cr.status, 'ok'); assert.equal(B.mediaType(c), 'image'); assert.ok(B.mediaAllowed(c));
+    assert.equal(c.credit, undefined); assert.equal(c.fallback, undefined); assert.equal(c.fallbackCredit, undefined);
+    assert.equal(B.mediaType(c), 'image'); assert.ok(B.mediaAllowed(c));
     assert.equal(B.mediaSrc(c), 'themes/film-animation/' + c.id + '.webp'); srcs.add(B.mediaSrc(c));
     assert.ok(fs.existsSync(path.join(__dirname, '..', B.mediaSrc(c))), 'ไม่พบไฟล์ ' + B.mediaSrc(c));
-    const f = c.fallback, fc = c.fallbackCredit;
-    assert.ok(f && fc, 'ไม่มีภาพสำรอง ' + c.name);
-    assert.match(f.type === 'video' ? f.poster : f.src, /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//);
-    assert.match(fc.license, okLic);
   });
+  assert.equal(film.creditsNote, undefined);
   assert.equal(srcs.size, 32, 'ภาพซ้ำกัน');
 });
 
-test('Film & Animation: สื่อที่ยังไม่ยืนยันสิทธิ์จะไม่ถูกแสดง', () => {
-  const c = JSON.parse(JSON.stringify(film.characters[0]));
-  c.credit.status = 'pending'; assert.equal(B.mediaAllowed(c), false);
-  c.credit.status = 'link-only'; assert.equal(B.mediaAllowed(c), false);
-  const t = JSON.parse(JSON.stringify(film)); t.characters[0] = c;
-  assert.match(B.validateTheme(t).warnings.join(), /ยังไม่ยืนยันสิทธิ์/);
-  const own = { id: 'x', name: 'X', img: 'data:image/png;base64,AAAA' }; // ภาพที่อัปโหลดเองในชุดภาพปกติ
+test('สื่อทุกชิ้นแสดงได้เมื่อมีไฟล์ (ไม่มีระบบตรวจสิทธิ์แล้ว)', () => {
+  const own = { id: 'x', name: 'X', img: 'data:image/png;base64,AAAA' };
   assert.equal(B.mediaAllowed(own), true);
+  assert.equal(B.mediaAllowed({ id: 'y', name: 'Y' }), false);
   assert.equal(B.youtubeId('https://youtu.be/hEJnMQG9ev8?t=4'), 'hEJnMQG9ev8');
   assert.equal(B.youtubeId('https://www.youtube.com/shorts/hEJnMQG9ev8'), 'hEJnMQG9ev8');
   assert.equal(B.youtubeId('https://example.com/watch?v=hEJnMQG9ev8'), '');

@@ -158,7 +158,7 @@
       return '<div class="char' + (bad ? ' bad' : '') + '" data-id="' + esc(c.id) + '"><div class="idx">#' + (i + 1) + (c.bytes ? ' · ' + Math.round(c.bytes / 1024) + ' KB' : '') + '</div>' +
         '<div class="pic">' + (c.img ? '<img alt="" src="' + esc(c.img) + '">' : '<span class="muted">ไม่มีภาพ</span>') + '</div>' +
         '<input value="' + esc(c.name) + '" maxlength="30" data-name aria-label="ชื่อตัวละคร">' +
-        '<div class="tools"><button class="btn secondary" data-rep title="เปลี่ยนภาพ">เปลี่ยนภาพ</button><button class="btn secondary" data-det title="รายละเอียด/เครดิต">เครดิต</button><button class="btn danger" data-del>ลบ</button></div></div>';
+        '<div class="tools"><button class="btn secondary" data-rep title="เปลี่ยนภาพ">เปลี่ยนภาพ</button><button class="btn danger" data-del>ลบ</button></div></div>';
     }).join('');
     renderValidation();
   }
@@ -166,43 +166,34 @@
     var src = B.mediaSrc(c), ok = B.mediaAllowed(c), vid = B.mediaType(c) === 'video';
     var yt = B.mediaType(c) === 'youtube' ? B.youtubeId(src) : '';
     var thumb = yt ? 'https://i.ytimg.com/vi/' + yt + '/mqdefault.jpg' : vid ? ((c.media && c.media.poster) || '') : src;
-    var st = (c.credit && c.credit.status) || (src ? '' : 'none');
-    var lic = !src ? '<span class="lic no">ยังไม่มีสื่อ</span>' : ok ? '<span class="lic ok">✓ ' + esc((c.credit && c.credit.license) || 'แสดงได้') + '</span>' : '<span class="lic no">' + esc(B.LICENSE_STATUS[st] || st) + '</span>';
+    var lic = src ? '' : '<span class="lic no">ยังไม่มีสื่อ</span>';
     return '<div class="char' + (!c.name ? ' bad' : '') + '" data-id="' + esc(c.id) + '"><div class="idx">#' + (i + 1) + '</div>' +
       '<div class="pic dark">' + (thumb ? '<img alt="" loading="lazy" src="' + esc(thumb) + '">' : '<span class="muted small">' + (vid ? 'คลิป' : 'ไม่มีภาพ') + '</span>') + (vid ? '<span class="cr-v">คลิป</span>' : '') + (yt ? '<span class="cr-v">YouTube</span>' : '') + '</div>' +
       '<input value="' + esc(c.name) + '" maxlength="40" data-name aria-label="คำภาษาอังกฤษ" placeholder="English">' +
       '<input value="' + esc(c.th || '') + '" maxlength="60" data-th aria-label="คำแปลภาษาไทย" placeholder="คำแปลไทย">' + lic +
-      '<div class="tools"><button class="btn secondary" data-det>สื่อ/เครดิต</button><button class="btn secondary" data-rep title="อัปโหลดภาพจากเครื่อง">อัปโหลด</button><button class="btn danger" data-del>ลบ</button></div></div>';
+      '<div class="tools"><button class="btn secondary" data-det>สื่อ</button><button class="btn secondary" data-rep title="อัปโหลดภาพจากเครื่อง">อัปโหลด</button><button class="btn danger" data-del>ลบ</button></div></div>';
   }
   function findChar(id) { return cur.characters.filter(function (x) { return x.id === id; })[0]; }
 
-  // ---------- แก้สื่อ / เครดิต ----------
+  // ---------- แก้สื่อ ----------
   function openDetails(c) {
-    var m = c.media || {}, cr = c.credit || {};
+    var m = c.media || {};
     function f(id, label, val, cls, ph) { return '<label class="field ' + (cls || '') + '"><span>' + label + '</span><input class="input" id="' + id + '" value="' + esc(val || '') + '" placeholder="' + esc(ph || '') + '"></label>'; }
-    var stOpts = Object.keys(B.LICENSE_STATUS).map(function (k) { return '<option value="' + k + '"' + ((cr.status || 'pending') === k ? ' selected' : '') + '>' + esc(B.LICENSE_STATUS[k]) + '</option>'; }).join('');
     UI.modal({
-      title: 'สื่อและเครดิต: ' + c.name, wide: true,
+      title: 'สื่อ: ' + c.name, wide: true,
       html: '<div class="fgrid">' +
         '<h4>สื่อบนจอพิธีกร</h4>' +
         '<label class="field"><span>ชนิดสื่อ</span><select class="input" id="dType"><option value="image"' + (B.mediaType(c) === 'image' ? ' selected' : '') + '>ภาพนิ่ง</option><option value="video"' + (B.mediaType(c) === 'video' ? ' selected' : '') + '>คลิปวิดีโอ (เล่นวน ไม่มีเสียง)</option><option value="youtube"' + (B.mediaType(c) === 'youtube' ? ' selected' : '') + '>คลิป YouTube (ฝังจากช่องทางการ)</option></select></label>' +
         f('dPoster', 'ภาพปกคลิป (ใช้เมื่อออฟไลน์)', m.poster, '', 'https://…') +
         f('dSrc', 'ลิงก์ไฟล์ภาพ/คลิป หรือลิงก์ YouTube (https://…) — เว้นว่างถ้าใช้ภาพที่อัปโหลด', m.src, 'full', 'https://www.youtube.com/watch?v=…') +
         f('dStart', 'คลิป: เริ่มที่วินาที', m.start, '', '0') + f('dEnd', 'คลิป: วนกลับที่วินาที', m.end, '', 'เว้นว่าง = ทั้งคลิป') +
-        '<h4>เครดิตและสิทธิ์ (บังคับก่อนแสดง)</h4>' +
-        f('cTitle', 'ชื่อผลงาน/ภาพ', cr.title, 'full') + f('cAuthor', 'ผู้สร้าง/เจ้าของ', cr.author) + f('cLicense', 'ประเภทสัญญาอนุญาต', cr.license, '', 'เช่น Public domain, CC BY 3.0') +
-        f('cSource', 'ลิงก์แหล่งที่มา', cr.sourceUrl, 'full', 'https://commons.wikimedia.org/wiki/File:…') + f('cLicUrl', 'ลิงก์สัญญาอนุญาต', cr.licenseUrl, 'full', 'https://creativecommons.org/licenses/…') +
-        '<label class="field full"><span>สถานะสิทธิ์ — <b>แสดงในเกมเฉพาะ “ตรวจสอบสิทธิ์แล้ว”</b> · การใส่เครดิตอย่างเดียวไม่ถือว่าได้รับอนุญาต</span><select class="input" id="cStatus">' + stOpts + '</select></label>' +
-        f('cNote', 'หมายเหตุ', cr.note, 'full') +
         '</div>',
       buttons: [{ label: 'ยกเลิก', value: null, cls: 'ghost' }, { label: 'บันทึก', getValue: function (el) {
         var g = function (id) { return el.querySelector('#' + id).value.trim(); };
         var src = g('dSrc');
         if (src && !/^https:\/\//.test(src)) { UI.toast('ลิงก์สื่อต้องขึ้นต้นด้วย https://'); return undefined; }
         if (g('dType') === 'youtube' && !B.youtubeId(src)) { UI.toast('ลิงก์ YouTube ไม่ถูกต้อง'); return undefined; }
-        if ((g('cStatus') === 'ok' || g('cStatus') === 'embed' || g('cStatus') === 'poster') && (!g('cLicense') || !g('cSource'))) { UI.toast('ก่อนเลือก “ตรวจสอบสิทธิ์แล้ว” ต้องกรอกสัญญาอนุญาตและแหล่งที่มา'); return undefined; }
-        return { type: B.youtubeId(src) ? 'youtube' : g('dType'), src: src, poster: g('dPoster'), start: g('dStart'), end: g('dEnd'),
-          credit: { title: g('cTitle'), author: g('cAuthor'), sourceUrl: g('cSource'), license: g('cLicense'), licenseUrl: g('cLicUrl'), status: g('cStatus'), note: g('cNote') } };
+        return { type: B.youtubeId(src) ? 'youtube' : g('dType'), src: src, poster: g('dPoster'), start: g('dStart'), end: g('dEnd') };
       } }]
     }).then(function (v) {
       if (!v) return;
@@ -213,27 +204,10 @@
         if (+v.end) c.media.end = +v.end;
         if (m.pixel) c.media.pixel = true;
       } else delete c.media;
-      var keep = c.credit || {};
-      c.credit = v.credit;
-      if (v.src) c.credit.file = v.src; else if (keep.file && !c.img) c.credit.file = keep.file;
-      Object.keys(c.credit).forEach(function (k) { if (!c.credit[k]) delete c.credit[k]; });
+      delete c.credit; delete c.fallbackCredit;
       scheduleSave(); renderEditor(); UI.toast('บันทึก “' + c.name + '” แล้ว');
     });
   }
-  function openCredits() {
-    UI.modal({ title: 'เครดิต / แหล่งที่มาของภาพและคลิป', wide: true, html: '<p class="small"><b>' + esc(cur.name) + '</b>' + (cur.creditsNote ? '<br>' + esc(cur.creditsNote) : '') + '</p>' + B.creditsListHtml(cur) });
-  }
-  $('btnCredits').addEventListener('click', function () { if (cur) openCredits(); });
-  $('btnCreditsCsv').addEventListener('click', function () {
-    if (!cur) return;
-    var cols = ['term', 'thai', 'title', 'author', 'sourceUrl', 'license', 'licenseUrl', 'status', 'mediaType', 'fileUsedInGame', 'note'];
-    var q = function (v) { v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
-    var rows = cur.characters.map(function (c) {
-      var cr = c.credit || {}, src = B.mediaSrc(c);
-      return [c.name, c.th, cr.title, cr.author, cr.sourceUrl, cr.license, cr.licenseUrl, cr.status || (src ? 'own-upload' : 'no-media'), src ? B.mediaType(c) : '', src.indexOf('data:') === 0 ? '(uploaded image)' : src, cr.note].map(q).join(',');
-    });
-    UI.download(cur.id + '-credits.csv', '\ufeff' + cols.join(',') + '\n' + rows.join('\n'));
-  });
   $('btnAddTerm').addEventListener('click', function () {
     if (!cur) return;
     if (cur.characters.length >= B.MAX_CHARACTERS) { UI.toast('ครบจำนวนสูงสุด ' + B.MAX_CHARACTERS + ' คำแล้ว'); return; }
@@ -250,7 +224,7 @@
       (v.errors.length > 8 ? '<li>…และอีก ' + (v.errors.length - 8) + ' รายการ</li>' : '') + '</ul></div>';
     v.warnings.forEach(function (w) { html += '<div class="banner warn">' + esc(w) + '</div>'; });
     if (fpNow !== originalFp && cur.characters.length) html += '<div class="banner warn">มีการเพิ่ม/ลบตัวละครในรอบแก้ไขนี้ — ถ้าเคยพิมพ์บัตรกระดาษของชุดนี้ไว้ ต้องพิมพ์ใหม่</div>';
-    var total = cur.characters.reduce(function (s, c) { return s + (c.img ? c.img.length : 0) + JSON.stringify(c.credit || {}).length; }, 0);
+    var total = cur.characters.reduce(function (s, c) { return s + (c.img ? c.img.length : 0) + 0; }, 0);
     html += '<p class="small muted">ขนาดไฟล์ชุดภาพโดยประมาณ ' + (total / 1024 / 1024).toFixed(2) + ' MB' + (total > 3 * 1024 * 1024 ? ' — ใหญ่เกินไป ผู้เล่นอาจโหลดช้า' : '') + '</p>';
     $('validation').innerHTML = html;
   }
@@ -285,11 +259,8 @@
       var c = cur.characters.filter(function (x) { return x.id === replaceTarget; })[0];
       c.img = r.img; c.bytes = r.bytes;
       if (B.isText(cur)) {
-        // ภาพจากเครื่องแทนลิงก์เดิม: ต้องกรอกเครดิตและยืนยันสิทธิ์ก่อนจึงจะแสดงบนจอ
-        delete c.media;
-        c.credit = { status: 'pending', note: 'ภาพที่อัปโหลดจากเครื่อง — กรอกที่มา/สัญญาอนุญาตแล้วเลือก “ตรวจสอบสิทธิ์แล้ว”' };
-        scheduleSave(); renderEditor(); openDetails(c);
-        return;
+        // ภาพจากเครื่องแทนลิงก์เดิม
+        delete c.media; delete c.credit; delete c.fallbackCredit;
       }
       scheduleSave(); renderEditor(); UI.toast('เปลี่ยนภาพ “' + c.name + '” แล้ว');
     }).catch(function (e) { UI.modal({ title: 'เปลี่ยนภาพไม่สำเร็จ', html: '<p>' + esc(f.name) + ': ' + esc(e.message) + '</p>' }); });
@@ -393,16 +364,13 @@
     var out = { format: 'character-bingo-theme@1', id: cur.id, name: cur.name, category: cur.category || '', updatedAt: new Date().toISOString() };
     if (cur.display) out.display = cur.display;
     if (cur.description) out.description = cur.description;
-    if (cur.creditsNote) out.creditsNote = cur.creditsNote;
     out.characters = cur.characters.map(function (c) {
       var o = { id: c.id, name: c.name.trim() };
       if (c.th) o.th = c.th;
       if (c.group) o.group = c.group;
       if (c.img) o.img = c.img;
       if (c.media) o.media = c.media;
-      if (c.credit) o.credit = c.credit;
       if (c.fallback) o.fallback = c.fallback;
-      if (c.fallbackCredit) o.fallbackCredit = c.fallbackCredit;
       return o;
     });
     return out;

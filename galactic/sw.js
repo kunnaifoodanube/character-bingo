@@ -3,7 +3,7 @@
  * เมื่อแก้ไฟล์ในเว็บไซต์ ให้เปลี่ยนเลข VERSION เพื่อล้างแคชเก่า
  */
 var PREFIX = 'gx-';             // แต่ละเวอร์ชันเกมใช้ PREFIX ของตัวเอง (โดเมนเดียวกันใช้แคชร่วมกัน)
-var VERSION = PREFIX + 'v1.6.2';
+var VERSION = PREFIX + 'v1.6.3';
 var MEDIA = PREFIX + 'media-v1'; // ภาพจาก Wikimedia Commons (ไม่ลบเมื่ออัปเดตเวอร์ชัน)
 var SHELL = [
   './', 'index.html', 'host.html', 'admin.html', 'print.html',
