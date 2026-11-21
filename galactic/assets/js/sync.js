@@ -17,18 +17,18 @@
   }
 
   // ---------- Firebase ----------
-  var fbp = null;
+  /** Firebase ตัวเดียวใช้ร่วมกันทั้งหน้า (sync.js + cloud.js) */
   function fb() {
-    if (!fbp) {
-      fbp = (window.CBFirebase ? Promise.resolve() : loadScript('assets/vendor/firebase.js?v=11.10.0b')).then(function () {
+    if (!window.__cbFbP) {
+      window.__cbFbP = (window.CBFirebase ? Promise.resolve() : loadScript('assets/vendor/firebase.js?v=11.10.0c')).then(function () {
         var F = window.CBFirebase;
         var app = F.initializeApp(cfg);
         var db = F.initializeFirestore(app, { experimentalAutoDetectLongPolling: true });
-        return { F: F, app: app, db: db };
+        return { F: F, app: app, db: db, auth: F.getAuth(app) };
       });
-      fbp.catch(function () { fbp = null; });
+      window.__cbFbP.catch(function () { window.__cbFbP = null; });
     }
-    return fbp;
+    return window.__cbFbP;
   }
   var authp = null;
   function fbUser(x) {

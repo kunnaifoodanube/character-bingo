@@ -36,16 +36,24 @@
   function allThemes() {
     var pub = Bingo.loadThemeIndex().catch(function () { return { themes: [] }; });
     var loc = Local.list().catch(function () { return []; });
-    return Promise.all([pub, loc]).then(function (r) {
+    // เกมที่ผู้ใช้สร้างเองในระบบ (เผยแพร่แล้ว) — โหลดไม่ได้ก็ข้ามไป ไม่ทำให้หน้าเสีย
+    var cloud = window.CloudGames && CloudGames.enabled() ? CloudGames.listPublished().catch(function () { return []; }) : Promise.resolve([]);
+    return Promise.all([pub, loc, cloud]).then(function (r) {
       var out = (r[0].themes || []).map(function (t) { return { id: t.id, name: t.name, category: t.category, file: t.file, source: 'published' }; });
+      r[2].forEach(function (g) { out.push({ id: CloudGames.PREFIX + g.id, name: g.data.name, category: 'เกมที่สร้างเอง', owner: g.data.ownerName || '', source: 'cloud' }); });
       r[1].forEach(function (t) { out.push({ id: t.id, name: t.name, category: t.category, source: 'local' }); });
       return { index: r[0], list: out, defaultId: r[0].default };
     });
   }
+  /** เปิดเกมจากระบบด้วยรหัสโดยตรง (เช่น เกมฉบับร่างที่ยังไม่ขึ้นรายชื่อ) */
+  function cloudEntry(id) {
+    return window.CloudGames && CloudGames.isCloudId(id) ? { id: id, name: 'เกมที่สร้างเอง', source: 'cloud' } : null;
+  }
   function loadAny(entry, index) {
+    if (entry.source === 'cloud') return CloudGames.loadTheme(entry.id);
     if (entry.source === 'local') return Local.get(entry.id);
     return Bingo.loadTheme(index, entry.id);
   }
   window.LocalThemes = Local;
-  window.ThemeSource = { all: allThemes, load: loadAny };
+  window.ThemeSource = { all: allThemes, load: loadAny, cloudEntry: cloudEntry };
 })();

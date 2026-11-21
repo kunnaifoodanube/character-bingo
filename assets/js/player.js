@@ -15,6 +15,7 @@
   UI.watchNet($('net'));
 
   function getTheme(idx, id) {
+    if (window.CloudGames && CloudGames.isCloudId(id)) return CloudGames.loadTheme(id);
     if (idx) return B.loadTheme(idx, id).catch(function (e) {
       var c = store.get('cb.theme.' + id, null); if (c) return c; throw e;
     });
@@ -22,6 +23,8 @@
     return c ? Promise.resolve(c) : Promise.reject(new Error('ไม่มีอินเทอร์เน็ต และยังไม่เคยโหลดชุดภาพนี้'));
   }
 
+  /** เกมที่สร้างเอง (ไม่แสดงคำตอบบนจอ): ห้ามบอกคำตอบของข้อที่เพิ่งเรียกบนมือถือ */
+  function hideAns() { return B.isCloud(theme) && !theme.showAnswer; }
   function useTheme(t) {
     theme = t; chars = B.charMap(t);
     $('themeName').textContent = t.name;
@@ -161,8 +164,8 @@
     else {
       bar.classList.remove('hidden');
       bar.innerHTML = markedIds[last]
-        ? '✓ แตะ “' + esc(c.name) + '” ทันเวลาแล้ว'
-        : '⏱ เหลือ ' + Math.ceil(left / 1000) + ' วินาที — มี “' + esc(c.name) + '” ในบัตรไหม? หาให้เจอแล้วแตะ!' +
+        ? (hideAns() ? '✓ แตะทันเวลาแล้ว' : '✓ แตะ “' + esc(c.name) + '” ทันเวลาแล้ว')
+        : '⏱ เหลือ ' + Math.ceil(left / 1000) + ' วินาที — ' + (hideAns() ? 'ดูโจทย์บนจอ แล้วหาคำตอบในบัตร! แตะให้ทันเวลา' : 'มี “' + esc(c.name) + '” ในบัตรไหม? หาให้เจอแล้วแตะ!') +
           '<div class="tb-track"><div class="tb-fill" style="transform:scaleX(' + Math.max(0, Math.min(1, left / (SY.timer * 1000))).toFixed(3) + ')"></div></div>';
     }
     if (anyActive && !tbTimer) tbTimer = setInterval(function () { renderTimeBar(); renderCellsOnly(); }, 200);
@@ -534,7 +537,7 @@
       var n = SY.draws.length, last = SY.draws[n - 1], c = last && chars[last];
       var when = fresh() ? 'สดจากพิธีกร' : (SY.source === 'qr' ? 'จาก QR เมื่อ ' + new Date(SY.at).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) : 'ข้อมูลล่าสุด (ขาดการเชื่อมต่อ)');
       txt = (c && c.img && !B.isText(theme) ? '<img alt="" src="' + esc(c.img) + '">' : '') + '<span>รอบที่ ' + esc(SY.roundNo) + ' · เรียกแล้ว <b id="syncCount">' + n + '</b> ตัว' +
-        (c ? ' · ล่าสุด <b>' + esc(c.name) + '</b>' : '') + '<br><span class="muted small">' + when + ' · รางวัล: ' + esc(B.PATTERNS[SY.pattern || 'line1'].name) + '</span></span>';
+        (c && !hideAns() ? ' · ล่าสุด <b>' + esc(c.name) + '</b>' : c && c.q ? ' · ล่าสุด <b>' + esc(c.q) + '</b>' : '') + '<br><span class="muted small">' + when + ' · รางวัล: ' + esc(B.PATTERNS[SY.pattern || 'line1'].name) + '</span></span>';
     }
     bar.innerHTML = '<span class="dot ' + dot + '"></span>' + txt;
     bar.classList.remove('hidden');
@@ -542,7 +545,7 @@
 
   // ---------- แสดงผล ----------
   var lastBingoCount = 0;
-  window.addEventListener('resize', function () { if (theme && B.isText(theme)) B.fitWords($('grid')); });
+  window.addEventListener('resize', function () { if (theme && B.wordLayout(theme)) B.fitWords($('grid')); });
   function render() {
     if (!state) return;
     show('play');
@@ -560,7 +563,7 @@
         grid.appendChild(d);
       });
     }
-    if (B.isText(theme)) B.fitWords(grid);
+    if (B.wordLayout(theme)) B.fitWords(grid);
     renderSyncBar();
     if (syncValid() && state.roundId && SY.roundId && state.roundId !== SY.roundId) showRoundBanner(); else $('roundBanner').classList.add('hidden');
     renderCellsOnly(); renderTimeBar(); renderShuffleBtn();

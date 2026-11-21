@@ -15,6 +15,10 @@
     }).join('');
     var want = UI.qs('t') || src.defaultId, wantSrc = UI.qs('src') === 'local' ? 'local' : 'published';
     var e = src.list.filter(function (t) { return t.id === want && t.source === wantSrc; })[0] || src.list.filter(function (t) { return t.id === want; })[0];
+    if (!e && ThemeSource.cloudEntry(want)) {
+      e = ThemeSource.cloudEntry(want); src.list.push(e);
+      var o = document.createElement('option'); o.value = 'cloud:' + want; o.textContent = e.name; $('themeSel').appendChild(o);
+    }
     if (e) $('themeSel').value = e.source + ':' + e.id;
     if (UI.qs('auto')) build();
   });
@@ -47,13 +51,14 @@
   }
 
   function pic(c) { return B.isText(theme) || !c.img ? '' : '<img alt="" src="' + esc(c.img) + '">'; }
-  function label(c) { return esc(c.name) + (B.isText(theme) && c.th ? '<br><small>' + esc(c.th) + '</small>' : ''); }
+  function cardLabel(c) { return B.isCloud(theme) ? (c.label || (c.img ? '' : c.name)) : c.name; }
+  function label(c) { if (B.isCloud(theme)) return esc(c.q || '') + (c.q ? ' → ' : '') + esc(c.label || c.name); return esc(c.name) + (B.isText(theme) && c.th ? '<br><small>' + esc(c.th) + '</small>' : ''); }
   function cardHtml(num, m, title, fp) {
     var cells = B.generateCard(theme, num);
     return '<div class="pcard"><div class="hd"><div><div class="ttl">' + esc(title) + '</div><div class="sub">ชุด ' + esc(theme.name) + '</div></div>' +
       '<div class="no">' + B.formatCode(num) + '</div></div>' +
       '<div class="nm-line">ชื่อผู้เล่น ______________________________</div>' +
-      '<div class="pgrid' + (B.isText(theme) ? ' txt' : '') + '">' + cells.map(function (id) { return '<div>' + pic(m[id]) + '<span>' + esc(m[id].name) + '</span></div>'; }).join('') + '</div>' +
+      '<div class="pgrid' + (B.isText(theme) ? ' txt' : '') + '">' + cells.map(function (id) { return '<div>' + pic(m[id]) + '<span>' + esc(cardLabel(m[id])) + '</span></div>'; }).join('') + '</div>' +
       '<div class="ft"><span>ขีด ✕ ตัวที่ถูกเรียก · ครบแนวนอน/ตั้ง/ทแยง = BINGO</span><span>รหัสชุด ' + fp + '</span></div></div>';
   }
 

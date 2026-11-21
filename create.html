@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#6b3df5">
+  <title>สร้างเกมบิงโก — SDM Bingo</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css?v=1.7.0">
+  <link rel="stylesheet" href="assets/css/create.css?v=1.7.0">
+</head>
+<body>
+  <main class="creator">
+    <header class="cr-top">
+      <div class="logo">B</div>
+      <div class="grow">
+        <h1>สร้างเกมบิงโก</h1>
+        <div class="muted small">ใส่โจทย์และคำตอบ เป็นรูปหรือพิมพ์คำก็ได้ แล้วเล่นบนจอพิธีกรได้ทันที</div>
+      </div>
+      <div id="who" class="who hidden">
+        <img id="whoPic" alt="" class="hidden">
+        <span id="whoName"></span>
+        <button class="btn ghost" id="btnSignOut" type="button">ออกจากระบบ</button>
+      </div>
+    </header>
+
+    <section id="vLoading" class="panel center"><p>กำลังโหลด…</p></section>
+
+    <section id="vOff" class="panel hidden">
+      <h2>ยังไม่ได้เปิดระบบออนไลน์</h2>
+      <p class="muted">หน้านี้ต้องเชื่อมต่อฐานข้อมูล Firebase ของเกม แจ้งผู้ดูแลระบบให้ตั้งค่าก่อน</p>
+    </section>
+
+    <section id="vSignIn" class="panel hidden">
+      <h2>เข้าสู่ระบบก่อนสร้างเกม</h2>
+      <p>ใช้บัญชี Google ของคุณ เพื่อให้แก้ไขเกมของตัวเองได้จากทุกเครื่อง และคนอื่นแก้เกมของคุณไม่ได้</p>
+      <button class="btn big block" id="btnSignIn" type="button">เข้าสู่ระบบด้วย Google</button>
+      <p class="small muted">ระบบเก็บเพียงชื่อที่แสดงและอีเมลของบัญชี เพื่อระบุว่าใครเป็นผู้สร้างเกม</p>
+    </section>
+
+    <section id="vList" class="hidden">
+      <div class="row" style="margin:.4rem 0 1rem">
+        <h2 class="grow" style="margin:0">เกมของฉัน</h2>
+        <button class="btn" id="btnNew" type="button">+ สร้างเกมใหม่</button>
+      </div>
+      <div id="myGames" class="games"></div>
+    </section>
+
+    <section id="vEdit" class="hidden">
+      <div class="row" style="margin:.2rem 0 .8rem">
+        <button class="btn ghost" id="btnBack" type="button">← เกมของฉัน</button>
+        <span class="grow"></span>
+        <span class="save-state" id="saveState"></span>
+      </div>
+
+      <div class="panel">
+        <label class="field"><span>ชื่อเกม</span>
+          <input class="input" id="gName" maxlength="80" placeholder="เช่น คำศัพท์สัตว์ภาษาอังกฤษ"></label>
+        <label class="field"><span>คำอธิบายสั้น ๆ (ไม่บังคับ)</span>
+          <textarea class="input" id="gDesc" maxlength="400" rows="2" placeholder="เช่น ดูภาพสัตว์บนจอ แล้วหาคำภาษาอังกฤษบนบัตร"></textarea></label>
+        <label class="chk"><input type="checkbox" id="gShowAns">
+          <span>แสดงคำตอบบนจอใหญ่ด้วย <span class="muted">(ปิดไว้ = ผู้เล่นต้องคิดหาคำตอบเอง)</span></span></label>
+        <div id="gStatus" class="g-status"></div>
+      </div>
+
+      <div class="how small">
+        <b>แต่ละข้อมี 2 ส่วน</b> · <span class="tag q">โจทย์</span> ขึ้นบนจอใหญ่ให้ทั้งห้องดู · <span class="tag a">คำตอบ</span> อยู่บนบัตรของผู้เล่น ·
+        ใส่รูปหรือพิมพ์คำก็ได้ (หรือทั้งสองอย่าง) · ต้องมีอย่างน้อย <b id="minN">24</b> ข้อ บัตรแต่ละใบสุ่มคำตอบมา 16 ช่อง
+      </div>
+
+      <div id="items" class="items"></div>
+
+      <div class="row add-row">
+        <button class="btn" id="btnAdd" type="button">+ เพิ่มข้อ</button>
+        <label class="btn secondary">🖼️ เพิ่มหลายรูปพร้อมกัน<input type="file" id="bulkFiles" accept="image/*" multiple hidden></label>
+      </div>
+
+      <div class="panel actions-panel">
+        <div class="row">
+          <button class="btn secondary" id="btnPreview" type="button">ดูตัวอย่างบัตร</button>
+          <a class="btn secondary" id="lnkHost" target="_blank">เปิดจอพิธีกร</a>
+          <button class="btn" id="btnPublish" type="button">เผยแพร่เกม</button>
+          <span class="grow"></span>
+          <button class="btn danger" id="btnDelete" type="button">ลบเกมนี้</button>
+        </div>
+        <p class="small muted" style="margin:.6rem 0 0">เผยแพร่แล้ว เกมจะขึ้นในรายชื่อเกมบนจอพิธีกรของทุกคน · แก้ไขต่อได้เสมอ แต่ไม่ควรแก้ระหว่างที่กำลังเล่น เพราะบัตรที่แจกไปแล้วจะไม่ตรงกับเกม</p>
+      </div>
+    </section>
+  </main>
+  <input type="file" id="oneFile" accept="image/*" hidden>
+  <div id="modalRoot"></div>
+  <div id="toast" class="toast hidden" role="status"></div>
+
+  <script src="firebase-config.js?v=1.7.0"></script>
+  <script src="assets/js/core.js?v=1.7.0"></script>
+  <script src="assets/js/ui.js?v=1.7.0"></script>
+  <script src="assets/js/cloud.js?v=1.7.0"></script>
+  <script src="assets/js/create.js?v=1.7.0"></script>
+</body>
+</html>

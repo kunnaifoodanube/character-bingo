@@ -89,7 +89,7 @@
     sources = src;
     var sel = $('themeSel');
     sel.innerHTML = src.list.map(function (t) {
-      return '<option value="' + esc(t.source + ':' + t.id) + '">' + esc(t.name) + (t.source === 'local' ? ' (ฉบับร่างในเครื่องนี้)' : '') + '</option>';
+      return '<option value="' + esc(t.source + ':' + t.id) + '">' + esc(t.name) + (t.source === 'local' ? ' (ฉบับร่างในเครื่องนี้)' : t.source === 'cloud' ? ' — สร้างโดย ' + esc(t.owner || 'ผู้ใช้') : '') + '</option>';
     }).join('');
     // เกมที่ค้างอยู่ (มีการสุ่มแล้ว) ใช้ชุดเดิม · ถ้ายังไม่เริ่ม ใช้ชุดเริ่มต้นจาก index.json
     var midGame = S.round && S.round.draws && S.round.draws.length;
@@ -105,9 +105,14 @@
     if (!sources || !id) return null;
     if (preferLocal) { var loc = sources.list.filter(function (t) { return t.id === id && t.source === 'local'; })[0]; if (loc) return loc; }
     var pub = sources.list.filter(function (t) { return t.id === id && t.source === 'published'; })[0];
-    return pub || sources.list.filter(function (t) { return t.id === id; })[0] || null;
+    var any = pub || sources.list.filter(function (t) { return t.id === id; })[0];
+    if (!any && ThemeSource.cloudEntry(id)) { any = ThemeSource.cloudEntry(id); sources.list.push(any); addOption(any); }
+    return any || null;
   }
 
+  function addOption(t) {
+    var o = document.createElement('option'); o.value = t.source + ':' + t.id; o.textContent = t.name; $('themeSel').appendChild(o);
+  }
   function applyTheme(entry, initial) {
     return ThemeSource.load(entry, sources.index).then(function (t) {
       var v = B.validateTheme(t);
@@ -116,6 +121,7 @@
         return;
       }
       theme = t; chars = B.charMap(t); theme._source = entry.source;
+      var opt = $('themeSel').querySelector('option[value="' + entry.source + ':' + entry.id + '"]'); if (opt && entry.source === 'cloud') opt.textContent = t.name + (t.author ? ' — สร้างโดย ' + t.author : '');
       $('themeSel').value = entry.source + ':' + entry.id;
       if (!S.round || S.round.themeId !== t.id) {
         if (S.round && S.round.draws.length) archiveRound();
@@ -170,7 +176,7 @@
     $('patternSel').value = pat.id; $('patternLabel').textContent = 'รางวัลนี้: ' + pat.name;
     $('count').textContent = ids.length + ' / ' + theme.characters.length;
     var last = ids[ids.length - 1];
-    var text = B.isText(theme);
+    var text = B.wordLayout(theme), cloud = B.isCloud(theme);
     $('reveal').classList.toggle('textmode', text);
     if (last && chars[last]) showBig(chars[last], noAnim); else if (!spinning) {
       stopYT(); $('bigMedia').classList.add('hidden'); $('bigMedia').innerHTML = ''; shownId = null;
@@ -178,13 +184,19 @@
       $('placeholder').textContent = 'กด “สุ่มตัวถัดไป” เพื่อเริ่ม';
     }
     var order = {}; ids.forEach(function (id, i) { order[id] = i + 1; });
-    $('board').classList.toggle('txt', text);
+    $('board').classList.toggle('txt', text && !cloud);
     $('board').innerHTML = theme.characters.map(function (c) {
+      if (cloud) { // จอใหญ่เห็นทั้งห้อง: แสดงโจทย์ ไม่เฉลยคำตอบ (ยกเว้นตั้งให้แสดงคำตอบ)
+        var qi = c.media && c.media.src, ql = qLabel(c);
+        return '<div class="b' + (order[c.id] ? ' on' : '') + (qi ? '' : ' t') + '" title="' + esc(ql) + '">' + (order[c.id] ? '<span class="o">' + order[c.id] + '</span>' : '') +
+          (qi ? '<img alt="" src="' + esc(qi) + '">' : esc(ql)) + '</div>';
+      }
       return '<div class="b' + (order[c.id] ? ' on' : '') + '" title="' + esc(c.name + (c.th ? ' — ' + c.th : '')) + '">' + (order[c.id] ? '<span class="o">' + order[c.id] + '</span>' : '') +
         (text ? esc(c.name) : '<img alt="' + esc(c.name) + '" src="' + esc(c.img) + '">') + '</div>';
     }).join('');
     $('history').innerHTML = ids.length ? ids.map(function (id, i) {
       var c = chars[id] || { name: '?', img: '' };
+      if (cloud) return '<span class="h t">' + (i + 1) + '. ' + esc(qLabel(c)) + '</span>';
       return '<span class="h' + (text ? ' t' : '') + '">' + (text ? '' : '<img alt="" src="' + esc(c.img) + '">') + (i + 1) + '. ' + esc(c.name) + '</span>';
     }).reverse().join('') : '<span class="muted small">ยังไม่มี</span>';
     var done = ids.length >= theme.characters.length;
@@ -279,12 +291,22 @@
     if (B.mediaType(c) === 'youtube') { loadYT().catch(function () { }); return; } // YouTube สร้างตอนแสดงจริง
     preloaded[c.id] = mediaNode(c);
   }
+  /** ชื่อเรียกโจทย์ของเกมที่สร้างเอง (ใช้บนจอที่ทั้งห้องเห็น) */
+  function qLabel(c) {
+    if (c.q) return c.q;
+    if (theme.showAnswer) return c.label || c.name;
+    return 'ข้อ ' + (theme.characters.indexOf(c) + 1);
+  }
   function nameHtml(c) {
+    if (B.isCloud(theme)) {
+      var ans = theme.showAnswer ? (c.label || c.name) : '';
+      return (c.q ? '<span class="en">' + esc(c.q) + '</span>' : '') + (ans ? '<span class="sep"> — </span><span class="th">' + esc(ans) + '</span>' : '');
+    }
     return '<span class="en">' + esc(c.name) + '</span>' + (B.isText(theme) && c.th ? '<span class="sep"> — </span><span class="th">' + esc(c.th) + '</span>' : '');
   }
   function showBig(c, noAnim) {
     $('placeholder').classList.add('hidden');
-    var box = $('bigMedia'), text = B.isText(theme);
+    var box = $('bigMedia'), text = B.wordLayout(theme);
     box.classList.toggle('dark', text);
     if (shownId !== c.id) {
       stopYT(); box.innerHTML = '';
@@ -312,7 +334,7 @@
     // บันทึกก่อนแสดงผล: รีเฟรชระหว่างแอนิเมชันก็ไม่สุ่มซ้ำ/ไม่หาย
     S.round.draws.push({ id: next, at: new Date().toISOString() });
     save();
-    var r = $('reveal'), box = $('bigMedia'), nm = $('bigName'), text = B.isText(theme), img = null;
+    var r = $('reveal'), box = $('bigMedia'), nm = $('bigName'), text = B.wordLayout(theme), cloud = B.isCloud(theme), img = null;
     preload(chars[next]); // โหลดสื่อของตัวที่ออกระหว่างแอนิเมชัน
     $('placeholder').classList.add('hidden');
     shownId = null; stopYT(); box.innerHTML = '';
@@ -322,7 +344,7 @@
     var pool = theme.characters, t0 = Date.now();
     var timer = setInterval(function () {
       var c = pool[Math.floor(Math.random() * pool.length)];
-      if (text) nm.textContent = c.name; else { img.src = c.img; nm.textContent = '…'; }
+      if (cloud) nm.textContent = c.q || '…'; else if (text) nm.textContent = c.name; else { img.src = c.img; nm.textContent = '…'; }
       if (Date.now() - t0 > REVEAL_MS) {
         clearInterval(timer);
         r.classList.remove('spinning');

@@ -331,3 +331,7 @@ ol.steps li { margin: .35rem 0; }
 .sp-back .modal .actions .sp-go { flex: 1; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; }
 .sp-back .modal .actions .sp-go:disabled { background: #d9d2ea; color: #6d6380; opacity: 1; }
 
+
+/* เกมที่สร้างเอง: จอพิธีกรแสดงโจทย์ (ภาพหรือข้อความ) ไม่เฉลยคำตอบ */
+.board .b.t { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 1; padding: 3px; font-size: .66rem; font-weight: 700; line-height: 1.1; text-align: center; overflow: hidden; word-break: break-word; }
+.grid4 .cell .tw + .nm { display: none; }

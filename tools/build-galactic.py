@@ -19,7 +19,7 @@ ROOT = os.path.dirname(HERE)
 OUT = os.path.join(ROOT, 'galactic')
 SRC = sys.argv[1] if len(sys.argv) > 1 else None   # None = ใช้ภาพ/ชื่อเดิม
 THEME_DIR = os.path.join(HERE, 'galactic-theme')
-GX_VERSION = 'v1.6.4'   # เลขเวอร์ชันของ Galactic — เพิ่มทุกครั้งที่สร้างใหม่ (ล้างแคชเก่าในเครื่องผู้เล่น)
+GX_VERSION = 'v1.6.5'   # เลขเวอร์ชันของ Galactic — เพิ่มทุกครั้งที่สร้างใหม่ (ล้างแคชเก่าในเครื่องผู้เล่น)
 
 # (เลขไฟล์, ชื่อที่แสดงบนบัตร) — ข้อ 32 ใช้ไฟล์ปรับปรุง 32_(1.2).png
 STICKERS = [
@@ -117,13 +117,18 @@ def finish():
             s = s.replace('<meta name="theme-color" content="#6b3df5">', '<meta name="theme-color" content="#0f1433">')
         s, n = re.subn(r'(<link rel="stylesheet" href="assets/css/style\.css[^"]*">)', lambda m: m.group(1) + css, s, count=1)
         assert n == 1, f
+        # หน้าสร้างเกมมีที่เดียว (หน้าหลัก) — Galactic ลิงก์ไปที่นั่น
+        s = s.replace('href="create.html"', 'href="../create.html"')
         open(p, 'w', encoding='utf-8').write(s)
+    for x in ['assets/js/create.js', 'assets/css/create.css']:
+        if os.path.exists(os.path.join(OUT, x)): os.remove(os.path.join(OUT, x))
     shutil.copy(os.path.join(THEME_DIR, 'fonts.css'), os.path.join(OUT, 'assets', 'css', 'fonts.css'))
     shutil.copy(os.path.join(THEME_DIR, 'galactic.css'), os.path.join(OUT, 'assets', 'css', 'galactic.css'))
     shutil.copytree(os.path.join(THEME_DIR, 'fonts'), os.path.join(OUT, 'assets', 'fonts'))
     fonts = sorted(x for x in os.listdir(os.path.join(OUT, 'assets', 'fonts')) if x.endswith('.woff2'))
     p = os.path.join(OUT, 'sw.js')
     s = open(p).read()
+    s = s.replace(" 'create.html', 'assets/js/create.js', 'assets/css/create.css',", '')
     s, n = re.subn(r"var PREFIX = 'cb-';", "var PREFIX = 'gx-';", s)
     assert n == 1
     s, n = re.subn(r"var VERSION = PREFIX \+ '[^']*';", "var VERSION = PREFIX + '%s';" % GX_VERSION, s)

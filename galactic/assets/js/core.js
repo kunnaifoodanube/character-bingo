@@ -101,12 +101,17 @@
   // ---------- โหมดคำศัพท์ / สื่อ ----------
   /** ชุดแบบ "คำศัพท์": ผู้เล่นเห็นเฉพาะคำภาษาอังกฤษ, จอพิธีกรแสดงภาพ/คลิป + คำแปล */
   function isText(theme) { return !!theme && theme.display === 'text'; }
+  /** เกมที่สร้างจากหน้า “สร้างเกม”: โจทย์บนจอใหญ่ (ภาพ/ข้อความ) · คำตอบบนบัตร (ภาพหรือคำ แยกเป็นรายข้อ) */
+  function isCloud(theme) { return !!theme && theme.display === 'cloud'; }
+  /** ใช้หน้าตาแบบคำบนจอพิธีกร (สื่อบนพื้นเข้ม + ข้อความด้านล่าง) */
+  function wordLayout(theme) { return isText(theme) || isCloud(theme); }
   /** แสดงสื่อเมื่อมีสื่อ (ภาพทั้งหมดเป็นของผู้ใช้/คณะเอง — ไม่มีระบบเครดิตแล้ว) */
   function mediaAllowed(c) { return !!mediaSrc(c); }
   /** เนื้อหาในช่องบัตร 4×4 (ผู้เล่น / ตรวจบัตร / ตัวอย่าง) */
   function cellInner(theme, c) {
     if (!c) return '<div class="tw">?</div>';
     if (isText(theme)) return '<div class="tw" lang="en">' + esc(c.name) + '</div>';
+    if (isCloud(theme)) return c.img ? '<img alt="" src="' + esc(c.img) + '">' + (c.label ? '<div class="nm">' + esc(c.label) + '</div>' : '') : '<div class="tw">' + esc(c.label || c.name) + '</div>';
     return '<img alt="" src="' + esc(c.img) + '"><div class="nm">' + esc(c.name) + '</div>';
   }
   /** ย่อขนาดตัวอักษรเฉพาะคำที่ยาวเกินช่อง (ไม่ตัดคำกลางคำ) */
@@ -142,7 +147,7 @@
         if (seenName[k]) warnings.push('ชื่อ "' + c.name + '" ซ้ำกัน — ผู้เล่นอาจสับสน');
         seenName[k] = true;
       }
-      var textMode = theme.display === 'text';
+      var textMode = theme.display === 'text' || theme.display === 'cloud';
       if (!c.img && !textMode) errors.push(label + ': ไม่มีภาพ');
       else if (c.img && !okImgSrc(c.img)) errors.push(label + ': รูปแบบภาพไม่รองรับ');
       if (c.media && c.media.src && !okMediaSrc(c.media.src)) errors.push(label + ': ลิงก์สื่อไม่รองรับ (ต้องเป็น https:// หรือไฟล์ภาพ/วิดีโอ)');
@@ -376,7 +381,7 @@
     fnv1a: fnv1a, mulberry32: mulberry32, damm: damm, formatCode: formatCode, parseCode: parseCode,
     fingerprint: fingerprint, validateTheme: validateTheme, generateCard: generateCard,
     linesFromMarks: linesFromMarks, verifyCard: verifyCard, PATTERNS: PATTERNS, patternAtDraw: patternAtDraw, missingFor: missingFor, checkCardSet: checkCardSet,
-    mediaSrc: mediaSrc, mediaType: mediaType, youtubeId: youtubeId, isText: isText, mediaAllowed: mediaAllowed, cellInner: cellInner, fitWords: fitWords, randomInt: randomInt, encodeSync: encodeSync, decodeSync: decodeSync, randomPhoneCardNumber: randomPhoneCardNumber, drawNext: drawNext, charMap: charMap,
+    mediaSrc: mediaSrc, mediaType: mediaType, youtubeId: youtubeId, isText: isText, isCloud: isCloud, wordLayout: wordLayout, mediaAllowed: mediaAllowed, cellInner: cellInner, fitWords: fitWords, randomInt: randomInt, encodeSync: encodeSync, decodeSync: decodeSync, randomPhoneCardNumber: randomPhoneCardNumber, drawNext: drawNext, charMap: charMap,
     store: store, fetchJSON: fetchJSON, loadThemeIndex: loadThemeIndex, loadTheme: loadTheme,
     registerSW: registerSW, esc: esc
   };

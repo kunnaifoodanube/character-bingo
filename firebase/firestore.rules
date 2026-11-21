@@ -4,7 +4,9 @@ rules_version = '2';
 // - เฉพาะเครื่องพิธีกรที่สร้างห้องเท่านั้นที่แก้ไขห้องนั้นได้
 // - ผู้เล่นเขียนได้เฉพาะข้อมูลบัตรของตัวเอง (players/{uid})
 // - สลับบัตร: สร้างได้ 1 ครั้งต่อคนต่อรอบ (shuffles/{roundId}_{uid}) แก้หรือลบไม่ได้
-// - ห้ามลบ และห้ามเขียนส่วนอื่นของฐานข้อมูล
+// - เกมที่สร้างเอง (games/{gameId} + items): ทุกคนอ่านได้ · สร้างได้เมื่อล็อกอินด้วย Google
+//   แก้/ลบได้เฉพาะเจ้าของเกม (และผู้ดูแลในรายชื่อ ADMIN)
+// - ห้ามลบห้องเกม และห้ามเขียนส่วนอื่นของฐานข้อมูล
 service cloud.firestore {
   match /databases/{database}/documents {
     match /rooms/{roomId} {
@@ -43,6 +45,50 @@ service cloud.firestore {
         allow update, delete: if false;
       }
     }
+    // ---------- เกมที่ผู้ใช้สร้างเอง ----------
+    function isGoogle() {
+      return request.auth != null && request.auth.token.firebase.sign_in_provider == 'google.com';
+    }
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email_verified == true
+        && request.auth.token.email in ['premwadee.vi@spu.ac.th'];
+    }
+    function validGame(d) {
+      return d.ownerUid is string
+        && d.name is string && d.name.size() >= 1 && d.name.size() <= 80
+        && d.description is string && d.description.size() <= 400
+        && d.ownerName is string && d.ownerName.size() <= 80
+        && d.itemCount is int && d.itemCount >= 0 && d.itemCount <= 60
+        && d.status in ['draft', 'published']
+        && d.showAnswer is bool
+        && d.updatedAt is int;
+    }
+    function validItem(d) {
+      return d.order is int && d.order >= 0 && d.order <= 1000
+        && d.qText is string && d.qText.size() <= 200
+        && d.aText is string && d.aText.size() <= 60
+        && d.qImg is string && d.qImg.size() <= 600000
+        && d.aImg is string && d.aImg.size() <= 200000;
+    }
+    function gameOwner(gameId) {
+      return get(/databases/$(database)/documents/games/$(gameId)).data.ownerUid;
+    }
+    match /games/{gameId} {
+      allow read: if true;
+      allow create: if isGoogle() && gameId.size() >= 8 && gameId.size() <= 40
+        && request.resource.data.ownerUid == request.auth.uid && validGame(request.resource.data);
+      allow update: if ((isGoogle() && resource.data.ownerUid == request.auth.uid) || isAdmin())
+        && request.resource.data.ownerUid == resource.data.ownerUid && validGame(request.resource.data);
+      allow delete: if (isGoogle() && resource.data.ownerUid == request.auth.uid) || isAdmin();
+
+      match /items/{itemId} {
+        allow read: if true;
+        allow create, update: if ((isGoogle() && gameOwner(gameId) == request.auth.uid) || isAdmin())
+          && itemId.size() <= 40 && validItem(request.resource.data);
+        allow delete: if (isGoogle() && gameOwner(gameId) == request.auth.uid) || isAdmin();
+      }
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
