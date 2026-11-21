@@ -4,7 +4,7 @@
   'use strict';
   var B = Bingo, esc = B.esc, C = window.CloudGames;
   var $ = function (id) { return document.getElementById(id); };
-  var ADMINS = ['premwadee.vi@spu.ac.th'];
+  var ADMINS = ['dn14042522@gmail.com'];
   var Q_MAX = 1024, Q_LEN = 560000;   // ภาพโจทย์ (จอใหญ่)
   var A_MAX = 360, A_LEN = 180000;    // ภาพคำตอบ (ช่องบนบัตร)
 
@@ -30,7 +30,8 @@
   window.addEventListener('beforeunload', function (e) { if (pending) { e.preventDefault(); e.returnValue = ''; } });
 
   // ---------- ผู้ใช้ ----------
-  function canEdit(g) { return !!user && !!g && (g.ownerUid === user.uid || ADMINS.indexOf(user.email) >= 0); }
+  function isAdmin() { return !!user && ADMINS.indexOf(String(user.email || '').toLowerCase()) >= 0; }
+  function canEdit(g) { return !!user && !!g && (g.ownerUid === user.uid || isAdmin()); }
   function renderWho() {
     $('who').classList.toggle('hidden', !user);
     if (!user) return;
@@ -70,12 +71,14 @@
   function showList() {
     show('vLoading');
     history.replaceState(null, '', 'create.html');
-    C.listMine(user.uid).then(function (list) {
+    var admin = isAdmin();
+    $('listTitle').textContent = admin ? 'เกมทั้งหมดในระบบ (คุณเป็นผู้ดูแล)' : 'เกมของฉัน';
+    (admin ? C.listGames() : C.listMine(user.uid)).then(function (list) {
       $('myGames').innerHTML = list.length ? list.map(function (g) {
         var d = g.data;
         return '<div class="game-card" data-id="' + esc(g.id) + '">' +
           '<div class="gc-pic">' + (d.cover ? '<img alt="" src="' + esc(d.cover) + '">' : '<span>B</span>') + '</div>' +
-          '<div class="gc-tx"><b>' + esc(d.name) + '</b><div class="small muted">' + (d.itemCount || 0) + ' ข้อ · ' + statusBadge(d) + '</div></div>' +
+          '<div class="gc-tx"><b>' + esc(d.name) + '</b><div class="small muted">' + (d.itemCount || 0) + ' ข้อ · ' + statusBadge(d) + (admin && d.ownerUid !== user.uid ? ' · โดย ' + esc(d.ownerName || '?') : '') + '</div></div>' +
           '<div class="gc-act"><button class="btn secondary" data-open>แก้ไข</button><a class="btn ghost" target="_blank" href="host.html?t=' + encodeURIComponent(C.PREFIX + g.id) + '">เล่น</a></div></div>';
       }).join('') : '<div class="panel center"><p>ยังไม่มีเกม</p><p class="muted small">กด “+ สร้างเกมใหม่” เพื่อเริ่ม</p></div>';
       show('vList');

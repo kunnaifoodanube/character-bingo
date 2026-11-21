@@ -51,7 +51,7 @@ service cloud.firestore {
     }
     function isAdmin() {
       return request.auth != null && request.auth.token.email_verified == true
-        && request.auth.token.email in ['premwadee.vi@spu.ac.th'];
+        && request.auth.token.email in ['dn14042522@gmail.com'];
     }
     function validGame(d) {
       return d.ownerUid is string
