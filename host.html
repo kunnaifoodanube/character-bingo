@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex">
   <title>หน้าจอพิธีกร — Character Bingo</title>
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/style.css?v=1.5.9">
+  <link rel="stylesheet" href="assets/css/style.css?v=1.6.0">
 </head>
 <body>
   <div class="host">
@@ -35,7 +35,7 @@
 
       <div class="controls">
         <button class="btn big" id="btnDraw">🎲 สุ่มตัวถัดไป</button>
-        <button class="btn swin-btn" id="btnSwin" type="button" title="เปิดช่วงเวลาให้ผู้เล่นสลับบัตร">🔀 เปิดสลับบัตร 10 วิ</button>
+        <button class="btn swin-btn" id="btnSwin" type="button" title="เปิดช่วงเวลาให้ผู้เล่นสลับบัตร">🔀 เปิดสลับบัตร 30 วิ</button>
         <span class="muted small">ปุ่มลัด: Space / → / PageDown (รีโมตพรีเซนต์)</span>
         <span class="grow"></span>
         <button class="btn ghost" id="btnUndo">↶ ยกเลิกตัวล่าสุด</button>
@@ -57,9 +57,9 @@
           </select></label>
         <label class="field" style="margin:.5rem 0 0"><span class="small">ช่วงสลับบัตร (กดปุ่ม 🔀 ใต้จอเมื่อต้องการ)</span>
           <select class="input" id="swinSel" style="padding:.45rem .7rem;font-size:.95rem" aria-label="ระยะเวลาช่วงสลับบัตร">
-            <option value="5">เปิด 5 วินาที</option><option value="10">เปิด 10 วินาที</option><option value="15">เปิด 15 วินาที</option><option value="20">เปิด 20 วินาที</option><option value="30">เปิด 30 วินาที</option>
+            <option value="10">เปิด 10 วินาที</option><option value="15">เปิด 15 วินาที</option><option value="20">เปิด 20 วินาที</option><option value="30">เปิด 30 วินาที (แนะนำ)</option><option value="45">เปิด 45 วินาที</option><option value="60">เปิด 60 วินาที</option>
           </select></label>
-        <p class="small muted" id="shuffleNote" style="margin:.3rem 0 0">ผู้เล่นมีสิทธิ์สลับบัตร 1 ครั้งต่อรอบ ใช้ได้เฉพาะตอนเปิดช่วงสลับ — จะสลับบัตรเพื่อน สลับของตัวเอง หรือเก็บสิทธิ์ไว้ช่วงหน้าก็ได้</p>
+        <p class="small muted" id="shuffleNote" style="margin:.3rem 0 0">กดปุ่ม 🔀 ใต้จอ → มือถือทุกเครื่องเด้งหน้าต่างให้เลือกสลับบัตรเพื่อนหรือบัตรตัวเอง</p>
       </div>
       <div class="panel">
         <div class="row"><h3 class="grow" style="margin:0">รายการทั้งหมด</h3><span class="muted small" id="fp"></span></div>
@@ -97,12 +97,12 @@
     <button class="btn" id="btnQRSyncClose">ปิด</button>
   </div>
   <div id="modalRoot"></div>
-  <script src="firebase-config.js?v=1.5.9"></script>
-  <script src="assets/vendor/qrcode.js?v=1.5.9"></script>
-  <script src="assets/js/core.js?v=1.5.9"></script>
-  <script src="assets/js/ui.js?v=1.5.9"></script>
-  <script src="assets/js/themes-local.js?v=1.5.9"></script>
-  <script src="assets/js/sync.js?v=1.5.9"></script>
-  <script src="assets/js/host.js?v=1.5.9"></script>
+  <script src="firebase-config.js?v=1.6.0"></script>
+  <script src="assets/vendor/qrcode.js?v=1.6.0"></script>
+  <script src="assets/js/core.js?v=1.6.0"></script>
+  <script src="assets/js/ui.js?v=1.6.0"></script>
+  <script src="assets/js/themes-local.js?v=1.6.0"></script>
+  <script src="assets/js/sync.js?v=1.6.0"></script>
+  <script src="assets/js/host.js?v=1.6.0"></script>
 </body>
 </html>

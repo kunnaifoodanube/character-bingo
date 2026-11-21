@@ -121,5 +121,32 @@ select.input option { background: var(--card); color: var(--ink); }
 
 /* ช่วงสลับบัตร (ธีมคืนอวกาศ) */
 .big-reveal .swin-banner { background: linear-gradient(135deg, #7b5cf0, #ff7a3d); box-shadow: 0 10px 34px rgba(123, 92, 240, .5); }
-.controls .swin-btn, #btnShuffle.swin-on { background: linear-gradient(135deg, #7b5cf0, #ff7a3d); }
+.controls .swin-btn { background: linear-gradient(135deg, #7b5cf0, #ff7a3d); }
 #shuffleNote.warn { color: #ffcf8a; }
+
+/* แถบสลับบัตรเหนือบัตร + หน้าต่างเลือกสลับบัตร (ธีมคืนอวกาศ) */
+.shufbar { background: var(--card); color: var(--ink); border-color: #4b56a8; }
+.shufbar .chip { background: #2a3470; color: #d6dcff; }
+.shufbar .chip.me.used { background: #262c55; color: #8d94bd; }
+.shufbar .chip.hit.h0 { background: #143d33; color: #a6f2cc; }
+.shufbar .chip.hit.h1 { background: #4a3a12; color: #ffdf94; }
+.shufbar .chip.hit.h2 { background: #4a1f2a; color: #ffb8b8; }
+.shufbar.on { background: linear-gradient(135deg, #7b5cf0, #ff7a3d); color: #fff; border-color: transparent; }
+.shufbar.on .chip { background: rgba(255, 255, 255, .2); color: #fff; }
+.sp-timer .sp-n { color: var(--primary); }
+.sp-timer .sp-n.urgent { color: #ff9b7b; }
+.sp-timer .sp-track { background: #2a3470; }
+.sp-timer .sp-fill { background: linear-gradient(90deg, #7b5cf0, #ff7a3d); }
+.sp-me { background: var(--card2); }
+.sp-pick span { color: var(--muted); }
+.shuffle-list .sp-item { background: var(--card2); color: var(--ink); border-color: var(--line); }
+.shuffle-list .sp-item.self { background: #3a3415; border-color: var(--accent); }
+.sp-item.self .sp-sub { color: #ffe39a; }
+.shuffle-list .sp-item.sel { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); box-shadow: 0 0 0 3px rgba(212, 242, 90, .25); }
+.shuffle-list .sp-item.sel .sp-code, .shuffle-list .sp-item.sel .sp-sub { color: var(--primary-ink); }
+.sp-hit.h0 { background: #143d33; color: #a6f2cc; }
+.sp-hit.h1 { background: #4a3a12; color: #ffdf94; }
+.sp-hit.h2 { background: #4a1f2a; color: #ffb8b8; }
+.sp-back .modal .actions .sp-go { background: linear-gradient(135deg, #7b5cf0, #ff7a3d); color: #fff; }
+.sp-back .modal .actions .sp-go:disabled { background: #2a3164; color: #8d94bd; }
+

@@ -16,7 +16,8 @@
   if (!S || !S.round) S = { themeId: null, round: null, archive: [] };
   if (!S.roomId) S.roomId = Sync.newRoomId();
   if (S.timer == null) S.timer = 5;      // วินาทีที่ผู้เล่นมีให้แตะคำ (0 = ไม่จับเวลา)
-  if (!S.shuffleSec) S.shuffleSec = 10;   // ระยะเวลาช่วงสลับบัตรเมื่อพิธีกรกดเปิด (วินาที)
+  if (!S.shuffleSec) S.shuffleSec = 30;   // ระยะเวลาช่วงสลับบัตรเมื่อพิธีกรกดเปิด (วินาที) — ให้ผู้เล่นคิด 30 วิ
+  if (!S.swinDef30) { S.swinDef30 = 1; if (S.shuffleSec < 30) S.shuffleSec = 30; } // ค่าเดิม 10 วิ สั้นเกินไป → ปรับเป็น 30 วิ ครั้งเดียว
   delete S.shuffle;                       // แบบเก่า (ติ๊กเปิดตลอด) เลิกใช้แล้ว
   // S.swin = { id, roundId, sec, at } ช่วงสลับบัตรที่เปิดอยู่ (ไม่มี = ปิด)
   function swinOpen() { return !!(S.swin && S.round && S.swin.roundId === S.round.id && Date.now() < S.swin.at + S.swin.sec * 1000); }
@@ -303,6 +304,7 @@
   // ---------- สุ่ม ----------
   function draw() {
     if (busy || !theme) return;
+    if (swinOpen()) { UI.toast('กำลังเปิดช่วงสลับบัตร — รอหมดเวลา หรือกด ⏹ ปิดสลับบัตรก่อน แล้วค่อยสุ่ม', 3500); return; } // ผู้เล่นกำลังเลือกอยู่ หน้าต่างบังบัตร
     var ids = drawIds();
     var next = B.drawNext(theme, ids);
     if (!next) { UI.toast('สุ่มครบทุกตัวแล้ว'); return; }
@@ -363,7 +365,7 @@
     var note = $('shuffleNote');
     if (!Sync.enabled()) note.innerHTML = '⚠️ สลับบัตรใช้ได้เมื่อเปิดซิงก์เรียลไทม์ (Firebase) เท่านั้น';
     else if (rulesBad) note.innerHTML = '⚠️ <b>ระบบสลับบัตรยังไม่พร้อม</b> — ต้องอัปเดตกฎ Firebase (ทำครั้งเดียว ไม่ต้องทำทุกครั้งที่จัดกิจกรรม)';
-    else note.textContent = 'ผู้เล่นมีสิทธิ์สลับบัตร 1 ครั้งต่อรอบ ใช้ได้เฉพาะตอนเปิดช่วงสลับ — จะสลับบัตรเพื่อน สลับของตัวเอง หรือเก็บสิทธิ์ไว้ช่วงหน้าก็ได้';
+    else note.textContent = 'กดปุ่ม 🔀 ใต้จอ → มือถือทุกเครื่องเด้งหน้าต่างให้เลือกสลับบัตรเพื่อนหรือบัตรตัวเอง (สิทธิ์ 1 ครั้งต่อรอบ · โดนเพื่อนสลับได้ไม่เกิน 2 ครั้ง · ไม่สลับ = เก็บสิทธิ์ไว้ช่วงหน้า) · ระหว่างเปิดช่วงสลับจะสุ่มตัวถัดไปไม่ได้';
     note.classList.toggle('warn', !Sync.enabled() || rulesBad);
     renderSwin();
   }
@@ -371,7 +373,7 @@
     S.timer = +this.value; save(); renderSettings();
     UI.toast(S.timer ? 'ผู้เล่นมีเวลาแตะ ' + S.timer + ' วินาทีต่อภาพ' : 'ปิดการจับเวลาแล้ว');
   });
-  $('swinSel').addEventListener('change', function () { S.shuffleSec = +this.value || 10; store.set(KEY, S); renderSwin(); });
+  $('swinSel').addEventListener('change', function () { S.shuffleSec = +this.value || 30; store.set(KEY, S); renderSwin(); });
 
   var swinTimer = null;
   function renderSwin() {
@@ -381,7 +383,7 @@
       btn.textContent = '⏹ ปิดสลับบัตร (เหลือ ' + left + ' วิ)';
       btn.classList.add('on');
       ban.innerHTML = '<div class="sw-t">🔀 สลับบัตรได้แล้ว!</div><div class="sw-n">' + left + '</div>' +
-        '<div class="sw-s">สลับบัตรเพื่อน · สลับของตัวเอง · หรือเก็บสิทธิ์ไว้ใช้ช่วงหน้า</div>';
+        '<div class="sw-s">📱 ดูที่มือถือ — เลือกสลับบัตรเพื่อน หรือบัตรตัวเอง</div>';
       ban.style.setProperty('--p', Math.max(0, Math.min(1, (S.swin.at + S.swin.sec * 1000 - Date.now()) / (S.swin.sec * 1000))).toFixed(3));
       ban.classList.remove('hidden');
       if (!swinTimer) swinTimer = setInterval(renderSwin, 200);
@@ -401,7 +403,7 @@
       return;
     }
     if (!theme || !S.round) return;
-    S.swin = { id: 'w' + Date.now().toString(36), roundId: S.round.id, sec: +S.shuffleSec || 10, at: Date.now() };
+    S.swin = { id: 'w' + Date.now().toString(36), roundId: S.round.id, sec: +S.shuffleSec || 30, at: Date.now() };
     save(); schedulePublish(0); renderSwin();
     UI.toast('🔀 เปิดสลับบัตร ' + S.swin.sec + ' วินาที');
   });

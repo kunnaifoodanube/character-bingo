@@ -1,4 +1,4 @@
-"""End-to-end: จับเวลาแตะ + ช่วงสลับบัตร (พิธีกรกดเปิด N วินาที) ด้วยระบบซิงก์จำลอง (mock)
+"""End-to-end: จับเวลาแตะ + ช่วงสลับบัตร (พิธีกรกดเปิด N วินาที → มือถือเด้งหน้าต่างเลือก) ด้วยระบบซิงก์จำลอง (mock)
 ใช้: python3 tests/e2e_timer_shuffle.py <site_dir> [out_dir สำหรับภาพหน้าจอ] [theme_id]
    Film & Animation: python3 tests/e2e_timer_shuffle.py .
    Galactic:         python3 tests/e2e_timer_shuffle.py galactic "" galactic-stickers
@@ -102,13 +102,25 @@ with sync_playwright() as p:
         pg.wait_for_function("(window.__player.sync()||{draws:[]}).draws.indexOf('%s') >= 0" % wid, timeout=10000)
 
     A = player('เอ'); Bp = player('บี'); C = player('ซี'); D = player('ดี'); F = player('เอฟ')
-    host.select_option('#timerSel', '5'); host.select_option('#swinSel', '10'); host.wait_for_timeout(800)
+    swin_default = host.input_value('#swinSel')
+    host.select_option('#timerSel', '5'); host.wait_for_timeout(800)
 
     def hidden(pg, sel): return pg.evaluate("document.getElementById('%s').classList.contains('hidden')" % sel)
+    def bar(pg): return pg.inner_text('#btnShuffle').replace('\n', ' ')
+    def bar_on(pg): return pg.evaluate("document.getElementById('btnShuffle').classList.contains('on') && !document.getElementById('btnShuffle').disabled")
+    def picker_open(pg): return pg.locator('.sp-back .shuffle-list').count() > 0
+    def wait_picker(pg): pg.wait_for_selector('.sp-back .shuffle-list .sp-item', timeout=10000)
+    def select(pg, text):
+        wait_picker(pg); pg.locator('.shuffle-list .sp-item', has_text=text).click()
+    def confirm(pg): pg.click('.sp-back .actions .sp-go')
 
     def t1():
         A.wait_for_function("(window.__player.sync()||{}).timer === 5", timeout=10000)
-        record('T1. ผู้เล่นได้รับค่าเวลา 5 วิ · ยังไม่เปิดช่วงสลับ → ไม่มีปุ่มสลับบัตร', hidden(A, 'btnShuffle') and hidden(host, 'swinBanner'))
+        A.wait_for_function("!document.getElementById('btnShuffle').classList.contains('hidden')", timeout=10000)
+        t = bar(A)
+        if OUT: A.screenshot(path=os.path.join(OUT, 'bar-idle.png'))
+        record('T1. ค่าเริ่มต้นช่วงสลับ 30 วิ · มือถือเห็นแถบสลับบัตรเหนือบัตรตลอด (สิทธิ์ 1/1 · โดนสลับ 0/2 · รอพิธีกร) · ยังกดไม่ได้',
+               swin_default == '30' and '1/1' in t and '0/2' in t and 'รอพิธีกร' in t and not bar_on(A) and hidden(host, 'swinBanner'), f'default={swin_default} bar={t}')
     run('T1', t1)
 
     st = {}
@@ -161,61 +173,96 @@ with sync_playwright() as p:
         A.wait_for_timeout(1200)
         b_before = cells(Bp); b_marks_words = sorted(b_before[i] for i in marks(Bp))
         host.click('#btnSwin')
-        A.wait_for_function("!document.getElementById('btnShuffle').disabled && !document.getElementById('btnShuffle').classList.contains('hidden')", timeout=10000)
-        ban = host.inner_text('#swinBanner'); btxt = A.inner_text('#btnShuffle')
-        if OUT: A.screenshot(path=os.path.join(OUT, 'swin-player.png')); host.screenshot(path=os.path.join(OUT, 'swin-host.png'))
-        record('T4a. พิธีกรกดเปิดสลับบัตร 10 วิ → จอใหญ่ขึ้นป้ายนับถอยหลัง · มือถือขึ้นปุ่มสลับพร้อมเวลา', 'สลับบัตรได้แล้ว' in ban and 'เหลือ' in btxt, btxt.replace('\n', ' '))
-        A.click('#btnShuffle')
-        A.wait_for_selector('.shuffle-list button', timeout=10000)
-        if OUT: A.screenshot(path=os.path.join(OUT, 'shuffle-pick.png'))
-        A.locator('.shuffle-list button', has_text='บี').click()
+        for pg in (A, Bp, C, D, F): wait_picker(pg)
+        ban = host.inner_text('#swinBanner'); n0 = int(A.inner_text('.sp-n'))
+        me = A.inner_text('.sp-me').replace('\n', ' ')
+        b_item = A.locator('.shuffle-list .sp-item', has_text='บี').inner_text().replace('\n', ' ')
+        go_dis = A.is_disabled('.sp-back .actions .sp-go')
+        if OUT: A.screenshot(path=os.path.join(OUT, 'swin-popup.png')); host.screenshot(path=os.path.join(OUT, 'swin-host.png'))
+        record('T4a. พิธีกรกดเปิดสลับบัตร → มือถือทุกเครื่องเด้งหน้าต่างเลือกเอง นับถอยหลัง 30 วิ · รายชื่อบอกโดนแล้ว 0/2 · ต้องเลือกก่อนถึงกดสลับได้',
+               'สลับบัตรได้แล้ว' in ban and 27 <= n0 <= 30 and '0/2' in me and '0/2' in b_item and go_dis, f'n={n0} me={me} item={b_item}')
+        # ลำดับรายชื่อสุ่มแยกแต่ละเครื่อง · บัตรของฉันอยู่แถวกลาง · ลำดับไม่กระโดดระหว่างเลือก
+        names = ['เอ', 'บี', 'ซี', 'ดี', 'เอฟ']
+        def order(pg):
+            return pg.evaluate("Array.from(document.querySelectorAll('.shuffle-list .sp-item')).map(b => b.classList.contains('self') ? '*' : b.querySelector('.sp-name').innerText.trim())")
+        views = {n: order(pg) for n, pg in zip(names, (A, Bp, C, D, F))}
+        A.wait_for_timeout(1200)
+        stable = order(A) == views['เอ']
+        mids = all(v.index('*') == 3 and len(v) == 5 for v in views.values())
+        rel = set()
+        for v in views.values():
+            rel.add(tuple(x for x in v if x in ('ดี', 'เอฟ')) if 'ดี' in v and 'เอฟ' in v else None)
+        pairs = {}
+        for n, v in views.items():
+            fr = [x for x in v if x != '*']
+            for i in range(len(fr)):
+                for j in range(i + 1, len(fr)):
+                    k = tuple(sorted((fr[i], fr[j]))); pairs.setdefault(k, set()).add(fr[i] == k[0])
+        differs = any(len(x) > 1 for x in pairs.values())
+        record('T4c. รายชื่อสุ่มลำดับไม่เหมือนกันทุกเครื่อง · บัตรของฉันอยู่แถวกลาง (เต็มความกว้าง) · ลำดับคงที่ระหว่างเลือก', differs and mids and stable,
+               ' | '.join(n + ':' + ','.join(v) for n, v in views.items()))
+        select(A, 'บี')
+        go = A.inner_text('.sp-back .actions .sp-go')
+        if OUT: A.screenshot(path=os.path.join(OUT, 'swin-selected.png'))
+        confirm(A)
         Bp.wait_for_function("JSON.stringify(%s) !== JSON.stringify(JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.endsWith('cb.player.v1')))).cells)" % json.dumps(b_before), timeout=10000)
         b_after = cells(Bp)
         same_words = sorted(b_after) == sorted(b_before)
         marks_kept = sorted(b_after[i] for i in marks(Bp)) == b_marks_words
-        used = A.evaluate("document.getElementById('btnShuffle').disabled")
+        A.wait_for_timeout(300)
+        used = A.evaluate("document.getElementById('btnShuffle').disabled") and '0/1' in bar(A) and not picker_open(A)
         toast = Bp.inner_text('#toast')
-        record('T4. A สลับบัตร B: B ตำแหน่งเปลี่ยน คำเดิม ช่องที่แตะยังอยู่ · A ใช้สิทธิ์แล้ว', same_words and marks_kept and used and 'เอ' in toast, toast)
-        # ลองสร้างคำขอซ้ำ → mock ปฏิเสธ (เหมือนกฎ Firestore)
-        rid = host.evaluate('window.__host.state().round.id')
+        Bp.wait_for_function("document.querySelector('.sp-me') && document.querySelector('.sp-me').innerText.indexOf('1/2') >= 0", timeout=5000)
+        if OUT: Bp.screenshot(path=os.path.join(OUT, 'swin-hit.png'))
+        record('T4. A เลือกบี → กดสลับ: บีตำแหน่งเปลี่ยน คำเดิม ช่องที่แตะยังอยู่ · บีเห็นโดนสลับ 1/2 · A ใช้สิทธิ์แล้ว (0/1)',
+               same_words and marks_kept and used and 'เอ' in toast and 'บี' in go and '1/2' in bar(Bp), f'go={go} toast={toast} barB={bar(Bp)}')
         n = len([k for k in DOCS if '/shuffles/' in k])
         record('T4b. สิทธิ์ 1 ครั้ง: มีคำขอสลับในระบบ 1 รายการ', n == 1, n)
     run('T4', t4)
 
     def t5():
         before = cells(Bp); mw = sorted(before[i] for i in marks(Bp))
-        Bp.click('#btnShuffle'); Bp.wait_for_selector('.shuffle-list button', timeout=10000)
-        Bp.locator('.shuffle-list button', has_text='บัตรของฉันเอง').click()
+        select(Bp, 'บัตรของฉันเอง'); confirm(Bp)
         Bp.wait_for_timeout(800)
         after = cells(Bp)
-        record('T5. B สลับบัตรตัวเอง: ตำแหน่งเปลี่ยน ช่องที่แตะยังอยู่', after != before and sorted(after) == sorted(before) and sorted(after[i] for i in marks(Bp)) == mw)
+        record('T5. บีสลับบัตรตัวเอง (หน้าต่างเดิมที่เด้งขึ้นมา): ตำแหน่งเปลี่ยน ช่องที่แตะยังอยู่ · ไม่นับเป็นโดนสลับ',
+               after != before and sorted(after) == sorted(before) and sorted(after[i] for i in marks(Bp)) == mw and '1/2' in bar(Bp), bar(Bp))
     run('T5', t5)
 
     def t5b():
-        # ซี ไม่ใช้สิทธิ์ในช่วงแรก → พิธีกรปิดก่อนเวลา → ปุ่มกดไม่ได้ แต่ยังบอกว่าเหลือสิทธิ์ 1 ครั้ง
+        # เอฟกด "เก็บสิทธิ์ไว้ก่อน" → หน้าต่างปิด แถบยังกดเปิดใหม่ได้ระหว่างช่วงสลับ
+        F.click('.sp-back .actions .btn.ghost'); F.wait_for_timeout(300)
+        closed = not picker_open(F) and bar_on(F)
+        F.click('#btnShuffle'); wait_picker(F); reopened = picker_open(F)
+        record('T5a. กดเก็บสิทธิ์ไว้ก่อน → หน้าต่างปิด · แตะแถบสลับบัตรเปิดใหม่ได้ก่อนหมดเวลา', closed and reopened)
+        # ซี ไม่ใช้สิทธิ์ → พิธีกรปิดก่อนเวลา → หน้าต่างปิดเอง แถบกดไม่ได้ แต่ยังบอกว่ามีสิทธิ์ 1/1
         host.click('#btnSwin')
-        C.wait_for_function("document.getElementById('btnShuffle').disabled", timeout=10000)
-        txt = C.inner_text('#btnShuffle'); before = cells(C)
+        C.wait_for_function("document.getElementById('btnShuffle').disabled && !document.querySelector('.sp-back')", timeout=10000)
+        txt = bar(C); before = cells(C)
         C.click('#btnShuffle', force=True); C.wait_for_timeout(600)
-        none = C.locator('.shuffle-list').count() == 0 and cells(C) == before
+        none = not picker_open(C) and cells(C) == before
         if OUT: C.screenshot(path=os.path.join(OUT, 'swin-saved.png'))
-        record('T5b. นอกช่วงสลับ: กดสลับไม่ได้ · คนที่ยังไม่ใช้ เห็นว่าเก็บสิทธิ์ไว้ 1 ครั้ง · ป้ายจอใหญ่หายไป', none and 'เหลือ 1 ครั้ง' in txt and hidden(host, 'swinBanner'), txt.replace('\n', ' '))
+        record('T5b. นอกช่วงสลับ: หน้าต่างปิดเอง กดสลับไม่ได้ · คนที่ยังไม่ใช้ เห็นสิทธิ์ 1/1 · ป้ายจอใหญ่หายไป', none and '1/1' in txt and 'รอพิธีกร' in txt and hidden(host, 'swinBanner'), txt)
         A.wait_for_timeout(300)
-        record('T5c. คนที่ใช้สิทธิ์แล้ว ไม่เห็นปุ่มนอกช่วงสลับ', hidden(A, 'btnShuffle'))
+        record('T5c. คนที่ใช้สิทธิ์แล้ว ยังเห็นแถบสถานะ (สิทธิ์ 0/1 · ใช้สิทธิ์รอบนี้แล้ว)', not hidden(A, 'btnShuffle') and '0/1' in bar(A) and 'ใช้สิทธิ์' in bar(A), bar(A))
     run('T5b', t5b)
 
     def t5d():
-        # ช่วงสลับครั้งที่ 2 (5 วิ): ซี ใช้สิทธิ์ที่เก็บไว้สลับบัตรตัวเอง · หมดเวลาแล้วปิดเอง
-        host.select_option('#swinSel', '5'); host.click('#btnSwin')
-        C.wait_for_function("!document.getElementById('btnShuffle').disabled && !document.getElementById('btnShuffle').classList.contains('hidden')", timeout=10000)
-        before = cells(C); C.click('#btnShuffle'); C.wait_for_selector('.shuffle-list button', timeout=10000)
-        C.locator('.shuffle-list button', has_text='บัตรของฉันเอง').click(); C.wait_for_timeout(800)
+        # ช่วงสลับครั้งที่ 2 (10 วิ): ซี ใช้สิทธิ์ที่เก็บไว้สลับบัตรตัวเอง · ระหว่างช่วงสลับสุ่มไม่ได้ · หมดเวลาแล้วปิดเอง
+        host.select_option('#swinSel', '10'); host.click('#btnSwin')
+        wait_picker(C)
+        before = cells(C); select(C, 'บัตรของฉันเอง'); confirm(C); C.wait_for_timeout(800)
         after = cells(C)
         record('T5d. ช่วงสลับครั้งที่ 2: ซี ใช้สิทธิ์ที่เก็บไว้สลับบัตรตัวเองได้', after != before and sorted(after) == sorted(before))
-        host.wait_for_function("document.getElementById('swinBanner').classList.contains('hidden')", timeout=9000)
+        n0 = len(host.evaluate('window.__host.state().round.draws'))
+        host.click('#btnDraw'); host.wait_for_timeout(500)
+        n1 = len(host.evaluate('window.__host.state().round.draws'))
+        record('T5f. ระหว่างเปิดช่วงสลับ พิธีกรสุ่มตัวถัดไปไม่ได้ (มีข้อความบอก)', n0 == n1 and 'ช่วงสลับ' in host.inner_text('#toast'), host.inner_text('#toast'))
+        host.wait_for_function("document.getElementById('swinBanner').classList.contains('hidden')", timeout=14000)
         host.wait_for_timeout(1500)
         swin = ROOMS[room].get('swin')
-        record('T5e. ครบ 5 วิ ช่วงสลับปิดเองบนจอพิธีกร และแจ้งมือถือว่าปิดแล้ว', swin is None and hidden(C, 'btnShuffle'), swin)
+        D.wait_for_timeout(300)
+        record('T5e. ครบ 10 วิ ช่วงสลับปิดเองบนจอพิธีกร · หน้าต่างบนมือถือที่ยังไม่เลือกปิดเอง', swin is None and not bar_on(C) and not picker_open(D) and '1/1' in bar(D), swin)
     run('T5d', t5d)
 
     def t6():
@@ -234,31 +281,27 @@ with sync_playwright() as p:
     def t7():
         # บีโดนเอสลับไปแล้ว 1 ครั้ง · เปิดช่วงสลับ 30 วิ
         host.select_option('#swinSel', '30'); host.click('#btnSwin')
-        for pg in (D, F):
-            pg.wait_for_function("!document.getElementById('btnShuffle').disabled && !document.getElementById('btnShuffle').classList.contains('hidden')", timeout=10000)
-        # เอฟเปิดรายชื่อค้างไว้ก่อน (ตอนนั้นบียังโดน 1/2)
-        F.click('#btnShuffle'); F.wait_for_selector('.shuffle-list button', timeout=10000)
-        f_txt = F.locator('.shuffle-list button', has_text='บี').inner_text()
-        # ดีสลับบี → ครั้งที่ 2/2
+        wait_picker(D); wait_picker(F)
+        f_txt = F.locator('.shuffle-list .sp-item', has_text='บี').inner_text().replace('\n', ' ')
+        # ดีกับเอฟเลือกบีพร้อมกัน (บีโดนอยู่ 1/2) → ดีกดก่อน = ครั้งที่ 2/2 · เอฟกดตามทันที = เกินโควตา
+        select(D, 'บี'); select(F, 'บี')
         b0 = cells(Bp)
-        D.click('#btnShuffle'); D.wait_for_selector('.shuffle-list button', timeout=10000)
-        D.locator('.shuffle-list button', has_text='บี').click()
+        confirm(D); confirm(F)
         Bp.wait_for_function("JSON.stringify(%s) !== JSON.stringify(JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.endsWith('cb.player.v1')))).cells)" % json.dumps(b0), timeout=10000)
-        record('T7. เพื่อนคนที่ 2 สลับบีได้ (บีโดน 2/2) · รายชื่อบอกจำนวนครั้งที่โดน', len(state(Bp)['shuf']['hits']) == 2 and '1/2' in f_txt, f_txt.replace('\n', ' '))
-        # เอฟกดบีจากรายชื่อเก่า (เหมือนกดพร้อมกัน) → บีไม่ถูกสลับ · เอฟได้สิทธิ์คืน
         b1 = cells(Bp)
-        F.locator('.shuffle-list button', has_text='บี').click()
+        record('T7. เพื่อนคนที่ 2 สลับบีได้ (บีโดน 2/2) · รายชื่อบอกจำนวนครั้งที่โดน', len(state(Bp)['shuf']['hits']) == 2 and '1/2' in f_txt, f_txt)
         F.wait_for_function("(() => { const s = JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.endsWith('cb.player.v1')))).shuf; return s && s.retry === 1 && !s.used; })()", timeout=12000)
         toast = F.inner_text('#toast')
         if OUT: F.screenshot(path=os.path.join(OUT, 'cap-refund.png'))
-        record('T7b. โดนครบ 2 ครั้งแล้ว: คำสลับที่ 3 ไม่มีผลกับบี และคนสลับได้สิทธิ์คืน', cells(Bp) == b1 and len(state(Bp)['shuf']['blocked']) == 1 and 'ได้สิทธิ์คืน' in toast, toast)
-        # เอฟเปิดรายชื่อใหม่ → บีกดไม่ได้ · ใช้สิทธิ์ที่ได้คืนสลับบัตรตัวเองได้
-        F.wait_for_function("!document.getElementById('btnShuffle').disabled", timeout=5000)
-        F.click('#btnShuffle'); F.wait_for_selector('.shuffle-list button', timeout=10000)
-        bdis = F.locator('.shuffle-list button', has_text='บี').is_disabled()
-        if OUT: F.screenshot(path=os.path.join(OUT, 'cap-picker.png'))
-        f0 = cells(F); F.locator('.shuffle-list button', has_text='บัตรของฉันเอง').click(); F.wait_for_timeout(800)
-        record('T7c. รายชื่อใหม่: บีกดไม่ได้ (ครบแล้ว) · ใช้สิทธิ์ที่ได้คืนสลับบัตรตัวเองได้', bdis and cells(F) != f0 and state(F)['shuf']['used'])
+        Bp.wait_for_timeout(600)
+        record('T7b. โดนครบ 2 ครั้งแล้ว: คำสลับที่ 3 ไม่มีผลกับบี และคนสลับได้สิทธิ์คืน · บีเห็น 2/2', cells(Bp) == b1 and len(state(Bp)['shuf']['blocked']) == 1 and 'ได้สิทธิ์คืน' in toast and '2/2' in bar(Bp), toast + ' | ' + bar(Bp))
+        # หน้าต่างเลือกของเอฟเด้งขึ้นใหม่เอง → บีกดไม่ได้ (เต็มแล้ว) · ใช้สิทธิ์ที่ได้คืนสลับบัตรตัวเองได้
+        wait_picker(F)
+        bloc = F.locator('.shuffle-list .sp-item', has_text='บี')
+        bdis = bloc.is_disabled(); btxt = bloc.inner_text().replace('\n', ' ')
+        if OUT: F.screenshot(path=os.path.join(OUT, 'cap-picker.png')); Bp.screenshot(path=os.path.join(OUT, 'bar-full.png'))
+        f0 = cells(F); select(F, 'บัตรของฉันเอง'); confirm(F); F.wait_for_timeout(800)
+        record('T7c. หน้าต่างเลือกเด้งใหม่: บีกดไม่ได้ (เต็มแล้ว 2/2) · ใช้สิทธิ์ที่ได้คืนสลับบัตรตัวเองได้', bdis and 'เต็มแล้ว 2/2' in btxt and cells(F) != f0 and state(F)['shuf']['used'], btxt)
         host.click('#btnSwin')
     run('T7', t7)
 

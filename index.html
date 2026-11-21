@@ -9,7 +9,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/icon-192.png">
-  <link rel="stylesheet" href="assets/css/style.css?v=1.5.9">
+  <link rel="stylesheet" href="assets/css/style.css?v=1.6.0">
 </head>
 <body>
   <main class="player">
@@ -62,8 +62,8 @@
       <div id="bingoFlag" class="bingo-flag hidden">BINGO!<small id="bingoLines"></small></div>
       <div id="timeBar" class="timebar hidden" role="timer" aria-live="polite"></div>
 
+      <button class="shufbar hidden" id="btnShuffle" type="button" disabled></button>
       <div class="grid4" id="grid" role="grid" aria-label="บัตรบิงโก"></div>
-      <button class="btn block hidden" id="btnShuffle" type="button" style="margin-top:.7rem">🔀 สลับบัตร (เหลือ 1 ครั้ง)</button>
 
       <p class="legend" id="legend">แตะช่องเมื่อพิธีกรเรียกตัวละครนั้น · แตะซ้ำเพื่อยกเลิก · ครบ 4 ช่องแนวนอน แนวตั้ง หรือทแยง = BINGO<br>
         บัตรถูกบันทึกในเครื่องนี้ รีเฟรชหรือเน็ตหลุดก็ไม่หาย</p>
@@ -78,10 +78,10 @@
   </main>
 
   <div id="modalRoot"></div>
-  <script src="firebase-config.js?v=1.5.9"></script>
-  <script src="assets/js/core.js?v=1.5.9"></script>
-  <script src="assets/js/ui.js?v=1.5.9"></script>
-  <script src="assets/js/sync.js?v=1.5.9"></script>
-  <script src="assets/js/player.js?v=1.5.9"></script>
+  <script src="firebase-config.js?v=1.6.0"></script>
+  <script src="assets/js/core.js?v=1.6.0"></script>
+  <script src="assets/js/ui.js?v=1.6.0"></script>
+  <script src="assets/js/sync.js?v=1.6.0"></script>
+  <script src="assets/js/player.js?v=1.6.0"></script>
 </body>
 </html>

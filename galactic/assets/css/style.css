@@ -248,8 +248,6 @@ ol.steps li { margin: .35rem 0; }
 .cell .missedTag { position: absolute; left: 4px; bottom: 3px; font-size: .62rem; font-weight: 800; color: #fff; background: #6b7280; border-radius: 6px; padding: 0 .3rem; }
 .grid4.shuffling .cell { animation: cbShuffle .55s ease; }
 @keyframes cbShuffle { 0% { transform: scale(1) rotate(0); } 40% { transform: scale(.82) rotate(-6deg); } 100% { transform: scale(1) rotate(0); } }
-.shuffle-list { display: flex; flex-direction: column; gap: .4rem; max-height: 52vh; overflow: auto; margin-top: .5rem; }
-.shuffle-list button { text-align: left; justify-content: flex-start; }
 
 /* ช่วงสลับบัตร: ปุ่มพิธีกร + ป้ายบนจอโปรเจกเตอร์ + ปุ่มผู้เล่น */
 .controls .swin-btn { background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; border: 0; font-weight: 800; }
@@ -262,9 +260,74 @@ ol.steps li { margin: .35rem 0; }
 .big-reveal .swin-banner .sw-t { font-size: clamp(1.4rem, 3.2vw, 2.4rem); font-weight: 800; line-height: 1.15; }
 .big-reveal .swin-banner .sw-n { font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 800; line-height: 1; color: #fde047; }
 .big-reveal .swin-banner .sw-s { font-size: clamp(.85rem, 1.5vw, 1.1rem); opacity: .95; }
-#btnShuffle small { display: block; font-size: .78rem; font-weight: 500; opacity: .85; margin-top: .15rem; }
-#btnShuffle:disabled { opacity: .7; }
-#btnShuffle.swin-on { background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; border: 0; font-size: 1.15rem; padding: .85rem 1rem; animation: swPulse 1s ease-in-out infinite; }
 #shuffleNote.warn { color: #b45309; }
 @keyframes swPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, .45); } 50% { box-shadow: 0 0 0 9px rgba(236, 72, 153, .12); } }
 @keyframes swPop { from { transform: translateX(-50%) scale(.7); opacity: 0; } to { transform: translateX(-50%) scale(1); opacity: 1; } }
+
+/* ---------- ผู้เล่น: แถบสลับบัตรเหนือบัตร (เห็นตลอด) ---------- */
+.shufbar { display: block; width: 100%; margin: .45rem 0 .55rem; padding: .5rem .75rem .55rem; text-align: left; font: inherit; color: var(--ink);
+  background: #fff; border: 2px solid #d9ccff; border-radius: 16px; box-shadow: var(--shadow); cursor: default;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.shufbar:disabled { opacity: 1; }
+.shufbar .sb-top { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
+.shufbar .sb-t { font-weight: 800; font-size: 1.02rem; white-space: nowrap; }
+.shufbar .sb-st { font-size: .82rem; color: var(--muted); text-align: right; }
+.shufbar .sb-chips { display: flex; gap: .4rem; margin-top: .35rem; flex-wrap: wrap; }
+.shufbar .chip { display: inline-flex; align-items: center; gap: .35rem; padding: .18rem .6rem; border-radius: 999px; font-size: .84rem; font-weight: 600; background: #efe8ff; color: #3d2491; }
+.shufbar .chip b { font-size: 1rem; font-weight: 800; }
+.shufbar .chip.me.used { background: #eeeaf3; color: #7a7390; }
+.shufbar .chip.hit.h0 { background: #e3f7ea; color: #145c33; }
+.shufbar .chip.hit.h1 { background: #fff1d6; color: #8a5300; }
+.shufbar .chip.hit.h2 { background: #fde8e8; color: #8a1f1f; }
+.dots { display: inline-flex; gap: 3px; }
+.dots i { width: 9px; height: 9px; border-radius: 50%; border: 2px solid currentColor; display: inline-block; }
+.dots i.on { background: currentColor; }
+.shufbar.off { box-shadow: none; border-style: dashed; }
+.shufbar.on { cursor: pointer; color: #fff; border-color: transparent; background: linear-gradient(135deg, #ec4899, #8b5cf6); animation: swPulse 1s ease-in-out infinite; }
+.shufbar.on .sb-t { font-size: 1.15rem; }
+.shufbar.on .sb-st { color: #fff; font-weight: 800; font-size: .95rem; }
+.shufbar.on .chip { background: rgba(255, 255, 255, .22); color: #fff; }
+.shufbar.on:active { transform: scale(.98); }
+.shufbar.hitflash { animation: sbHit .9s ease; }
+@keyframes sbHit { 0%, 100% { transform: none; } 20% { transform: scale(1.04); box-shadow: 0 0 0 6px rgba(236, 72, 153, .35); } 45% { transform: rotate(-1.5deg); } 70% { transform: rotate(1.5deg); } }
+
+/* ---------- ผู้เล่น: หน้าต่างเลือกสลับบัตร (เด้งเองเมื่อพิธีกรเปิดช่วงสลับ) ---------- */
+.sp-back .modal { padding: 1.1rem 1.1rem 1rem; }
+.sp-back .modal h2 { text-align: center; font-size: 1.45rem; margin-bottom: .2rem; }
+.sp-timer { text-align: center; margin: 0 0 .55rem; }
+.sp-timer .sp-n { font-size: 2.9rem; font-weight: 900; line-height: 1; color: var(--primary); font-variant-numeric: tabular-nums; }
+.sp-timer .sp-n.urgent { color: var(--bad); animation: spBeat 1s ease-in-out infinite; }
+@keyframes spBeat { 50% { transform: scale(1.12); } }
+.sp-timer .sp-track { height: 8px; border-radius: 6px; background: #efe8ff; overflow: hidden; margin: .35rem auto .25rem; max-width: 320px; }
+.sp-timer .sp-fill { height: 100%; background: linear-gradient(90deg, #ec4899, #8b5cf6); transform-origin: left center; transition: transform .25s linear; }
+.sp-timer .sp-hint { font-size: .85rem; color: var(--muted); }
+.sp-me { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .3rem .8rem; background: #f6f1ff; border-radius: 12px; padding: .45rem .7rem; font-size: .88rem; }
+.sp-me span { display: inline-flex; align-items: center; gap: .3rem; }
+.sp-pick { font-weight: 700; font-size: .92rem; margin: .6rem 0 .1rem; }
+.sp-pick span { font-weight: 400; font-size: .78rem; color: var(--muted); }
+.shuffle-list { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem; max-height: 44vh; overflow: auto; margin-top: .4rem; padding: 3px; }
+@media (max-width: 340px) { .shuffle-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.shuffle-list .sp-empty { grid-column: 1 / -1; margin: .2rem 0; }
+.shuffle-list .sp-item { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .2rem; min-height: 4.1rem; min-width: 0;
+  padding: .45rem .3rem; text-align: center; font: inherit; color: var(--ink); cursor: pointer; background: #fff; border: 2px solid var(--line); border-radius: 14px;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: transform .08s, background .15s, border-color .15s; }
+.shuffle-list .sp-item:active { transform: scale(.96); }
+.sp-item .sp-name { font-weight: 800; font-size: 1rem; line-height: 1.15; max-width: 100%; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-break: break-word; }
+.sp-item .sp-code { font-size: .7rem; color: var(--muted); }
+.sp-item .sp-hit { font-size: .72rem; font-weight: 700; padding: .08rem .5rem; border-radius: 999px; white-space: nowrap; }
+.sp-hit.h0 { background: #e3f7ea; color: #145c33; }
+.sp-hit.h1 { background: #fff1d6; color: #8a5300; }
+.sp-hit.h2 { background: #fde8e8; color: #8a1f1f; }
+.shuffle-list .sp-item.full { opacity: .45; cursor: not-allowed; }
+.shuffle-list .sp-item.self { grid-column: 1 / -1; min-height: 3.6rem; margin: .25rem 0; background: #fff8dc; border: 3px solid var(--accent); }
+.sp-item.self .sp-name { font-size: 1.12rem; }
+.sp-item.self .sp-sub { font-size: .76rem; color: #7a5300; }
+.shuffle-list .sp-item.sel { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 0 0 3px rgba(107, 61, 245, .25); }
+.shuffle-list .sp-item.sel .sp-code, .shuffle-list .sp-item.sel .sp-sub { color: #fff; }
+.shuffle-list .sp-item.sel::after { content: '✓'; position: absolute; top: 3px; right: 7px; font-weight: 900; font-size: .95rem; }
+.sp-rule { margin: .5rem 0 0; line-height: 1.4; font-size: .78rem; }
+.sp-back .modal .actions { flex-wrap: nowrap; margin-top: .7rem; }
+.sp-back .modal .actions .btn { padding: .8rem .9rem; }
+.sp-back .modal .actions .sp-go { flex: 1; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; }
+.sp-back .modal .actions .sp-go:disabled { background: #d9d2ea; color: #6d6380; opacity: 1; }
+

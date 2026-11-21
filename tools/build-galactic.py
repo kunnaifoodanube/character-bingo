@@ -19,7 +19,7 @@ ROOT = os.path.dirname(HERE)
 OUT = os.path.join(ROOT, 'galactic')
 SRC = sys.argv[1] if len(sys.argv) > 1 else None   # None = ใช้ภาพ/ชื่อเดิม
 THEME_DIR = os.path.join(HERE, 'galactic-theme')
-GX_VERSION = 'v1.6.0'   # เลขเวอร์ชันของ Galactic — เพิ่มทุกครั้งที่สร้างใหม่ (ล้างแคชเก่าในเครื่องผู้เล่น)
+GX_VERSION = 'v1.6.4'   # เลขเวอร์ชันของ Galactic — เพิ่มทุกครั้งที่สร้างใหม่ (ล้างแคชเก่าในเครื่องผู้เล่น)
 
 # (เลขไฟล์, ชื่อที่แสดงบนบัตร) — ข้อ 32 ใช้ไฟล์ปรับปรุง 32_(1.2).png
 STICKERS = [
